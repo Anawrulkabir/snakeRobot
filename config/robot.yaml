@@ -1,0 +1,99 @@
+# Robot parameters. Single source of truth for snake/model_builder.py.
+#
+# Every entry is {value, source, note}. Units are SI; angles are in degrees
+# only where the key name says _deg.
+#   source: hardware     -> CLAUDE.md section 4 (Fahad's first estimates)
+#           paper        -> Wang et al. 2023, page given in note
+#           decision     -> a logged gate decision in docs/decisions.md
+#           proposal     -> Claude's proposal in docs/model_plan.md (approved at G1)
+#           placeholder  -> NOT a real value. Exists only so the model compiles.
+#                           No reported result may depend on it.
+# snake.config.placeholders() lists every placeholder still in use.
+
+body:
+  n_segments:
+    value: 7
+    source: hardware
+    note: "7 rigid segments, 6 yaw joints"
+  segment_pitch:
+    value: 0.10
+    source: hardware
+    note: "m, distance between consecutive joint axes"
+  segment_width:
+    value: 0.05
+    source: placeholder
+    note: "m, capsule diameter. G1: Fahad keeps it as a parameter until the print design is fixed"
+  ride_height:
+    value: 0.03
+    source: placeholder
+    note: "m, height of the body axis above the ground. Set by wheels/skids at G3"
+
+mass:
+  segment:
+    value: 0.050
+    source: placeholder
+    note: "kg, servo + print + fasteners. Waiting for Fahad's estimate"
+  head_extra:
+    value: 0.050
+    source: placeholder
+    note: "kg added to the head for ESP32 + battery. Waiting for Fahad's estimate"
+
+joint:
+  hard_limit_deg:
+    value: 90
+    source: paper
+    note: "mechanical stop of the printed joint, copied from the paper's +-90 deg joint (p. 54)"
+  stiffness:
+    value: 0.0
+    source: proposal
+    note: "N m/rad passive stiffness. Paper's sleeve: 'weak passive elasticity', no value (UNKNOWN). Varied in E4"
+  damping:
+    value: 0.0
+    source: proposal
+    note: "N m s/rad passive damping. UNKNOWN; varied in E4"
+
+cable:
+  # Joint geometry copied from paper Fig. S4: pin at L_j from each segment face,
+  # cable anchors at +-L_c from the centreline on each face.
+  half_spacing:
+    value: 0.020
+    source: placeholder
+    note: "m, L_c. Set at G4 from the segment width and joint design"
+  joint_offset:
+    value: 0.020
+    source: placeholder
+    note: "m, L_j. Set at G4"
+
+servo:
+  stall_torque:
+    value: 0.2
+    source: hardware
+    note: "N m, MG90S-class assumption until the real servo is confirmed (G7)"
+  speed_s_per_60deg:
+    value: 0.1
+    source: hardware
+    note: "s per 60 deg, assumption until confirmed"
+  kp:
+    value: 2.0
+    source: placeholder
+    note: "N m/rad, position-servo gain for the stiff body (E0). Replaced by actuation A/B later"
+
+ground:
+  friction_sliding:
+    value: 0.5
+    source: placeholder
+    note: "isotropic Coulomb mu between feet and floor. Contact model decided at G3"
+  foot_radius:
+    value: 0.01
+    source: placeholder
+    note: "m, sphere 'foot' under each segment centre. Replaced by the G3 contact model"
+
+sim:
+  timestep:
+    value: 0.001
+    source: proposal
+    note: "s. Convergence check at 0.0005 s is required (CLAUDE.md section 9)"
+  integrator:
+    value: implicitfast
+    source: proposal
+    note: "implicit in velocity-dependent forces, so stiff position servos stay stable"

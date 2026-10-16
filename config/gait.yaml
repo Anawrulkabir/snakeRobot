@@ -1,0 +1,14 @@
+# Gait parameters (paper Eq. 2). Tagged like robot.yaml. Final values are set at G4.
+wave:
+  amplitude_deg:
+    value: 46
+    source: paper
+    note: "open-environment amplitude, p. 36. Not yet scaled to this robot (G4)"
+  spatial_freq:
+    value: 0.82
+    source: paper
+    note: "xi, open environment, p. 36. Not yet scaled to this robot (G4)"
+  temporal_freq:
+    value: 0.25
+    source: placeholder
+    note: "Hz. The paper gives no value (UNKNOWN, paper_notes.md 6). Set at G4"

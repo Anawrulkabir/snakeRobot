@@ -4,7 +4,7 @@ A MuJoCo simulation of a planar, cable-driven snake robot with tunable body
 compliance, built before any hardware is bought. The project brief, plan and
 rules are in [`CLAUDE.md`](CLAUDE.md).
 
-Status: Milestone 1 (environment check and paper reading). See
+Status: Milestone 2 (model builder and gait done; ground contact at gate G3). See
 [`docs/progress.md`](docs/progress.md).
 
 ## Setup
@@ -21,6 +21,14 @@ python scripts/check_env.py        # add --no-viewer on a machine without a disp
   Headless runs and experiments use plain `python`.
 - **Video output** needs the `ffmpeg` program on your PATH (used by mediapy).
   On macOS: `brew install ffmpeg`.
+
+## Quick use
+
+```bash
+python -m pytest                     # run the tests
+mjpython scripts/view_model.py       # watch the gait (macOS; plain python elsewhere)
+python scripts/view_model.py --video gait.mp4
+```
 
 ## AI disclosure
 

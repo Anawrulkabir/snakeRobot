@@ -75,3 +75,44 @@ Command: `mjpython scripts/check_env.py`
 Environment check (CLAUDE.md §3 step 1) complete. On macOS, anything that
 opens `mujoco.viewer.launch_passive` must be started with `mjpython`, not
 `python`. Headless experiments use plain `python`.
+
+## Milestone 2: model builder + gait + flat ground (in progress)
+
+### 2026-10-16: model builder, gait, tests
+- G1 decided (`docs/decisions.md`): capsule segments, planar root
+  (x/y/z slides + yaw), segment width kept as a parameter.
+- `config/robot.yaml` and `config/gait.yaml`: every value is tagged
+  `hardware`, `paper`, `decision`, `proposal` or `placeholder`.
+  `snake.config.placeholders()` lists the placeholders still in use.
+- `snake/model_builder.py` generates the MJCF:
+  - 7 capsule segments and 6 yaw hinges with a ±90° hard stop.
+  - Explicit masses, and a sphere foot under each segment.
+  - Cable anchor sites with the paper's Fig. S4 geometry, and 12 spatial
+    tendons that only measure length for now.
+  - A torque-capped position servo per joint, for the stiff body in E0.
+- `snake/cable_geometry.py`: Eq. S1 exact cable lengths.
+- `snake/gait.py`: Eq. 2 serpenoid. Pure function, imports only `math`.
+- `scripts/view_model.py`: watch the gait (`mjpython` on macOS), or write an
+  mp4 with `--video`.
+- Tests: 21 pass (`python -m pytest`). Each check has a planted fault it must
+  catch:
+  - cable sign flip and misplaced anchor sites;
+  - body sunk below the floor, with the builder guard disabled;
+  - reversed wave direction;
+  - untagged config entries.
+
+  A further planted fault in the builder itself (hinge axis flipped to −z)
+  made 3 tests fail. The builder was restored afterwards.
+- One test was wrong at first. I had checked that the body touches the floor
+  by looking for contacts, but body and floor are in contact groups that
+  never collide, so that check could never fire. It is now a geometric
+  clearance check.
+- Smoke run: the gait runs for 8 s of simulated time without numerical blow-up. Its
+  numbers are not reported because masses, friction, frequency and geometry
+  are placeholders.
+- The cloud sandbox has no OpenGL library, so videos must be rendered on
+  Fahad's Mac.
+
+**Next: G3 (ground contact).** E0 cannot pass before G3 is decided. On
+isotropic flat ground, lateral undulation produces no net forward thrust.
+Masses are also still needed.

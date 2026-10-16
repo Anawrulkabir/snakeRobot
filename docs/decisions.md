@@ -39,3 +39,27 @@ the A/B agreement test (G5) compares like with like.
 - 2026-10-16: ffmpeg installed with Homebrew (`brew install ffmpeg`) on
   Fahad's Mac. It is not pinned in `requirements.txt`; the README lists it
   as a setup step.
+
+---
+
+## G1 — Environment and model plan (2026-10-16)
+
+**Question.** Is the environment working, and is `docs/model_plan.md` approved?
+
+**Environment.** Passed: all four checks on Fahad's Mac (run 3 in `progress.md`).
+
+**Plan items decided by Fahad:**
+1. Segment collision shape: **capsule** (option offered: box).
+2. Planarity: **planar root**: x/y/z slides + yaw hinge on the head, yaw-only
+   joints between segments (options offered: free joint; x/y/yaw without z).
+3. Segment width: **kept as a parameter for now**; the value in
+   `config/robot.yaml` is a placeholder.
+
+**Why.** _Draft for Fahad to confirm or rewrite:_ a capsule gives smooth
+contact normals against posts, so it doesn't snag on post edges. The planar
+root keeps real gravity-loaded normal forces, so friction is physical, while
+preventing roll-over that the wheeled robot should not show. The width waits
+on the print design.
+
+**Still open.** Mass estimates (per segment, head extra) are not provided yet.
+Placeholders are used and flagged; no reported result may depend on them.
