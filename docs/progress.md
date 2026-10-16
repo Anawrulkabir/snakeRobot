@@ -235,3 +235,24 @@ should not run until this is chosen.
   - proposed E1 structure with a pre-registered 6-vs-12 decision rule.
 - **Waiting for G4.** Next after G4: milestone 3 (compliance implementation
   A + tests), then the arena and E1.
+
+## Milestone 3: compliance implementation A + metrics + tests
+
+### 2026-10-16
+- G4 logged (`decisions.md`): drive deferred to E1; ×7/6 gait; 20/20 mm
+  anchors with scaled l0; CI-of-difference decision rule with a ±10 pp
+  margin. Fahad's global-tensioner idea is queued for after E1.
+- Implementation A, metrics, stop logging and tests are done (73 tests).
+  Details in `results_M3.md`.
+- Anchor-offset independence confirmed: exact for the law, and within 1e-9 m
+  in simulation, after splitting the case length from the anchor offset.
+- Smoke run `20261016T181330Z_9fae347`: **the joint-stop rule triggered.**
+  The tail joints sit on the 90° stop in 100% of cycles for
+  0.25 ≤ G ≤ 1.25.
+- Diagnosis run `20261016T181938Z_a84cc70`: the cause is zero passive
+  restoring stiffness. The paper's sleeve provided one; its value is UNKNOWN.
+  10% of stall at 45° removes the collapse, and 25% also suppresses the
+  effect of G.
+- The E0 and diagnosis scripts now pin their as-run settings (stiff servo,
+  rigid plane, 46° gait). E0 still reproduces exactly.
+- **Stopped for a decision on passive joint stiffness before E1.**

@@ -1,0 +1,264 @@
+{
+  "results": {
+    "baseline": {
+      "0.25": {
+        "forward_disp_per_cycle_m": 0.05229704700450403,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.20402083333333332,
+          0.15686111111111112
+        ],
+        "max_deviation_deg": 47.124165025334904,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.043721519770490026
+      },
+      "0.75": {
+        "forward_disp_per_cycle_m": 0.057703618471625064,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.06430555555555555,
+          0.11014583333333333,
+          0.012291666666666666
+        ],
+        "max_deviation_deg": 65.25303282953527,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.037617821920061544
+      },
+      "1.0": {
+        "forward_disp_per_cycle_m": 0.05574594235835526,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.043333333333333335,
+          0.11908333333333333,
+          0.012229166666666666
+        ],
+        "max_deviation_deg": 69.07218233947218,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.036717766721909594
+      }
+    },
+    "stiff_2pct": {
+      "0.25": {
+        "forward_disp_per_cycle_m": 0.06370397143322448,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.17166666666666663,
+          0.002513888888888889
+        ],
+        "max_deviation_deg": 47.07456077832707,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.04435838135419078
+      },
+      "0.75": {
+        "forward_disp_per_cycle_m": 0.053565323777332356,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0004375,
+          0.088625,
+          0.0051805555555555554
+        ],
+        "max_deviation_deg": 65.24993521228392,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.04068486661265428
+      },
+      "1.0": {
+        "forward_disp_per_cycle_m": 0.05240541521390928,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.17335416666666667,
+          0.00475
+        ],
+        "max_deviation_deg": 69.07203851454172,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.040478953445316455
+      }
+    },
+    "stiff_10pct": {
+      "0.25": {
+        "forward_disp_per_cycle_m": 0.08863151080068117,
+        "stop_hit_cycle_fraction": 0.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_deviation_deg": 21.953127019786262,
+        "torque_peak_Nm": 0.10920861034268567,
+        "torque_p95_Nm": 0.06048828464655287
+      },
+      "0.75": {
+        "forward_disp_per_cycle_m": 0.07307260897060765,
+        "stop_hit_cycle_fraction": 0.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_deviation_deg": 48.861273357352786,
+        "torque_peak_Nm": 0.18566369080432163,
+        "torque_p95_Nm": 0.05593220748058896
+      },
+      "1.0": {
+        "forward_disp_per_cycle_m": 0.06597363968516552,
+        "stop_hit_cycle_fraction": 0.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_deviation_deg": 51.73804601887206,
+        "torque_peak_Nm": 0.18193239771466782,
+        "torque_p95_Nm": 0.054770651946556705
+      }
+    },
+    "stiff_25pct": {
+      "0.25": {
+        "forward_disp_per_cycle_m": 0.10943169096977907,
+        "stop_hit_cycle_fraction": 0.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_deviation_deg": 2.7999085832722694,
+        "torque_peak_Nm": 0.11892997967844658,
+        "torque_p95_Nm": 0.09249772658482386
+      },
+      "0.75": {
+        "forward_disp_per_cycle_m": 0.1017563366787562,
+        "stop_hit_cycle_fraction": 0.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_deviation_deg": 22.236055428507306,
+        "torque_peak_Nm": 0.13200568013005204,
+        "torque_p95_Nm": 0.09279435254749513
+      },
+      "1.0": {
+        "forward_disp_per_cycle_m": 0.09554879528421274,
+        "stop_hit_cycle_fraction": 0.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_deviation_deg": 26.898463922105066,
+        "torque_peak_Nm": 0.1285937945917429,
+        "torque_p95_Nm": 0.09189729760462517
+      }
+    },
+    "damping_0.005": {
+      "0.25": {
+        "forward_disp_per_cycle_m": 0.06848557578108773,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.18260416666666665,
+          0.0
+        ],
+        "max_deviation_deg": 47.096085895257126,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.04460168979553283
+      },
+      "0.75": {
+        "forward_disp_per_cycle_m": 0.05678195874974648,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.013645833333333334,
+          0.20610416666666667,
+          0.12775694444444444
+        ],
+        "max_deviation_deg": 65.26766720304985,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.03903635388530902
+      },
+      "1.0": {
+        "forward_disp_per_cycle_m": 0.05009527514320634,
+        "stop_hit_cycle_fraction": 1.0,
+        "stop_step_fraction_per_joint_head_to_tail": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.19871527777777778,
+          0.14154166666666668
+        ],
+        "max_deviation_deg": 69.07272826900721,
+        "torque_peak_Nm": 0.2,
+        "torque_p95_Nm": 0.038042829915277486
+      }
+    }
+  },
+  "variants": {
+    "baseline": {},
+    "stiff_2pct": {
+      "stiffness": 0.005092958178940651
+    },
+    "stiff_10pct": {
+      "stiffness": 0.02546479089470326
+    },
+    "stiff_25pct": {
+      "stiffness": 0.06366197723675814
+    },
+    "damping_0.005": {
+      "damping": 0.005
+    }
+  },
+  "seeds": [
+    2000,
+    2001,
+    2002
+  ],
+  "G_values": [
+    0.25,
+    0.75,
+    1.0
+  ]
+}
