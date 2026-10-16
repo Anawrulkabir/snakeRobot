@@ -73,11 +73,16 @@ def segment_masses(c):
     return [base + (m["head_electronics"] if i == 0 else servos) for i in range(n)]
 
 
-def build_mjcf(c=None, drag_rig=False):
+POST = dict(contype="2", conaffinity="0")
+
+
+def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height=None, post_friction=None):
     """Return the MJCF XML string for config dict c (default: config/robot.yaml).
 
     drag_rig=True adds velocity actuators on root_x and root_y and a stiff
     position actuator on root_yaw, used by scripts/drag_test.py.
+    posts: optional (N, 2) array of post centres (snake/arena.py), added as
+    fixed vertical cylinders that collide with the body capsules only.
     """
     c = c or cfgmod.load()
     _check(c)
@@ -116,6 +121,12 @@ def build_mjcf(c=None, drag_rig=False):
 
     # Structure (case) and cable anchors are separate parameters, so moving the
     # anchors does not change the body's shape or inertia.
+    if posts is not None:
+        for k, (px, py) in enumerate(posts):
+            ET.SubElement(world, "geom", name=f"post{k}", type="cylinder",
+                          size=_fmt(post_radius, post_height / 2), pos=_fmt(px, py, post_height / 2),
+                          friction=_fmt(post_friction, 0.005, 0.0001), rgba="0.95 0.95 0.95 1", **POST)
+
     seg_len = b["case_length"]                          # case, face to face
     x_mid = -p / 2
     x_front, x_rear = x_mid + seg_len / 2, x_mid - seg_len / 2
@@ -160,6 +171,8 @@ def build_mjcf(c=None, drag_rig=False):
         ET.SubElement(body, "geom", name=f"seg{i}_body", type="capsule", size=_fmt(r),
                       fromto=_fmt(x_front, 0, 0, x_rear, 0, 0), mass="0",
                       rgba="0.85 0.45 0.1 1" if i == 0 else "0.9 0.6 0.2 1", **BODY)
+        if i == 0:
+            ET.SubElement(body, "site", name="head_tip", pos=_fmt(x_front + r, 0, 0), size="0.004")
         # Cable anchor sites on both faces (paper Fig. S4).
         for side, y in (("l", Lc), ("r", -Lc)):
             ET.SubElement(body, "site", name=f"seg{i}_front_{side}", pos=_fmt(x_anchor_front, y, 0), size="0.003")
@@ -210,8 +223,8 @@ def build_mjcf(c=None, drag_rig=False):
     return ET.tostring(root, encoding="unicode")
 
 
-def build_model(c=None, drag_rig=False):
-    return mujoco.MjModel.from_xml_string(build_mjcf(c, drag_rig))
+def build_model(c=None, drag_rig=False, **post_kw):
+    return mujoco.MjModel.from_xml_string(build_mjcf(c, drag_rig, **post_kw))
 
 
 if __name__ == "__main__":

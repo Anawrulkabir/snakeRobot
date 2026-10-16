@@ -58,9 +58,22 @@ def inverse_exact(L, side, Lc, Lj, hard_limit):
     return 2 * (math.acos(max(-1.0, min(1.0, L / (2 * R)))) - phi)
 
 
-def free_range(alpha, G, A, Lc, Lj, l0, hard_limit=math.pi / 2):
-    """(zeta_min, zeta_max): the joint angles where both cables are slack."""
-    Ll, Lr = commanded_lengths(alpha, G, A, Lc, Lj, l0)
+def tight_spool_lengths(alpha, Lc, Lj):
+    """Stiffest one-servo circular shared spool (g4_options.md, drive_reach run
+    20261016T175804Z_162cbe0): L_l,r = S/2 +- k alpha with S = 4 L_j (both
+    cables taut at alpha = 0) and k = |d exact / d alpha| at 0 = L_c."""
+    return 2 * Lj + Lc * alpha, 2 * Lj - Lc * alpha
+
+
+def free_range(alpha, G, A, Lc, Lj, l0, hard_limit=math.pi / 2, law="paper"):
+    """(zeta_min, zeta_max): the joint angles where both cables are slack.
+    law = 'paper' (Eq. 3 with G) or 'tight_spool' (G ignored)."""
+    if law == "paper":
+        Ll, Lr = commanded_lengths(alpha, G, A, Lc, Lj, l0)
+    elif law == "tight_spool":
+        Ll, Lr = tight_spool_lengths(alpha, Lc, Lj)
+    else:
+        raise ValueError(f"unknown law {law!r}")
     return inverse_exact(Lr, "r", Lc, Lj, hard_limit), inverse_exact(Ll, "l", Lc, Lj, hard_limit)
 
 
@@ -91,15 +104,15 @@ def boundary_torque(zeta, zeta_dot, zmin, zmax, k, c, cap):
 class ComplianceA:
     """Per-step controller: suggested angles -> free ranges -> joint torques."""
 
-    def __init__(self, cfg, G, amplitude):
+    def __init__(self, cfg, G, amplitude, law="paper"):
         self.Lc, self.Lj, self.l0 = geometry(cfg)
-        self.G, self.A = G, amplitude
+        self.G, self.A, self.law = G, amplitude, law
         s = cfg["servo"]
         self.k, self.c, self.cap = s["boundary_stiffness"], s["boundary_damping"], s["stall_torque"]
         self.hard = math.radians(cfg["joint"]["hard_limit_deg"])
 
     def ranges(self, alphas):
-        return [free_range(a, self.G, self.A, self.Lc, self.Lj, self.l0, self.hard) for a in alphas]
+        return [free_range(a, self.G, self.A, self.Lc, self.Lj, self.l0, self.hard, self.law) for a in alphas]
 
     def torques(self, alphas, zetas, zeta_dots, dt=None, inertias=None):
         """Joint torques. With dt and the joints' effective inertias

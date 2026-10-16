@@ -257,3 +257,21 @@ def test_simulated_trial_independent_of_anchor_offsets(cfg):
     c["cable"]["joint_offset"] *= 0.5
     half = run_trial(c, gait, 0.25, 1, seed=7, G=0.75)
     assert np.allclose(base["com_xy"], half["com_xy"], atol=1e-9)
+
+
+
+def test_tight_spool_matches_drive_reach(geom):
+    # Same law as scripts/drive_reach.py 'tight': taut at 0, slack elsewhere.
+    # drive_reach run 20261016T175804Z_162cbe0 (A = 53.7 deg): free range at
+    # alpha = A/2 is [24.4, 31.5] deg and at alpha = A is [45.8, 90] deg.
+    Lc, Lj, l0 = geom
+    lo, hi = act.free_range(0.0, None, A, Lc, Lj, l0, law="tight_spool")
+    assert lo == pytest.approx(0, abs=1e-9) and hi == pytest.approx(0, abs=1e-9)
+    lo, hi = act.free_range(A / 2, None, A, Lc, Lj, l0, law="tight_spool")
+    assert math.degrees(lo) == pytest.approx(24.4, abs=0.05) and math.degrees(hi) == pytest.approx(31.5, abs=0.05)
+    lo, hi = act.free_range(A, None, A, Lc, Lj, l0, law="tight_spool")
+    assert math.degrees(lo) == pytest.approx(45.8, abs=0.05) and math.degrees(hi) == pytest.approx(90.0, abs=0.05)
+    # Planted fault: slope taken as l0 instead of L_c gives a different range.
+    with pytest.raises(AssertionError):
+        Ll, Lr = 2 * Lj + l0 * (A / 2), 2 * Lj - l0 * (A / 2)
+        assert math.degrees(act.inverse_exact(Ll, "l", Lc, Lj, math.pi / 2)) == pytest.approx(31.5, abs=0.05)

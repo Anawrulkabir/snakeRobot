@@ -19,10 +19,7 @@ collision:
     source: proposal
     note: "a body-post contact must be absent this long before a new contact counts as a new collision; contact chatter flickers on ~10 ms scales (results_E0.md)"
 success:
-  lattice_length_m:
-    value: 1.95
-    source: proposal
-    note: "head must cross the far edge of the lattice. 1.95 m = 2.79 body lengths, the paper's 2.4 m pegboard (p. 36) scaled by 0.70/0.86. The paper's actual lattice extent is UNKNOWN (paper_notes 4)"
+  # Finish line: the far edge of the lattice, config/arena.yaml lattice.length_m (1.95 m = 2.79 body lengths).
   max_cycles:
     value: 40
     source: proposal
@@ -36,3 +33,8 @@ overload:
     value: 1.0
     source: proposal
     note: "sustained at the cap this long = overload. 1 s = 0.125 cycle at 0.125 Hz: long enough to exclude impact spikes, short against a cycle"
+report:
+  success_cutoffs_cycles:
+    value: [20, 30, 40]
+    source: decision
+    note: "Fahad 2026-10-16: compute success post hoc at 20/30/40 cycles and report whether the G ranking holds at each"
