@@ -1,0 +1,198 @@
+{
+  "per_frequency": {
+    "0.125": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.17159992872000665,
+        "ci95_half": 0.0001191203647495143
+      },
+      "net_disp_per_cycle_m": {
+        "mean": 0.1715999314675906,
+        "ci95_half": 0.00011912022524415383
+      },
+      "forward_disp_per_cycle_body_lengths": {
+        "mean": 0.24514275531429522,
+        "ci95_half": 0.000170171949642162
+      },
+      "speed_m_per_s": {
+        "mean": 0.021449991433448824,
+        "ci95_half": 1.4890028155519228e-05
+      },
+      "wave_efficiency_eta": {
+        "mean": 0.20101705935772207,
+        "ci95_half": 0.00013954099870657697
+      },
+      "coasting_number": {
+        "mean": 0.0005466358673152096,
+        "ci95_half": 3.7946045248519787e-07
+      },
+      "heading_drift_rad_per_cycle": {
+        "mean": 5.323360579612968e-05,
+        "ci95_half": 0.0001782281011839325
+      },
+      "max_tracking_error_deg": {
+        "mean": 1.7558713426742556,
+        "ci95_half": 0.0019859130074150366
+      },
+      "torque_peak_Nm": {
+        "mean": 0.06237234219020902,
+        "ci95_half": 0.00010278490198015076
+      },
+      "torque_p95_Nm": {
+        "mean": 0.05905872003151953,
+        "ci95_half": 1.3233946662393156e-05
+      },
+      "wheel_airborne_fraction": {
+        "mean": 0.1293720238095238,
+        "ci95_half": 7.360850750463489e-05
+      },
+      "n_trials": 10,
+      "all_moved_forward": true
+    },
+    "0.25": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.18085955296338188,
+        "ci95_half": 0.00011131515724186792
+      },
+      "net_disp_per_cycle_m": {
+        "mean": 0.18085955955293684,
+        "ci95_half": 0.0001113125745674541
+      },
+      "forward_disp_per_cycle_body_lengths": {
+        "mean": 0.25837078994768836,
+        "ci95_half": 0.00015902165320266513
+      },
+      "speed_m_per_s": {
+        "mean": 0.04521488988823421,
+        "ci95_half": 2.7828143641863525e-05
+      },
+      "wave_efficiency_eta": {
+        "mean": 0.21186404775710446,
+        "ci95_half": 0.00013039775562618915
+      },
+      "coasting_number": {
+        "mean": 0.0023045305753432318,
+        "ci95_half": 1.4183559450492133e-06
+      },
+      "heading_drift_rad_per_cycle": {
+        "mean": 1.6993116067295923e-05,
+        "ci95_half": 0.00027030218450450823
+      },
+      "max_tracking_error_deg": {
+        "mean": 2.013024122036188,
+        "ci95_half": 0.009754560824268432
+      },
+      "torque_peak_Nm": {
+        "mean": 0.07237343379974823,
+        "ci95_half": 0.00025223979736501833
+      },
+      "torque_p95_Nm": {
+        "mean": 0.060202018135550206,
+        "ci95_half": 3.161960551042222e-05
+      },
+      "wheel_airborne_fraction": {
+        "mean": 0.24486904761904765,
+        "ci95_half": 5.606018632573938e-05
+      },
+      "n_trials": 10,
+      "all_moved_forward": true
+    },
+    "0.5": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.1963551811740078,
+        "ci95_half": 0.00015965736586673023
+      },
+      "net_disp_per_cycle_m": {
+        "mean": 0.19635519240567698,
+        "ci95_half": 0.00015965714841980307
+      },
+      "forward_disp_per_cycle_body_lengths": {
+        "mean": 0.280507401677154,
+        "ci95_half": 0.00022808195123818703
+      },
+      "speed_m_per_s": {
+        "mean": 0.09817759620283849,
+        "ci95_half": 7.982857420990153e-05
+      },
+      "wave_efficiency_eta": {
+        "mean": 0.23001606937526625,
+        "ci95_half": 0.00018702720001531476
+      },
+      "coasting_number": {
+        "mean": 0.010007909908546228,
+        "ci95_half": 8.137469338420135e-06
+      },
+      "heading_drift_rad_per_cycle": {
+        "mean": 0.0003912669394607243,
+        "ci95_half": 0.0004922913434170222
+      },
+      "max_tracking_error_deg": {
+        "mean": 2.56548058474925,
+        "ci95_half": 0.009128788588518765
+      },
+      "torque_peak_Nm": {
+        "mean": 0.0938818821371555,
+        "ci95_half": 0.0004397431165268503
+      },
+      "torque_p95_Nm": {
+        "mean": 0.06523917302783598,
+        "ci95_half": 0.00010529385481243841
+      },
+      "wheel_airborne_fraction": {
+        "mean": 0.4066297619047619,
+        "ci95_half": 0.0001278022190786568
+      },
+      "n_trials": 10,
+      "all_moved_forward": true
+    }
+  },
+  "checks": {
+    "moves_forward_all_trials": true,
+    "max_penetration_m": 8.962777949176465e-05,
+    "penetration_ok": true,
+    "energy": {
+      "max_energy_increase_J": 5.1577569021299396e-08,
+      "initial_energy_J": 0.09361446478812853,
+      "final_energy_J": 0.08735446479436602
+    },
+    "relative_energy_increase": 5.509572600562479e-07,
+    "energy_ok": true,
+    "timestep_convergence_rel_per_seed": {
+      "1000": 0.008744430875005982,
+      "1001": 0.009655263355188293,
+      "1002": 0.008704757858071899,
+      "1003": 0.008691042587932518,
+      "1004": 0.0075432059053925915
+    },
+    "timestep_convergence_max_abs_rel": 0.009655263355188293,
+    "timestep_ok": true,
+    "quasi_static_deviation_rel": {
+      "0.125": -0.06197880450255899,
+      "0.25": -0.011362677401480226,
+      "0.5": 0.073341481904039
+    },
+    "quasi_static": true
+  },
+  "gait": {
+    "amplitude_deg": 46,
+    "spatial_freq": 0.82,
+    "temporal_freq": 0.25
+  },
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009
+  ],
+  "thresholds": {
+    "max_penetration_m": 0.001,
+    "max_relative_energy_increase": 1e-06,
+    "timestep_tolerance_rel": 0.05,
+    "quasi_static_tolerance_rel": 0.1
+  }
+}

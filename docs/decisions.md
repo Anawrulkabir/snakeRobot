@@ -103,3 +103,55 @@ servo's mass (`mass.servos_per_joint`).
 (`ground.axle_friction`, placeholder 0). With 0, forward resistance is zero,
 so the anisotropy ratio is unbounded. See the G3 follow-up question in
 `progress.md`.
+
+---
+
+## G3 follow-up — Rolling resistance and contact settings (2026-10-16)
+
+**Question.** How much forward rolling resistance do the wheels have?
+
+**Options** (drafted by Claude): (1) ideal wheels, zero rolling resistance;
+(2) load-proportional rolling resistance giving 1.6:1 for every segment;
+(3) constant axle friction (rejected: the ratio would depend on segment mass).
+
+**Choice.** Option 2 (Fahad). **Why (Fahad):** rolling loss scales with wheel
+load like sliding friction, so the forward/sideways ratio is independent of
+segment mass. It matches the paper's 1.6:1 for E1, and E4 sweeps the ratio.
+
+**Conditions Fahad set, and outcome:**
+1. Drag test: each segment gets 1.6:1 within a stated tolerance (2%).
+   **Met**, run `20261016T165908Z_dfd51e6`: ratios 1.592–1.600 for head and
+   body segments at 0.01 and 0.05 m/s.
+2. Torsional friction checked with a yaw test. **MuJoCo's default (0.005 m)
+   was meaningful.** Pivoting a wheel in place, it made up 72% of the
+   turning torque. Swinging about the joint pin it was only 1.6%, because
+   sliding takes most of the shared friction limit.
+   **Set to 0. Why (Claude, for Fahad to confirm):** the cylinder's two edge
+   contacts already produce a pivot scrub of μ·N·half_width. A real tread's
+   scrub is about half that (uniform-pressure line contact), so adding
+   torsional friction would double-count it. After the change, the torsion
+   share is 0 in yaw run `20261016T165916Z_bc3bd7f`.
+3. The sideways force fluctuation is explained as **contact chatter**: not
+   stick-slip (single μ, no static/kinetic difference, the wheel does not
+   spin) and not timestep-only. The mechanism is still open; see `progress.md`.
+
+**Implementation choices made on the way (Claude, for Fahad to check):**
+- **Elliptic friction cone instead of MuJoCo's default pyramidal.** With the
+  pyramidal cone, sideways drag at 0.01 m/s was 0.27 N against μ·W = 0.37 N,
+  so not Coulomb.
+- **Rolling coefficient μ_roll = μ·r/√(R² − 1), not μ·r/R.** The elliptic
+  cone makes sliding force and rolling torque share one limit. The naive
+  formula gives 1.89:1 instead of 1.6:1.
+- **The tyre partly skids at that limit.** Spin is about 53% of the rolling
+  rate, so the force law is right but the wheel's spin rate is not. This
+  makes the model behave like anisotropic Coulomb friction acting at the
+  wheel.
+
+---
+
+## Gait frequency for E0 (2026-10-16)
+
+**Choice (Fahad).** 0.25 Hz, marked provisional. Also run 0.125 and 0.5 Hz
+and report displacement per cycle for all three, to test whether locomotion
+is quasi-static. Stop before E1 if it is not.
+**Outcome:** see `results_E0.md`.

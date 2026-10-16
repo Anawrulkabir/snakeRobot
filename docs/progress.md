@@ -141,3 +141,41 @@ Masses are also still needed.
 
 **Open (G3 follow-up):** the forward rolling resistance of the wheels. E0
 should not run until this is chosen.
+
+### 2026-10-16: G3 follow-up (rolling resistance, torsion, chatter) and E0
+- Rolling resistance: load-proportional, set for 1.6:1. Elliptic cone;
+  μ_roll = μ·r/√(R² − 1). Drag run `20261016T165908Z_dfd51e6`: every row
+  within the 2% tolerance (`all_within_tolerance` = true).
+- Torsional friction: MuJoCo's default was meaningful (72% of the
+  pivot-in-place torque), so it is now 0. Yaw run `20261016T165916Z_bc3bd7f`:
+  `meaningful` = false. Reasons in `decisions.md`.
+- **Sideways force fluctuation: contact chatter.** Diagnosis:
+  - Drag rig at 0.05 m/s: the wheel has no contact in 11.7% of samples, and
+    the force oscillates at ~59 Hz.
+  - Vertical motion is 0.045 mm. It is absent at ≤ 0.02 m/s, and grows with
+    drag speed and rig stiffness.
+  - It shrinks as the timestep is halved (force SD 0.078 → 0.059 → 0.048 N).
+  - It is unchanged by condim 3 vs 6 or by torsion.
+  - Not stick-slip: MuJoCo has a single μ, and the wheel does not spin.
+- **The same chatter appears during the gait:**
+  - Whole-body bounce (0 or 7 wheels touching), < 0.1 mm at ~84 Hz.
+  - Normal force averages the weight (0.9996) but swings from 0 to 1.62× weight.
+  - It is nearly independent of timestep (airborne fraction 24.5 → 24.0 →
+    23.8%).
+  - No change from contact damping ratio, noslip, impratio, solver
+    tolerance, or a sphere or locked wheel.
+  - A softer contact time constant (0.04 s) halves it.
+  - **The mechanism is not identified.** All of these numbers came from
+    single diagnostic runs in the scratchpad; they are not saved runs.
+- New code:
+  - `snake/metrics.py` and `snake/sim.py`, with tests and planted faults;
+  - `experiments/run_e0.py`, with thresholds in `config/experiments/E0.yaml`;
+  - `snake/runlog.py` no longer marks a run dirty because of files in
+    `results/`.
+
+  41 tests pass.
+- **E0 run `20261016T170631Z_ef124ae`:** all checks pass. Write-up in
+  `docs/results_E0.md`. Displacement per cycle rises 14% from 0.125 to
+  0.5 Hz: inside the ±10% quasi-static threshold, but systematic. It may come
+  from servo tracking or chatter rather than inertia. **Waiting for Fahad
+  before E1.**
