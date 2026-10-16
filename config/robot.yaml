@@ -26,17 +26,34 @@ body:
   ride_height:
     value: 0.03
     source: placeholder
-    note: "m, height of the body axis above the ground. Set by wheels/skids at G3"
+    note: "m, height of the body axis above the ground. Set by the wheel and mount design"
 
 mass:
-  segment:
+  # Fahad's estimates, 2026-10-16 (docs/decisions.md G3). Placeholders until weighed.
+  servo:
+    value: 0.0135
+    source: placeholder
+    note: "kg per servo, MG90S class. Fahad's estimate; weigh the real part"
+  shell:
+    value: 0.020
+    source: placeholder
+    note: "kg per printed PLA shell. Fahad's rough guess, depends on wall and infill"
+  hardware:
+    value: 0.005
+    source: placeholder
+    note: "kg per segment for wheel, axle and screws (the wheel's own mass is mass.wheel, included in this)"
+  wheel:
+    value: 0.002
+    source: placeholder
+    note: "kg, the rotating wheel itself (part of mass.hardware). Needs a nonzero value for the axle dynamics"
+  head_electronics:
     value: 0.050
     source: placeholder
-    note: "kg, servo + print + fasteners. Waiting for Fahad's estimate"
-  head_extra:
-    value: 0.050
-    source: placeholder
-    note: "kg added to the head for ESP32 + battery. Waiting for Fahad's estimate"
+    note: "kg extra in the head: ESP32, 2S LiPo, regulator, wiring. Fahad's estimate"
+  servos_per_joint:
+    value: 1
+    source: hardware
+    note: "CLAUDE.md section 4. The paper uses 2 (one per cable); decided at G4"
 
 joint:
   hard_limit_deg:
@@ -79,14 +96,32 @@ servo:
     note: "N m/rad, position-servo gain for the stiff body (E0). Replaced by actuation A/B later"
 
 ground:
+  # G3: passive wheels (docs/decisions.md). One wheel under each segment centre,
+  # axle across the body, so it rolls along the body axis.
+  model:
+    value: wheels
+    source: decision
+    note: "G3 option 1"
   friction_sliding:
     value: 0.5
     source: placeholder
-    note: "isotropic Coulomb mu between feet and floor. Contact model decided at G3"
-  foot_radius:
-    value: 0.01
+    note: "Coulomb mu between wheel tyre and floor. UNKNOWN (paper gives only the 1.6:1 ratio)"
+  wheel_radius:
+    value: 0.012
     source: placeholder
-    note: "m, sphere 'foot' under each segment centre. Replaced by the G3 contact model"
+    note: "m. Set by the wheel Fahad buys or prints"
+  wheel_half_width:
+    value: 0.003
+    source: placeholder
+    note: "m"
+  axle_friction:
+    value: 0.0
+    source: placeholder
+    note: "N m, dry friction on the wheel axle (MuJoCo frictionloss); the only forward rolling resistance in the model. UNKNOWN"
+  axle_friction_timeconst:
+    value: 0.002
+    source: proposal
+    note: "s, solreffriction time constant of the axle friction. MuJoCo's default (0.02 s) made the 'dry' friction act viscous below ~0.1 m/s (force proportional to speed); 0.002 s gives the Coulomb value by 0.05 m/s (tests/test_wheels.py). Must stay >= 2 x timestep"
 
 sim:
   timestep:

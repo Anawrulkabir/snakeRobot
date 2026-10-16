@@ -63,3 +63,43 @@ on the print design.
 
 **Still open.** Mass estimates (per segment, head extra) are not provided yet.
 Placeholders are used and flagged; no reported result may depend on them.
+
+---
+
+## G3 — Ground contact model (2026-10-16)
+
+**Question.** How does the robot get forward/sideways friction anisotropy?
+
+**Options** (drafted by Claude):
+1. Real passive wheels in the simulation: one wheel per segment on a free axle.
+2. Anisotropic contact friction on fixed feet (set a ratio directly).
+3. Isotropic low friction; all thrust from posts.
+
+**Choice.** Option 1, passive wheels (Fahad). Option 2 kept only as a knob for
+the E4 sensitivity sweep, not for main runs. Option 3 rejected: the robot
+cannot move on open ground, so E0 could not pass.
+
+**Why.** _Text Fahad forwarded, marked for him to put into his own words:_
+it matches the paper (wheels, 1.6:1, p. 55) and the robot he will build. The
+sideways resistance comes from wheel physics, not a tuned number, and the
+simulated drag ratio can later be compared with a drag test on the real
+robot. Requested: a simulated drag test reporting the sideways/forward ratio
+before E0 (`scripts/drag_test.py`).
+
+**Masses** (Fahad, 2026-10-16; all placeholders until weighed):
+servo 13.5 g, printed shell 20 g, wheel + axle + screws 5 g per segment,
+head electronics +50 g. If G4 picks two servos per joint, add the second
+servo's mass (`mass.servos_per_joint`).
+
+**Modelling choices made while implementing (Claude, for Fahad to check):**
+- Each joint's servo sits in the segment behind that joint, following the
+  paper's cable routing (p. 53). So the head carries electronics, not a servo.
+- Rolling resistance is modelled as dry axle friction (MuJoCo `frictionloss`).
+  Its constraint time constant is set to 0.002 s instead of MuJoCo's default
+  0.02 s. With the default, the friction behaved viscously at robot speeds
+  (`tests/test_wheels.py`).
+
+**Still open.** How much forward rolling resistance the wheels have
+(`ground.axle_friction`, placeholder 0). With 0, forward resistance is zero,
+so the anisotropy ratio is unbounded. See the G3 follow-up question in
+`progress.md`.

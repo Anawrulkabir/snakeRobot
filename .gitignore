@@ -2,7 +2,9 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-results/*
+env_check_output/
+# Raw results stay local; per-run summaries are committed so docs can cite them.
+results/**
+!results/**/
 !results/**/summary*
 !results/.gitkeep
-env_check_output/

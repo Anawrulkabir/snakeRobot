@@ -44,8 +44,8 @@ def max_cable_error(model, cfg, angle_sign=1.0):
 def test_structure(cfg):
     m = build_model(cfg)
     n = cfg["body"]["n_segments"]
-    assert m.nbody == n + 1                     # + world
-    assert m.nv == 4 + (n - 1)                  # planar root + yaw joints
+    assert m.nbody == 2 * n + 1                 # segments + wheels + world
+    assert m.nv == 4 + (n - 1) + n              # planar root + yaw joints + axles
     assert m.nu == n - 1
     assert m.ntendon == 2 * (n - 1)
     for i in range(1, n):
@@ -55,9 +55,11 @@ def test_structure(cfg):
 
 
 def test_total_mass(cfg):
-    m = build_model(cfg)
-    expected = cfg["body"]["n_segments"] * cfg["mass"]["segment"] + cfg["mass"]["head_extra"]
-    assert m.body_subtreemass[1] == pytest.approx(expected)
+    # Head: shell + hardware + electronics. Others: shell + hardware + servos.
+    m, n = cfg["mass"], cfg["body"]["n_segments"]
+    expected = (n * (m["shell"] + m["hardware"]) + m["head_electronics"]
+                + (n - 1) * m["servos_per_joint"] * m["servo"])
+    assert build_model(cfg).body_subtreemass[1] == pytest.approx(expected)
 
 
 def test_cable_lengths_match_eq_s1(cfg):
@@ -89,12 +91,12 @@ def contact_pairs(model, data):
     return {(model.geom(c.geom1).name, model.geom(c.geom2).name) for c in data.contact[: data.ncon]}
 
 
-def test_rests_on_feet_only(cfg):
+def test_rests_on_wheels_only(cfg):
     m = build_model(cfg)
     d = settle(m)
     pairs = contact_pairs(m, d)
     n = cfg["body"]["n_segments"]
-    assert pairs == {("floor", f"seg{i}_foot") for i in range(n)}
+    assert pairs == {("floor", f"wheel{i}_tyre") for i in range(n)}
     # Sinks into the floor by under 1 mm (soft-contact penetration).
     assert abs(d.qpos[m.joint("root_z").qposadr[0]]) < 1e-3
     assert np.allclose(d.qvel, 0, atol=1e-3)
@@ -125,7 +127,7 @@ def test_clearance_check_catches_low_body(cfg, monkeypatch):
     monkeypatch.setattr(mb, "_check", lambda c: None)
     bad = copy.deepcopy(cfg)
     bad["body"]["ride_height"] = bad["body"]["segment_width"] / 2 - 0.005
-    bad["ground"]["foot_radius"] = 0.005
+    bad["ground"]["wheel_radius"] = 0.005
     m = mb.build_model(bad)
     d = settle(m)
     assert body_clearance(m, d) < 0
@@ -147,7 +149,7 @@ def test_planar_under_sideways_push(cfg):
     for k in range(500):
         d.xfrc_applied[tail] = [0, 2.0, 0, 0, 0, 0] if k < 100 else 0
         mujoco.mj_step(m, d)
-    for b in range(1, m.nbody):
+    for b in (m.body(f"seg{i}").id for i in range(cfg["body"]["n_segments"])):
         z_axis = d.xmat[b].reshape(3, 3)[:, 2]
         assert np.allclose(z_axis, [0, 0, 1], atol=1e-9)
 
