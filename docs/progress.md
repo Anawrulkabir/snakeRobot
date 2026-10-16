@@ -26,6 +26,11 @@
   (`paper_notes.md` §7.1).
 - Not yet written: `docs/model_plan.md`. It is next, after G2.
 
+### 2026-10-16: G2 decided; model plan drafted
+- G2: Fahad chose option 1 (the paper's Eq. 3 used exactly). Logged in
+  `docs/decisions.md`; the "why" is a draft waiting for his confirmation.
+- Wrote `docs/model_plan.md`. Gate G1 is open; no model code yet.
+
 ### Environment check results (Fahad's machine, 2026-10-16, run 1)
 Output of `python scripts/check_env.py`, pasted by Fahad:
 - OS: macOS-26.6.2-arm64-arm-64bit-Mach-O

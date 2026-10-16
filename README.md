@@ -20,6 +20,7 @@ python scripts/check_env.py        # add --no-viewer on a machine without a disp
   `mjpython scripts/check_env.py` (and `mjpython` for any viewer script).
   Headless runs and experiments use plain `python`.
 - **Video output** needs the `ffmpeg` program on your PATH (used by mediapy).
+  On macOS: `brew install ffmpeg`.
 
 ## AI disclosure
 
