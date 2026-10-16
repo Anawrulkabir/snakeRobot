@@ -26,5 +26,21 @@
   (`paper_notes.md` §7.1).
 - Not yet written: `docs/model_plan.md`. It is next, after G2.
 
-### Environment check results
-_Waiting for the output of `python scripts/check_env.py` on Fahad's machine._
+### Environment check results (Fahad's machine, 2026-10-16, run 1)
+Output of `python scripts/check_env.py`, pasted by Fahad:
+- OS: macOS-26.6.2-arm64-arm-64bit-Mach-O
+- Python: 3.13.2
+- MuJoCo: 3.2.6
+- MUJOCO_GL: (unset)
+- 1. import mujoco: PASS — mujoco 3.2.6
+- 2. headless step: PASS — box fell from z=0.500 m to z=0.0499 m in 2 s sim time
+- 3. viewer window: FAIL — RuntimeError: `launch_passive` requires that the Python script be run under `mjpython` on macOS
+- 4. offscreen video: FAIL — RuntimeError: Program 'ffmpeg' is not found
+
+Notes:
+- The pinned `requirements.txt` installed without errors on this machine.
+- Check 4 failed while writing the file, not while rendering. The traceback
+  is raised inside `mediapy.write_video`, after `mujoco.Renderer` had
+  produced every frame. So offscreen OpenGL rendering works on this Mac;
+  only the video encoder is missing.
+- Both failures are waiting on Fahad's choice of fix.
