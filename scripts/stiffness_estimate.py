@@ -65,7 +65,12 @@ def scalings(k_paper, cfg):
     lo, hi, pitch_paper = mass_estimate()
     m_ours = segment_masses(cfg)[1] + cfg["mass"]["wheel"]          # a body segment
     lever_ours = cfg["body"]["segment_pitch"]
-    out = {"paper_segment_mass_kg_range": [lo, hi], "ours_body_segment_mass_kg": m_ours}
+    out = {"paper_segment_mass_kg_range": [lo, hi], "ours_body_segment_mass_kg": m_ours,
+           # Bound only (Fahad 2026-10-16): Morphing MILR module mass 0.25 kg, per
+           # Fahad's reading (paper_notes 8, not yet verified). The component
+           # estimate should not exceed a module of a later, similar robot by much.
+           "bound_check_morphing_milr_module_kg": 0.25,
+           "estimate_within_bound": hi <= 0.25}
     fr = [(m_ours * G * lever_ours) / (m * G * pitch_paper) for m in (hi, lo)]
     out["friction_factor_range"] = fr
     out["friction_factor_mid"] = (m_ours * lever_ours) / (0.5 * (lo + hi) * pitch_paper)

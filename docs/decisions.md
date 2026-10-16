@@ -261,3 +261,31 @@ stiffness should E1 use?
   the joint restoring torque with the cables slack.
 - Before E1, justify each metric threshold physically
   (`metrics_thresholds.md`).
+
+---
+
+## Stiffness scaling, E1b levels, reporting, run order, E3 framing (2026-10-16)
+
+**Decisions (Fahad):**
+1. **Paper segment mass:** estimate it from the listed components, labelled as
+   an estimate (`data/paper_segment_mass_estimate.yaml`: 149–218 g). Use
+   later robots' module masses (Morphing MILR 0.25 kg) only as bounds.
+2. **Stiffness scaling:** report three scalings (absolute, fraction of stall,
+   ratio of passive torque to friction torque μ·W_seg·lever arm). The
+   **friction ratio is primary.**
+   - Factors relative to the paper (`scripts/stiffness_estimate.py`):
+     friction 0.164–0.240 (mid 0.195), stall 0.143, absolute 1.
+   - **E1b levels:** 0, then ¼, ½, 1, 2, 4× the friction-scaled value,
+     extended to **8×** because the absolute scaling lands at 5.13× the
+     friction-scaled value.
+3. **Thresholds approved.** Also: log the final distance of every trial;
+   compute success post hoc at 20/30/40 cycles, and report whether the G
+   ranking holds at each cutoff.
+4. **Runner:** resumable (skips completed trials on restart) and runnable on
+   Fahad's Mac.
+   - Run order: E1 main → E1b pilot (dense only, 20 trials per cell) → full
+     E1b only if the pilot shows stiffness changes the G ranking.
+5. **E3:** reframed as a terrestrial-lattice test of compliance tuning, citing
+   AquaMILR (and Wang et al. ACC 2020, Travers et al. RSS 2016), using signals
+   hobby servos can provide (position error, or one current sensor). **No
+   novelty claim. E3 is now lower priority than E1b.**

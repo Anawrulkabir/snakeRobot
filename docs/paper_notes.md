@@ -247,3 +247,18 @@ missing from the supplement too. Only the authors could fill them in (§13 item 
    - At most it can give a fixed, built-in slack. The options will be laid out at the relevant gate.
 2. **Prior art for E3.** [W] p. 33 (`read-directly`): "adding sensory capabilities could enable the robot to learn or select the 'optimal' G value in real-time … locally varying G based on local sensing feedback would enable the system to maximize the utility of surrounding environment". The authors propose adaptive G as **future work**. [W] also tests a closed-loop rule (wave reversal on a head collision, pp. 24–26). E3 must be described as testing an idea the authors suggested, not as a new idea. The broader Goldman-lab search required by §9 has not been done yet.
 3. **Servo torque scale.** The reference robot's servo stalls at 1.4 N·m and drives 9.5 mm pulleys. The assumed MG90S-class servo stalls at about 0.2 N·m. E2 will quantify whether that is enough; nothing here answers it.
+
+---
+
+## 8. Comparison points from later Goldman-lab robots (added 2026-10-16)
+
+**Source:** Fahad's reading of the 2024–2026 papers. **Not yet verified by
+Claude**: the PDFs are not in the container (`literature_search.md`). Used
+only as reference points and bounds, never as model inputs.
+
+| Quantity | Wang 2023 (this paper) | Later robot | Note |
+|---|---|---|---|
+| l0 (slack rate) | 0.73 mm/deg (p. 57) | 0.6 mm/deg (Fahad; which paper is to be confirmed) | Ours: 0.5214 mm/deg (scaled by R, G4) |
+| Body | 86 cm, 7 joints (p. 10) | Morphing MILR: 70 cm, 6 modules (Fahad) | Ours: 70 cm, 7 segments, 6 joints |
+| Module mass | UNKNOWN; estimated 149–218 g from components (`data/paper_segment_mass_estimate.yaml`) | Morphing MILR: 0.25 kg per module (Fahad) | Used only as a **bound** on the estimate (Fahad 2026-10-16) |
+| Joint limit | ±90° (p. 54) | Morphing MILR: 70° (Fahad) | Ours: ±90° |
