@@ -63,6 +63,17 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     d.qpos[jq] = command(0.0)
     mujoco.mj_forward(m, d)
 
+    # Initial-state checks: no body may start touching or inside a post.
+    init_contacts, init_pen = 0, 0.0
+    post_geom_set = {m.geom(f"post{k}").id for k in range(len(posts))}
+    for con in d.contact[: d.ncon]:
+        if con.geom1 in post_geom_set or con.geom2 in post_geom_set:
+            init_contacts += 1
+            init_pen = max(init_pen, -con.dist)
+    body_geoms = [m.geom(f"seg{i}_body").id for i in range(c["body"]["n_segments"])]
+    init_front_x = max(float(d.geom_xpos[g][0]) + c["body"]["segment_width"] / 2
+                       + c["body"]["case_length"] / 2 for g in body_geoms)
+
     seg_ids = [m.body(f"seg{i}").id for i in range(n)]
     seg_mass = m.body_mass[seg_ids]
     tip = m.site("head_tip").id
@@ -97,6 +108,8 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     outcome, t_success = "timeout", None
     torques = []
     max_lat = 0.0
+    head_x_cycles = [float(d.site_xpos[m.site("head_tip").id][0])]
+    next_cycle = period
 
     k = 0
     while d.time < t_end:
@@ -133,6 +146,9 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         if d.site_xpos[tip][0] >= finish:
             outcome, t_success = "success", d.time
             break
+        if d.time >= next_cycle:
+            head_x_cycles.append(float(d.site_xpos[tip][0]))
+            next_cycle += period
         if k % log_every == 0:
             cxy = com()
             t_log.append(d.time)
@@ -182,4 +198,8 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         "torque_p95_Nm": float(np.percentile(tq, 95)),
         "torque_peak_Nm": float(tq.max()),
         "n_posts": int(len(posts)),
+        "head_x_per_cycle_m": head_x_cycles,
+        "initial_post_contacts": init_contacts,
+        "initial_max_penetration_m": init_pen,
+        "initial_body_front_x_upper_bound_m": init_front_x,
     }
