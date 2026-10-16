@@ -53,6 +53,10 @@ def _check(c):
         raise ValueError("wheel_radius must be in (0, ride_height]")
     if g["axle_friction_timeconst"] < 2 * c["sim"]["timestep"]:
         raise ValueError("axle_friction_timeconst must be >= 2 x timestep")
+    if g["anisotropy_ratio"] <= 1:
+        raise ValueError("anisotropy_ratio must exceed 1 (rolling-friction law needs R > 1)")
+    if c["sim"]["cone"] != "elliptic":
+        raise ValueError("the rolling-resistance law assumes sim.cone = elliptic")
     if not 0 < m["wheel"] < m["hardware"]:
         raise ValueError("mass.wheel must be positive and part of mass.hardware")
 
@@ -77,11 +81,23 @@ def build_mjcf(c=None, drag_rig=False):
     n, p, r = b["n_segments"], b["segment_pitch"], b["segment_width"] / 2
     Lj, Lc, h = cab["joint_offset"], cab["half_spacing"], b["ride_height"]
     rw, mu = g["wheel_radius"], g["friction_sliding"]
-    friction = _fmt(mu, 0.005, 0.0001)
+    floor_friction = _fmt(mu, 0.005, 0.0001)
+    # Wheel tyre contact: condim 6 adds torsional and rolling friction; both
+    # scale with the wheel load N. With an elliptic cone, sliding force f and
+    # rolling torque tau share one limit: (f/mu)^2 + (tau/mu_roll)^2 <= N^2.
+    # Dragging a free wheel forward, tau = f r, so f = mu N / sqrt(1 + (mu r / mu_roll)^2).
+    # Sideways, f = mu N. For a sideways/forward ratio R:
+    #     mu_roll = mu r / sqrt(R^2 - 1)
+    # independent of segment mass (derived here, checked by tests/test_wheels.py).
+    # At that limit the tyre partly skids instead of rolling cleanly; the
+    # force law is the intended one, the wheel spin rate is not.
+    mu_roll = mu * rw / math.sqrt(g["anisotropy_ratio"] ** 2 - 1)
+    tyre_friction = _fmt(mu, g["torsional_friction"], mu_roll)
 
     root = ET.Element("mujoco", model="planar_snake")
     ET.SubElement(root, "compiler", angle="radian", autolimits="true")
-    ET.SubElement(root, "option", timestep=_fmt(sim["timestep"]), integrator=sim["integrator"])
+    ET.SubElement(root, "option", timestep=_fmt(sim["timestep"]), integrator=sim["integrator"],
+                  cone=sim["cone"])
     ET.SubElement(root, "visual").append(ET.Element("global", offwidth="1280", offheight="720"))
 
     asset = ET.SubElement(root, "asset")
@@ -92,7 +108,7 @@ def build_mjcf(c=None, drag_rig=False):
     world = ET.SubElement(root, "worldbody")
     ET.SubElement(world, "light", pos="0 0 3", dir="0 0 -1", directional="true")
     ET.SubElement(world, "geom", name="floor", type="plane", size="5 5 0.1", material="grid",
-                  friction=friction, **FLOOR)
+                  friction=floor_friction, **FLOOR)
 
     seg_len = p - 2 * Lj                # face to face
     x_front, x_rear = -Lj, -(p - Lj)    # face positions in the segment frame
@@ -134,7 +150,8 @@ def build_mjcf(c=None, drag_rig=False):
                       solreffriction=_fmt(g["axle_friction_timeconst"], 1))
         ET.SubElement(wheel, "geom", name=f"wheel{i}_tyre", type="cylinder",
                       size=_fmt(rw, g["wheel_half_width"]), zaxis="0 1 0", mass=_fmt(m["wheel"]),
-                      friction=friction, rgba="0.2 0.2 0.2 1", **WHEEL)
+                      friction=tyre_friction, condim="6", priority="1",
+                      rgba="0.2 0.2 0.2 1", **WHEEL)
         parent = body
 
     # Cables as spatial tendons from segment i-1's rear face to segment i's

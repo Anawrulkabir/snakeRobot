@@ -114,20 +114,32 @@ ground:
     value: 0.003
     source: placeholder
     note: "m"
+  anisotropy_ratio:
+    value: 1.6
+    source: decision
+    note: "sideways/forward drag ratio of each wheel (paper p. 55: F_perp/F_par = 1.6). G3 follow-up: load-proportional rolling resistance set to give this. E4 sweeps it"
+  torsional_friction:
+    value: 0.0
+    source: proposal
+    note: "m, MuJoCo torsional friction coefficient (pivot torque = coef x N). MuJoCo's default 0.005 made up 72% of the torque to pivot a wheel in place (scripts/yaw_test.py). The tread's pivot scrub is already produced by the cylinder's two edge contacts (mu N half_width), so extra torsional friction double-counts it. Set to 0; see decisions.md"
   axle_friction:
     value: 0.0
-    source: placeholder
-    note: "N m, dry friction on the wheel axle (MuJoCo frictionloss); the only forward rolling resistance in the model. UNKNOWN"
+    source: proposal
+    note: "N m, extra dry friction on the wheel axle (MuJoCo frictionloss). 0 in main runs: rolling resistance comes from anisotropy_ratio. Kept for E4"
   axle_friction_timeconst:
     value: 0.002
     source: proposal
-    note: "s, solreffriction time constant of the axle friction. MuJoCo's default (0.02 s) made the 'dry' friction act viscous below ~0.1 m/s (force proportional to speed); 0.002 s gives the Coulomb value by 0.05 m/s (tests/test_wheels.py). Must stay >= 2 x timestep"
+    note: "s, solreffriction time constant of the axle friction. MuJoCo's default (0.02 s) made the 'dry' friction act viscous below ~0.1 m/s (force proportional to speed); 0.002 s gives the Coulomb value from 0.02 m/s; at 0.01 m/s it is still ~12% low (tests/test_wheels.py). Must stay >= 2 x timestep"
 
 sim:
   timestep:
     value: 0.001
     source: proposal
     note: "s. Convergence check at 0.0005 s is required (CLAUDE.md section 9)"
+  cone:
+    value: elliptic
+    source: proposal
+    note: "friction cone. With MuJoCo's default pyramidal cone the sideways drag fell below mu*N at 0.01 m/s and the rolling-resistance ratio did not follow a clean law. The elliptic cone gives Coulomb sideways drag at both test speeds (progress.md, G3 follow-up)"
   integrator:
     value: implicitfast
     source: proposal
