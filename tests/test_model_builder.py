@@ -45,7 +45,8 @@ def test_structure(cfg):
     m = build_model(cfg)
     n = cfg["body"]["n_segments"]
     assert m.nbody == 2 * n + 1                 # segments + wheels + world
-    assert m.nv == 4 + (n - 1) + n              # planar root + yaw joints + axles
+    extra = {"none": 0, "slide": n - 1, "rollpitch": 2 * (n - 1)}[cfg["body"]["vertical_compliance"]]
+    assert m.nv == 4 + (n - 1) + n + extra      # planar root + yaw joints + axles + load-model DOF
     assert m.nu == n - 1
     assert m.ntendon == 2 * (n - 1)
     for i in range(1, n):

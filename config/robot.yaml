@@ -28,17 +28,17 @@ body:
     source: placeholder
     note: "m, height of the body axis above the ground. Set by the wheel and mount design"
   vertical_compliance:
-    value: none
-    source: proposal
-    note: "none = approved planar model (G1). 'rollpitch' or 'slide' add per-segment out-of-plane springs; used only for the chatter diagnosis (progress.md)"
+    value: slide
+    source: decision
+    note: "PROVISIONAL load model (Fahad 2026-10-16): each segment gets its own spring-loaded vertical slide, so each wheel carries about its own segment's weight, with no tilt. 'none' = rigid plane (G1 original); 'rollpitch' = tilt springs. Final choice after the load diagnosis (results_E0.md)"
   vertical_stiffness:
-    value: 2.0
+    value: 380.0
     source: proposal
-    note: "N m/rad for rollpitch, N/m for slide. Only used when vertical_compliance != none"
+    note: "N/m for slide (about 1 mm sag under one segment's 0.38 N weight); N m/rad for rollpitch. Not measured; on the E4 list"
   vertical_damping:
-    value: 0.01
+    value: 0.5
     source: proposal
-    note: "N m s/rad or N s/m. Only used when vertical_compliance != none"
+    note: "N s/m for slide, N m s/rad for rollpitch. Not measured; on the E4 list"
 
 mass:
   # Fahad's estimates, 2026-10-16 (docs/decisions.md G3). Placeholders until weighed.

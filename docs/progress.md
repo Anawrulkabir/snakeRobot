@@ -200,3 +200,20 @@ should not run until this is chosen.
   - Contact softness and vertical load sharing both change displacement a
     lot: +13% and about −50%.
 - **Stopped before choosing a fix, as Fahad asked.**
+
+### 2026-10-16: load-model diagnosis and quasi-static plateau
+- `snake/sim.py` can now log per-wheel contact detail: normal force, axle
+  tilt, and friction split into rolling and axle directions.
+- Run `20261016T174857Z_00f197e`:
+  - **The halving comes from load distribution, not from anisotropy.** The
+    in-gait ratio is 1.48–1.60 in every variant.
+  - With the vertical slide, each wheel carries its own weight. The rigid
+    plane produces a solver-chosen, uneven split.
+  - Quasi-static plateau under the slide: 0.0625 vs 0.125 Hz agree within
+    1.0% with the default contact, and 2.7% with the softer contact.
+- Step 3: vertical slide set as the **provisional** default load model
+  (`config/robot.yaml`, `decisions.md`).
+- Steps 4–5: `docs/open_lists.md` created, holding the E4 sensitivity list,
+  the hardware validation list and the E2 method notes.
+- **Stopped to report (Fahad's instruction).** E1 frequency is proposed, not
+  set.

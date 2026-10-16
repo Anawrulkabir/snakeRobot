@@ -155,3 +155,23 @@ segment mass. It matches the paper's 1.6:1 for E1, and E4 sweeps the ratio.
 and report displacement per cycle for all three, to test whether locomotion
 is quasi-static. Stop before E1 if it is not.
 **Outcome:** see `results_E0.md`.
+
+---
+
+## Load model, provisional (2026-10-16)
+
+**Question.** How is vertical load shared among the wheels? The rigid plane
+of G1 gave a solver-chosen load split; see the load diagnosis in
+`results_E0.md`.
+
+**Options tested:** rigid plane (G1); roll/pitch springs at each joint;
+independent spring-loaded vertical slide per segment.
+
+**Choice (Fahad, provisional).** Independent vertical slide: each segment
+carries about its own weight, with no tilt.
+
+**Why (Fahad):** servo hinges have out-of-plane play, and floors aren't flat.
+Final choice after step 1 of the load diagnosis.
+
+Slide spring 380 N/m and damping 0.5 N·s/m are Claude's choices (about 1 mm
+sag per segment), not measured. They are on the E4 list.

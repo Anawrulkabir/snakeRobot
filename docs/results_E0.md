@@ -183,3 +183,71 @@ What this shows:
   freedom, each wheel carries closer to its own segment's weight. The real
   robot sits somewhere in between, depending on how stiff its joints are out
   of plane.
+
+---
+
+## Load-model diagnosis (Fahad, 2026-10-16)
+
+**Run `20261016T174857Z_00f197e`** (`results/diag_load/.../summary.json`).
+5 seeds (1000–1004) per row. Script: `experiments/diag_load.py`.
+
+- **Normal force** is averaged over cycles 1–5, including airborne
+  instants.
+- **Tilt** is the axle's angle from horizontal.
+- **In-gait ratio** is p99(|f_axle|/N) / p99(|f_roll|/N), taken over samples
+  where the wheel carries more than 25% of its mean share. It is the drag
+  ratio measured in place, with that variant's contact state. The drag test
+  gives 1.6.
+- Segment weights, head to tail: 0.736, then 0.378 N for each of the other
+  six.
+
+### Step 1: what changes between the load models (0.25 Hz)
+
+| Variant | disp/cycle (m) | mean normal force per wheel, head → tail (N) | tilt mean / max (°) | in-gait ratio p99 (max-based) |
+|---|---|---|---|---|
+| rigid plane | 0.1808 | 0.540, 0.190, 0.422, 0.508, 0.478, 0.186, 0.677 | 0 / 0 | 1.480 (1.543) |
+| roll/pitch springs | 0.0903 | 0.690, 0.449, 0.343, 0.390, 0.343, 0.434, 0.353 | 0.09 / 0.44 | 1.598 (1.530) |
+| vertical slide | 0.1010 | 0.734, 0.378, 0.380, 0.378, 0.377, 0.376, 0.379 | 0 / 0 | 1.604 (1.579) |
+| rigid plane, uniform masses | 0.1835 | 0.457, 0.164, 0.363, 0.455, 0.436, 0.166, 0.602 | 0 / 0 | 1.486 (1.540) |
+| vertical slide, uniform masses | 0.1116 | 0.379, 0.376, 0.378, 0.377, 0.377, 0.376, 0.379 | 0 / 0 | 1.584 (1.580) |
+
+**Answer: the drop comes from load distribution, not from a changed
+anisotropy.**
+
+- **The anisotropy is essentially unchanged.** The in-gait ratio is 1.48–1.60
+  in every variant. The rigid plane, the *fast* case, is in fact the furthest
+  from 1.6, at 1.48. Tilt is negligible: at most 0.44° with roll/pitch
+  springs, and 0 otherwise.
+- **The load distribution changes completely:**
+  - With the vertical slide, each wheel carries its own segment's weight,
+    within 0.002 N.
+  - With the rigid plane, the loads match neither own-weight nor a uniform
+    share. Wheels 2 and 6 carry about 0.19 N and the tail wheel 0.68 N, while
+    the head wheel carries 0.54 N against its own segment's 0.736 N.
+- **The head's extra mass is not the explanation.** With uniform segment
+  masses the gap remains (0.1835 vs 0.1116 m/cycle), and the rigid plane
+  still shows the same uneven pattern.
+- **Interpretation (mine).** A rigid body on seven wheels on a flat plane is
+  statically indeterminate: how its weight splits among the wheels is not
+  fixed by statics. MuJoCo's soft-contact solver picks one split, and the
+  locomotion depends strongly on that pick. It is a modelling artefact
+  rather than a property of the robot.
+- **Not tested:** I report time-averaged loads only. If the rigid plane's
+  loads also shift *within* a cycle in step with the gait, that could be part
+  of why it is faster.
+
+### Step 2: quasi-static plateau (vertical slide)
+
+| Contact time constant | 0.0625 Hz disp/cycle (m) | 0.125 Hz disp/cycle (m) | difference | airborne fraction |
+|---|---|---|---|---|
+| 0.02 s (default) | 0.0988 | 0.0978 | 1.0% | 0.044 / 0.107 |
+| 0.04 s (softer) | 0.1145 | 0.1114 | 2.7% | 0.008 / 0.040 |
+
+- **Default contact:** 0.0625 and 0.125 Hz agree within the ~2% target
+  (1.0%). For comparison, 0.25 Hz under the same model gives 0.1010, so
+  0.0625–0.25 Hz span 3.2%. That is far flatter than the rigid plane's
+  frequency trend.
+- **Softer contact:** 2.7%, just outside the target.
+- **Contact softness shifts the plateau level itself, by 14–16%** (0.0988 vs
+  0.1145 at 0.0625 Hz). That is a model sensitivity, now on the E4 list. It
+  is not a frequency effect.
