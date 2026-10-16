@@ -256,3 +256,19 @@ should not run until this is chosen.
 - The E0 and diagnosis scripts now pin their as-run settings (stiff servo,
   rigid plane, 46° gait). E0 still reproduces exactly.
 - **Stopped for a decision on passive joint stiffness before E1.**
+
+### 2026-10-16: passive stiffness plan, literature search, metric thresholds
+- `digitize_request.md`: Fig. 5A(iii) is required. At G = 1.5, α = 15° both
+  cables are slack over the whole curve, for every amplitude the paper used,
+  so it measures the passive restoring force alone. Panels (ii) and (i) are
+  optional cross-checks.
+- `literature_search.md`: no sleeve or stiffness value found in the abstracts
+  I could read; arXiv full texts could not be opened.
+  **The AquaMILR (ICRA 2025) abstract reports real-time compliance tuning
+  from cable-tension feedback, which bears directly on E3.**
+- `metrics_thresholds.md`: every threshold justified in body lengths, cycles
+  or stall fraction. Success and overload thresholds added to
+  `config/metrics.yaml` as proposals.
+- `compute_estimates.md`: E1 17–26 h, E1b 26–39 h, on 4 cores, worst case.
+- **Stopped.** Waiting for the digitized CSVs and Fahad's review of the
+  thresholds.

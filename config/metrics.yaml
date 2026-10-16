@@ -18,3 +18,21 @@ collision:
     value: 0.05
     source: proposal
     note: "a body-post contact must be absent this long before a new contact counts as a new collision; contact chatter flickers on ~10 ms scales (results_E0.md)"
+success:
+  lattice_length_m:
+    value: 1.95
+    source: proposal
+    note: "head must cross the far edge of the lattice. 1.95 m = 2.79 body lengths, the paper's 2.4 m pegboard (p. 36) scaled by 0.70/0.86. The paper's actual lattice extent is UNKNOWN (paper_notes 4)"
+  max_cycles:
+    value: 40
+    source: proposal
+    note: "time limit T. Crossing 1.95 m in 40 cycles needs >= 0.049 m/cycle (0.07 body lengths/cycle), 43% of the free-ground G = 0 value 0.1141 m/cycle (smoke run 20261016T181330Z_9fae347)"
+overload:
+  torque_fraction_of_stall:
+    value: 0.99
+    source: proposal
+    note: "paper ends a trial when a servo 'experienc[es] torque that exceeded the stall torque' (p. 37). Our torques are capped at stall, so time spent at the cap is the analogue"
+  min_duration_s:
+    value: 1.0
+    source: proposal
+    note: "sustained at the cap this long = overload. 1 s = 0.125 cycle at 0.125 Hz: long enough to exclude impact spikes, short against a cycle"

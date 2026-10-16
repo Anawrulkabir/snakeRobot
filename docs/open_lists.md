@@ -25,7 +25,7 @@ came from.
 | Weigh each part (servo, shell, wheel set, electronics) | `mass.*` placeholders | G3 (Fahad) |
 | Drag test: pull a segment forward, then sideways, and record the force | `scripts/drag_test.py` ratio | G3 (Fahad) |
 | **Per-wheel load** of the assembled robot (e.g. a kitchen scale under one wheel at a time) | load model: rigid plane vs vertical slide (`results_E0.md`) | Added by Fahad 2026-10-16 |
-| Passive restoring torque vs joint angle with the cables slack (sleeve or skin, if fitted; joint friction otherwise) | `joint.stiffness`, `joint.damping` | Milestone 3 joint-stop finding (`results_M3.md`) |
+| **A restoring element (sleeve or elastic) is required.** Measure the joint restoring torque vs angle with the cables slack | `joint.stiffness`, `joint.damping` | Fahad 2026-10-16, after the milestone 3 joint-stop finding (`results_M3.md`) |
 | Servo stall torque and speed of the model actually bought | `servo.*` | CLAUDE.md §13, before G7 |
 
 ## E2 method notes (to apply when E2 runs)
@@ -53,6 +53,15 @@ came from.
   cycles.
 - Validation: a 7-joint paper-matched model at one density, full G sweep.
   Its G ranking must match the 6-joint model.
+
+## E1b method notes (Fahad 2026-10-16)
+
+- Passive stiffness × G at the medium and dense densities, with stiffness at
+  0, 0.5×, 1× and 2× the paper estimate.
+- Compute estimate before running: `compute_estimates.md` (26–39 h on
+  4 cores, worst case).
+- Must not be called an extension until the Goldman-lab full texts are
+  checked (`literature_search.md`).
 
 ## After E1
 

@@ -234,3 +234,30 @@ Options in `docs/g4_options.md` (drive-reach run `20261016T175804Z_162cbe0`).
      - CI fully outside ±10 pp: 12 needed.
      - Otherwise inconclusive: add trials.
    - Success rate is the primary measure, speed secondary.
+
+---
+
+## Passive joint stiffness for E1 (2026-10-16)
+
+**Question.** The milestone 3 smoke test found the tail joints collapsing
+onto the 90° stops with zero passive stiffness (`results_M3.md`). What
+stiffness should E1 use?
+
+**Options:** (1) estimate it from the paper's force-deformation data;
+(2) make stiffness an E1 factor; (3) pick 10% of stall at 45°.
+
+**Choice (Fahad).** Option 1, modified:
+- Fahad digitizes Fig. 5A (and Fig. S9 if useful) with WebPlotDigitizer.
+  Claude estimates the stiffness, states the method and assumptions, and
+  labels it **approximate (digitized from figure)**. Request:
+  `digitize_request.md`.
+- The main E1 uses that stiffness.
+- **New experiment E1b:** passive stiffness × G at the medium and dense
+  densities, with stiffness at 0, 0.5×, 1× and 2× the estimate. Compute to be
+  estimated before running (`compute_estimates.md`).
+- Before calling E1b an extension, search Goldman-lab papers 2023–2026
+  (`literature_search.md`).
+- Hardware list: a restoring element (sleeve or elastic) is required; measure
+  the joint restoring torque with the cables slack.
+- Before E1, justify each metric threshold physically
+  (`metrics_thresholds.md`).
