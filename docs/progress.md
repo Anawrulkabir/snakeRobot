@@ -44,3 +44,14 @@ Notes:
   produced every frame. So offscreen OpenGL rendering works on this Mac;
   only the video encoder is missing.
 - Both failures are waiting on Fahad's choice of fix.
+
+### Environment check results (Fahad's machine, 2026-10-16, run 2)
+- OS / Python / MuJoCo: same as run 1 (macOS-26.6.2-arm64, 3.13.2, 3.2.6)
+- 1. import mujoco: PASS — mujoco 3.2.6
+- 2. headless step: PASS — box fell from z=0.500 m to z=0.0499 m in 2 s sim time
+- 3. viewer window: FAIL — same error as run 1 (needs `mjpython` on macOS)
+- 4. offscreen video: PASS — 30 frames -> env_check_output/tiny.mp4 (4413 bytes)
+
+Notes:
+- ffmpeg became available between runs 1 and 2. How it was installed is not
+  yet recorded; it is not in `requirements.txt`.
