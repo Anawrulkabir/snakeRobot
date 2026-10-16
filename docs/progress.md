@@ -272,3 +272,21 @@ should not run until this is chosen.
 - `compute_estimates.md`: E1 17–26 h, E1b 26–39 h, on 4 cores, worst case.
 - **Stopped.** Waiting for the digitized CSVs and Fahad's review of the
   thresholds.
+
+### 2026-10-16: four papers read; lattice diagnosis; E1 redesign logged
+- AquaMILR, AquaMILR+, the 3-D hydro-cluttered paper and Morphing MILR read
+  in full. Fahad's points checked with page references
+  (`literature_search.md`, part 3).
+  - AquaMILR Eq. 4 confirmed (p. 5).
+  - l0 = 0.6 mm/deg is from the 3-D paper (Supp. p. 42), not Morphing MILR.
+  - No paper reports passive body stiffness.
+- Lattice diagnosis run `20261016T185419Z_91e48fc` (`results_lattice_diag.md`):
+  - **start-pose bug** (body can start inside posts, or facing away);
+  - **post-friction bug** (configured μ ignored; effective 1.0);
+  - slow compliant progress in the medium lattice, with tail joints on the
+    stops.
+
+  **Not fixed:** waiting for Fahad.
+- E1 redesign logged in `decisions.md`: paired design; distance primary;
+  0.25 L margin; medium pilot. With notes on censoring at the finish line and
+  on the margin.

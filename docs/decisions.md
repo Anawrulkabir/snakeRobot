@@ -289,3 +289,46 @@ stiffness should E1 use?
    AquaMILR (and Wang et al. ACC 2020, Travers et al. RSS 2016), using signals
    hobby servos can provide (position error, or one current sensor). **No
    novelty claim. E3 is now lower priority than E1b.**
+
+---
+
+## E1 design revised before any E1 data (2026-10-16)
+
+**Old design.**
+- Primary: success rate.
+- Decision rule (G4): 95% CI of the success-rate difference (best condition
+  minus best one-spool condition), with a ±10 pp margin.
+- 50 independent trials per condition.
+
+**New design (Fahad).**
+- **Paired:** identical seeds and initial poses for every G within a
+  density. Analyse paired differences. (The trial code already derives
+  heading, phase and offset from the seed alone, independent of G.)
+- **Primary metric:** distance reached at the time limit. **Secondary:**
+  success rate at 20/30/40 cycles.
+- **Decision rule:** 95% CI of the paired difference in mean distance, best
+  condition vs best one-spool condition. Margin **0.25 body lengths**
+  (0.175 m).
+- **Pilot:** 20 paired trials at the medium density. Then compute the trial
+  count needed for the CI to be narrower than the margin, and report it with
+  an updated compute estimate before E1 runs.
+
+**Why it changed (Fahad):** no E1 data exists yet, so this is
+pre-registration, not goalpost-moving. Pairing removes pose-to-pose variance
+from the G comparison. Distance is a continuous measure: it carries more
+information per trial than a pass/fail outcome.
+
+**Notes from Claude, for Fahad to consider:**
+- **Censoring.** If trials stop at the finish line (1.95 m), every successful
+  trial's distance is capped there, which compresses differences between
+  good conditions. Options:
+  - make the lattice longer than any trial can travel in 40 cycles
+    (≈ 4 m at open-floor speeds);
+  - keep the finish line, and treat distance as censored.
+- **Margin.** 0.25 L = 0.175 m is a little under one post-row pitch
+  (medium 0.217 m, dense 0.184 m), so "within the margin" means "less than
+  one lattice row apart". That seems a reasonable practical-equivalence
+  scale. Whether it is achievable with feasible trial counts depends on the
+  spread of distances, which the pilot will show.
+- AquaMILR also used distance travelled, as start-to-end Euclidean distance
+  with a survival curve (AquaMILR p. 4).
