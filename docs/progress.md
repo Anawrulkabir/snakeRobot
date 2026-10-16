@@ -179,3 +179,24 @@ should not run until this is chosen.
   0.5 Hz: inside the ±10% quasi-static threshold, but systematic. It may come
   from servo tracking or chatter rather than inertia. **Waiting for Fahad
   before E1.**
+
+### 2026-10-16: chatter diagnosis before E1
+- Fahad confirmed torsional friction = 0. He will write the reasoning in
+  `decisions.md`.
+- Added to `results_E0.md`:
+  - the CI reflects numerical repeatability, not real-world uncertainty;
+  - wheel spin is ~53% of the rolling rate, and E4 will compare an
+    alternative forward-resistance model.
+- New config switches (defaults reproduce E0 exactly):
+  `ground.contact_timeconst`, `body.vertical_compliance` / `_stiffness` /
+  `_damping`.
+- Diagnosis run `20261016T173615Z_5373862`; results in `results_E0.md`.
+  Short version:
+  - The displacement-vs-frequency trend is caused by neither servo tracking
+    nor the amount of chatter.
+  - The chatter is not a physical bounce: no ringing, about 100 Hz, shifts
+    with the timestep.
+  - Over-constraint does not cause it.
+  - Contact softness and vertical load sharing both change displacement a
+    lot: +13% and about −50%.
+- **Stopped before choosing a fix, as Fahad asked.**

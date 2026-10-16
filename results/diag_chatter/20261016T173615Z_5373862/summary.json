@@ -1,0 +1,220 @@
+{
+  "part1_and_3": {
+    "baseline": {
+      "0.125": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.17156334746850896,
+          "ci95_half": 0.00021738333259176254
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.12936130952380953,
+          "ci95_half": 0.00014847623112450236
+        },
+        "max_tracking_error_deg": 1.7558340488204311,
+        "torque_peak_Nm": 0.06235685085287164,
+        "torque_p95_Nm": 0.05905612170105321
+      },
+      "0.25": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.1808462185130934,
+          "ci95_half": 0.00017025076057306773
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.24486428571428567,
+          "ci95_half": 0.00013163197473930625
+        },
+        "max_tracking_error_deg": 2.0194683707045438,
+        "torque_peak_Nm": 0.07257054512788703,
+        "torque_p95_Nm": 0.06019822256973896
+      },
+      "0.5": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.19637392881912102,
+          "ci95_half": 0.00037728388890160826
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.40662857142857145,
+          "ci95_half": 0.0002257298931495896
+        },
+        "max_tracking_error_deg": 2.5584396135754255,
+        "torque_peak_Nm": 0.09343719979999107,
+        "torque_p95_Nm": 0.06526525280317955
+      }
+    },
+    "rollpitch": {
+      "0.25": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.09034537059408258,
+          "ci95_half": 0.00034080819274416525
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.20512261904761905,
+          "ci95_half": 0.0007790713686402892
+        },
+        "max_tracking_error_deg": 1.8040304918276415,
+        "torque_peak_Nm": 0.06384929259843855,
+        "torque_p95_Nm": 0.05230612391546853
+      }
+    },
+    "slide": {
+      "0.25": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.1010052166231699,
+          "ci95_half": 0.00024827500021066
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.20983452380952378,
+          "ci95_half": 0.00016653226503137258
+        },
+        "max_tracking_error_deg": 1.6890871543736612,
+        "torque_peak_Nm": 0.06015623880602081,
+        "torque_p95_Nm": 0.05109949946219442
+      }
+    },
+    "soft_contact": {
+      "0.125": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.17300842402447325,
+          "ci95_half": 2.807930217585217e-05
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.05644880952380952,
+          "ci95_half": 4.7712548184375294e-05
+        },
+        "max_tracking_error_deg": 1.7351810597063426,
+        "torque_peak_Nm": 0.06166461395352407,
+        "torque_p95_Nm": 0.057469363160300914
+      },
+      "0.25": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.1900823434008685,
+          "ci95_half": 0.0008311950194460267
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.12799761904761905,
+          "ci95_half": 0.00018767538769556732
+        },
+        "max_tracking_error_deg": 1.9794141081531085,
+        "torque_peak_Nm": 0.07109536292754895,
+        "torque_p95_Nm": 0.05922226192613565
+      },
+      "0.5": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.2218060723284702,
+          "ci95_half": 0.0014197940936143362
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.24637857142857142,
+          "ci95_half": 0.0005624243177376855
+        },
+        "max_tracking_error_deg": 2.6495973649232294,
+        "torque_peak_Nm": 0.09696681034707769,
+        "torque_p95_Nm": 0.06655618449233726
+      }
+    },
+    "stiff_servo": {
+      "0.125": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.16417003529745516,
+          "ci95_half": 0.0009907287182190163
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.13619047619047617,
+          "ci95_half": 0.0012494620514299877
+        },
+        "max_tracking_error_deg": 0.27671580394284157,
+        "torque_peak_Nm": 0.10339471480791004,
+        "torque_p95_Nm": 0.05959542978647651
+      },
+      "0.25": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.178163815235879,
+          "ci95_half": 0.0002247461126580411
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.2551809523809524,
+          "ci95_half": 0.0008952643814851202
+        },
+        "max_tracking_error_deg": 0.20063236615861282,
+        "torque_peak_Nm": 0.08401092907182353,
+        "torque_p95_Nm": 0.06159636856196373
+      },
+      "0.5": {
+        "n": 5,
+        "forward_disp_per_cycle_m": {
+          "mean": 0.19400720008499864,
+          "ci95_half": 0.003344279598986459
+        },
+        "wheel_airborne_fraction": {
+          "mean": 0.42637857142857144,
+          "ci95_half": 0.005305012889999274
+        },
+        "max_tracking_error_deg": 0.3855889035392207,
+        "torque_peak_Nm": 0.12731744955058,
+        "torque_p95_Nm": 0.07088103202271898
+      }
+    }
+  },
+  "part2_bounce": {
+    "contact_timeconst_s": 0.02,
+    "solref_formula_hz_unverified": 8.376575952205018,
+    "sag_implied_hz": 57.04638650487171,
+    "tap_test": {
+      "static_sag_m": 7.635772675408138e-05,
+      "tap_min_m": -3.260189129185394e-05,
+      "tap_max_after_min_m": -2.7096136185077212e-09,
+      "time_to_min_s": 0.018000000000000002,
+      "zero_crossings_after_min": 0
+    },
+    "observed_gait_chatter": {
+      "dt_1ms_tc_0.02": {
+        "dominant_hz": 99.83333333333333,
+        "z_peak_to_peak_m": 9.496056882653577e-05
+      },
+      "dt_0.5ms_tc_0.02": {
+        "dominant_hz": 115.32372302308141,
+        "z_peak_to_peak_m": 3.5577410208467016e-05
+      },
+      "dt_1ms_tc_0.04": {
+        "dominant_hz": 0.5,
+        "z_peak_to_peak_m": 0.00010790846973757383
+      }
+    }
+  },
+  "settings": {
+    "soft_contact_timeconst_s": 0.04,
+    "stiff_kp_Nm_per_rad": 20.0,
+    "rollpitch": {
+      "vertical_compliance": "rollpitch",
+      "vertical_stiffness": 2.0,
+      "vertical_damping": 0.01
+    },
+    "slide": {
+      "vertical_compliance": "slide",
+      "vertical_stiffness": 380.0,
+      "vertical_damping": 0.5
+    },
+    "seeds": [
+      1000,
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "freqs_hz": [
+      0.125,
+      0.25,
+      0.5
+    ]
+  }
+}
