@@ -21,7 +21,7 @@ def _git(*args):
 def new_run(experiment, meta=None):
     """Create the run folder, snapshot all configs and git state, return its Path."""
     commit = _git("rev-parse", "--short", "HEAD")
-    dirty = bool(_git("status", "--porcelain"))
+    dirty = bool(_git("status", "--porcelain", "--", ".", ":!results"))  # run outputs do not count
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     run_id = f"{stamp}_{commit}{'-dirty' if dirty else ''}"
     run_dir = ROOT / "results" / experiment / run_id
