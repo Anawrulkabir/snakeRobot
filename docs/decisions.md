@@ -202,6 +202,35 @@ values), not absolute speed.
 
 ---
 
-## G4 — Cable drive, wave parameters, cable geometry
+## G4 — Cable drive, wave parameters, cable geometry (2026-10-16)
 
-**Status: open.** Options in `docs/g4_options.md`.
+Options in `docs/g4_options.md` (drive-reach run `20261016T175804Z_162cbe0`).
+
+1. **Drive: deferred to E1 (Fahad).** The simulation keeps the general
+   two-cable law (Eq. 3). Noted that E3 requires option A (two servos per
+   joint).
+   After E1, Fahad's idea is to be assessed for feasibility only: **a single
+   global tensioner servo that changes all cable lengths together, to vary G
+   within G ≥ 1 at runtime (7 servos total).** Questions: cable routing,
+   friction, and whether adaptivity limited to G ≥ 1 is useful, given E1.
+2. **Wave scaling ×7/6: approved (Fahad).** Amplitudes 53.7 / 56.0 / 59.5 /
+   84.0° (open / sparse / medium / dense), ξ unchanged.
+   - Log joint-stop contacts in every run. Report if stops are hit in more
+     than ~5% of cycles.
+   - Validation run: a 7-joint, paper-matched model at one density across the
+     full G sweep. Check that its G ranking matches the 6-joint model.
+3. **Cable geometry: L_c = L_j = 20 mm with scaled l0, for the simulation
+   (Fahad).**
+   - Confirm that implementation A's results are independent of the anchor
+     offsets.
+   - Final offsets, spool radius and servo type are decided after E2, from
+     measured cable tension.
+4. **Decision rule (Fahad, replaces the CI-overlap rule).**
+   - Compute the 95% CI of the success-rate *difference*: the best condition
+     minus the best one-spool-reachable condition (G ≥ 1, or the tight spool
+     law).
+   - **Equivalence margin: 10 percentage points.**
+     - CI fully inside ±10 pp: 6 servos suffice.
+     - CI fully outside ±10 pp: 12 needed.
+     - Otherwise inconclusive: add trials.
+   - Success rate is the primary measure, speed secondary.

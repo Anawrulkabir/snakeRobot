@@ -102,7 +102,11 @@ def agg(rows):
 
 def main():
     base = cfgmod.load()
+    # As run (20261016T174857Z_00f197e): stiff position servos; each variant
+    # sets its own load model.
+    base["servo"]["actuation"] = "position"
     gait = cfgmod.load("gait.yaml")["wave"]
+    gait = dict(gait, amplitude_deg=46, spatial_freq=0.82)  # as run: paper open-environment values, before the G4 x7/6 scaling
     jobs = []
     for v in VARIANTS:                                             # step 1
         jobs += [(v, make_cfg(base, v), gait, 0.25, s) for s in SEEDS]

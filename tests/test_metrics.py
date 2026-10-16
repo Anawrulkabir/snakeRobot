@@ -73,3 +73,64 @@ def test_mean_body_heading_ignores_swing():
     # Planted fault: a reversed axis (head and tail swapped) reads pi away.
     h = metrics.mean_body_heading(t, -axis, f, 1, 3)
     assert abs(math.remainder(h - 0.5, 2 * math.pi)) == pytest.approx(math.pi, abs=1e-3)
+
+
+# ---- jam, success, collisions (CLAUDE.md 5.5, 9) ----
+
+def pinned(T=40.0, f=0.125, sway=0.05, dt=0.01):
+    """A robot pinned between posts: it wiggles in place with no net progress."""
+    t = np.arange(0, T, dt)
+    return t, np.c_[0.001 * np.sin(0.3 * t), sway * np.sin(2 * math.pi * f * t)]
+
+
+def test_jam_flags_pinned_robot():
+    f = 0.125
+    t, xy = pinned(f=f)
+    jammed, t_jam = metrics.detect_jam(t, xy, f, threshold=0.01, min_cycles=3)
+    assert jammed and t_jam is not None
+
+
+def test_jam_does_not_flag_free_robot():
+    f = 0.125
+    t, xy = wiggle(0.012, 0.3, f, T=60)       # 0.096 m per cycle, with sway
+    assert metrics.detect_jam(t, xy, f, threshold=0.01, min_cycles=3) == (False, None)
+
+
+def test_jam_ignores_short_stall():
+    # Free, stalled for 2 cycles (< 3), free again: not a jam.
+    f, dt = 0.125, 0.01
+    t = np.arange(0, 80, dt)
+    v = np.where((t > 30) & (t < 30 + 2 / f), 0.0, 0.012)
+    x = np.cumsum(v) * dt
+    xy = np.c_[x, 0.05 * np.sin(2 * math.pi * f * t)]
+    assert metrics.detect_jam(t, xy, f, threshold=0.01, min_cycles=3)[0] is False
+
+
+def test_jam_check_catches_inverted_threshold(monkeypatch):
+    # Planted fault: comparing with > instead of <. The pinned robot must then
+    # not be flagged, which shows the jam test above depends on the comparison.
+    f = 0.125
+    t, xy = pinned(f=f)
+    real = metrics.displacement_over_last_cycle
+    monkeypatch.setattr(metrics, "displacement_over_last_cycle", lambda *a: 1.0 - real(*a))
+    assert metrics.detect_jam(t, xy, f, threshold=0.01, min_cycles=3)[0] is False
+
+
+def test_first_crossing():
+    t = np.arange(0, 10, 0.01)
+    head = np.c_[0.1 * t, np.zeros_like(t)]
+    assert metrics.first_crossing(t, head, (0.5, 0), (1, 0)) == pytest.approx(5.0, abs=0.011)
+    assert metrics.first_crossing(t, head, (0.5, 0), (1, 0), T=4.0) is None
+    # Planted fault: a line normal pointing backwards counts the start as a crossing.
+    assert metrics.first_crossing(t, head, (0.5, 0), (-1, 0)) == 0.0
+
+
+def test_collision_count_debounces_chatter():
+    t = np.arange(0, 2, 0.001)
+    c = np.zeros_like(t, bool)
+    c[(t > 0.2) & (t < 0.5)] = True
+    c[(t > 0.302) & (t < 0.305)] = False       # 3 ms flicker: same collision
+    c[(t > 1.0) & (t < 1.2)] = True            # a separate collision
+    assert metrics.count_collisions(t, c[:, None], min_gap=0.05) == 2
+    # Planted fault: no debounce counts the flicker as an extra collision.
+    assert metrics.count_collisions(t, c[:, None], min_gap=0.0) == 3

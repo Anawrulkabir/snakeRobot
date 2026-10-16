@@ -5,14 +5,49 @@ import math
 import mujoco
 import numpy as np
 
+from snake.actuation import ComplianceA, effective_inertias
 from snake.gait import serpenoid
 from snake.model_builder import build_model
 
 LOG_EVERY = 10  # log every 10th step (10 ms at dt = 1 ms)
 
 
-def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycles=None):
-    """Run the stiff-servo serpenoid on flat ground.
+STOP_TOL = math.radians(0.25)  # a joint within 0.25 deg of its mechanical stop counts as on the stop
+
+
+def make_controller(m, c, A, xi, freq, phase=0.0, G=None):
+    """(command, control): command(t) gives the suggested angles (paper Eq. 2);
+    control(d) writes d.ctrl for the configured actuation.
+      position:     ctrl = suggested angle (stiff servo, E0)
+      compliance_A: ctrl = joint torque from the paper's Eq. 3 free range
+    """
+    nj = m.nu
+    jq = [m.joint(f"j{i}").qposadr[0] for i in range(1, nj + 1)]
+    jv = [m.joint(f"j{i}").dofadr[0] for i in range(1, nj + 1)]
+
+    def command(t):
+        return serpenoid(t, A, xi, freq, nj, phase)
+
+    if c["servo"]["actuation"] == "compliance_A":
+        if G is None:
+            raise ValueError("compliance_A needs a value of G")
+        law = ComplianceA(c, G, A)
+
+        def control(d):
+            d.ctrl[:] = law.torques(command(d.time), d.qpos[jq], d.qvel[jv],
+                                    m.opt.timestep, effective_inertias(m, d, jv))
+    else:
+        def control(d):
+            d.ctrl[:] = command(d.time)
+    return command, control
+
+
+def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycles=None, G=None):
+    """Run the serpenoid on flat ground.
+
+    Joint actuation follows cfg servo.actuation: 'position' (stiff servo, E0)
+    or 'compliance_A' (paper Eq. 3 free range, snake/actuation.py) with
+    generalized compliance G.
 
     detail_after_cycles: if set, also log per-wheel contact detail after that
     many cycles: normal force, axle tilt, and friction split into the wheel's
@@ -35,15 +70,16 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
     A = math.radians(gait["amplitude_deg"])
     xi = gait["spatial_freq"]
     nj = m.nu
+    jq = [m.joint(f"j{i}").qposadr[0] for i in range(1, nj + 1)]
+    hard = math.radians(c["joint"]["hard_limit_deg"])
 
-    def command(t):
-        return serpenoid(t, A, xi, freq, nj, phase)
+    command, control = make_controller(m, c, A, xi, freq, phase, G)
+    jv = [m.joint(f"j{i}").dofadr[0] for i in range(1, nj + 1)]
 
     # Start in the commanded shape so the servos do not jump at t = 0.
     d.qpos[m.joint("root_x").qposadr[0]] = x0
     d.qpos[m.joint("root_y").qposadr[0]] = y0
     d.qpos[m.joint("root_yaw").qposadr[0]] = heading
-    jq = [m.joint(f"j{i}").qposadr[0] for i in range(1, nj + 1)]
     d.qpos[jq] = command(0.0)
     mujoco.mj_forward(m, d)
 
@@ -63,9 +99,13 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
     detail_t0 = None if detail_after_cycles is None else detail_after_cycles / freq
     det_N, det_tilt, det_fr, det_fa = [], [], [], []
     f6 = np.zeros(6)
+    stop_cycles, stop_steps = set(), 0
     for k in range(steps):
-        d.ctrl[:] = command(d.time)
+        control(d)
         mujoco.mj_step(m, d)
+        if np.any(np.abs(d.qpos[jq]) >= hard - STOP_TOL):
+            stop_steps += 1
+            stop_cycles.add(int(d.time * freq))
         if not np.all(np.isfinite(d.qpos)):
             raise FloatingPointError(f"simulation diverged at t={d.time:.3f}")
         touching = set()
@@ -100,7 +140,7 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
             com.append((seg_mass @ xyz[:, :2]) / seg_mass.sum())
             # Body axis: tail joint pin -> head pin.
             axis.append(d.xpos[head_id][:2] - d.xpos[tail_id][:2])
-            track_err.append(np.array(d.qpos[jq]) - np.array(d.ctrl))
+            track_err.append(np.array(d.qpos[jq]) - np.array(command(d.time)))
             torque.append(d.actuator_force.copy())
     return {
         "seed": seed,
@@ -114,6 +154,10 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
         "actuator_torque": np.array(torque),
         "max_penetration": max_penetration,
         "wheel_airborne_fraction": airborne_steps / wheel_steps,
+        # Joint-stop contacts (G4): fraction of gait cycles in which any joint
+        # reached its mechanical stop, and fraction of steps.
+        "stop_hit_cycle_fraction": len(stop_cycles) / n_cycles,
+        "stop_hit_step_fraction": stop_steps / steps,
         "wheel_detail": None if detail_t0 is None else {
             "normal": np.array(det_N), "tilt_deg": np.array(det_tilt),
             "f_roll": np.array(det_fr), "f_axle": np.array(det_fa)},

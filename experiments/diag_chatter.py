@@ -63,7 +63,7 @@ def gait_z_spectrum(cfg, freq=0.25, seconds=8.0):
     """Dominant frequency of the head's vertical motion during the gait, sampled every step."""
     m = build_model(cfg)
     d = mujoco.MjData(m)
-    g = cfgmod.load("gait.yaml")["wave"]
+    g = dict(cfgmod.load("gait.yaml")["wave"], amplitude_deg=46, spatial_freq=0.82)  # as run
     A = math.radians(g["amplitude_deg"])
     jq = [m.joint(f"j{i}").qposadr[0] for i in range(1, m.nu + 1)]
     d.qpos[jq] = serpenoid(0.0, A, g["spatial_freq"], freq, m.nu)
@@ -155,7 +155,11 @@ def summarize(df):
 
 def main():
     cfg = cfgmod.load()
+    # As run (20261016T173615Z_5373862): stiff position servos on the rigid plane.
+    cfg["servo"]["actuation"] = "position"
+    cfg["body"]["vertical_compliance"] = "none"
     gait = cfgmod.load("gait.yaml")["wave"]
+    gait = dict(gait, amplitude_deg=46, spatial_freq=0.82)  # as run: paper open-environment values, before the G4 x7/6 scaling
     jobs, labels = [], []
     for name in ("baseline", "soft_contact", "stiff_servo"):
         for f in FREQS:

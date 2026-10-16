@@ -1,9 +1,9 @@
 """Generate the planar snake MJCF from config/robot.yaml (docs/model_plan.md).
 
 Frames: the head points along +x. Segment i's body origin is the joint pin at
-its front; for the head that pin is virtual. The segment's front face is L_j
-behind its pin and its rear face is L_j ahead of the next pin, as in paper
-Fig. S4. Hinge axes are +z, so a positive joint angle lengthens the left
+its front; for the head that pin is virtual. The case (capsule) is centred
+between the pins, with length body.case_length. The cable anchors sit L_j
+behind the front pin and L_j ahead of the next pin, as in paper Fig. S4. Hinge axes are +z, so a positive joint angle lengthens the left
 (+y) cable, which is the paper's sign convention for alpha (Eq. S1).
 tests/test_model_builder.py checks this sign against Eq. S1.
 
@@ -44,7 +44,9 @@ def _check(c):
     if g["model"] != "wheels":
         raise ValueError(f"ground.model {g['model']!r} not implemented (G3 chose wheels)")
     if b["segment_pitch"] <= 2 * cab["joint_offset"]:
-        raise ValueError("segment_pitch must exceed 2*joint_offset (segment would have no length)")
+        raise ValueError("segment_pitch must exceed 2*joint_offset (anchors would cross)")
+    if not 0 < b["case_length"] < b["segment_pitch"]:
+        raise ValueError("case_length must be positive and shorter than segment_pitch")
     if cab["half_spacing"] > r:
         raise ValueError("cable half_spacing (L_c) must lie inside the segment width")
     if b["ride_height"] <= r:
@@ -53,6 +55,8 @@ def _check(c):
         raise ValueError("wheel_radius must be in (0, ride_height]")
     if g["axle_friction_timeconst"] < 2 * c["sim"]["timestep"]:
         raise ValueError("axle_friction_timeconst must be >= 2 x timestep")
+    if cab["l0_per_R"] < 1:
+        raise ValueError("cable.l0_per_R must be >= 1, or Eq. 3 commands cables shorter than exact")
     if g["anisotropy_ratio"] <= 1:
         raise ValueError("anisotropy_ratio must exceed 1 (rolling-friction law needs R > 1)")
     if c["sim"]["cone"] != "elliptic":
@@ -110,9 +114,12 @@ def build_mjcf(c=None, drag_rig=False):
     ET.SubElement(world, "geom", name="floor", type="plane", size="5 5 0.1", material="grid",
                   friction=floor_friction, **FLOOR)
 
-    seg_len = p - 2 * Lj                # face to face
-    x_front, x_rear = -Lj, -(p - Lj)    # face positions in the segment frame
+    # Structure (case) and cable anchors are separate parameters, so moving the
+    # anchors does not change the body's shape or inertia.
+    seg_len = b["case_length"]                          # case, face to face
     x_mid = -p / 2
+    x_front, x_rear = x_mid + seg_len / 2, x_mid - seg_len / 2
+    x_anchor_front, x_anchor_rear = -Lj, -(p - Lj)      # paper Fig. S4: L_j from each pin
     hinge_limit = math.radians(j["hard_limit_deg"])
     masses = segment_masses(c)
 
@@ -155,8 +162,8 @@ def build_mjcf(c=None, drag_rig=False):
                       rgba="0.85 0.45 0.1 1" if i == 0 else "0.9 0.6 0.2 1", **BODY)
         # Cable anchor sites on both faces (paper Fig. S4).
         for side, y in (("l", Lc), ("r", -Lc)):
-            ET.SubElement(body, "site", name=f"seg{i}_front_{side}", pos=_fmt(x_front, y, 0), size="0.003")
-            ET.SubElement(body, "site", name=f"seg{i}_rear_{side}", pos=_fmt(x_rear, y, 0), size="0.003")
+            ET.SubElement(body, "site", name=f"seg{i}_front_{side}", pos=_fmt(x_anchor_front, y, 0), size="0.003")
+            ET.SubElement(body, "site", name=f"seg{i}_rear_{side}", pos=_fmt(x_anchor_rear, y, 0), size="0.003")
 
         # Passive wheel: axle along local y, so it rolls along the body axis.
         wheel = ET.SubElement(body, "body", name=f"wheel{i}", pos=_fmt(x_mid, 0, -(h - rw)))
@@ -180,11 +187,20 @@ def build_mjcf(c=None, drag_rig=False):
             ET.SubElement(t, "site", site=f"seg{i-1}_rear_{side}")
             ET.SubElement(t, "site", site=f"seg{i}_front_{side}")
 
-    # Stiff body for E0: a position servo per joint, torque capped at stall.
+    # Joint actuation, torque capped at servo stall:
+    #   position:     stiff position servo (E0); ctrl = target angle.
+    #   compliance_A: torque motor; ctrl = torque from snake/actuation.py.
     act = ET.SubElement(root, "actuator")
     for i in range(1, n):
-        ET.SubElement(act, "position", name=f"servo{i}", joint=f"j{i}", kp=_fmt(s["kp"]),
-                      forcerange=_fmt(-s["stall_torque"], s["stall_torque"]))
+        if s["actuation"] == "position":
+            ET.SubElement(act, "position", name=f"servo{i}", joint=f"j{i}", kp=_fmt(s["kp"]),
+                          forcerange=_fmt(-s["stall_torque"], s["stall_torque"]))
+        elif s["actuation"] == "compliance_A":
+            ET.SubElement(act, "motor", name=f"servo{i}", joint=f"j{i}", gear="1",
+                          ctrlrange=_fmt(-s["stall_torque"], s["stall_torque"]),
+                          forcerange=_fmt(-s["stall_torque"], s["stall_torque"]))
+        else:
+            raise ValueError(f"unknown servo.actuation {s['actuation']!r}")
     if drag_rig:
         ET.SubElement(act, "velocity", name="drag_x", joint="root_x", kv="50")
         ET.SubElement(act, "velocity", name="drag_y", joint="root_y", kv="50")

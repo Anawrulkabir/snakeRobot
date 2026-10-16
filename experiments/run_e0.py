@@ -64,7 +64,12 @@ def trial(args):
 
 def main():
     cfg = cfgmod.load()
+    # E0 as run (20261016T170631Z_ef124ae): stiff position servos on the rigid
+    # plane. Both have since changed default (G4 and the load-model decision).
+    cfg["servo"]["actuation"] = "position"
+    cfg["body"]["vertical_compliance"] = "none"
     gait = cfgmod.load("gait.yaml")["wave"]
+    gait = dict(gait, amplitude_deg=46, spatial_freq=0.82)  # as run: paper open-environment values, before the G4 x7/6 scaling
     e0 = cfgmod.load("experiments/E0.yaml")
     run, chk = e0["run"], e0["checks"]
     seeds = [run["base_seed"] + k for k in range(run["trials_per_frequency"])]

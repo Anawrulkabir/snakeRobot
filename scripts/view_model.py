@@ -1,11 +1,11 @@
-"""Watch the model run the serpenoid gait with the stiff position servos.
+"""Watch the model run the serpenoid gait with the configured actuation (default: implementation A).
 
-For inspection only, not an experiment: ground contact (G3), masses and
-gait scaling (G4) are still placeholders, so the motion means nothing yet.
+For inspection only, not an experiment. Masses and other placeholders still
+apply.
 
-  mjpython scripts/view_model.py                    # macOS, interactive viewer
-  python scripts/view_model.py                      # Linux/Windows viewer
-  python scripts/view_model.py --video out.mp4      # headless, needs ffmpeg
+  mjpython scripts/view_model.py --G 0.75           # macOS, interactive viewer
+  python scripts/view_model.py --G 0.75             # Linux/Windows viewer
+  python scripts/view_model.py --G 0 --video out.mp4   # headless, needs ffmpeg
 """
 import argparse
 import math
@@ -18,25 +18,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import mujoco  # noqa: E402
 
 from snake import config as cfgmod  # noqa: E402
-from snake.gait import serpenoid  # noqa: E402
 from snake.model_builder import build_model  # noqa: E402
+from snake.sim import make_controller  # noqa: E402
 
 
-def controller(model):
+def controller(model, G):
     g = cfgmod.load("gait.yaml")["wave"]
-    A = math.radians(g["amplitude_deg"])
-    n = model.nu
-
-    def ctrl(data):
-        data.ctrl[:] = serpenoid(data.time, A, g["spatial_freq"], g["temporal_freq"], n)
-
+    _, ctrl = make_controller(model, cfgmod.load(), math.radians(g["amplitude_deg"]),
+                              g["spatial_freq"], g["temporal_freq"], G=G)
     return ctrl
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--video", help="write an mp4 instead of opening the viewer")
-    ap.add_argument("--seconds", type=float, default=8.0)
+    ap.add_argument("--seconds", type=float, default=24.0)
+    ap.add_argument("--G", type=float, default=cfgmod.load("gait.yaml")["compliance"]["G"],
+                    help="generalized compliance (paper Eq. 3)")
     args = ap.parse_args()
 
     ph = cfgmod.placeholders(cfgmod.load_raw()) + cfgmod.placeholders(cfgmod.load_raw("gait.yaml"))
@@ -44,7 +42,7 @@ def main():
 
     m = build_model()
     d = mujoco.MjData(m)
-    ctrl = controller(m)
+    ctrl = controller(m, args.G)
 
     if args.video:
         import mediapy

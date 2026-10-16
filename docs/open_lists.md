@@ -43,5 +43,18 @@ came from.
   differs by more than ~3%, stop and report (Fahad 2026-10-16).
 - Report conclusions as rankings of compliance values, not absolute speeds
   (Fahad 2026-10-16).
-- Proposed conditions and the pre-registered 6-vs-12-servo decision rule:
-  `g4_options.md` §4, pending G4.
+- Conditions: the paper's G sweep (0–1.5) plus the tight-spool law, at
+  every density (`g4_options.md` §4).
+- Decision rule: 95% CI of the success-rate difference (best condition minus
+  best one-spool condition); equivalence margin ±10 pp (`decisions.md` G4).
+- Log joint-stop contacts; report if stops are hit in more than ~5% of
+  cycles.
+- Validation: a 7-joint paper-matched model at one density, full G sweep.
+  Its G ranking must match the 6-joint model.
+
+## After E1
+
+- Feasibility of Fahad's single global tensioner (7 servos, G ≥ 1 adaptive):
+  cable routing, friction, usefulness given E1.
+- After E2: final cable offsets, spool radius and servo type, from measured
+  cable tension.

@@ -1,0 +1,20 @@
+# Metric thresholds (CLAUDE.md 5.5). Tagged like the other configs.
+jam:
+  disp_per_cycle_threshold_m:
+    value: 0.01
+    source: proposal
+    note: "jammed while the CoM's displacement over the last gait cycle stays below this. ~10% of the free-ground value under the slide load model (0.0978 m/cycle at 0.125 Hz, run 20261016T174857Z_00f197e). To confirm before E1"
+  min_duration_cycles:
+    value: 3
+    source: proposal
+    note: "must persist this many cycles to count as a jam. To confirm before E1"
+trial:
+  stuck_terminate_cycles:
+    value: 10
+    source: paper
+    note: "paper ends a trial when the robot 'did not proceed for 10 consecutive gait cycles' (p. 37)"
+collision:
+  min_gap_s:
+    value: 0.05
+    source: proposal
+    note: "a body-post contact must be absent this long before a new contact counts as a new collision; contact chatter flickers on ~10 ms scales (results_E0.md)"

@@ -1,6 +1,7 @@
 # G4 — Cable drive, wave parameters and cable geometry (options for Fahad)
 
-Status: **open, waiting for Fahad's decision.**
+Status: **decided 2026-10-16** (see `decisions.md` G4). Section 4's rule
+was replaced by Fahad's CI-of-difference rule with a ±10 pp margin.
 
 Geometry analysis: `scripts/drive_reach.py`, run `20261016T175804Z_162cbe0`
 (`results/drive_reach/.../summary.json`). That run is pure geometry from the

@@ -68,3 +68,67 @@ def mean_ci95(values):
         return float(v.mean()), float("nan")
     half = stats.t.ppf(0.975, n - 1) * v.std(ddof=1) / np.sqrt(n)
     return float(v.mean()), float(half)
+
+
+def displacement_over_last_cycle(t, xy, freq):
+    """For each sample, the CoM's straight-line displacement over the preceding
+    gait cycle (NaN during the first cycle). Comparing points one full cycle
+    apart removes the within-cycle sway."""
+    period = 1.0 / freq
+    t_prev = t - period
+    ok = t_prev >= t[0]
+    out = np.full(len(t), np.nan)
+    px = np.interp(t_prev[ok], t, xy[:, 0])
+    py = np.interp(t_prev[ok], t, xy[:, 1])
+    out[ok] = np.hypot(xy[ok, 0] - px, xy[ok, 1] - py)
+    return out
+
+
+def detect_jam(t, xy, freq, threshold, min_cycles):
+    """(jammed, first_jam_time). Jammed once displacement over the last cycle
+    stays below threshold for at least min_cycles cycles in a row."""
+    d = displacement_over_last_cycle(t, xy, freq)
+    need = min_cycles / freq
+    start = None
+    for ti, di in zip(t, d):
+        if np.isfinite(di) and di < threshold:
+            start = ti if start is None else start
+            if ti - start >= need:
+                return True, float(start)
+        else:
+            start = None
+    return False, None
+
+
+def first_crossing(t, head_xy, line_point, line_normal, T=None):
+    """Time the head first reaches the finish line (signed distance >= 0 along
+    line_normal from line_point), or None if not within T."""
+    n = np.asarray(line_normal, float)
+    n = n / np.linalg.norm(n)
+    s = (head_xy - np.asarray(line_point, float)) @ n
+    idx = np.nonzero(s >= 0)[0]
+    if len(idx) == 0:
+        return None
+    tc = float(t[idx[0]])
+    return tc if T is None or tc <= T else None
+
+
+def count_collisions(t, in_contact, min_gap):
+    """Number of contact onsets. in_contact: bool array (samples x pairs).
+    A pair must be out of contact for at least min_gap seconds before a new
+    contact counts as a new collision."""
+    c = np.atleast_2d(np.asarray(in_contact, bool))
+    if c.shape[0] != len(t):
+        c = c.T
+    total = 0
+    for j in range(c.shape[1]):
+        last_off_start, on = None, False
+        for ti, ci in zip(t, c[:, j]):
+            if ci and not on:
+                # First contact of this pair, or back after a real gap.
+                if last_off_start is None or ti - last_off_start >= min_gap:
+                    total += 1
+                on = True
+            elif not ci and on:
+                on, last_off_start = False, ti
+    return total

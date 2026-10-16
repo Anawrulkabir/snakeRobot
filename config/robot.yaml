@@ -19,6 +19,10 @@ body:
     value: 0.10
     source: hardware
     note: "m, distance between consecutive joint axes"
+  case_length:
+    value: 0.06
+    source: proposal
+    note: "m, printed case face to face, centred between pins. 0.06 = pitch - 2 x 20 mm, the value implied before it was split from the cable anchor offset (so models are unchanged)"
   segment_width:
     value: 0.05
     source: placeholder
@@ -86,12 +90,16 @@ cable:
   # cable anchors at +-L_c from the centreline on each face.
   half_spacing:
     value: 0.020
-    source: placeholder
-    note: "m, L_c. Set at G4 from the segment width and joint design"
+    source: decision
+    note: "m, L_c. G4: 20 mm for simulation; final value after E2 from measured cable tension"
   joint_offset:
     value: 0.020
-    source: placeholder
-    note: "m, L_j. Set at G4"
+    source: decision
+    note: "m, L_j. G4: 20 mm for simulation; final value after E2"
+  l0_per_R:
+    value: 1.056210
+    source: decision
+    note: "dimensionless l0 / sqrt(L_c^2 + L_j^2). Paper: l0 = 0.73 mm/deg with R = 39.6 mm (p. 57, Eq. S2), i.e. 41.83 mm/rad / 39.6 mm. G4: keep this ratio so Eq. 3 is identical in joint-angle space. Must be >= 1 so no cable is commanded shorter than exact (paper_notes 1.6); the builder checks it"
 
 servo:
   stall_torque:
@@ -105,7 +113,19 @@ servo:
   kp:
     value: 2.0
     source: placeholder
-    note: "N m/rad, position-servo gain for the stiff body (E0). Replaced by actuation A/B later"
+    note: "N m/rad, position-servo gain, used only when servo.actuation = position (E0)"
+  actuation:
+    value: compliance_A
+    source: decision
+    note: "position = stiff servo (E0); compliance_A = paper's Eq. 3 as a joint free range with a one-sided boundary torque (CLAUDE.md 5.2 A)"
+  boundary_stiffness:
+    value: 11.459
+    source: proposal
+    note: "N m/rad, restoring stiffness past the free-range boundary: reaches stall torque (0.2 N m) after 1 deg of overshoot. Stands in for cable + servo stiffness; on the E4 list (cable stiffness)"
+  boundary_damping:
+    value: 0.05
+    source: proposal
+    note: "N m s/rad, one-sided damping past the boundary, so a joint hitting its boundary does not bounce. Applied explicitly; tests check stability at dt = 1 ms and 0.5 ms"
 
 ground:
   # G3: passive wheels (docs/decisions.md). One wheel under each segment centre,
