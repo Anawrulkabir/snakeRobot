@@ -85,7 +85,7 @@ def analyse(A_deg, Lc, Lj, l0):
         out["paper"].append({
             "G": G,
             "sum_variation_mm": (max(sums) - min(sums)) * 1e3,
-            "reachable_by_circular_spool": (max(sums) - min(sums)) < 1e-9,
+            "reachable_by_circular_spool": bool((max(sums) - min(sums)) < 1e-9),
             "ranges": ranges(lambda a: paper_cmd(a, G, A, Lc, Lj, l0), A, Lc, Lj),
         })
     # Cable travel each cable's spool must provide (max - min commanded length).
