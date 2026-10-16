@@ -217,3 +217,21 @@ should not run until this is chosen.
   the hardware validation list and the E2 method notes.
 - **Stopped to report (Fahad's instruction).** E1 frequency is proposed, not
   set.
+
+### 2026-10-16: decisions logged; G4 options prepared
+- Logged in `decisions.md`:
+  - load model final (vertical slide);
+  - E1 at 0.125 Hz, with the spot-check condition;
+  - E2 at 0.0625 Hz;
+  - E1 results reported as rankings;
+  - E4 ranking-vs-contact check.
+- `scripts/drive_reach.py`, run `20261016T175804Z_162cbe0`. A one-servo
+  circular shared spool reproduces the paper's G ≥ 1 exactly, and no G < 1.
+  The 180° hobby servo travel limit makes spools of 17–42 mm radius.
+- `docs/g4_options.md`:
+  - drive options A/B/C with servo count, added mass, cost and reachable G;
+  - wave parameters scaled ×7/6;
+  - cable geometry L_c = L_j = 20 mm, l0 = 0.5214 mm/deg;
+  - proposed E1 structure with a pre-registered 6-vs-12 decision rule.
+- **Waiting for G4.** Next after G4: milestone 3 (compliance implementation
+  A + tests), then the arena and E1.

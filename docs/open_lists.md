@@ -11,6 +11,7 @@ came from.
 | Forward-resistance model (rolling friction vs axle friction) | `ground.axle_friction` | The wheel spins at ~53% of its rolling rate under the rolling-friction law (`results_E0.md`) |
 | **Contact softness** | `ground.contact_timeconst` | Changed displacement per cycle by up to +13% at 0.5 Hz, and by ~15% at 0.0625–0.125 Hz (diagnosis runs `20261016T173615Z_5373862`, `20261016T174857Z_00f197e`). Added by Fahad 2026-10-16 |
 | **Load distribution** | `body.vertical_compliance`, `body.vertical_stiffness`, `body.vertical_damping` | Rigid plane vs vertical slide changed displacement per cycle by about −44% (`results_E0.md`). Added by Fahad 2026-10-16 |
+| **Compliance ranking vs contact softness** | `ground.contact_timeconst` 0.02 vs 0.04 s | E1 conclusions are rankings; check that the ranking survives the contact model (Fahad 2026-10-16) |
 | Sliding friction μ | `ground.friction_sliding` | Placeholder, UNKNOWN (paper gives only the ratio) |
 | Segment mass | `mass.*` | CLAUDE.md §6 E4 |
 | Cable stiffness | (implementation B) | CLAUDE.md §6 E4 |
@@ -27,9 +28,20 @@ came from.
 
 ## E2 method notes (to apply when E2 runs)
 
+- **Run E2 at 0.0625 Hz**, where there is less chatter (Fahad 2026-10-16).
 - **Low-pass filter the torques at the servo's bandwidth** before taking
   mean, p95 and peak. Contact chatter puts ~100 Hz content into the
   instantaneous forces (`results_E0.md`). The cut-off has to be justified
   from the servo's response, and the unfiltered values reported alongside.
   (Fahad 2026-10-16)
 - **Confirm the peaks at a 0.5 ms timestep.** (Fahad 2026-10-16)
+
+## E1 method notes
+
+- 0.125 Hz. **Before the full sweep:** spot-check one density × one
+  compliance at 0.0625 vs 0.125 Hz. If displacement per cycle or success rate
+  differs by more than ~3%, stop and report (Fahad 2026-10-16).
+- Report conclusions as rankings of compliance values, not absolute speeds
+  (Fahad 2026-10-16).
+- Proposed conditions and the pre-registered 6-vs-12-servo decision rule:
+  `g4_options.md` §4, pending G4.

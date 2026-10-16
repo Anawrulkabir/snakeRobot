@@ -175,3 +175,33 @@ Final choice after step 1 of the load diagnosis.
 
 Slide spring 380 N/m and damping 0.5 N·s/m are Claude's choices (about 1 mm
 sag per segment), not measured. They are on the E4 list.
+
+---
+
+## Load model, final (2026-10-16)
+
+**Choice (Fahad).** Independent vertical slide, confirmed.
+**Why (Fahad):** the rigid plane is statically indeterminate, and its load
+split is a solver artefact (load diagnosis, run `20261016T174857Z_00f197e`).
+
+---
+
+## E1 frequency and reporting (2026-10-16)
+
+**Choice (Fahad).** 0.125 Hz, with conditions:
+1. Before the full sweep, spot-check one lattice density × one compliance at
+   0.0625 vs 0.125 Hz. If displacement per cycle or success rate differs by
+   more than ~3%, stop and report.
+2. E2 torque and tension statistics run at 0.0625 Hz, where there is less
+   chatter.
+
+**E1 reporting (Fahad):** conclusions are relative (the ranking of compliance
+values), not absolute speed.
+**E4 (Fahad):** check that the compliance ranking holds with contact softness
+0.02 vs 0.04 s.
+
+---
+
+## G4 — Cable drive, wave parameters, cable geometry
+
+**Status: open.** Options in `docs/g4_options.md`.
