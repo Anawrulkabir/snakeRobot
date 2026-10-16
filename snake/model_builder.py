@@ -129,6 +129,21 @@ def build_mjcf(c=None, drag_rig=False):
             ET.SubElement(body, "joint", name=f"j{i}", type="hinge", axis="0 0 1",
                           range=_fmt(-hinge_limit, hinge_limit),
                           stiffness=_fmt(j["stiffness"]), damping=_fmt(j["damping"]))
+            # Optional out-of-plane compliance (chatter diagnosis, not the
+            # approved model): springs that let each segment tilt or rise a
+            # little, so the 7 wheels are no longer forced onto one rigid plane.
+            vc = b["vertical_compliance"]
+            if vc != "none":
+                k, damp = _fmt(b["vertical_stiffness"]), _fmt(b["vertical_damping"])
+                if vc == "rollpitch":
+                    for nm, ax in (("roll", "1 0 0"), ("pitch", "0 1 0")):
+                        ET.SubElement(body, "joint", name=f"{nm}{i}", type="hinge", axis=ax,
+                                      stiffness=k, damping=damp)
+                elif vc == "slide":
+                    ET.SubElement(body, "joint", name=f"lift{i}", type="slide", axis="0 0 1",
+                                  stiffness=k, damping=damp)
+                else:
+                    raise ValueError(f"unknown body.vertical_compliance {vc!r}")
 
         # Inertia of a solid box seg_len x width x width (model_plan.md section 1).
         mass, w = masses[i], 2 * r
@@ -151,6 +166,7 @@ def build_mjcf(c=None, drag_rig=False):
         ET.SubElement(wheel, "geom", name=f"wheel{i}_tyre", type="cylinder",
                       size=_fmt(rw, g["wheel_half_width"]), zaxis="0 1 0", mass=_fmt(m["wheel"]),
                       friction=tyre_friction, condim="6", priority="1",
+                      solref=_fmt(g["contact_timeconst"], 1),
                       rgba="0.2 0.2 0.2 1", **WHEEL)
         parent = body
 

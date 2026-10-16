@@ -27,6 +27,18 @@ body:
     value: 0.03
     source: placeholder
     note: "m, height of the body axis above the ground. Set by the wheel and mount design"
+  vertical_compliance:
+    value: none
+    source: proposal
+    note: "none = approved planar model (G1). 'rollpitch' or 'slide' add per-segment out-of-plane springs; used only for the chatter diagnosis (progress.md)"
+  vertical_stiffness:
+    value: 2.0
+    source: proposal
+    note: "N m/rad for rollpitch, N/m for slide. Only used when vertical_compliance != none"
+  vertical_damping:
+    value: 0.01
+    source: proposal
+    note: "N m s/rad or N s/m. Only used when vertical_compliance != none"
 
 mass:
   # Fahad's estimates, 2026-10-16 (docs/decisions.md G3). Placeholders until weighed.
@@ -114,6 +126,10 @@ ground:
     value: 0.003
     source: placeholder
     note: "m"
+  contact_timeconst:
+    value: 0.02
+    source: proposal
+    note: "s, solref time constant of the tyre-floor contact (damping ratio 1). 0.02 s is MuJoCo's default; the chatter diagnosis varies it"
   anisotropy_ratio:
     value: 1.6
     source: decision
