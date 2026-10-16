@@ -305,3 +305,12 @@ should not run until this is chosen.
   (`open_lists.md`).
 - Waiting for the Fig. 5A CSVs. Then: stiffness estimate → medium pilot (20
   paired trials) → trial-count and compute estimate → E1.
+
+### 2026-10-16: torque-cap sensitivity; friction-measurement intake
+- Run `20261016T191531Z_387fad8` (`results_lattice_diag.md`): 0.2 → 0.5 N·m
+  changes the progress rate by at most 9.9% (rule not triggered; that cell
+  is noise-sized). 0.2 → 1.0 N·m raises G = 0 in the lattice by 59%, through
+  fewer overload endings.
+- `data/measured/README.md` and `scripts/friction_from_tilt.py` are ready
+  for Fahad's tilt-test CSV (μ = tan θ, mean and 95% CI). It will replace
+  the 0.4 placeholder.

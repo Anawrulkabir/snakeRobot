@@ -186,3 +186,50 @@ stays UNKNOWN. **No gait change** (Fahad).
 - With the medium-lattice gait (A = 59.5°), tail joints reach the 90° stops
   in 86% of cycles at G ≥ 0.75 under the placeholder stiffness. This is to be
   re-checked with the digitized stiffness.
+
+---
+
+## Torque-cap sensitivity: run `20261016T191531Z_387fad8`
+
+Placeholder stiffness 0.02 N·m/rad; medium-lattice gait (A = 59.5°,
+ξ = 0.58); 0.125 Hz; 6 cycles; seeds 1–3.
+
+- **Only the cap changes:** the boundary stiffness stands in for cable and
+  servo stiffness, and is held fixed.
+- **Overload:** ≥ 0.99 × cap for 1 s.
+- **Progress rate:** forward CoM displacement ÷ cycles elapsed (the
+  pre-registered E1 primary metric).
+
+| Condition | G | rate at cap 0.2 / 0.5 / 1.0 N·m (m/cycle, mean of 3) | time any joint at cap: 0.2 / 0.5 / 1.0 | overload endings: 0.2 / 0.5 / 1.0 |
+|---|---|---|---|---|
+| open floor | 0 | 0.1317 / 0.1317 / 0.1317 | 0 / 0 / 0 | 0 / 0 / 0 |
+| open floor | 0.75 | 0.0860 / 0.0814 / 0.0854 | 0.026 / 0.006 / 0 | 0 / 0 / 0 |
+| open floor | 1.0 | 0.0837 / 0.0845 / 0.0851 | 0.027 / 0.005 / 0 | 0 / 0 / 0 |
+| medium lattice | 0 | 0.0814 / 0.0883 / **0.1291** | 0.060 / 0.035 / 0.036 | **2 / 2 / 1** of 3 |
+| medium lattice | 0.75 | 0.0142 / 0.0128 / 0.0149 | 0.023 / 0.005 / 0 | 0 / 0 / 0 |
+| medium lattice | 1.0 | 0.0131 / 0.0134 / 0.0117 | 0.026 / 0.005 / 0 | 0 / 0 / 0 |
+
+Relative change in mean progress rate from 0.2 to 0.5 N·m:
+- open floor: G = 0: 0.0%, G = 0.75: −5.3%, G = 1: +1.0%;
+- medium lattice: G = 0: +8.5%, G = 0.75: **−9.9%**, G = 1: +2.3%.
+
+**Against Fahad's rule (> ~10% between 0.2 and 0.5 N·m): not triggered.**
+Three caveats, for Fahad's judgment:
+
+1. **The −9.9% is noise-sized.** Compliant rates in the lattice are about
+   0.01–0.02 m/cycle, so a relative change rests on ~2 mm per cycle. Per
+   seed: 0.0213 → 0.0195 and 0.0205 → 0.0181. Three seeds cannot separate
+   that from trial-to-trial scatter.
+2. **G = 0 depends on the cap through how trials end.** At 0.2 N·m, 2 of 3
+   G = 0 lattice trials end in overload, which cuts them short. At 1.0 N·m
+   only 1 does, and seed 3 runs the full 6 cycles at 0.2125 m/cycle instead
+   of overloading at 0.0775. Mean rate 0.2 → 1.0 N·m: **+59%** for G = 0,
+   but about ±10% for G ≥ 0.75. **So the gap between rigid and compliant
+   settings in E1 depends on the servo class if the choice is between
+   ~0.2 and ~1 N·m.**
+3. **Time at the cap is small for compliant settings** (≤ 2.7% at 0.2 N·m)
+   and falls to ~0 at 1.0 N·m. G = 0 in the lattice sits at the cap 3.5–6%
+   of the time.
+
+Stiffness is still a placeholder; these numbers check mechanics, not the
+G ranking.

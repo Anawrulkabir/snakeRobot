@@ -14,6 +14,7 @@ came from.
 | **Compliance ranking vs contact softness** | `ground.contact_timeconst` 0.02 vs 0.04 s | E1 conclusions are rankings; check that the ranking survives the contact model (Fahad 2026-10-16) |
 | **Passive joint stiffness (sleeve)** | `joint.stiffness` | 0 → 25% of stall at 45° moved disp/cycle at G = 0.75 from 0.0577 to 0.1018 m and removed tail joint-stop collapse (run `20261016T181938Z_a84cc70`); paper value UNKNOWN |
 | **Body–post friction** | `arena.yaml` lattice.post_friction | Placeholder 0.4; the paper gives none (Fahad 2026-10-16). It does change outcomes (μ 0 vs 0.4: 0.313 vs 0.040 m/cycle in one G = 0 trial, run `20261016T190405Z_c61d84c`) |
+| Static vs kinetic body–post friction | `arena.yaml` lattice.post_friction | The tilt test gives static μ at slip onset; the model uses one Coulomb μ |
 | Sliding friction μ | `ground.friction_sliding` | Placeholder, UNKNOWN (paper gives only the ratio) |
 | Segment mass | `mass.*` | CLAUDE.md §6 E4 |
 | Cable stiffness | (implementation B) | CLAUDE.md §6 E4 |
@@ -44,6 +45,11 @@ came from.
   trials overloaded in the medium lattice (run `20261016T190405Z_c61d84c`).
   E2 must state how often and for how long each joint sits at the cap, not
   only peaks.
+- Torque-cap sensitivity (run `20261016T191531Z_387fad8`): 0.2 → 0.5 N·m
+  changes the progress rate by ≤ 10% in every cell (not triggered). But
+  0.2 → 1.0 N·m changes G = 0 in the lattice by +59% through fewer overload
+  endings. **The rigid-vs-compliant gap in E1 depends on the servo class
+  between ~0.2 and ~1 N·m.**
 - Log torques from t = 0. They are currently logged from cycle 1, so a trial
   that overloads in its first cycle reports a peak of 0.
 
