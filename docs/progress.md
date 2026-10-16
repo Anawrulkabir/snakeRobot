@@ -116,3 +116,28 @@ opens `mujoco.viewer.launch_passive` must be started with `mjpython`, not
 **Next: G3 (ground contact).** E0 cannot pass before G3 is decided. On
 isotropic flat ground, lateral undulation produces no net forward thrust.
 Masses are also still needed.
+
+### 2026-10-16: G3 wheels and the simulated drag test
+- G3 decided: passive wheels (`docs/decisions.md`). Masses set from Fahad's
+  estimates, all placeholders. Joint servos sit in the segment behind each
+  joint. Total model mass is 0.306 kg.
+- `scripts/drag_test.py` drags one wheeled segment at 0.05 m/s along its axis,
+  then sideways. It saves `results/drag_test/<run_id>/` with a config snapshot,
+  git state and `summary.json`; `snake/runlog.py` builds the folder.
+- Run `20261016T165127Z_f707980`, with every ground parameter at its current
+  placeholder (`axle_friction` = 0). Values from its `summary.json`:
+  - `sideways_force_N` = 0.3677269380386845
+    (`coulomb_reference_mu_m_g_N` = 0.36787500000000006)
+  - `forward_force_N` = 0.0, so `ratio_sideways_over_forward` = Infinity.
+    With zero axle friction nothing resists rolling.
+  - `sideways_force_std_N` = 0.08385304409758303: the sideways drag force
+    fluctuates. Not investigated yet.
+- A test caught a modelling problem. MuJoCo's dry joint friction, at its
+  default softness (time constant 0.02 s), acted like viscous drag below
+  ~0.1 m/s. The axle friction now uses a 0.002 s time constant. A test checks
+  that forward drag force equals τ/r, and a planted fault with the default
+  time constant shows it fails.
+- Tests: 26 pass.
+
+**Open (G3 follow-up):** the forward rolling resistance of the wheels. E0
+should not run until this is chosen.
