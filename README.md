@@ -16,6 +16,11 @@ pip install -r requirements.txt
 python scripts/check_env.py        # add --no-viewer on a machine without a display
 ```
 
+- **macOS:** the interactive viewer only runs under MuJoCo's launcher. Use
+  `mjpython scripts/check_env.py` (and `mjpython` for any viewer script).
+  Headless runs and experiments use plain `python`.
+- **Video output** needs the `ffmpeg` program on your PATH (used by mediapy).
+
 ## AI disclosure
 
 The code in this repository was written with Claude Code (an AI coding

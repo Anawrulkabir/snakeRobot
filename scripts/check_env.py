@@ -9,6 +9,9 @@ Runs four checks and prints a block to paste into docs/progress.md:
 Usage:
   python scripts/check_env.py               # all four checks
   python scripts/check_env.py --no-viewer   # headless machines
+  mjpython scripts/check_env.py             # macOS: the viewer needs mjpython
+
+Check 4 needs the `ffmpeg` program on PATH (mediapy calls it).
 
 If offscreen rendering fails, retry with an explicit GL backend, e.g.
   MUJOCO_GL=egl python scripts/check_env.py      (Linux, GPU)

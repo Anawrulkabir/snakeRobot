@@ -55,3 +55,18 @@ Notes:
 Notes:
 - ffmpeg became available between runs 1 and 2. How it was installed is not
   yet recorded; it is not in `requirements.txt`.
+
+### Environment check results (Fahad's machine, 2026-10-16, run 3): all pass
+Command: `mjpython scripts/check_env.py`
+- OS: macOS-26.6.2-arm64-arm-64bit-Mach-O
+- Python: 3.13.2
+- MuJoCo: 3.2.6
+- MUJOCO_GL: (unset)
+- 1. import mujoco: PASS — mujoco 3.2.6
+- 2. headless step: PASS — box fell from z=0.500 m to z=0.0499 m in 2 s sim time
+- 3. viewer window: PASS — passive viewer opened for 3 s
+- 4. offscreen video: PASS — 30 frames -> env_check_output/tiny.mp4 (4413 bytes)
+
+Environment check (CLAUDE.md §3 step 1) complete. On macOS, anything that
+opens `mujoco.viewer.launch_passive` must be started with `mjpython`, not
+`python`. Headless experiments use plain `python`.
