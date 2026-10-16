@@ -135,6 +135,8 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     max_over = 0.0
     stop_steps = 0
     stop_cycles = set()
+    cap_steps = 0
+    cap_steps_joint = np.zeros(nj)
     slow_since = None
     jam_t = None
     outcome, t_success = "timeout", None
@@ -169,6 +171,8 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
             stop_cycles.add(int(d.time * freq))
         # Overload: torque held at the cap.
         at_cap = np.abs(d.actuator_force) >= ov_frac * stall
+        cap_steps += bool(at_cap.any())
+        cap_steps_joint += at_cap
         over_t = np.where(at_cap, over_t + m.opt.timestep, 0.0)
         max_over = max(max_over, float(over_t.max()))
         if over_t.max() >= ov_dur:
@@ -225,6 +229,10 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         "stop_hit_cycle_fraction": len(stop_cycles) / max(1, math.ceil(cycles)),
         "stop_hit_step_fraction": stop_steps / max(1, k),
         "max_time_at_cap_s": max_over,
+        # Fraction of time any joint (and each joint) sits at >= overload
+        # fraction of the torque cap (Fahad 2026-10-16, torque-cap check).
+        "frac_time_any_joint_at_cap": cap_steps / max(1, k),
+        "frac_time_at_cap_per_joint": (cap_steps_joint / max(1, k)).tolist(),
         "torque_mean_Nm": float(tq.mean()),
         "torque_p95_Nm": float(np.percentile(tq, 95)),
         "torque_peak_Nm": float(tq.max()),
