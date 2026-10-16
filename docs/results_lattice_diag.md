@@ -116,3 +116,73 @@ over the cycle).
   is the one used. Add a test that body–post friction changes with the
   config.
 - Re-run (a)–(c) after both fixes, before any pilot.
+
+---
+
+## Re-run after both fixes: run `20261016T190405Z_c61d84c` (mechanics check only)
+
+Both fixes applied (commit before `c61d84c`): start pose aimed by the body
+axis, and posts given contact priority with body–post μ = 0.4 (placeholder,
+Fahad). **Joint stiffness is still the placeholder 0.02 N·m/rad, so the G
+ranking below is not interpreted** (Fahad 2026-10-16).
+
+**(b) Start pose fixed.** For sparse, medium and dense (50 seeds each):
+- 0 starts in contact with a post;
+- maximum initial penetration 0;
+- the body's front-most point exactly at −0.05 m.
+
+Tests: `tests/test_trial.py`. The planted old placement produces overlaps.
+
+**(a) Open floor: the seeds now agree.**
+
+| Gait, G | com_dx_per_cycle_m (seeds 1, 2, 3) | stop-hit cycle fraction | torque peak |
+|---|---|---|---|
+| medium gait, 0 | 0.1367, 0.1316, 0.1268 | 0 | 0.091 |
+| medium gait, 0.75 | 0.0875, 0.0879, 0.0826 | 0.86 | **0.2 (cap)** |
+| medium gait, 1.0 | 0.0837, 0.0859, 0.0815 | 0.86 | 0.2 |
+| open gait, 0 | 0.1113, 0.1102, 0.1094 | 0 | 0.07 |
+| open gait, 0.75 | 0.0668, 0.0668, 0.0669 | 0 | **0.2** |
+| open gait, 1.0 | 0.0602, 0.0598, 0.0600 | 0 | 0.2 |
+
+**(c) Medium lattice (μ_post = 0.4).**
+
+| G | com_dx_per_cycle_m | outcome | collisions (6 cycles) | stop-hit cycle fraction |
+|---|---|---|---|---|
+| 0 | 0.1266, 0.0401, 0.0775 | **overload**, timeout, **overload** | 3, 21, 10 | 0 |
+| 0.75 | 0.0008, 0.0213, 0.0205 | timeout ×3 | 41, 26, 35 | 0.86 |
+| 1.0 | −0.0013, 0.0195, 0.0210 | timeout ×3 | 27, 18, 21 | 0.86 |
+
+The G = 0 seed-1 overload ended within the first cycle. That row reports
+`torque_peak_Nm` = 0.0 only because torques are logged from cycle 1 onwards.
+**This is a reporting gap: torques must be logged from t = 0** (to fix).
+
+**(d) Post friction now acts.**
+
+| G | μ_post = 0 | μ_post = 0.4 |
+|---|---|---|
+| 0 | 0.1407, **0.3129**, 0.0839 | 0.1266, 0.0401, 0.0775 |
+| 0.75 | 0.0041, 0.0233, 0.0208 | 0.0008, 0.0213, 0.0205 |
+
+Tests: `tests/test_trial.py`. Removing the post priority makes μ = 0.05 and
+0.8 give identical results.
+
+**(e) Wavelength-to-spacing ratio, both definitions** (gait unchanged).
+
+| Density | projected wavelength / spacing | arc-length (L/ξ) wavelength / spacing | paper (p. 36) |
+|---|---|---|---|
+| sparse | 1.51 | **2.25** | ~2 |
+| medium | **2.35** | 4.83 | ~2.2 |
+| dense | **1.81** | 3.24 | ~1.8 |
+
+Neither definition matches all three densities. Projected wavelength matches
+medium and dense; arc-length matches sparse best. The paper's definition
+stays UNKNOWN. **No gait change** (Fahad).
+
+## Mechanics observations (not interpretations of G)
+
+- **The torque cap is reached** in every compliant setting, even on open
+  floor (G ≥ 0.75, both gaits). In the lattice, two of three G = 0 trials
+  ended in overload (≥ 1 s at the 0.2 N·m cap).
+- With the medium-lattice gait (A = 59.5°), tail joints reach the 90° stops
+  in 86% of cycles at G ≥ 0.75 under the placeholder stiffness. This is to be
+  re-checked with the digitized stiffness.

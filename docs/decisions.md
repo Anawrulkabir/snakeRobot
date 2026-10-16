@@ -332,3 +332,38 @@ information per trial than a pass/fail outcome.
   spread of distances, which the pilot will show.
 - AquaMILR also used distance travelled, as start-to-end Euclidean distance
   with a survival curve (AquaMILR p. 4).
+
+---
+
+## Lattice bug fixes, body–post friction (2026-10-16)
+
+**Fixes approved (Fahad):**
+- The start pose aims the body axis and places the body's front-most point
+  before the lattice.
+- Posts get contact priority, so the configured friction is used.
+- Tests with planted faults for both.
+
+**Body–post friction (Fahad):** use the paper's value if given. It is not
+(`paper_notes.md` §6), so **0.4** is used as a placeholder (PLA on PVC or
+wood), and it is added to the E4 sweep.
+
+---
+
+## E1 primary metric changed again, before the pilot (2026-10-16)
+
+**Previous (logged earlier the same day):** distance reached at the time
+limit; equivalence = paired-difference CI within ±0.25 body lengths.
+
+**New (Fahad, pre-registered before any pilot data):**
+- **Primary:** mean **progress rate** = forward displacement ÷ cycles elapsed
+  at trial end, whether the trial ends at the finish, by jam termination or
+  at timeout.
+- **Equivalence:** the 95% CI of the paired difference (best condition minus
+  best one-spool condition) lies within **±15% of the best condition's mean
+  rate.**
+- **Secondary:** success rate at 20/30/40 cycles, and **survival curves**
+  (fraction of trials still progressing vs distance), as in AquaMILR
+  Fig. 4A (p. 4).
+
+**Why (Fahad):** distance was censored at the finish line. A rate per elapsed
+cycle is defined for every trial, however it ended.

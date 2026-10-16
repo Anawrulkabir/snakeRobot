@@ -13,6 +13,7 @@ came from.
 | **Load distribution** | `body.vertical_compliance`, `body.vertical_stiffness`, `body.vertical_damping` | Rigid plane vs vertical slide changed displacement per cycle by about −44% (`results_E0.md`). Added by Fahad 2026-10-16 |
 | **Compliance ranking vs contact softness** | `ground.contact_timeconst` 0.02 vs 0.04 s | E1 conclusions are rankings; check that the ranking survives the contact model (Fahad 2026-10-16) |
 | **Passive joint stiffness (sleeve)** | `joint.stiffness` | 0 → 25% of stall at 45° moved disp/cycle at G = 0.75 from 0.0577 to 0.1018 m and removed tail joint-stop collapse (run `20261016T181938Z_a84cc70`); paper value UNKNOWN |
+| **Body–post friction** | `arena.yaml` lattice.post_friction | Placeholder 0.4; the paper gives none (Fahad 2026-10-16). It does change outcomes (μ 0 vs 0.4: 0.313 vs 0.040 m/cycle in one G = 0 trial, run `20261016T190405Z_c61d84c`) |
 | Sliding friction μ | `ground.friction_sliding` | Placeholder, UNKNOWN (paper gives only the ratio) |
 | Segment mass | `mass.*` | CLAUDE.md §6 E4 |
 | Cable stiffness | (implementation B) | CLAUDE.md §6 E4 |
@@ -25,6 +26,7 @@ came from.
 | Weigh each part (servo, shell, wheel set, electronics) | `mass.*` placeholders | G3 (Fahad) |
 | Drag test: pull a segment forward, then sideways, and record the force | `scripts/drag_test.py` ratio | G3 (Fahad) |
 | **Per-wheel load** of the assembled robot (e.g. a kitchen scale under one wheel at a time) | load model: rigid plane vs vertical slide (`results_E0.md`) | Added by Fahad 2026-10-16 |
+| **Servo torque sufficiency: the 0.2 N·m assumed stall is reached in the lattice and on open floor in simulation.** Confirm the real servo's stall torque, and consider a higher-torque servo (G7) | `servo.stall_torque` | Fahad 2026-10-16 (hardware risk) |
 | **A restoring element (sleeve or elastic) is required.** Measure the joint restoring torque vs angle with the cables slack | `joint.stiffness`, `joint.damping` | Fahad 2026-10-16, after the milestone 3 joint-stop finding (`results_M3.md`) |
 | Servo stall torque and speed of the model actually bought | `servo.*` | CLAUDE.md §13, before G7 |
 
@@ -37,6 +39,13 @@ came from.
   from the servo's response, and the unfiltered values reported alongside.
   (Fahad 2026-10-16)
 - **Confirm the peaks at a 0.5 ms timestep.** (Fahad 2026-10-16)
+- **Torque sufficiency is a hardware risk (Fahad 2026-10-16).** The servos hit
+  the 0.2 N·m cap in every compliant setting, even on open floor, and G = 0
+  trials overloaded in the medium lattice (run `20261016T190405Z_c61d84c`).
+  E2 must state how often and for how long each joint sits at the cap, not
+  only peaks.
+- Log torques from t = 0. They are currently logged from cycle 1, so a trial
+  that overloads in its first cycle reports a peak of 0.
 
 ## E1 method notes
 
@@ -47,8 +56,15 @@ came from.
   (Fahad 2026-10-16).
 - Conditions: the paper's G sweep (0–1.5) plus the tight-spool law, at
   every density (`g4_options.md` §4).
-- Decision rule: 95% CI of the success-rate difference (best condition minus
-  best one-spool condition); equivalence margin ±10 pp (`decisions.md` G4).
+- **Paired design** (same seeds and poses across G).
+  - Primary metric: **progress rate** (forward displacement ÷ cycles elapsed
+    at trial end).
+  - Equivalence: the paired-difference 95% CI lies within ±15% of the best
+    condition's mean rate.
+  - Secondary: success at 20/30/40 cycles, and survival curves vs distance
+    (`decisions.md`, 2026-10-16). Supersedes the G4 success-rate rule.
+- Pilot: 20 paired trials, medium density. Then compute the trial count for
+  the CI to fit the margin, and the compute estimate, **before** E1.
 - Log joint-stop contacts; report if stops are hit in more than ~5% of
   cycles.
 - Validation: a 7-joint paper-matched model at one density, full G sweep.

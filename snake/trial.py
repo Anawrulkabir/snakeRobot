@@ -186,8 +186,7 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
             t_log.append(d.time)
             com_log.append(cxy)
             max_lat = max(max_lat, abs(cxy[1]))
-            if d.time > period:
-                torques.append(np.abs(d.actuator_force).copy())
+            torques.append(np.abs(d.actuator_force).copy())   # from t = 0 (diag run c61d84c)
             # Displacement over the last cycle -> jam flag and stuck termination.
             if d.time >= period:
                 tt = np.array(t_log)

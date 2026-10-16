@@ -290,3 +290,18 @@ should not run until this is chosen.
 - E1 redesign logged in `decisions.md`: paired design; distance primary;
   0.25 L margin; medium pilot. With notes on censoring at the finish line and
   on the margin.
+
+### 2026-10-16: lattice bugs fixed; diagnosis re-run; metric pre-registered
+- Start pose and post friction fixed, each with a test and a planted fault
+  (`tests/test_trial.py`). Body–post μ = 0.4, placeholder.
+- Re-run `20261016T190405Z_c61d84c` (`results_lattice_diag.md`): starts
+  clean; post friction acts; seeds consistent.
+  - Torque cap reached in all compliant settings.
+  - Overloads at G = 0 in the medium lattice.
+  - Mechanics check only: stiffness is still a placeholder.
+- Torques are now logged from t = 0.
+- E1 primary metric changed to progress rate, ±15% equivalence, survival
+  curves (`decisions.md`). Torque sufficiency flagged as a hardware risk
+  (`open_lists.md`).
+- Waiting for the Fig. 5A CSVs. Then: stiffness estimate → medium pilot (20
+  paired trials) → trial-count and compute estimate → E1.
