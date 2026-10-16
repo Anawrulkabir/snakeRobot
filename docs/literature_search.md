@@ -89,3 +89,101 @@ titles were read.
 - **E1b:** no study of passive body stiffness found yet among the Goldman-lab
   papers. Still conditional on reading the four full texts and the two
   papers above.
+
+---
+
+## 2026-10-16 (3): the four Goldman-lab full texts, read
+
+Fahad attached the PDFs to the chat; they are not committed (licensing).
+Page numbers are PDF pages.
+
+### AquaMILR: Wang, Mankame, Fernandez, Kojouharov, Goldman, ICRA 2025, arXiv 2407.01733v2
+
+- **Robot.** 66 cm, 5 bending joints, Dynamixel 2XL430-W250-T, untethered
+  (p. 2). Waterproofed in a "tube-shaped polyethylene plastic sleeve"; no
+  stiffness given (p. 2).
+- **Same Eq. 3 law, l0 = 0.73 mm/degree** (p. 3). Fully passive at G = 1.75
+  (p. 3).
+- **Lattice.** 9 cm PVC posts on a **triangular grid with 25 cm spacing**,
+  2 m × 2 m (p. 3). Trials start at "a randomly selected position and
+  orientation", and end when jammed or through. **Distance travelled is the
+  Euclidean start-to-end distance**, and results are plotted as a
+  **survival function vs distance travelled** (Fig. 4A, p. 4). This bears on
+  Fahad's new primary metric.
+- **Quasi-static.** "In the terradynamic regime, locomotion can be assumed
+  quasi-static, making performance insensitive to undulation frequency"
+  (p. 5). This is a claim about the lab's terrestrial robot, not a
+  measurement.
+- **Result.** Mid-range G is best in water: G = 1 traversed in all trials;
+  G < 0.75 jammed, G > 1 lost propulsion (p. 4).
+- **E3-relevant, Eq. 4 (p. 5):**
+  G_i(τ) = 1 + 0.2σ(τ_i − 0.3T) + 0.2σ(τ_i − 0.5T) + 0.2σ(τ_i − 0.7T),
+  with σ the unit step and T = 1.4 N·m stall. "Once an increase takes place,
+  the increased G value will be maintained for 0.5 seconds or until the
+  sensed torque drops below the thresholds" (p. 5). Decentralized (per
+  joint), with torque estimated from the servo (p. 5). In a random lattice
+  at 0.15 Hz: "a 100% successful traverse rate" (p. 5).
+  **Fahad's reading: confirmed.**
+
+### AquaMILR+: Fernandez, Wang, Tunnicliffe, Dortilus, Gunnarson, Dabiri, Goldman, ICRA 2025, arXiv 2409.18383v1
+
+- 1 m body, 4 modules and 3 joints. "Single Module: 0.68 kg", "Full 4 Module
+  Robot: 6.15 kg" (Table I, p. 2).
+- Same Eq. 3 law; l0 is referred to [15] (Wang 2023), no value given (p. 4).
+- **Passive inter-module element:** "8.9-cm-diameter PVC flex-duct
+  ventilation tubing", 15 cm long, with "spring steel reinforcement", chosen
+  for extensibility and constant volume (pp. 2–3). **No stiffness reported.**
+- No compliance-tuning controller.
+
+### Three-dimensional hydro-cluttered locomotion: Wang et al. 2026, arXiv 2606.06829v1
+
+- **l0 = 0.6 mm/deg**: "This value provided sufficient slack to create
+  measurable passive joint freedom while maintaining reliable cable
+  engagement" (Supplementary Text, p. 42).
+- **Obstacle compliance, not body stiffness.** It varies the *environment*:
+  "open water, floating obstacles, elastic beams, deflecting rigid posts"
+  and static rigid posts (pp. 13, 16). It reports "the stiffer the posts, the
+  more stable the reaction forces they provide" (p. 15). The robot's own
+  passive stiffness is **not** varied or reported. Body compliance is varied
+  only through G (pp. 7–9). The modules have a "waterproof flexible
+  connection" (p. 7); no stiffness given.
+- **Inertia-induced rolling** as a jam-recovery mechanism (abstract, pp. 20–21):
+  aquatic, not applicable to our planar robot.
+
+### Morphing MILR: Dortilus, Wang, Tunnicliffe, Fernandez, Goldman, 2026, arXiv 2607.19714v1
+
+- "70 cm Length", "6.5 cm Diameter", "Single Module: 0.25 kg", "Full
+  6 Module Robot: 1.5 kg" (spec table, p. 2).
+- Bending joint "up to 70 degrees, limited by module self collision" (p. 2).
+- Same Eq. 3 law; l0 "derivation and parameter selection comes from [34]"
+  (p. 3), no value given. "We only keep compliance active during obstacle…"
+  (p. 3): compliance is used selectively.
+- In an obstacle field, "the majority of successful runs occurred with G = 1",
+  over 20 trials (p. 5).
+- No passive body stiffness reported; no compliance-tuning controller.
+
+### Checks against Fahad's points
+
+| Fahad's point | Result |
+|---|---|
+| 1. AquaMILR Eq. 4: torque-threshold G controller, G = 1 baseline, +0.2 at 30/50/70% stall, 0.5 s hold | **Confirmed** (p. 5). The hold also ends early if the torque drops below the threshold |
+| 2. None of the four reports passive body/sleeve stiffness | **Confirmed.** AquaMILR+ does have a passive inter-module element (spring-steel flex duct, pp. 2–3) and the 3-D paper a "flexible connection" (p. 7), but neither gives a value |
+| 2. The 3-D paper varies obstacle compliance, not body passive stiffness | **Confirmed** (pp. 13–16) |
+| 4. Morphing MILR: 70 cm, 6 modules, 0.25 kg/module, 70° limit | **Confirmed** (p. 2) |
+| 4. l0 = 0.6 mm/deg | **Confirmed, but it is from the 3-D paper** (Supplementary Text, p. 42), not Morphing MILR. AquaMILR uses 0.73 (p. 3) |
+
+### Updated consequences
+
+- **E1b:** no Goldman-lab paper among these reports or varies passive body
+  stiffness. Two passive inter-module elements exist without values. Fu & Li
+  2020 (body compliance and roll stability), Ha 2023 and Incekara 2025 (not
+  read beyond the title) remain to be checked. **E1b is not called an
+  extension** until those are read.
+- **E3:** AquaMILR Eq. 4 is a direct precedent: a per-joint torque-threshold
+  G controller, in water. Also related: Wang et al. ACC 2020 (directional
+  compliance from joint forces in a peg array) and Travers et al. RSS 2016.
+  E3 is framed as a terrestrial-lattice test of compliance tuning with
+  hobby-servo signals. **No novelty claim.**
+- **Justus & Hatton,** "Optimal gaits for inertia-dominated swimmers with
+  passive elastic joints", Phys. Rev. E 109, 034602 (2024), is reference [29]
+  of AquaMILR (p. 7). Not yet located in OpenAlex; Fahad to supply it.

@@ -252,13 +252,14 @@ missing from the supplement too. Only the authors could fill them in (§13 item 
 
 ## 8. Comparison points from later Goldman-lab robots (added 2026-10-16)
 
-**Source:** Fahad's reading of the 2024–2026 papers. **Not yet verified by
-Claude**: the PDFs are not in the container (`literature_search.md`). Used
-only as reference points and bounds, never as model inputs.
+**Source:** the 2024–2026 papers, read in full by Claude on 2026-10-16
+(`literature_search.md`, part 3). Used only as reference points and bounds,
+never as model inputs.
 
 | Quantity | Wang 2023 (this paper) | Later robot | Note |
 |---|---|---|---|
-| l0 (slack rate) | 0.73 mm/deg (p. 57) | 0.6 mm/deg (Fahad; which paper is to be confirmed) | Ours: 0.5214 mm/deg (scaled by R, G4) |
-| Body | 86 cm, 7 joints (p. 10) | Morphing MILR: 70 cm, 6 modules (Fahad) | Ours: 70 cm, 7 segments, 6 joints |
-| Module mass | UNKNOWN; estimated 149–218 g from components (`data/paper_segment_mass_estimate.yaml`) | Morphing MILR: 0.25 kg per module (Fahad) | Used only as a **bound** on the estimate (Fahad 2026-10-16) |
-| Joint limit | ±90° (p. 54) | Morphing MILR: 70° (Fahad) | Ours: ±90° |
+| l0 (slack rate) | 0.73 mm/deg (p. 57) | AquaMILR 0.73 mm/deg (p. 3); 3-D hydro-cluttered 0.6 mm/deg (Supp. Text, p. 42) | Ours: 0.5214 mm/deg (scaled by R, G4) |
+| Body | 86 cm, 7 joints (p. 10) | Morphing MILR: 70 cm, 6 modules, 6.5 cm diameter (p. 2); AquaMILR: 66 cm, 5 joints (p. 2) | Ours: 70 cm, 7 segments, 6 joints |
+| Module mass | UNKNOWN; estimated 149–218 g from components (`data/paper_segment_mass_estimate.yaml`) | Morphing MILR 0.25 kg per module (p. 2); AquaMILR+ 0.68 kg per module (p. 2, aquatic, heavier build) | Used only as **bounds** on the estimate (Fahad 2026-10-16) |
+| Joint limit | ±90° (p. 54) | Morphing MILR: up to 70°, limited by self-collision (p. 2) | Ours: ±90° |
+| Lattice | L/d only (p. 8) | AquaMILR: 9 cm posts, triangular grid, 25 cm spacing (p. 3) | Ours: hexagonal (proposal) |
