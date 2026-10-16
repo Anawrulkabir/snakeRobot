@@ -100,10 +100,13 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
     det_N, det_tilt, det_fr, det_fa = [], [], [], []
     f6 = np.zeros(6)
     stop_cycles, stop_steps = set(), 0
+    stop_steps_per_joint = np.zeros(nj)
     for k in range(steps):
         control(d)
         mujoco.mj_step(m, d)
-        if np.any(np.abs(d.qpos[jq]) >= hard - STOP_TOL):
+        on_stop = np.abs(d.qpos[jq]) >= hard - STOP_TOL
+        if np.any(on_stop):
+            stop_steps_per_joint += on_stop
             stop_steps += 1
             stop_cycles.add(int(d.time * freq))
         if not np.all(np.isfinite(d.qpos)):
@@ -158,6 +161,7 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
         # reached its mechanical stop, and fraction of steps.
         "stop_hit_cycle_fraction": len(stop_cycles) / n_cycles,
         "stop_hit_step_fraction": stop_steps / steps,
+        "stop_step_fraction_per_joint": (stop_steps_per_joint / steps).tolist(),
         "wheel_detail": None if detail_t0 is None else {
             "normal": np.array(det_N), "tilt_deg": np.array(det_tilt),
             "f_roll": np.array(det_fr), "f_axle": np.array(det_fa)},

@@ -1,0 +1,104 @@
+{
+  "per_G": {
+    "0.0": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.1141284949410085,
+        "ci95_half": 0.0014531051756750256
+      },
+      "jammed_trials": 0,
+      "stop_hit_cycle_fraction_max": 0.0,
+      "stop_warning": false,
+      "max_deviation_from_suggested_deg": 0.279810660412417,
+      "torque_peak_Nm": 0.055408728496012194,
+      "wheel_airborne_fraction": 0.13122123015873013
+    },
+    "0.25": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.05229704700450403,
+        "ci95_half": 0.001119845872063374
+      },
+      "jammed_trials": 0,
+      "stop_hit_cycle_fraction_max": 1.0,
+      "stop_warning": true,
+      "max_deviation_from_suggested_deg": 47.124165025334904,
+      "torque_peak_Nm": 0.2,
+      "wheel_airborne_fraction": 0.13962698412698413
+    },
+    "0.5": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.05472152893340496,
+        "ci95_half": 0.0017743683837862833
+      },
+      "jammed_trials": 0,
+      "stop_hit_cycle_fraction_max": 1.0,
+      "stop_warning": true,
+      "max_deviation_from_suggested_deg": 58.259764844854516,
+      "torque_peak_Nm": 0.2,
+      "wheel_airborne_fraction": 0.12818948412698414
+    },
+    "0.75": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.057703618471625064,
+        "ci95_half": 0.0014776711980901609
+      },
+      "jammed_trials": 0,
+      "stop_hit_cycle_fraction_max": 1.0,
+      "stop_warning": true,
+      "max_deviation_from_suggested_deg": 65.25303282953527,
+      "torque_peak_Nm": 0.2,
+      "wheel_airborne_fraction": 0.12499007936507937
+    },
+    "1.0": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.05574594235835526,
+        "ci95_half": 0.002829411984243321
+      },
+      "jammed_trials": 0,
+      "stop_hit_cycle_fraction_max": 1.0,
+      "stop_warning": true,
+      "max_deviation_from_suggested_deg": 69.07218233947218,
+      "torque_peak_Nm": 0.2,
+      "wheel_airborne_fraction": 0.11961706349206351
+    },
+    "1.25": {
+      "forward_disp_per_cycle_m": {
+        "mean": 0.008932783158726232,
+        "ci95_half": 0.000610968963081366
+      },
+      "jammed_trials": 2,
+      "stop_hit_cycle_fraction_max": 1.0,
+      "stop_warning": true,
+      "max_deviation_from_suggested_deg": 95.91317235346645,
+      "torque_peak_Nm": 0.2,
+      "wheel_airborne_fraction": 0.03197519841269841
+    },
+    "1.5": {
+      "forward_disp_per_cycle_m": {
+        "mean": -0.000742535616363495,
+        "ci95_half": 0.0007314700624284887
+      },
+      "jammed_trials": 3,
+      "stop_hit_cycle_fraction_max": 0.0,
+      "stop_warning": false,
+      "max_deviation_from_suggested_deg": 106.11968542107336,
+      "torque_peak_Nm": 0.08788507818417662,
+      "wheel_airborne_fraction": 0.002998015873015873
+    }
+  },
+  "timestep_check_G0.75": {
+    "2000": 0.013088400978019221,
+    "2001": 0.01819922916612593,
+    "2002": 0.03483774041336973
+  },
+  "seeds": [
+    2000,
+    2001,
+    2002
+  ],
+  "gait": {
+    "amplitude_deg": 53.666667,
+    "spatial_freq": 0.82,
+    "temporal_freq": 0.125
+  },
+  "stop_warning_threshold": 0.05
+}
