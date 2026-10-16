@@ -29,18 +29,18 @@ lattice:
     source: proposal
     note: "wide enough that the robot does not leave the lattice sideways within 40 cycles (checked per trial: max |lateral excursion| is logged)"
   post_friction:
-    value: 0.3
+    value: 0.4
     source: placeholder
-    note: "Coulomb mu between body (capsule/sleeve) and post. UNKNOWN (paper_notes 6)"
+    note: "Coulomb mu between body and post. The paper gives none (sleeve on PVC caps, paper_notes 6). Fahad 2026-10-16: 0.4 as a PLA-on-PVC/wood placeholder; on the E4 sweep"
 start:
   head_x_m:
     value: -0.05
     source: proposal
-    note: "head starts 5 cm before the lattice front (x = 0); body trails behind, so the initial shape never overlaps a post"
+    note: "the body's front-most surface point starts at this x, 5 cm before the lattice front (x = 0). The body's tail-to-head axis points along the heading (snake/trial.py place_body)"
   heading_noise_deg:
     value: 15
     source: proposal
-    note: "initial heading uniform in +-15 deg about +x (towards the lattice)"
+    note: "the body axis (tail pin to head pin) starts uniform in +-15 deg about +x (towards the lattice)"
   lateral_offset:
     value: half_spacing
     source: proposal

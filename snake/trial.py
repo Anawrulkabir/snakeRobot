@@ -25,6 +25,41 @@ LOG_DT = 0.01
 STOP_TOL = math.radians(0.25)
 
 
+def body_front_x(m, d, c):
+    """Largest x reached by any body capsule (its surface, not its centre)."""
+    r = c["body"]["segment_width"] / 2
+    front = -np.inf
+    for i in range(c["body"]["n_segments"]):
+        g = m.geom(f"seg{i}_body").id
+        half = m.geom_size[g][1]
+        zax = d.geom_xmat[g].reshape(3, 3)[:, 2]
+        front = max(front, d.geom_xpos[g][0] + abs(zax[0]) * half + r)
+    return float(front)
+
+
+def place_body(m, d, c, angles, jq, heading, front_x, y0):
+    """Start pose (fix for the lattice diagnosis start-pose bug).
+
+    Joints take the commanded shape. The whole body is then rotated so its
+    tail-to-head axis (tail pin to head pin) points along `heading`, and
+    translated so its front-most surface point is at x = front_x, with the
+    head pin at y = y0. Earlier the *head segment's* yaw was set to the
+    heading, and the body could curl into the lattice or point away from it.
+    """
+    n = c["body"]["n_segments"]
+    rx, ry, ryaw = (m.joint(nm).qposadr[0] for nm in ("root_x", "root_y", "root_yaw"))
+    d.qpos[jq] = angles
+    d.qpos[[rx, ry, ryaw]] = 0.0
+    mujoco.mj_forward(m, d)
+    head, tail = d.xpos[m.body("seg0").id][:2], d.xpos[m.body(f"seg{n - 1}").id][:2]
+    axis_angle = math.atan2(*(head - tail)[::-1])
+    d.qpos[ryaw] = heading - axis_angle
+    mujoco.mj_forward(m, d)
+    d.qpos[rx] += front_x - body_front_x(m, d, c)
+    d.qpos[ry] = y0
+    mujoco.mj_forward(m, d)
+
+
 def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, freq, law, G, seed,
                       timestep=None):
     c = copy.deepcopy(cfg)
@@ -57,11 +92,7 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     def command(t):
         return serpenoid(t, A, spatial_freq, freq, nj, phase)
 
-    d.qpos[m.joint("root_x").qposadr[0]] = st["head_x_m"]
-    d.qpos[m.joint("root_y").qposadr[0]] = y0
-    d.qpos[m.joint("root_yaw").qposadr[0]] = heading
-    d.qpos[jq] = command(0.0)
-    mujoco.mj_forward(m, d)
+    place_body(m, d, c, command(0.0), jq, heading, st["head_x_m"], y0)
 
     # Initial-state checks: no body may start touching or inside a post.
     init_contacts, init_pen = 0, 0.0
@@ -70,9 +101,10 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         if con.geom1 in post_geom_set or con.geom2 in post_geom_set:
             init_contacts += 1
             init_pen = max(init_pen, -con.dist)
-    body_geoms = [m.geom(f"seg{i}_body").id for i in range(c["body"]["n_segments"])]
-    init_front_x = max(float(d.geom_xpos[g][0]) + c["body"]["segment_width"] / 2
-                       + c["body"]["case_length"] / 2 for g in body_geoms)
+    init_front_x = body_front_x(m, d, c)
+    n_ = c["body"]["n_segments"]
+    ax = d.xpos[m.body("seg0").id][:2] - d.xpos[m.body(f"seg{n_ - 1}").id][:2]
+    init_axis_deg = math.degrees(math.atan2(ax[1], ax[0]))
 
     seg_ids = [m.body(f"seg{i}").id for i in range(n)]
     seg_mass = m.body_mass[seg_ids]
@@ -201,5 +233,6 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         "head_x_per_cycle_m": head_x_cycles,
         "initial_post_contacts": init_contacts,
         "initial_max_penetration_m": init_pen,
-        "initial_body_front_x_upper_bound_m": init_front_x,
+        "initial_body_front_x_m": init_front_x,
+        "initial_body_axis_deg": init_axis_deg,
     }

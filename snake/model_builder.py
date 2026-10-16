@@ -125,7 +125,12 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
         for k, (px, py) in enumerate(posts):
             ET.SubElement(world, "geom", name=f"post{k}", type="cylinder",
                           size=_fmt(post_radius, post_height / 2), pos=_fmt(px, py, post_height / 2),
-                          friction=_fmt(post_friction, 0.005, 0.0001), rgba="0.95 0.95 0.95 1", **POST)
+                          friction=_fmt(post_friction, 0.005, 0.0001), priority="2",
+                          rgba="0.95 0.95 0.95 1", **POST)
+            # priority="2": the post's friction is used for body-post contacts.
+            # Without it MuJoCo takes the larger of the two geoms' values, and
+            # the capsules' default 1.0 overrode the configured value
+            # (lattice diagnosis, run 20261016T185419Z_91e48fc).
 
     seg_len = b["case_length"]                          # case, face to face
     x_mid = -p / 2

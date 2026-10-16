@@ -1,4 +1,8 @@
-"""Lattice failure diagnosis (Fahad 2026-10-16), steps (a)-(e). Report only, no fixes.
+"""Lattice failure diagnosis (Fahad 2026-10-16), steps (a)-(e).
+
+Run 1 (20261016T185419Z_91e48fc) found the start-pose and post-friction bugs.
+Run 2 repeats it after both fixes, as a mechanics check only. The joint
+stiffness is still a placeholder, so the G ranking is not to be interpreted.
 
 The first lattice smoke trial (medium, G = 0.75, A = 59.5 deg, xi = 0.58,
 joint stiffness 0.02 N m/rad, 40 cycles) ended with the head still at the
@@ -89,7 +93,7 @@ def main():
     # (c) medium lattice
     for G in (0.0, 0.75, 1.0):
         jobs += [("c_medium", "medium", "medium", G, s, None) for s in SEEDS]
-    # (d) frictionless posts
+    # (d) frictionless posts vs the configured 0.4 (c), to show the friction now acts
     for G in (0.0, 0.75):
         jobs += [("d_medium_postmu0", "medium", "medium", G, s, 0.0) for s in SEEDS]
     with Pool() as pool:
@@ -105,7 +109,7 @@ def main():
         init[dn] = {"seeds": 50,
                     "trials_with_initial_post_contact": sum(r["initial_post_contacts"] > 0 for r in stats),
                     "max_initial_penetration_m": max(r["initial_max_penetration_m"] for r in stats),
-                    "max_initial_body_front_x_m": max(r["initial_body_front_x_upper_bound_m"] for r in stats)}
+                    "max_initial_body_front_x_m": max(r["initial_body_front_x_m"] for r in stats)}
 
     # (e) wave geometry vs lattice gaps
     geo = {}
@@ -119,6 +123,9 @@ def main():
                    "gap_m": None if d is None else d - arena["lattice"]["post_diameter_m"],
                    "body_width_m": cfg["body"]["segment_width"],
                    "wavelength_over_spacing": None if d is None else (ax_len / xi) / d,
+                   # Arc length: L / xi along the body (Fahad 2026-10-16: report both).
+                   "arc_wavelength_m": L / xi,
+                   "arc_wavelength_over_spacing": None if d is None else (L / xi) / d,
                    "paper_wavelength_over_spacing": {"sparse": 2.0, "medium": 2.2, "dense": 1.8}.get(dn)}
 
     cells = {}
