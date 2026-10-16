@@ -1,0 +1,47 @@
+{
+  "yaw_rate_rad_per_s": 1.0,
+  "meaningful_threshold": 0.05,
+  "rows": [
+    {
+      "segment": "head",
+      "pivot": "pin",
+      "torsional_friction_m": 0.0,
+      "yaw_torque_Nm": 0.01842193221412385,
+      "yaw_torque_without_torsion_Nm": 0.01842193221412385,
+      "torsion_share": 0.0,
+      "torsion_model_prediction_Nm": 0.0,
+      "servo_stall_torque_Nm": 0.2
+    },
+    {
+      "segment": "head",
+      "pivot": "wheel",
+      "torsional_friction_m": 0.0,
+      "yaw_torque_Nm": 0.0010767818020031913,
+      "yaw_torque_without_torsion_Nm": 0.0010767818020031913,
+      "torsion_share": 0.0,
+      "torsion_model_prediction_Nm": 0.0,
+      "servo_stall_torque_Nm": 0.2
+    },
+    {
+      "segment": "body",
+      "pivot": "pin",
+      "torsional_friction_m": 0.0,
+      "yaw_torque_Nm": 0.009437635572842704,
+      "yaw_torque_without_torsion_Nm": 0.009437635572842704,
+      "torsion_share": 0.0,
+      "torsion_model_prediction_Nm": 0.0,
+      "servo_stall_torque_Nm": 0.2
+    },
+    {
+      "segment": "body",
+      "pivot": "wheel",
+      "torsional_friction_m": 0.0,
+      "yaw_torque_Nm": 0.0005510070170811403,
+      "yaw_torque_without_torsion_Nm": 0.0005510070170811403,
+      "torsion_share": 0.0,
+      "torsion_model_prediction_Nm": 0.0,
+      "servo_stall_torque_Nm": 0.2
+    }
+  ],
+  "meaningful": false
+}
