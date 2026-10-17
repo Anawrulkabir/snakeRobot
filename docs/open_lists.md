@@ -29,6 +29,7 @@ came from.
 | **Per-wheel load** of the assembled robot (e.g. a kitchen scale under one wheel at a time) | load model: rigid plane vs vertical slide (`results_E0.md`) | Added by Fahad 2026-10-16 |
 | **Servo torque sufficiency: the 0.2 N·m assumed stall is reached in the lattice and on open floor in simulation.** Confirm the real servo's stall torque, and consider a higher-torque servo (G7) | `servo.stall_torque` | Fahad 2026-10-16 (hardware risk) |
 | **A restoring element (sleeve or elastic) is required.** Measure the joint restoring torque vs angle with the cables slack | `joint.stiffness`, `joint.damping` | Fahad 2026-10-16, after the milestone 3 joint-stop finding (`results_M3.md`) |
+| **Servo power supply:** about 800 mA peak per servo, so 5–10 A total for 6–12 servos. Size the battery, regulator and wiring for that (Fahad 2026-10-17). The shop warns against continuous stall, which supports the 1 s overload rule in `metrics.yaml` | power electronics | Fahad 2026-10-17 |
 | Servo stall torque and speed of the model actually bought | `servo.*` | CLAUDE.md §13, before G7 |
 
 ## E2 method notes (to apply when E2 runs)
