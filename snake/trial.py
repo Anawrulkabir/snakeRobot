@@ -62,9 +62,13 @@ def place_body(m, d, c, angles, jq, heading, front_x, y0):
 
 
 def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, freq, law, G, seed,
-                      timestep=None, diag=False):
+                      timestep=None, diag=False, record=None):
     """diag=True adds 'overload_diag' (what the overloading joint was doing
-    over the overload window). Logging only; the dynamics are unchanged."""
+    over the overload window). record: a dict, filled with the model, the posts
+    and one frame per log step (segment capsules, joint anchors, commanded
+    angles, joints at the cap or on a stop, full qpos) for
+    scripts/animate_trial.py and scripts/render_trial_3d.py. Both are
+    logging only; the dynamics are unchanged."""
     c = copy.deepcopy(cfg)
     if timestep is not None:
         c["sim"]["timestep"] = timestep
@@ -112,6 +116,12 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     seg_ids = [m.body(f"seg{i}").id for i in range(n)]
     seg_mass = m.body_mass[seg_ids]
     tip = m.site("head_tip").id
+    if record is not None:
+        seg_geoms = [m.geom(f"seg{i}_body").id for i in range(n)]
+        jids = [m.joint(f"j{i}").id for i in range(1, nj + 1)]
+        record.update(posts=np.asarray(posts).tolist(), post_radius=lat["post_diameter_m"] / 2,
+                      capsule_radius=c["body"]["segment_width"] / 2, segment_pitch=c["body"]["segment_pitch"],
+                      finish_x=lat["length_m"], period_s=1.0 / freq, frames=[], model=m)
     post_ids = {m.geom(f"post{k}").id: k for k in range(len(posts))}
     hard = math.radians(c["joint"]["hard_limit_deg"])
     stall = c["servo"]["stall_torque"]
@@ -211,6 +221,18 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         if d.time >= next_cycle:
             head_x_cycles.append(float(d.site_xpos[tip][0]))
             next_cycle += period
+        if record is not None and k % log_every == 0:
+            ends = []
+            for g in seg_geoms:
+                ax = d.geom_xmat[g].reshape(3, 3)[:2, 2] * m.geom_size[g][1]
+                ends.append([(d.geom_xpos[g][:2] - ax).tolist(), (d.geom_xpos[g][:2] + ax).tolist()])
+            record["frames"].append({
+                "t": d.time, "capsules": ends,
+                "anchors": d.xanchor[jids][:, :2].tolist(),
+                "yaw": [float(math.atan2(d.xmat[b].reshape(3, 3)[1, 0], d.xmat[b].reshape(3, 3)[0, 0]))
+                        for b in seg_ids],
+                "alpha": list(map(float, alphas)), "q": d.qpos[jq].tolist(), "qpos": d.qpos.tolist(),
+                "at_cap": at_cap.tolist(), "on_stop": on_stop.tolist()})
         if k % log_every == 0:
             cxy = com()
             t_log.append(d.time)
