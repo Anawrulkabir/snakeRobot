@@ -367,3 +367,22 @@ limit; equivalence = paired-difference CI within ±0.25 body lengths.
 
 **Why (Fahad):** distance was censored at the finish line. A rate per elapsed
 cycle is defined for every trial, however it ended.
+
+---
+
+## Fig. 5A data, figure files, servo candidates (2026-10-17)
+
+- **Fig. 5A:** Fahad supplied vector-extracted curves (`data/digitized/`,
+  exact, from `fig5_v1.pdf`). The authors' figure files are kept in
+  `paper_figures/`, git-ignored, never committed (Fahad).
+- **Body–post friction stays at 0.4** (placeholder) until Fahad's tilt test.
+- **Baseline servo: MG90S** (RoboticsBD RBD-0217), at 6 V. **Alternative:
+  MG996R.** Both are in `config/servos.yaml`.
+- Fig. 5A interpretation reported **before** the stiffness estimate
+  (`stiffness_interpretation.md`). Open decisions there: where the passive
+  element is centred (straight vs commanded angle vs friction), its shape
+  (quadratic), and the 2 N offset.
+- **Open, for Fahad: the pre-registered progress rate (displacement ÷ cycles
+  elapsed) rewards early overload** (`results_servo_choice.md`). A
+  full-horizon variant (failures divided by the full time limit) is computed
+  alongside it. Fahad decides which is primary before the pilot.

@@ -314,3 +314,23 @@ should not run until this is chosen.
 - `data/measured/README.md` and `scripts/friction_from_tilt.py` are ready
   for Fahad's tilt-test CSV (μ = tan θ, mean and 95% CI). It will replace
   the 0.4 placeholder.
+
+### 2026-10-17: Fig. 5A data in; interpretation; servo options
+- Vector-extracted Fig. 5A CSVs are in `data/digitized/`. The authors'
+  figures are in `paper_figures/` (git-ignored, verified with
+  `git check-ignore`).
+- `stiffness_interpretation.md` (Fahad's item 3), before any estimate:
+  - (iii) rise not from the cables (slack for any A ≥ 26.5°);
+  - it is centred at the start angle (vertex 15.23°) and quadratic;
+  - f_s is undefined in all paper text and figures;
+  - panel (i) is ~10 N·m/rad near α, vs our 11.459.
+- `results_servo_choice.md`:
+  - fit: MG90S × 1 or × 2 fit; MG996R × 1 is marginal; MG996R × 2 does not
+    fit;
+  - G = 0 overloads 3/3 in the medium lattice for every option.
+- **Metric artefact:** the pre-registered rate rewards early overload. A
+  full-horizon rate was added; the choice of primary metric is open for
+  Fahad.
+- Process slip: commit `d86fd6e` went in with 3 failing tests (the pytest
+  exit code was masked by a pipe). Fixed in the next commit; from now on
+  tests run without a pipe, with the exit code checked.

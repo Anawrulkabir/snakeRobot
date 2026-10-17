@@ -19,6 +19,7 @@ came from.
 | Segment mass | `mass.*` | CLAUDE.md §6 E4 |
 | Cable stiffness | (implementation B) | CLAUDE.md §6 E4 |
 | Servo torque limit | `servo.stall_torque` | CLAUDE.md §6 E4 |
+| **Joint breakaway (dry) friction** | `joint` frictionloss (not yet implemented) | Fig. 5A starts at 2.02 N at zero deflection in every panel. If that is static friction, it is 0.12 N·m breakaway on the paper's robot (`stiffness_interpretation.md`) |
 
 ## Hardware validation list (measure on the real robot, compare with the model)
 
