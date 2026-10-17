@@ -6,7 +6,7 @@ A MuJoCo simulation of a planar, cable-driven snake robot with tunable body
 compliance, built before any hardware is bought. The project brief, plan and
 rules are in [`CLAUDE.md`](CLAUDE.md).
 
-Status: Milestone 2 (model builder and gait done; ground contact at gate G3). See
+Status: E1 calibration (step 1 done, step 2 awaiting approval). See
 [`docs/progress.md`](docs/progress.md).
 
 ## Setup

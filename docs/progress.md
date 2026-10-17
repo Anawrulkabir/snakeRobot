@@ -387,3 +387,24 @@ should not run until this is chosen.
 - `scripts/animate_trial.py` (2D GIF replay, checked against the log) and
   `scripts/render_trial_3d.py` (OSMesa installed in the cloud container with
   apt; EGL failed without a GPU). GIFs in `media/`.
+
+### 2026-10-17: engineering infrastructure (no result changes)
+- **uv lock:** `pyproject.toml` + `uv.lock` (58 packages). The
+  result-affecting stack is pinned at the versions that produced every run.
+  `requirements.txt` is now exported from the lock. In the locked
+  environment (Python 3.13.16, mujoco 3.2.6, numpy 2.1.3), the pilot
+  baseline re-ran **15/15 identical in every logged field**
+  (`scripts/check_reproduction.py`), before and after the formatting and lint
+  commits. A calibration variant (friction_0.1, 6 trials) was also identical.
+- **ruff + pre-commit:** config in `pyproject.toml`; local hooks in
+  `.pre-commit-config.yaml`.
+  - The formatting-only commit (`5de6fb8`, 42 files) was verified with
+    identical ASTs for every file.
+  - Lint fixes are in a separate commit (`60925de`). They include a real
+    bug: `scripts/view_model.py` raised UnboundLocalError (F823).
+- **Parquet:** `trials.parquet` next to every `trials.jsonl`, verified
+  against it after writing. Back-filled for the pilot and calibration
+  step 1.
+- **CI:** `.github/workflows/tests.yml` runs ruff (lint, format check) and
+  pytest in the locked env on every push and PR. The first runs were green
+  (runs 39027267243 push, 39027267930 PR). Badge in the README.
