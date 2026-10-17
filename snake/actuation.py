@@ -137,7 +137,7 @@ class ComplianceA:
         """Joint torques. With dt and the joints' effective inertias
         (1 / (M^-1)_jj, see effective_inertias), the boundary damping is
         applied in implicit form (see implicit_damping)."""
-        cs = [self.c] * len(zetas) if dt is None else [implicit_damping(self.c, dt, I) for I in inertias]
+        cs = [self.c] * len(zetas) if dt is None else [implicit_damping(self.c, dt, inertia) for inertia in inertias]
         return [
             boundary_torque(z, zd, lo, hi, self.k, c, self.cap)
             for (lo, hi), z, zd, c in zip(self.ranges(alphas), zetas, zeta_dots, cs)

@@ -90,7 +90,8 @@ def main():
         for G, v in per.items():
             print(
                 f"{name:14s} G={G:4s} disp {v['forward_disp_per_cycle_m']:.4f}  stop cycles "
-                f"{v['stop_hit_cycle_fraction']:.2f}  per-joint {np.round(v['stop_step_fraction_per_joint_head_to_tail'], 2)}"
+                f"{v['stop_hit_cycle_fraction']:.2f}  per-joint "
+                f"{np.round(v['stop_step_fraction_per_joint_head_to_tail'], 2)}"
                 f"  dev {v['max_deviation_deg']:.0f}  p95 {v['torque_p95_Nm']:.3f} peak {v['torque_peak_Nm']:.3f}"
             )
     print(f"saved {run_dir}")

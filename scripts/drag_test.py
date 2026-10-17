@@ -89,7 +89,10 @@ def run(cfg, speeds=(0.01, SPEED)):
             for r in rows
         ),
         "rows": rows,
-        "note": "one segment on its own wheel, yaw held by the rig; 'body' segments carry servos, the head carries electronics",
+        "note": (
+            "one segment on its own wheel, yaw held by the rig; "
+            "'body' segments carry servos, the head carries electronics"
+        ),
     }
 
 

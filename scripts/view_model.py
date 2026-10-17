@@ -69,9 +69,9 @@ def main():
         print(f"wrote {len(frames)} frames to {args.video}")
         return
 
-    import mujoco.viewer
+    from mujoco import viewer  # local name: `import mujoco.viewer` here made `mujoco` local (F823)
 
-    with mujoco.viewer.launch_passive(m, d) as v:
+    with viewer.launch_passive(m, d) as v:
         while v.is_running():
             t0 = time.time()
             ctrl(d)

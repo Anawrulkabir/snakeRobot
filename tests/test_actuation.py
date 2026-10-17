@@ -286,7 +286,7 @@ def test_tight_spool_matches_drive_reach(geom):
     assert math.degrees(lo) == pytest.approx(45.8, abs=0.05) and math.degrees(hi) == pytest.approx(90.0, abs=0.05)
     # Planted fault: slope taken as l0 instead of L_c gives a different range.
     with pytest.raises(AssertionError):
-        Ll, Lr = 2 * Lj + l0 * (A / 2), 2 * Lj - l0 * (A / 2)
+        Ll = 2 * Lj + l0 * (A / 2)
         assert math.degrees(act.inverse_exact(Ll, "l", Lc, Lj, math.pi / 2)) == pytest.approx(31.5, abs=0.05)
 
 

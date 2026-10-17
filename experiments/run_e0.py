@@ -11,7 +11,6 @@ so speeds are provisional (see run_info.json).
 """
 
 import json
-import math
 import sys
 from multiprocessing import Pool
 from pathlib import Path

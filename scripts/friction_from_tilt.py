@@ -5,7 +5,6 @@ Writes results/friction_tilt/<run_id>/summary.json.
 """
 
 import json
-import math
 import sys
 from pathlib import Path
 

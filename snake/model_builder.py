@@ -3,8 +3,9 @@
 Frames: the head points along +x. Segment i's body origin is the joint pin at
 its front; for the head that pin is virtual. The case (capsule) is centred
 between the pins, with length body.case_length. The cable anchors sit L_j
-behind the front pin and L_j ahead of the next pin, as in paper Fig. S4. Hinge axes are +z, so a positive joint angle lengthens the left
-(+y) cable, which is the paper's sign convention for alpha (Eq. S1).
+behind the front pin and L_j ahead of the next pin, as in paper Fig. S4.
+Hinge axes are +z, so a positive joint angle lengthens the left (+y) cable,
+which is the paper's sign convention for alpha (Eq. S1).
 tests/test_model_builder.py checks this sign against Eq. S1.
 
 Ground contact (G3, option 1): one passive wheel under each segment centre.

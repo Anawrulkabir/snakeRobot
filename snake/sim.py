@@ -78,7 +78,6 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
     hard = math.radians(c["joint"]["hard_limit_deg"])
 
     command, control = make_controller(m, c, A, xi, freq, phase, G)
-    jv = [m.joint(f"j{i}").dofadr[0] for i in range(1, nj + 1)]
 
     # Start in the commanded shape so the servos do not jump at t = 0.
     d.qpos[m.joint("root_x").qposadr[0]] = x0
