@@ -93,6 +93,12 @@ came from.
 - Must not be called an extension until the Goldman-lab full texts are
   checked (`literature_search.md`).
 
+## Open questions (not claims)
+
+- **Compliance benefit vs body–post friction** (Fahad 2026-10-17). In step 1 at
+  μ = 0.1, G = 0 succeeded 4/5 against 1/5 at G = 0.75 (run `20261017T075321Z_dc2fb6c`).
+  Candidate for a G × friction experiment.
+
 ## After E1
 
 - Feasibility of Fahad's single global tensioner (7 servos, G ≥ 1 adaptive):

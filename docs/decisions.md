@@ -509,3 +509,41 @@ calibrated at one density. E4 then says how fragile it is.
 
 `trials.jsonl` is committed for the pilot and for every future sweep
 (`.gitignore` exception).
+
+---
+
+## Calibration step 2: approved; outcome rule fixed before running (Fahad 2026-10-17)
+
+**Approved:** step 2 as pre-registered. The combined setup is friction 0.1,
+MG90S torque 0.2027 N·m, 3 s overload rule, amplitude ×0.85 (50.6°),
+passive ×4 (0.25956 N·m/rad²). It runs at G = 0, 0.25, 0.5, 0.75, 1.0, 1.25,
+1.5 × 5 seeds (1001–1005, the same as step 1), medium density.
+
+**Outcome rule** (replaces the "operational reading" logged with the step-2
+rule). S(G) is the number of successes out of 5. Let mid = max(S(0.75), S(1.0)).
+- **Mid-G wins:** mid ≥ S(0) + 2 **and** mid ≥ S(1.5) + 2.
+- **Reversed:** S(0) ≥ max(S(0.75), S(1.0)) + 2, **or**
+  S(1.5) ≥ max(S(0.75), S(1.0)) + 2.
+- **Otherwise inconclusive.**
+- The mean full-horizon rate is reported alongside, **not used to break ties.**
+- **Any outcome: stop and report.** Only "mid-G wins" makes the combined
+  setup the calibrated setup for E1, and only after Fahad has seen the report.
+
+**Also reported in step 2 (Fahad):** the joint-stop contact rate per G, and
+whether trials with stop contacts end worse than trials without.
+
+### Method limitation (Fahad 2026-10-17)
+
+The step-1 selections rest on **5 seeds per cell**. Several rest on one
+success (friction 0.1, overload 3 s and passive ×4 at G = 0.75: 1/5 each), or
+on a rate difference of noise size (amplitude ×0.85: 0.0063 vs 0.0045 m/cycle,
+no successes). The combined setup is therefore one plausible calibration, not
+an optimised one. Any E1 write-up that uses it must say this.
+
+### Open question, not a claim: does the compliance benefit depend on body–post friction?
+
+In step 1 at post friction 0.1, G = 0 succeeded 4/5 against 1/5 at G = 0.75
+(run `20261017T075321Z_dc2fb6c`). At friction 0.4 both were 0/5. One reading:
+a low-friction lattice lets a stiff body slide past posts, and that removes
+the advantage of compliance. Five seeds cannot show this. **Candidate for a
+later G × friction experiment.** Logged in `open_lists.md`.
