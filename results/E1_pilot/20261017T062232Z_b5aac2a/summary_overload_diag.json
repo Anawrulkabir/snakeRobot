@@ -1,0 +1,3400 @@
+{
+  "run_id": "20261017T062232Z_b5aac2a",
+  "n_overloads": 84,
+  "n_reproduced_exactly": 84,
+  "not_reproduced": [],
+  "by_condition": {
+    "G=0.0": {
+      "n_overloads": 20,
+      "joint_counts": {
+        "1": 0,
+        "2": 18,
+        "3": 2,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "n_with_joint_on_stop_any_time": 0,
+      "n_with_torque_into_stop_any_time": 0,
+      "mean_frac_on_hard_stop": 0.0,
+      "mean_frac_adjacent_segment_on_post": 1.0,
+      "mean_frac_any_segment_on_post": 1.0,
+      "n_mostly_past_lower_bound": 12,
+      "n_mostly_past_upper_bound": 8,
+      "mean_overshoot_deg": 21.989347047200017
+    },
+    "G=0.75": {
+      "n_overloads": 10,
+      "joint_counts": {
+        "1": 0,
+        "2": 7,
+        "3": 3,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "n_with_joint_on_stop_any_time": 0,
+      "n_with_torque_into_stop_any_time": 0,
+      "mean_frac_on_hard_stop": 0.0,
+      "mean_frac_adjacent_segment_on_post": 0.9983016983016985,
+      "mean_frac_any_segment_on_post": 1.0,
+      "n_mostly_past_lower_bound": 7,
+      "n_mostly_past_upper_bound": 3,
+      "mean_overshoot_deg": 30.619838397741336
+    },
+    "G=1.0": {
+      "n_overloads": 13,
+      "joint_counts": {
+        "1": 0,
+        "2": 12,
+        "3": 1,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "n_with_joint_on_stop_any_time": 0,
+      "n_with_torque_into_stop_any_time": 0,
+      "mean_frac_on_hard_stop": 0.0,
+      "mean_frac_adjacent_segment_on_post": 0.9996157688465381,
+      "mean_frac_any_segment_on_post": 1.0,
+      "n_mostly_past_lower_bound": 9,
+      "n_mostly_past_upper_bound": 4,
+      "mean_overshoot_deg": 27.661492349451446
+    },
+    "G=0.25": {
+      "n_overloads": 17,
+      "joint_counts": {
+        "1": 0,
+        "2": 15,
+        "3": 2,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "n_with_joint_on_stop_any_time": 0,
+      "n_with_torque_into_stop_any_time": 0,
+      "mean_frac_on_hard_stop": 0.0,
+      "mean_frac_adjacent_segment_on_post": 0.9987071751777634,
+      "mean_frac_any_segment_on_post": 1.0,
+      "n_mostly_past_lower_bound": 5,
+      "n_mostly_past_upper_bound": 12,
+      "mean_overshoot_deg": 29.107867678260344
+    },
+    "G=0.5": {
+      "n_overloads": 6,
+      "joint_counts": {
+        "1": 0,
+        "2": 5,
+        "3": 1,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "n_with_joint_on_stop_any_time": 0,
+      "n_with_torque_into_stop_any_time": 0,
+      "mean_frac_on_hard_stop": 0.0,
+      "mean_frac_adjacent_segment_on_post": 1.0,
+      "mean_frac_any_segment_on_post": 1.0,
+      "n_mostly_past_lower_bound": 4,
+      "n_mostly_past_upper_bound": 2,
+      "mean_overshoot_deg": 29.34556218298813
+    },
+    "tight_spool": {
+      "n_overloads": 18,
+      "joint_counts": {
+        "1": 0,
+        "2": 18,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "n_with_joint_on_stop_any_time": 0,
+      "n_with_torque_into_stop_any_time": 0,
+      "mean_frac_on_hard_stop": 0.0,
+      "mean_frac_adjacent_segment_on_post": 1.0,
+      "mean_frac_any_segment_on_post": 1.0,
+      "n_mostly_past_lower_bound": 11,
+      "n_mostly_past_upper_bound": 7,
+      "mean_overshoot_deg": 19.388901913983588
+    }
+  },
+  "trials": [
+    {
+      "key": "medium|paper|0.0|1001",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1001,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 40.15086357028997,
+      "alpha_deg_mean": 52.57194364422048,
+      "range_deg_mean": [
+        52.57194364422048,
+        52.57194364422048
+      ],
+      "overshoot_deg_mean": 12.42108007393051,
+      "torque_Nm_mean": 0.20269724088597918,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.9820179820179821,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1001",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1001,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.485392074286477,
+      "alpha_deg_mean": 48.47789374643882,
+      "range_deg_mean": [
+        48.47789374643882,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 29.992501672152343,
+      "torque_Nm_mean": 0.20268652532382564,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.21078921078921078,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1001",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1001,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 22.646890333436925,
+      "alpha_deg_mean": 50.9329686559696,
+      "range_deg_mean": [
+        49.915354865060884,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 27.268464531623955,
+      "torque_Nm_mean": 0.2026944998319039,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.01898101898101898,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1002",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1002,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 26.020200852949948,
+      "alpha_deg_mean": 50.40376807936998,
+      "range_deg_mean": [
+        50.40376807936998,
+        50.40376807936998
+      ],
+      "overshoot_deg_mean": 24.383567226420027,
+      "torque_Nm_mean": 0.20269500959506753,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.7232767232767233,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1001",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1001,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.12811285665922,
+      "alpha_deg_mean": -47.94676456506337,
+      "range_deg_mean": [
+        -78.361035977163,
+        -47.94676456506336
+      ],
+      "overshoot_deg_mean": 29.818651708404147,
+      "torque_Nm_mean": -0.20269681179310384,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.34065934065934067,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1002",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1002,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 0.999000999000999,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 39.30273740830774,
+      "alpha_deg_mean": 54.39296999606296,
+      "range_deg_mean": [
+        53.82713370367843,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 14.52439629537069,
+      "torque_Nm_mean": 0.20269642635414067,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.8391608391608392,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1003",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1003,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.226034388428253,
+      "alpha_deg_mean": 47.765712726013895,
+      "range_deg_mean": [
+        47.765712726013895,
+        47.765712726013895
+      ],
+      "overshoot_deg_mean": 24.53967833758565,
+      "torque_Nm_mean": 0.20269634352616075,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.5574425574425574,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1003",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1003,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.830171196789998,
+      "alpha_deg_mean": 51.79760564265643,
+      "range_deg_mean": [
+        50.89792880925203,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 32.06775761246203,
+      "torque_Nm_mean": 0.2026890038255072,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.44955044955044954,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.5|1003",
+      "law": "paper",
+      "G": 0.5,
+      "seed": 1003,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 17.695674330548627,
+      "alpha_deg_mean": 46.628793276711114,
+      "range_deg_mean": [
+        46.628793276711114,
+        89.69145373419457
+      ],
+      "overshoot_deg_mean": 28.933118946162484,
+      "torque_Nm_mean": 0.2026960844730824,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.09090909090909091,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1003",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1003,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -23.03643326150425,
+      "alpha_deg_mean": -50.19696129515473,
+      "range_deg_mean": [
+        -80.4513723615962,
+        -43.12109477044408
+      ],
+      "overshoot_deg_mean": 20.08466150893983,
+      "torque_Nm_mean": -0.20269745544903214,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.004995004995004995,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1004",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1004,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.666497552173695,
+      "alpha_deg_mean": 49.69837411489824,
+      "range_deg_mean": [
+        49.69837411489824,
+        49.698374114898236
+      ],
+      "overshoot_deg_mean": 26.031876562724552,
+      "torque_Nm_mean": 0.20267768719633836,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.6433566433566433,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1004",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1004,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.100814439816162,
+      "alpha_deg_mean": 48.00795543457592,
+      "range_deg_mean": [
+        48.00795543457592,
+        78.4889938659986
+      ],
+      "overshoot_deg_mean": 29.907140994759757,
+      "torque_Nm_mean": 0.20269181591274718,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.34565434565434566,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1004",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1004,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 1.783144096441337,
+      "alpha_deg_mean": 39.11476187899554,
+      "range_deg_mean": [
+        38.85536235106694,
+        88.06256254591943
+      ],
+      "overshoot_deg_mean": 37.07221825462559,
+      "torque_Nm_mean": 0.20268621959832245,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.029970029970029972,
+        0.999000999000999,
+        0.04495504495504495,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1004",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1004,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 0.996003996003996,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 3.549927355853052,
+      "alpha_deg_mean": 39.148363141203696,
+      "range_deg_mean": [
+        36.11909448447783,
+        89.98541003320382
+      ],
+      "overshoot_deg_mean": 32.56916712862477,
+      "torque_Nm_mean": 0.20269221649167504,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.08691308691308691,
+        0.999000999000999,
+        0.002997002997002997,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1003",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1003,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -20.18608890854778,
+      "alpha_deg_mean": -48.994795149607086,
+      "range_deg_mean": [
+        -80.53753335759275,
+        -48.994795149607086
+      ],
+      "overshoot_deg_mean": 28.80870624105931,
+      "torque_Nm_mean": -0.2026910201506674,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.44155844155844154,
+        0.005994005994005994,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1004",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1004,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 22.851717736928915,
+      "alpha_deg_mean": 50.11554617689451,
+      "range_deg_mean": [
+        43.05775699560392,
+        80.29802597471877
+      ],
+      "overshoot_deg_mean": 20.206039258675005,
+      "torque_Nm_mean": 0.20269620988123296,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.004995004995004995,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1005",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1005,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 38.53445186665301,
+      "alpha_deg_mean": 52.34127914764976,
+      "range_deg_mean": [
+        52.34127914764976,
+        52.34127914764975
+      ],
+      "overshoot_deg_mean": 13.806827280996753,
+      "torque_Nm_mean": 0.2026965617872375,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.9590409590409591,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1006",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1006,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -39.510155795043346,
+      "alpha_deg_mean": -52.49000284128461,
+      "range_deg_mean": [
+        -52.49000284128461,
+        -52.49000284128461
+      ],
+      "overshoot_deg_mean": 12.979847046241273,
+      "torque_Nm_mean": -0.20269649504481937,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.971028971028971,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1005",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1005,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.152236679266196,
+      "alpha_deg_mean": 48.05167907640521,
+      "range_deg_mean": [
+        48.05167907640521,
+        78.58110276651114
+      ],
+      "overshoot_deg_mean": 29.899442397138998,
+      "torque_Nm_mean": 0.2026901073039367,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.34565434565434566,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.5|1006",
+      "law": "paper",
+      "G": 0.5,
+      "seed": 1006,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -19.852112756608797,
+      "alpha_deg_mean": -47.29084123578924,
+      "range_deg_mean": [
+        -89.98766224512153,
+        -47.29084123578924
+      ],
+      "overshoot_deg_mean": 27.438728479180448,
+      "torque_Nm_mean": -0.2026931275410132,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.029970029970029972,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1006",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1006,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.242438345721844,
+      "alpha_deg_mean": -46.40565972699452,
+      "range_deg_mean": [
+        -75.07431437836169,
+        -46.40565972699453
+      ],
+      "overshoot_deg_mean": 28.163221381272674,
+      "torque_Nm_mean": -0.20269514673892075,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.015984015984015984,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1006",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1006,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 0.9920079920079921,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 12.221636490753708,
+      "alpha_deg_mean": 43.01020044175239,
+      "range_deg_mean": [
+        42.95961680258183,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 30.737980311828114,
+      "torque_Nm_mean": 0.20269631315427275,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.003996003996003996,
+        0.999000999000999,
+        0.33766233766233766,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1006",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1006,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -23.697857072194463,
+      "alpha_deg_mean": -51.29295575023439,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -50.32486773274919
+      ],
+      "overshoot_deg_mean": 26.62701066055473,
+      "torque_Nm_mean": -0.20269782389532684,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.015984015984015984,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1005",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1005,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -23.467300376378866,
+      "alpha_deg_mean": -50.40418132534752,
+      "range_deg_mean": [
+        -80.84185441057515,
+        -43.282230813245505
+      ],
+      "overshoot_deg_mean": 19.81493043686664,
+      "torque_Nm_mean": -0.20269519040613185,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.006993006993006993,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1006",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1006,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.73051914713141,
+      "alpha_deg_mean": 50.641884932715215,
+      "range_deg_mean": [
+        43.46694253595073,
+        81.28782166404056
+      ],
+      "overshoot_deg_mean": 19.73642338881932,
+      "torque_Nm_mean": 0.20269679536807075,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.006993006993006993,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1007",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1007,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -30.52760012164189,
+      "alpha_deg_mean": -51.22939690923727,
+      "range_deg_mean": [
+        -51.229396909237266,
+        -51.229396909237266
+      ],
+      "overshoot_deg_mean": 20.701796787595377,
+      "torque_Nm_mean": -0.202696311300454,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.9010989010989011,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.5|1007",
+      "law": "paper",
+      "G": 0.5,
+      "seed": 1007,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 19.25922669853317,
+      "alpha_deg_mean": 47.05289407365432,
+      "range_deg_mean": [
+        47.05289407365432,
+        89.91080517076938
+      ],
+      "overshoot_deg_mean": 27.793667375121164,
+      "torque_Nm_mean": 0.20269082853262463,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.025974025974025976,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1007",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1007,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 20.835979202035972,
+      "alpha_deg_mean": 48.86786342469142,
+      "range_deg_mean": [
+        48.86786342469143,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 28.031884222655453,
+      "torque_Nm_mean": 0.2026975042169864,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.02097902097902098,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1007",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1007,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 20.482155301433135,
+      "alpha_deg_mean": 50.37385245923697,
+      "range_deg_mean": [
+        49.27809930066993,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 28.795943999236794,
+      "torque_Nm_mean": 0.2026897306261494,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.02097902097902098,
+        0.0,
+        0.0,
+        0.000999000999000999
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1007",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1007,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -17.8051391156007,
+      "alpha_deg_mean": -46.29658537409466,
+      "range_deg_mean": [
+        -74.83853844832886,
+        -46.29658537409466
+      ],
+      "overshoot_deg_mean": 28.49144625849396,
+      "torque_Nm_mean": -0.20268990091518627,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.0989010989010989,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1007",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1007,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -22.639289146602984,
+      "alpha_deg_mean": -49.986084346995554,
+      "range_deg_mean": [
+        -80.05311551054749,
+        -42.95700731823769
+      ],
+      "overshoot_deg_mean": 20.31771817163471,
+      "torque_Nm_mean": -0.202697732901322,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.005994005994005994,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1008",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1008,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": 0.009583468193625497,
+      "alpha_deg_mean": -32.76210275973702,
+      "range_deg_mean": [
+        -32.76210275973701,
+        -32.76210275973702
+      ],
+      "overshoot_deg_mean": 32.77168622793064,
+      "torque_Nm_mean": -0.2026947475081387,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.22677322677322678,
+        0.999000999000999,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1008",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1008,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.65967059077814,
+      "alpha_deg_mean": -46.4996591746991,
+      "range_deg_mean": [
+        -75.27750526714014,
+        -46.4996591746991
+      ],
+      "overshoot_deg_mean": 27.83998858392096,
+      "torque_Nm_mean": -0.20269056967351723,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.02197802197802198,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1008",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1008,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 28.56527009304,
+      "alpha_deg_mean": 52.4599772541636,
+      "range_deg_mean": [
+        44.87525643002367,
+        84.63321567616805
+      ],
+      "overshoot_deg_mean": 16.309986336983666,
+      "torque_Nm_mean": 0.2026979120157644,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.006993006993006993,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1009",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1009,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -25.08120543659722,
+      "alpha_deg_mean": -50.272488777394166,
+      "range_deg_mean": [
+        -50.272488777394166,
+        -50.272488777394166
+      ],
+      "overshoot_deg_mean": 25.191283340796943,
+      "torque_Nm_mean": -0.20269517653954586,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.7172827172827173,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1009",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1009,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 22.857290423735584,
+      "alpha_deg_mean": 50.11293083604823,
+      "range_deg_mean": [
+        43.05572209386789,
+        80.29323417077022
+      ],
+      "overshoot_deg_mean": 20.19843167013231,
+      "torque_Nm_mean": 0.20269100741601306,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.001998001998001998,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1010",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1010,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -39.15012133366082,
+      "alpha_deg_mean": -52.381376048994966,
+      "range_deg_mean": [
+        -52.38137604899497,
+        -52.38137604899497
+      ],
+      "overshoot_deg_mean": 13.231254715334149,
+      "torque_Nm_mean": -0.20268909503276197,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.972027972027972,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1010",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1010,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.162834107536263,
+      "alpha_deg_mean": -48.00194540955208,
+      "range_deg_mean": [
+        -78.4766732217814,
+        -48.001945409552086
+      ],
+      "overshoot_deg_mean": 29.83911130201582,
+      "torque_Nm_mean": -0.20269607469442313,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.33766233766233766,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1010",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1010,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -22.436860169585646,
+      "alpha_deg_mean": -50.91463510784373,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -49.89448271668238
+      ],
+      "overshoot_deg_mean": 27.457622547096737,
+      "torque_Nm_mean": -0.20269479990491387,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.01898101898101898,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1010",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1010,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.614045794803477,
+      "alpha_deg_mean": 50.450261357928326,
+      "range_deg_mean": [
+        43.31804882054542,
+        80.9288400312458
+      ],
+      "overshoot_deg_mean": 19.704003025741933,
+      "torque_Nm_mean": 0.20269197542723177,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.005994005994005994,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1011",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1011,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.205338618544115,
+      "alpha_deg_mean": -46.57618714857129,
+      "range_deg_mean": [
+        -75.44276958161248,
+        -46.57618714857129
+      ],
+      "overshoot_deg_mean": 28.370848530027185,
+      "torque_Nm_mean": -0.20269017962904315,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.06793206793206794,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1011",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1011,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 30.408355229954925,
+      "alpha_deg_mean": 51.170731770103046,
+      "range_deg_mean": [
+        51.170731770103046,
+        51.17073177010305
+      ],
+      "overshoot_deg_mean": 20.762376540148125,
+      "torque_Nm_mean": 0.20269561858540974,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.8971028971028971,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1011",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1011,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 20.81680018261947,
+      "alpha_deg_mean": 48.87409862125217,
+      "range_deg_mean": [
+        48.87409862125218,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 28.05729843863271,
+      "torque_Nm_mean": 0.20269725054750234,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.02097902097902098,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1011",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1011,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -28.6195184336515,
+      "alpha_deg_mean": -52.35905273295055,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -51.534115423093795
+      ],
+      "overshoot_deg_mean": 22.91459698944229,
+      "torque_Nm_mean": -0.20268879429809514,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.016983016983016984,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1011",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1011,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.473640361062238,
+      "alpha_deg_mean": 50.35703494223562,
+      "range_deg_mean": [
+        43.24557858565051,
+        80.75297783465211
+      ],
+      "overshoot_deg_mean": 19.77193822458828,
+      "torque_Nm_mean": 0.20269121862426326,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.006993006993006993,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1012",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1012,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 30.92295218359363,
+      "alpha_deg_mean": 51.20099252828585,
+      "range_deg_mean": [
+        51.20099252828585,
+        51.20099252828585
+      ],
+      "overshoot_deg_mean": 20.278040344692222,
+      "torque_Nm_mean": 0.20269678763883744,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.8971028971028971,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1012",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1012,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -19.379409920701967,
+      "alpha_deg_mean": -46.83023451566432,
+      "range_deg_mean": [
+        -75.98839981817954,
+        -46.83023451566432
+      ],
+      "overshoot_deg_mean": 27.450824594962356,
+      "torque_Nm_mean": -0.20269642000836655,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.015984015984015984,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1012",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1012,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.919670586693183,
+      "alpha_deg_mean": 50.11639391401242,
+      "range_deg_mean": [
+        48.98415419298581,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 30.06448360629263,
+      "torque_Nm_mean": 0.20269071708975261,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.024975024975024976,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1012",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1012,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 24.161799844140603,
+      "alpha_deg_mean": 50.70124210139692,
+      "range_deg_mean": [
+        43.513045698124365,
+        81.39924079529796
+      ],
+      "overshoot_deg_mean": 19.35124585398376,
+      "torque_Nm_mean": 0.20269478552584835,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.007992007992007992,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1013",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1013,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 31.168036659149948,
+      "alpha_deg_mean": 51.293375621966725,
+      "range_deg_mean": [
+        51.293375621966725,
+        51.293375621966725
+      ],
+      "overshoot_deg_mean": 20.125338962816777,
+      "torque_Nm_mean": 0.2026941406691722,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.8981018981018981,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1013",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1013,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 0.991008991008991,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 1.6879388348641984,
+      "alpha_deg_mean": 33.158093461151864,
+      "range_deg_mean": [
+        33.158093461151864,
+        47.362076936886666
+      ],
+      "overshoot_deg_mean": 31.470154626287673,
+      "torque_Nm_mean": 0.20268691914937145,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.35564435564435565,
+        0.999000999000999,
+        0.005994005994005994,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.5|1013",
+      "law": "paper",
+      "G": 0.5,
+      "seed": 1013,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.31042420562815,
+      "alpha_deg_mean": 48.32164367450712,
+      "range_deg_mean": [
+        48.32164367450712,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 30.011219468878963,
+      "torque_Nm_mean": 0.20268879221681108,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.3756243756243756,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1013",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1013,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 0.991008991008991,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -11.221364533132462,
+      "alpha_deg_mean": -42.487863445819634,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -42.41849017553846
+      ],
+      "overshoot_deg_mean": 31.197125642405997,
+      "torque_Nm_mean": -0.20269254944361967,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.006993006993006993,
+        0.999000999000999,
+        0.3016983016983017,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1013",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1013,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.9673805243561,
+      "alpha_deg_mean": 51.29337562178046,
+      "range_deg_mean": [
+        50.32534501400241,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 26.35796448964631,
+      "torque_Nm_mean": 0.20269460956399554,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.015984015984015984,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1013",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1013,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -22.958909121464064,
+      "alpha_deg_mean": -50.19264708639168,
+      "range_deg_mean": [
+        -80.44321742878071,
+        -43.11773889171769
+      ],
+      "overshoot_deg_mean": 20.158829770253625,
+      "torque_Nm_mean": -0.20269725435886207,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.003996003996003996,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1014",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1014,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -27.903247429249443,
+      "alpha_deg_mean": -50.80153416196517,
+      "range_deg_mean": [
+        -50.801534161965165,
+        -50.80153416196517
+      ],
+      "overshoot_deg_mean": 22.898286732715725,
+      "torque_Nm_mean": -0.20269790052853331,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.8191808191808192,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1014",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1014,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.789014532200795,
+      "alpha_deg_mean": -48.52742564575901,
+      "range_deg_mean": [
+        -79.57368857157145,
+        -48.52742564575901
+      ],
+      "overshoot_deg_mean": 29.738411113558215,
+      "torque_Nm_mean": -0.20269105776700347,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.3886113886113886,
+        0.005994005994005994,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1014",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1014,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.98376336933714,
+      "alpha_deg_mean": -48.301938598851365,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -48.30193859885137
+      ],
+      "overshoot_deg_mean": 29.318175229514225,
+      "torque_Nm_mean": -0.20268151190678838,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.023976023976023976,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1014",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1014,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -25.57808505664564,
+      "alpha_deg_mean": -51.40370400763009,
+      "range_deg_mean": [
+        -82.70602395173468,
+        -44.05800995151851
+      ],
+      "overshoot_deg_mean": 18.479924894872866,
+      "torque_Nm_mean": -0.20269481735426534,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.00999000999000999,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1015",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1015,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": 0.7715681748077525,
+      "alpha_deg_mean": -32.00150044427039,
+      "range_deg_mean": [
+        -32.00150044427039,
+        -32.001500444270384
+      ],
+      "overshoot_deg_mean": 32.773068619078146,
+      "torque_Nm_mean": -0.2026975121807287,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.44655344655344653,
+        0.999000999000999,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1015",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1015,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 0.987012987012987,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 5.024651319378467,
+      "alpha_deg_mean": 34.71938205177063,
+      "range_deg_mean": [
+        34.71938205177063,
+        50.585816675985626
+      ],
+      "overshoot_deg_mean": 29.69473073239216,
+      "torque_Nm_mean": 0.2026908922162674,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.25374625374625376,
+        0.999000999000999,
+        0.0919080919080919,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1015",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1015,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 26.225609727293556,
+      "alpha_deg_mean": 51.57277671767106,
+      "range_deg_mean": [
+        44.18899934919761,
+        83.01801030070506
+      ],
+      "overshoot_deg_mean": 17.963389621904042,
+      "torque_Nm_mean": 0.20269311542343355,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.007992007992007992,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1016",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1016,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 17.84237637217614,
+      "alpha_deg_mean": 46.30455676985856,
+      "range_deg_mean": [
+        46.30455676985856,
+        74.85630621978302
+      ],
+      "overshoot_deg_mean": 28.46218039768242,
+      "torque_Nm_mean": 0.20269378837801488,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.04995004995004995,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1016",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1016,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 27.885182768572523,
+      "alpha_deg_mean": 50.73701952752026,
+      "range_deg_mean": [
+        50.73701952752026,
+        50.73701952752026
+      ],
+      "overshoot_deg_mean": 22.851836758947734,
+      "torque_Nm_mean": 0.20269737192181353,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.8181818181818182,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1016",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1016,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.499295550330768,
+      "alpha_deg_mean": 48.55398573244452,
+      "range_deg_mean": [
+        48.55398573244452,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 30.054690182113756,
+      "torque_Nm_mean": 0.20268401686569318,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.20279720279720279,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1016",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1016,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 19.26110702752166,
+      "alpha_deg_mean": 50.13061987480096,
+      "range_deg_mean": [
+        49.00040462995368,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 29.73929760243201,
+      "torque_Nm_mean": 0.2026822106220252,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.02097902097902098,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1016",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1016,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 23.670445490670208,
+      "alpha_deg_mean": 50.4703092352914,
+      "range_deg_mean": [
+        43.33363042364815,
+        80.9660121561288
+      ],
+      "overshoot_deg_mean": 19.66318493297794,
+      "torque_Nm_mean": 0.20269004734650897,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.005994005994005994,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1017",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1017,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 21.88802864798526,
+      "alpha_deg_mean": 48.32619261893987,
+      "range_deg_mean": [
+        48.32619261893988,
+        48.32619261893988
+      ],
+      "overshoot_deg_mean": 26.438163970954616,
+      "torque_Nm_mean": 0.20269273534426974,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.5124875124875125,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1017",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1017,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.5063674687234,
+      "alpha_deg_mean": -46.682632935975334,
+      "range_deg_mean": [
+        -75.67202299836941,
+        -46.682632935975334
+      ],
+      "overshoot_deg_mean": 28.17626546725193,
+      "torque_Nm_mean": -0.2026950026963984,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.2077922077922078,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1017",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1017,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -22.822195187416828,
+      "alpha_deg_mean": -50.10536480253434,
+      "range_deg_mean": [
+        -80.27852084284962,
+        -43.049835143617024
+      ],
+      "overshoot_deg_mean": 20.227639956200196,
+      "torque_Nm_mean": -0.20268877507725186,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.003996003996003996,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1018",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1018,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 20.194313772074427,
+      "alpha_deg_mean": 47.08400834949305,
+      "range_deg_mean": [
+        47.08400834949305,
+        47.08400834949305
+      ],
+      "overshoot_deg_mean": 26.88969457741862,
+      "torque_Nm_mean": 0.20269738865631579,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1018",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1018,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -17.819938018403647,
+      "alpha_deg_mean": -46.30124944648198,
+      "range_deg_mean": [
+        -74.84937849606952,
+        -46.30124944648198
+      ],
+      "overshoot_deg_mean": 28.48131142807834,
+      "torque_Nm_mean": -0.20268906619899618,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.12387612387612387,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.5|1018",
+      "law": "paper",
+      "G": 0.5,
+      "seed": 1018,
+      "reproduced_exactly": true,
+      "joint": 3,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -0.3545500335967896,
+      "alpha_deg_mean": -33.83318599500422,
+      "range_deg_mean": [
+        -71.34082766207447,
+        -33.83318599500422
+      ],
+      "overshoot_deg_mean": 33.478635961407434,
+      "torque_Nm_mean": -0.20269671730390632,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.10989010989010989,
+        0.999000999000999,
+        0.01098901098901099,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1018",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1018,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.174342245983365,
+      "alpha_deg_mean": -47.99615337519659,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -47.99615337519659
+      ],
+      "overshoot_deg_mean": 29.821811129213227,
+      "torque_Nm_mean": -0.20267371167118647,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.06593406593406594,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1018",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1018,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 22.227993164727202,
+      "alpha_deg_mean": 49.851050834709405,
+      "range_deg_mean": [
+        42.85187778346616,
+        79.79755312753674
+      ],
+      "overshoot_deg_mean": 20.62388461873895,
+      "torque_Nm_mean": 0.2026954955333619,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.002997002997002997,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1019",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1019,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 37.40785162169602,
+      "alpha_deg_mean": 52.15445410677021,
+      "range_deg_mean": [
+        52.15445410677021,
+        52.15445410677021
+      ],
+      "overshoot_deg_mean": 14.746602485074188,
+      "torque_Nm_mean": 0.202690302144614,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.971028971028971,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.5|1019",
+      "law": "paper",
+      "G": 0.5,
+      "seed": 1019,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.31035350854295,
+      "alpha_deg_mean": 46.72835637572122,
+      "range_deg_mean": [
+        46.72835637572122,
+        89.75067665278118
+      ],
+      "overshoot_deg_mean": 28.41800286717828,
+      "torque_Nm_mean": 0.20269054593467828,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.03296703296703297,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.75|1019",
+      "law": "paper",
+      "G": 0.75,
+      "seed": 1019,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.091732260677333,
+      "alpha_deg_mean": 50.00643115494923,
+      "range_deg_mean": [
+        50.00643115494923,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 31.914698894271897,
+      "torque_Nm_mean": 0.2026926716918956,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.3256743256743257,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1019",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1019,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 18.1501711422346,
+      "alpha_deg_mean": 50.12127250950727,
+      "range_deg_mean": [
+        48.98972716546321,
+        90.00000000000001
+      ],
+      "overshoot_deg_mean": 30.8395560232286,
+      "torque_Nm_mean": 0.2026906244189575,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.11688311688311688,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1019",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1019,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 0.0,
+      "frac_past_lower_bound": 1.0,
+      "zeta_deg_mean": 24.04015912340499,
+      "alpha_deg_mean": 48.76670241438653,
+      "range_deg_mean": [
+        42.00602368151519,
+        77.7317161261878
+      ],
+      "overshoot_deg_mean": 17.965864558110194,
+      "torque_Nm_mean": 0.20269782426822858,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.003996003996003996,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.0|1020",
+      "law": "paper",
+      "G": 0.0,
+      "seed": 1020,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -24.146520341736647,
+      "alpha_deg_mean": -50.11115469433496,
+      "range_deg_mean": [
+        -50.11115469433495,
+        -50.11115469433495
+      ],
+      "overshoot_deg_mean": 25.964634352598306,
+      "torque_Nm_mean": -0.20269752238644234,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.6853146853146853,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|0.25|1020",
+      "law": "paper",
+      "G": 0.25,
+      "seed": 1020,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -17.858226066114504,
+      "alpha_deg_mean": -48.07954083923447,
+      "range_deg_mean": [
+        -78.63936668362372,
+        -48.07954083923447
+      ],
+      "overshoot_deg_mean": 30.221314773119964,
+      "torque_Nm_mean": -0.20269306373115242,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.3546453546453546,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|paper|1.0|1020",
+      "law": "paper",
+      "G": 1.0,
+      "seed": 1020,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -18.578845540212885,
+      "alpha_deg_mean": -50.08823454463724,
+      "range_deg_mean": [
+        -90.00000000000001,
+        -48.95198459707008
+      ],
+      "overshoot_deg_mean": 30.373139056857195,
+      "torque_Nm_mean": -0.20269377255159984,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.04795204795204795,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "key": "medium|tight_spool|None|1020",
+      "law": "tight_spool",
+      "G": null,
+      "seed": 1020,
+      "reproduced_exactly": true,
+      "joint": 2,
+      "window_s": 1.0010000000000001,
+      "frac_on_hard_stop": 0.0,
+      "frac_torque_into_stop": 0.0,
+      "frac_adjacent_segment_on_post": 1.0,
+      "frac_any_segment_on_post": 1.0,
+      "frac_past_upper_bound": 1.0,
+      "frac_past_lower_bound": 0.0,
+      "zeta_deg_mean": -25.704466882396424,
+      "alpha_deg_mean": -51.492231314407036,
+      "range_deg_mean": [
+        -82.86998694848518,
+        -44.12660510467768
+      ],
+      "overshoot_deg_mean": 18.42213822228125,
+      "torque_Nm_mean": -0.20269462347745534,
+      "other_joints_at_cap_frac": [
+        0.0,
+        0.999000999000999,
+        0.012987012987012988,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "other_joints_on_stop_frac": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

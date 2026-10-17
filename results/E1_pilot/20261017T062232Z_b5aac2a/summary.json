@@ -1,0 +1,1420 @@
+{
+  "run_id": "20261017T062232Z_b5aac2a",
+  "n_rows": 160,
+  "diverged": [],
+  "primary_metric": "com_dx_per_cycle_full_horizon_m",
+  "total_cpu_s": 13979.774625919,
+  "total_sim_s": 15337.277000016084,
+  "by_density": {
+    "medium": {
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005,
+        1006,
+        1007,
+        1008,
+        1009,
+        1010,
+        1011,
+        1012,
+        1013,
+        1014,
+        1015,
+        1016,
+        1017,
+        1018,
+        1019,
+        1020
+      ],
+      "conditions": {
+        "G=0.0": {
+          "law": "paper",
+          "G": 0.0,
+          "one_spool": false,
+          "n": 20,
+          "rate_mean": 0.007996380638646144,
+          "rate_sd": 0.0010626676258665554,
+          "rate_ci95": [
+            0.0074990368805045535,
+            0.008493724396787734
+          ],
+          "secondary_elapsed_rate_mean": 0.107340172432367,
+          "outcomes": {
+            "success": 0,
+            "stuck": 0,
+            "overload": 20,
+            "timeout": 0
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.3198552255458457,
+          "frac_time_any_joint_at_cap_mean": 0.08626906530710839,
+          "stop_hit_cycle_fraction_mean": 0.0,
+          "stop_hit_cycle_fraction_pooled": 0.0,
+          "tracking_rms_rad_mean": 0.04576497165984526,
+          "cpu_s_mean": 16.839671113250006,
+          "cycles_elapsed_mean": 3.2675875000005385
+        },
+        "G=0.25": {
+          "law": "paper",
+          "G": 0.25,
+          "one_spool": false,
+          "n": 20,
+          "rate_mean": 0.007294458462483121,
+          "rate_sd": 0.002131965757152331,
+          "rate_ci95": [
+            0.0062966677741419,
+            0.00829224915082434
+          ],
+          "secondary_elapsed_rate_mean": 0.03243635118741685,
+          "outcomes": {
+            "success": 0,
+            "stuck": 0,
+            "overload": 17,
+            "timeout": 3
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.29177833849932483,
+          "frac_time_any_joint_at_cap_mean": 0.038005181480492485,
+          "stop_hit_cycle_fraction_mean": 0.9312395491998167,
+          "stop_hit_cycle_fraction_pooled": 0.9573170731707317,
+          "tracking_rms_rad_mean": 0.16895077287083532,
+          "cpu_s_mean": 128.31462855224999,
+          "cycles_elapsed_mean": 15.812018750001652
+        },
+        "G=0.5": {
+          "law": "paper",
+          "G": 0.5,
+          "one_spool": false,
+          "n": 20,
+          "rate_mean": 0.0036762251289069103,
+          "rate_sd": 0.0026042331610516218,
+          "rate_ci95": [
+            0.002457406491858291,
+            0.00489504376595553
+          ],
+          "secondary_elapsed_rate_mean": 0.029643609282696583,
+          "outcomes": {
+            "success": 0,
+            "stuck": 9,
+            "overload": 6,
+            "timeout": 5
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.14704900515627642,
+          "frac_time_any_joint_at_cap_mean": 0.02708199288482476,
+          "stop_hit_cycle_fraction_mean": 0.9205050031269545,
+          "stop_hit_cycle_fraction_pooled": 0.9727891156462585,
+          "tracking_rms_rad_mean": 0.22520230872035837,
+          "cpu_s_mean": 192.44203026630007,
+          "cycles_elapsed_mean": 21.48339374999996
+        },
+        "G=0.75": {
+          "law": "paper",
+          "G": 0.75,
+          "one_spool": false,
+          "n": 20,
+          "rate_mean": 0.00494952704737015,
+          "rate_sd": 0.0027099263543668857,
+          "rate_ci95": [
+            0.003681242473189463,
+            0.006217811621550837
+          ],
+          "secondary_elapsed_rate_mean": 0.05835946883302651,
+          "outcomes": {
+            "success": 0,
+            "stuck": 10,
+            "overload": 10,
+            "timeout": 0
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.19798108189480598,
+          "frac_time_any_joint_at_cap_mean": 0.033828872480795955,
+          "stop_hit_cycle_fraction_mean": 0.0,
+          "stop_hit_cycle_fraction_pooled": 0.0,
+          "tracking_rms_rad_mean": 0.2641754460888016,
+          "cpu_s_mean": 46.43178668949997,
+          "cycles_elapsed_mean": 7.656518750007587
+        },
+        "G=1.0": {
+          "law": "paper",
+          "G": 1.0,
+          "one_spool": true,
+          "n": 20,
+          "rate_mean": 0.005445254734116044,
+          "rate_sd": 0.0028202139197210734,
+          "rate_ci95": [
+            0.00412535399050062,
+            0.006765155477731468
+          ],
+          "secondary_elapsed_rate_mean": 0.0731423666912822,
+          "outcomes": {
+            "success": 0,
+            "stuck": 7,
+            "overload": 13,
+            "timeout": 0
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.2178101893646418,
+          "frac_time_any_joint_at_cap_mean": 0.04469124210681123,
+          "stop_hit_cycle_fraction_mean": 0.0,
+          "stop_hit_cycle_fraction_pooled": 0.0,
+          "tracking_rms_rad_mean": 0.28097008076080404,
+          "cpu_s_mean": 36.487576734349986,
+          "cycles_elapsed_mean": 6.1180750000051365
+        },
+        "G=1.25": {
+          "law": "paper",
+          "G": 1.25,
+          "one_spool": true,
+          "n": 20,
+          "rate_mean": 0.00565978264575634,
+          "rate_sd": 0.0010093729885411284,
+          "rate_ci95": [
+            0.005187381545667974,
+            0.0061321837458447066
+          ],
+          "secondary_elapsed_rate_mean": 0.009037885842414342,
+          "outcomes": {
+            "success": 0,
+            "stuck": 20,
+            "overload": 0,
+            "timeout": 0
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.22639130583025358,
+          "frac_time_any_joint_at_cap_mean": 0.0,
+          "stop_hit_cycle_fraction_mean": 0.0,
+          "stop_hit_cycle_fraction_pooled": 0.0,
+          "tracking_rms_rad_mean": 0.5098736307802567,
+          "cpu_s_mean": 189.46307604005003,
+          "cycles_elapsed_mean": 25.062937500074163
+        },
+        "G=1.5": {
+          "law": "paper",
+          "G": 1.5,
+          "one_spool": true,
+          "n": 20,
+          "rate_mean": 0.00043834382510075595,
+          "rate_sd": 0.0005462720223623965,
+          "rate_ci95": [
+            0.00018268064881101544,
+            0.0006940070013904964
+          ],
+          "secondary_elapsed_rate_mean": 0.001535140569176983,
+          "outcomes": {
+            "success": 0,
+            "stuck": 20,
+            "overload": 0,
+            "timeout": 0
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.017533753004030237,
+          "frac_time_any_joint_at_cap_mean": 0.0,
+          "stop_hit_cycle_fraction_mean": 0.0,
+          "stop_hit_cycle_fraction_pooled": 0.0,
+          "tracking_rms_rad_mean": 0.5453718860624872,
+          "cpu_s_mean": 60.441569540349974,
+          "cycles_elapsed_mean": 11.378625000008824
+        },
+        "tight_spool": {
+          "law": "tight_spool",
+          "G": null,
+          "one_spool": true,
+          "n": 20,
+          "rate_mean": 0.006694485150184104,
+          "rate_sd": 0.0020154150036465236,
+          "rate_ci95": [
+            0.005751241893562697,
+            0.007637728406805511
+          ],
+          "secondary_elapsed_rate_mean": 0.07977396388328219,
+          "outcomes": {
+            "success": 0,
+            "stuck": 2,
+            "overload": 18,
+            "timeout": 0
+          },
+          "success_frac_at_cycles": {
+            "20": 0.0,
+            "30": 0.0,
+            "40": 0.0
+          },
+          "final_com_dx_mean_m": 0.2677794060073642,
+          "frac_time_any_joint_at_cap_mean": 0.06116201364628867,
+          "stop_hit_cycle_fraction_mean": 0.7968604108309989,
+          "stop_hit_cycle_fraction_pooled": 0.8584070796460177,
+          "tracking_rms_rad_mean": 0.17721313475320297,
+          "cpu_s_mean": 28.56839235990001,
+          "cycles_elapsed_mean": 5.0788250000026665
+        }
+      },
+      "per_seed": {
+        "1001": {
+          "G=0.0": {
+            "rate": 0.007172750407885016,
+            "outcome": "overload",
+            "cycles": 1.9523749999995978
+          },
+          "G=0.25": {
+            "rate": 0.00634302144127368,
+            "outcome": "overload",
+            "cycles": 30.426625000099776
+          },
+          "G=0.5": {
+            "rate": 0.0010650310759017518,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.75": {
+            "rate": 0.006097718362147767,
+            "outcome": "overload",
+            "cycles": 2.929250000000707
+          },
+          "G=1.0": {
+            "rate": 0.005798105957361072,
+            "outcome": "overload",
+            "cycles": 2.942375000000723
+          },
+          "G=1.25": {
+            "rate": 0.004656247192047177,
+            "outcome": "stuck",
+            "cycles": 22.011250000059594
+          },
+          "G=1.5": {
+            "rate": 0.0008776860151320842,
+            "outcome": "stuck",
+            "cycles": 11.445000000009141
+          },
+          "tight_spool": {
+            "rate": 0.0008611940684245187,
+            "outcome": "stuck",
+            "cycles": 11.8762500000112
+          }
+        },
+        "1002": {
+          "G=0.0": {
+            "rate": 0.008170441656135804,
+            "outcome": "overload",
+            "cycles": 3.280875000001137
+          },
+          "G=0.25": {
+            "rate": 0.002637793166344419,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.5": {
+            "rate": 0.002791503650188755,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.75": {
+            "rate": 0.0019857344648496443,
+            "outcome": "stuck",
+            "cycles": 11.620000000009977
+          },
+          "G=1.0": {
+            "rate": 0.008447883001676352,
+            "outcome": "overload",
+            "cycles": 3.3068750000011686
+          },
+          "G=1.25": {
+            "rate": 0.005937192032200873,
+            "outcome": "stuck",
+            "cycles": 27.858750000087515
+          },
+          "G=1.5": {
+            "rate": -0.0007678603688207359,
+            "outcome": "stuck",
+            "cycles": 11.30875000000849
+          },
+          "tight_spool": {
+            "rate": 0.0023207165276030763,
+            "outcome": "stuck",
+            "cycles": 12.136250000012442
+          }
+        },
+        "1003": {
+          "G=0.0": {
+            "rate": 0.009324857766358639,
+            "outcome": "overload",
+            "cycles": 3.1667500000009974
+          },
+          "G=0.25": {
+            "rate": 0.009314383491959085,
+            "outcome": "overload",
+            "cycles": 29.672875000096177
+          },
+          "G=0.5": {
+            "rate": 0.00867527610345363,
+            "outcome": "overload",
+            "cycles": 5.161374999999309
+          },
+          "G=0.75": {
+            "rate": 0.004536449893147349,
+            "outcome": "stuck",
+            "cycles": 16.87125000003505
+          },
+          "G=1.0": {
+            "rate": 0.009053770099050987,
+            "outcome": "overload",
+            "cycles": 3.188500000001024
+          },
+          "G=1.25": {
+            "rate": 0.00718884037288012,
+            "outcome": "stuck",
+            "cycles": 30.76875000010141
+          },
+          "G=1.5": {
+            "rate": 0.00017899767110934328,
+            "outcome": "stuck",
+            "cycles": 11.173750000007846
+          },
+          "tight_spool": {
+            "rate": 0.0088377120236319,
+            "outcome": "overload",
+            "cycles": 6.679249999995771
+          }
+        },
+        "1004": {
+          "G=0.0": {
+            "rate": 0.008103993994215193,
+            "outcome": "overload",
+            "cycles": 3.0500000000008547
+          },
+          "G=0.25": {
+            "rate": 0.00772622872406709,
+            "outcome": "overload",
+            "cycles": 4.041375000001919
+          },
+          "G=0.5": {
+            "rate": 0.0025010499470430473,
+            "outcome": "stuck",
+            "cycles": 21.88500000005899
+          },
+          "G=0.75": {
+            "rate": 0.009177165710670366,
+            "outcome": "overload",
+            "cycles": 3.1006250000009166
+          },
+          "G=1.0": {
+            "rate": 0.009156118324452246,
+            "outcome": "overload",
+            "cycles": 3.1007500000009167
+          },
+          "G=1.25": {
+            "rate": 0.005975945392667464,
+            "outcome": "stuck",
+            "cycles": 26.131250000079266
+          },
+          "G=1.5": {
+            "rate": 0.0005498014435616566,
+            "outcome": "stuck",
+            "cycles": 11.595000000009858
+          },
+          "tight_spool": {
+            "rate": 0.0075299246784814354,
+            "outcome": "overload",
+            "cycles": 3.0522500000008574
+          }
+        },
+        "1005": {
+          "G=0.0": {
+            "rate": 0.006386623988114344,
+            "outcome": "overload",
+            "cycles": 3.8657500000018516
+          },
+          "G=0.25": {
+            "rate": 0.005600662234360304,
+            "outcome": "overload",
+            "cycles": 23.842000000068335
+          },
+          "G=0.5": {
+            "rate": -4.271327886471027e-05,
+            "outcome": "stuck",
+            "cycles": 11.768750000010687
+          },
+          "G=0.75": {
+            "rate": 0.0006081841620452069,
+            "outcome": "stuck",
+            "cycles": 11.461250000009219
+          },
+          "G=1.0": {
+            "rate": 0.0005759348213636856,
+            "outcome": "stuck",
+            "cycles": 11.157500000007769
+          },
+          "G=1.25": {
+            "rate": 0.0036126136145779677,
+            "outcome": "stuck",
+            "cycles": 27.400000000085324
+          },
+          "G=1.5": {
+            "rate": -0.00031421285922368994,
+            "outcome": "stuck",
+            "cycles": 11.393750000008897
+          },
+          "tight_spool": {
+            "rate": 0.005407872945355424,
+            "outcome": "overload",
+            "cycles": 16.354250000032582
+          }
+        },
+        "1006": {
+          "G=0.0": {
+            "rate": 0.008262769107958857,
+            "outcome": "overload",
+            "cycles": 3.037000000000839
+          },
+          "G=0.25": {
+            "rate": 0.00719410931366952,
+            "outcome": "overload",
+            "cycles": 8.004499999992714
+          },
+          "G=0.5": {
+            "rate": 0.006985915348334102,
+            "outcome": "overload",
+            "cycles": 3.008625000000804
+          },
+          "G=0.75": {
+            "rate": 0.009538387805011785,
+            "outcome": "overload",
+            "cycles": 2.5865000000002882
+          },
+          "G=1.0": {
+            "rate": 0.006911484826385349,
+            "outcome": "overload",
+            "cycles": 2.0296249999996077
+          },
+          "G=1.25": {
+            "rate": 0.005837501947945059,
+            "outcome": "stuck",
+            "cycles": 23.090000000064745
+          },
+          "G=1.5": {
+            "rate": 0.0010947045920151471,
+            "outcome": "stuck",
+            "cycles": 11.522500000009511
+          },
+          "tight_spool": {
+            "rate": 0.007269788106888124,
+            "outcome": "overload",
+            "cycles": 2.525875000000214
+          }
+        },
+        "1007": {
+          "G=0.0": {
+            "rate": 0.008458268601730438,
+            "outcome": "overload",
+            "cycles": 3.2443750000010922
+          },
+          "G=0.25": {
+            "rate": 0.007667972248148229,
+            "outcome": "overload",
+            "cycles": 11.219125000008063
+          },
+          "G=0.5": {
+            "rate": 0.007414764859185996,
+            "outcome": "overload",
+            "cycles": 3.7226250000016767
+          },
+          "G=0.75": {
+            "rate": 0.007334038859890259,
+            "outcome": "overload",
+            "cycles": 2.7315000000004654
+          },
+          "G=1.0": {
+            "rate": 0.007352079007973486,
+            "outcome": "overload",
+            "cycles": 2.739500000000475
+          },
+          "G=1.25": {
+            "rate": 0.006089804975929225,
+            "outcome": "stuck",
+            "cycles": 25.821250000077786
+          },
+          "G=1.5": {
+            "rate": -7.610165307026656e-05,
+            "outcome": "stuck",
+            "cycles": 11.241250000008169
+          },
+          "tight_spool": {
+            "rate": 0.00767210111782927,
+            "outcome": "overload",
+            "cycles": 5.2373749999991315
+          }
+        },
+        "1008": {
+          "G=0.0": {
+            "rate": 0.009301507370060299,
+            "outcome": "overload",
+            "cycles": 3.261250000001113
+          },
+          "G=0.25": {
+            "rate": 0.00776294105843128,
+            "outcome": "overload",
+            "cycles": 6.217124999996848
+          },
+          "G=0.5": {
+            "rate": 0.0023910293827896787,
+            "outcome": "stuck",
+            "cycles": 20.706250000053362
+          },
+          "G=0.75": {
+            "rate": 0.0021589444888324366,
+            "outcome": "stuck",
+            "cycles": 12.60500000001468
+          },
+          "G=1.0": {
+            "rate": 0.0020177240415758337,
+            "outcome": "stuck",
+            "cycles": 12.7137500000152
+          },
+          "G=1.25": {
+            "rate": 0.00641426147216472,
+            "outcome": "stuck",
+            "cycles": 27.802500000087246
+          },
+          "G=1.5": {
+            "rate": 0.00018279473227334752,
+            "outcome": "stuck",
+            "cycles": 11.273750000008324
+          },
+          "tight_spool": {
+            "rate": 0.00792941249540235,
+            "outcome": "overload",
+            "cycles": 4.74900000000027
+          }
+        },
+        "1009": {
+          "G=0.0": {
+            "rate": 0.008842833153865104,
+            "outcome": "overload",
+            "cycles": 2.749875000000488
+          },
+          "G=0.25": {
+            "rate": 0.012658490276243887,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.5": {
+            "rate": 0.003110870123999251,
+            "outcome": "stuck",
+            "cycles": 21.750000000058346
+          },
+          "G=0.75": {
+            "rate": 0.0032740837329929885,
+            "outcome": "stuck",
+            "cycles": 12.065000000012102
+          },
+          "G=1.0": {
+            "rate": 0.0037363596871613823,
+            "outcome": "stuck",
+            "cycles": 13.287500000017939
+          },
+          "G=1.25": {
+            "rate": 0.006501674278256639,
+            "outcome": "stuck",
+            "cycles": 26.348750000080305
+          },
+          "G=1.5": {
+            "rate": 0.0005737907646578306,
+            "outcome": "stuck",
+            "cycles": 11.251250000008216
+          },
+          "tight_spool": {
+            "rate": 0.008211595453315993,
+            "outcome": "overload",
+            "cycles": 3.249000000001098
+          }
+        },
+        "1010": {
+          "G=0.0": {
+            "rate": 0.007302036639034321,
+            "outcome": "overload",
+            "cycles": 1.9712499999995874
+          },
+          "G=0.25": {
+            "rate": 0.0065134923239801735,
+            "outcome": "overload",
+            "cycles": 8.946999999997214
+          },
+          "G=0.5": {
+            "rate": 0.000833977884174758,
+            "outcome": "stuck",
+            "cycles": 20.41875000005199
+          },
+          "G=0.75": {
+            "rate": 0.0015426109229429164,
+            "outcome": "stuck",
+            "cycles": 12.203750000012764
+          },
+          "G=1.0": {
+            "rate": 0.00596242992542143,
+            "outcome": "overload",
+            "cycles": 2.9623750000007476
+          },
+          "G=1.25": {
+            "rate": 0.0047918833308487115,
+            "outcome": "stuck",
+            "cycles": 23.035000000064482
+          },
+          "G=1.5": {
+            "rate": 0.001036556331770249,
+            "outcome": "stuck",
+            "cycles": 11.533750000009565
+          },
+          "tight_spool": {
+            "rate": 0.006316850380487543,
+            "outcome": "overload",
+            "cycles": 2.4597500000001333
+          }
+        },
+        "1011": {
+          "G=0.0": {
+            "rate": 0.0074980928144166865,
+            "outcome": "overload",
+            "cycles": 6.491374999996209
+          },
+          "G=0.25": {
+            "rate": 0.006793772772080898,
+            "outcome": "overload",
+            "cycles": 3.9677500000019763
+          },
+          "G=0.5": {
+            "rate": 0.0022464246711202387,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.75": {
+            "rate": 0.006382303234765354,
+            "outcome": "overload",
+            "cycles": 2.4788750000001567
+          },
+          "G=1.0": {
+            "rate": 0.006398725027303466,
+            "outcome": "overload",
+            "cycles": 1.9986249999995722
+          },
+          "G=1.25": {
+            "rate": 0.005051592952741015,
+            "outcome": "stuck",
+            "cycles": 20.078750000050366
+          },
+          "G=1.5": {
+            "rate": 0.001242661251481813,
+            "outcome": "stuck",
+            "cycles": 11.472500000009273
+          },
+          "tight_spool": {
+            "rate": 0.006716479740476773,
+            "outcome": "overload",
+            "cycles": 2.4867500000001663
+          }
+        },
+        "1012": {
+          "G=0.0": {
+            "rate": 0.009239774861909831,
+            "outcome": "overload",
+            "cycles": 4.708875000000363
+          },
+          "G=0.25": {
+            "rate": 0.008335737992796246,
+            "outcome": "overload",
+            "cycles": 9.186249999998356
+          },
+          "G=0.5": {
+            "rate": 0.00303791412830446,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.75": {
+            "rate": 0.0027999484885928745,
+            "outcome": "stuck",
+            "cycles": 12.172500000012615
+          },
+          "G=1.0": {
+            "rate": 0.008197038309522885,
+            "outcome": "overload",
+            "cycles": 3.7027500000016524
+          },
+          "G=1.25": {
+            "rate": 0.006767053537181396,
+            "outcome": "stuck",
+            "cycles": 27.798750000087228
+          },
+          "G=1.5": {
+            "rate": 0.00048780293556696804,
+            "outcome": "stuck",
+            "cycles": 11.200000000007972
+          },
+          "tight_spool": {
+            "rate": 0.008455372564644636,
+            "outcome": "overload",
+            "cycles": 3.7060000000016564
+          }
+        },
+        "1013": {
+          "G=0.0": {
+            "rate": 0.007749582607482058,
+            "outcome": "overload",
+            "cycles": 3.007750000000803
+          },
+          "G=0.25": {
+            "rate": 0.008516954927598736,
+            "outcome": "overload",
+            "cycles": 8.028499999992828
+          },
+          "G=0.5": {
+            "rate": 0.0072190144909508504,
+            "outcome": "overload",
+            "cycles": 2.9917500000007835
+          },
+          "G=0.75": {
+            "rate": 0.009151765491980757,
+            "outcome": "overload",
+            "cycles": 2.562500000000259
+          },
+          "G=1.0": {
+            "rate": 0.006594966281817388,
+            "outcome": "overload",
+            "cycles": 2.007749999999581
+          },
+          "G=1.25": {
+            "rate": 0.005603707556289358,
+            "outcome": "stuck",
+            "cycles": 23.05125000006456
+          },
+          "G=1.5": {
+            "rate": 0.0008747870814845383,
+            "outcome": "stuck",
+            "cycles": 11.5200000000095
+          },
+          "tight_spool": {
+            "rate": 0.006951415592365956,
+            "outcome": "overload",
+            "cycles": 2.5015000000001844
+          }
+        },
+        "1014": {
+          "G=0.0": {
+            "rate": 0.007769567073590692,
+            "outcome": "overload",
+            "cycles": 4.011625000001988
+          },
+          "G=0.25": {
+            "rate": 0.007447854187811865,
+            "outcome": "overload",
+            "cycles": 10.999500000007014
+          },
+          "G=0.5": {
+            "rate": 0.0018516934109614317,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.75": {
+            "rate": 0.006781827868780342,
+            "outcome": "overload",
+            "cycles": 2.9983750000007916
+          },
+          "G=1.0": {
+            "rate": 0.0016887984339837834,
+            "outcome": "stuck",
+            "cycles": 13.530000000019097
+          },
+          "G=1.25": {
+            "rate": 0.005530406788276309,
+            "outcome": "stuck",
+            "cycles": 25.08500000007427
+          },
+          "G=1.5": {
+            "rate": 0.0008180697273400608,
+            "outcome": "stuck",
+            "cycles": 11.535000000009571
+          },
+          "tight_spool": {
+            "rate": 0.007081148855568095,
+            "outcome": "overload",
+            "cycles": 3.015125000000812
+          }
+        },
+        "1015": {
+          "G=0.0": {
+            "rate": 0.008725168822185117,
+            "outcome": "overload",
+            "cycles": 4.052750000001892
+          },
+          "G=0.25": {
+            "rate": 0.009101191590485306,
+            "outcome": "overload",
+            "cycles": 11.5618750000097
+          },
+          "G=0.5": {
+            "rate": 0.0025713955069385577,
+            "outcome": "stuck",
+            "cycles": 11.76500000001067
+          },
+          "G=0.75": {
+            "rate": 0.002555757500754574,
+            "outcome": "stuck",
+            "cycles": 11.750000000010598
+          },
+          "G=1.0": {
+            "rate": 0.0015967261673211983,
+            "outcome": "stuck",
+            "cycles": 12.020000000011887
+          },
+          "G=1.25": {
+            "rate": 0.005839923376845602,
+            "outcome": "stuck",
+            "cycles": 28.103750000088684
+          },
+          "G=1.5": {
+            "rate": -0.0006317486098219915,
+            "outcome": "stuck",
+            "cycles": 11.580000000009786
+          },
+          "tight_spool": {
+            "rate": 0.007374352334361738,
+            "outcome": "overload",
+            "cycles": 8.537499999995259
+          }
+        },
+        "1016": {
+          "G=0.0": {
+            "rate": 0.006582691476575403,
+            "outcome": "overload",
+            "cycles": 4.368250000001157
+          },
+          "G=0.25": {
+            "rate": 0.0058224871426600855,
+            "outcome": "overload",
+            "cycles": 3.3458750000012163
+          },
+          "G=0.5": {
+            "rate": 0.001272088076325653,
+            "outcome": "stuck",
+            "cycles": 38.36249999995683
+          },
+          "G=0.75": {
+            "rate": 0.0058204350999957214,
+            "outcome": "overload",
+            "cycles": 2.3566250000000073
+          },
+          "G=1.0": {
+            "rate": 0.005601909358163999,
+            "outcome": "overload",
+            "cycles": 2.3648750000000174
+          },
+          "G=1.25": {
+            "rate": 0.004226415432323204,
+            "outcome": "stuck",
+            "cycles": 18.955000000045
+          },
+          "G=1.5": {
+            "rate": 0.0007463602944237154,
+            "outcome": "stuck",
+            "cycles": 11.35875000000873
+          },
+          "tight_spool": {
+            "rate": 0.005868248267605664,
+            "outcome": "overload",
+            "cycles": 2.3667500000000197
+          }
+        },
+        "1017": {
+          "G=0.0": {
+            "rate": 0.008756799825941599,
+            "outcome": "overload",
+            "cycles": 2.7341250000004687
+          },
+          "G=0.25": {
+            "rate": 0.008374360309236079,
+            "outcome": "overload",
+            "cycles": 12.226250000012872
+          },
+          "G=0.5": {
+            "rate": 0.0028372983550991036,
+            "outcome": "stuck",
+            "cycles": 30.748750000101314
+          },
+          "G=0.75": {
+            "rate": 0.0026965613967025646,
+            "outcome": "stuck",
+            "cycles": 12.176250000012633
+          },
+          "G=1.0": {
+            "rate": 0.003897657385160485,
+            "outcome": "stuck",
+            "cycles": 12.382500000013618
+          },
+          "G=1.25": {
+            "rate": 0.006766365146989117,
+            "outcome": "stuck",
+            "cycles": 27.320000000084942
+          },
+          "G=1.5": {
+            "rate": 0.0005451773950101727,
+            "outcome": "stuck",
+            "cycles": 11.245000000008186
+          },
+          "tight_spool": {
+            "rate": 0.008288806251491438,
+            "outcome": "overload",
+            "cycles": 3.243375000001091
+          }
+        },
+        "1018": {
+          "G=0.0": {
+            "rate": 0.005375915770218134,
+            "outcome": "overload",
+            "cycles": 1.3617499999999252
+          },
+          "G=0.25": {
+            "rate": 0.005468382257492255,
+            "outcome": "overload",
+            "cycles": 5.858124999997685
+          },
+          "G=0.5": {
+            "rate": 0.006996845005596572,
+            "outcome": "overload",
+            "cycles": 2.9067500000006796
+          },
+          "G=0.75": {
+            "rate": 0.005295791865504962,
+            "outcome": "overload",
+            "cycles": 2.86612500000063
+          },
+          "G=1.0": {
+            "rate": 0.0009663898763535613,
+            "outcome": "stuck",
+            "cycles": 11.902500000011326
+          },
+          "G=1.25": {
+            "rate": 0.003969627132218103,
+            "outcome": "stuck",
+            "cycles": 20.953750000054544
+          },
+          "G=1.5": {
+            "rate": 0.00041309607655540053,
+            "outcome": "stuck",
+            "cycles": 11.390000000008879
+          },
+          "tight_spool": {
+            "rate": 0.005516432788437,
+            "outcome": "overload",
+            "cycles": 2.3756250000000305
+          }
+        },
+        "1019": {
+          "G=0.0": {
+            "rate": 0.007782340437688727,
+            "outcome": "overload",
+            "cycles": 2.3299999999999748
+          },
+          "G=0.25": {
+            "rate": 0.0038410143951251676,
+            "outcome": "timeout",
+            "cycles": 40.00012499991811
+          },
+          "G=0.5": {
+            "rate": 0.006629220160263007,
+            "outcome": "overload",
+            "cycles": 2.3011249999999395
+          },
+          "G=0.75": {
+            "rate": 0.0069112532997342106,
+            "outcome": "overload",
+            "cycles": 2.3174999999999595
+          },
+          "G=1.0": {
+            "rate": 0.0066675615741388725,
+            "outcome": "overload",
+            "cycles": 2.3181249999999602
+          },
+          "G=1.25": {
+            "rate": 0.0055131896865286325,
+            "outcome": "stuck",
+            "cycles": 23.855000000068397
+          },
+          "G=1.5": {
+            "rate": 0.00044317943952030674,
+            "outcome": "stuck",
+            "cycles": 11.32750000000858
+          },
+          "tight_spool": {
+            "rate": 0.006735602286188748,
+            "outcome": "overload",
+            "cycles": 2.3109999999999515
+          }
+        },
+        "1020": {
+          "G=0.0": {
+            "rate": 0.009121596397556598,
+            "outcome": "overload",
+            "cycles": 2.705750000000434
+          },
+          "G=0.25": {
+            "rate": 0.008768319395898125,
+            "outcome": "overload",
+            "cycles": 8.695249999996012
+          },
+          "G=0.5": {
+            "rate": 0.003135903676372079,
+            "outcome": "stuck",
+            "cycles": 32.170000000103265
+          },
+          "G=0.75": {
+            "rate": 0.004341578298060912,
+            "outcome": "stuck",
+            "cycles": 13.277500000017891
+          },
+          "G=1.0": {
+            "rate": 0.008283432576133431,
+            "outcome": "overload",
+            "cycles": 2.705625000000434
+          },
+          "G=1.25": {
+            "rate": 0.006921406696216115,
+            "outcome": "stuck",
+            "cycles": 25.790000000077637
+          },
+          "G=1.5": {
+            "rate": 0.0004913342410491683,
+            "outcome": "stuck",
+            "cycles": 11.205000000007995
+          },
+          "tight_spool": {
+            "rate": 0.008544676525122401,
+            "outcome": "overload",
+            "cycles": 2.7136250000004436
+          }
+        }
+      },
+      "overload_fraction_all_conditions": 0.525,
+      "best": "G=0.0",
+      "best_one_spool": "tight_spool",
+      "margin_frac": 0.15,
+      "margin_m_per_cycle": 0.0011994570957969215,
+      "paired_diff_best_minus": {
+        "G=0.25": {
+          "mean": 0.0007019221761630216,
+          "sd": 0.001777917392874172,
+          "ci95": [
+            -0.00013016877712661691,
+            0.00153401312945266
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": 52,
+          "n_needed_if_true_diff_zero": 11
+        },
+        "G=0.5": {
+          "mean": 0.004320155509739233,
+          "sd": 0.002650939975527012,
+          "ci95": [
+            0.0030794774106381487,
+            0.005560833608840316
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": null,
+          "n_needed_if_true_diff_zero": 22
+        },
+        "G=0.75": {
+          "mean": 0.0030468535912759934,
+          "sd": 0.0030256897596682305,
+          "ci95": [
+            0.0016307871943940682,
+            0.004462919988157918
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": null,
+          "n_needed_if_true_diff_zero": 27
+        },
+        "G=1.0": {
+          "mean": 0.002551125904530099,
+          "sd": 0.0025965758380093133,
+          "ci95": [
+            0.0013358910049798911,
+            0.0037663608040803065
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": null,
+          "n_needed_if_true_diff_zero": 21
+        },
+        "G=1.25": {
+          "mean": 0.002336597992889803,
+          "sd": 0.00032820679180121395,
+          "ci95": [
+            0.0021829924860419752,
+            0.002490203499737631
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": null,
+          "n_needed_if_true_diff_zero": 3
+        },
+        "G=1.5": {
+          "mean": 0.007558036813545386,
+          "sd": 0.0012771386251048816,
+          "ci95": [
+            0.0069603175380009855,
+            0.008155756089089786
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": null,
+          "n_needed_if_true_diff_zero": 7
+        },
+        "tight_spool": {
+          "mean": 0.001301895488462039,
+          "sd": 0.0016682258006409834,
+          "ci95": [
+            0.000521141780600671,
+            0.002082649196323407
+          ],
+          "equivalent_within_margin": false,
+          "n_needed_if_true_diff_as_observed": null,
+          "n_needed_if_true_diff_zero": 10
+        }
+      },
+      "survival_grid_m": [
+        0.0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2,
+        1.3,
+        1.4,
+        1.5,
+        1.6,
+        1.7,
+        1.8,
+        1.9,
+        2.0
+      ],
+      "survival_frac": {
+        "G=0.0": [
+          1.0,
+          1.0,
+          1.0,
+          0.7,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "G=0.25": [
+          1.0,
+          1.0,
+          0.9,
+          0.5,
+          0.05,
+          0.05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "G=0.5": [
+          0.95,
+          0.65,
+          0.3,
+          0.05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "G=0.75": [
+          1.0,
+          0.8,
+          0.5,
+          0.15,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "G=1.0": [
+          1.0,
+          0.75,
+          0.65,
+          0.25,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "G=1.25": [
+          1.0,
+          1.0,
+          0.75,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "G=1.5": [
+          0.8,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tight_spool": [
+          1.0,
+          0.9,
+          0.9,
+          0.4,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "cpu_s_per_sim_s": 0.9114900008589752
+}

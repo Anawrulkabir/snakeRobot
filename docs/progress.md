@@ -357,3 +357,11 @@ should not run until this is chosen.
 - **Sweep runner:** `experiments/run_sweep.py` (resumable, paired seeds,
   config snapshot per run) and `experiments/analyze.py` (paired CIs, trial
   count for the ±15% margin). Pilot started: run `20261017T062232Z_b5aac2a`.
+
+### 2026-10-17: E1 pilot done: floor effect (`results_E1_pilot.md`)
+- Run `20261017T062232Z_b5aac2a`: 160 trials, 0 successes, 0 diverged, overload
+  fraction 0.525. Stiff settings overload (a post holds joint 2 or 3 outside
+  its range; never a hard-stop artefact; all 84 re-runs reproduced exactly).
+  Loose settings get stuck.
+- Equivalence trial count not computed (all G below 20% success). A
+  calibration sweep is proposed and awaits Fahad.
