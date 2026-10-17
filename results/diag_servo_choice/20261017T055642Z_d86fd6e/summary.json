@@ -1,0 +1,649 @@
+{
+  "specs_6V": {
+    "MG90S": {
+      "stall_Nm": 0.2026707666666667,
+      "mass_kg": 0.013
+    },
+    "MG996R": {
+      "stall_Nm": 1.0787315,
+      "mass_kg": 0.055
+    }
+  },
+  "cells": {
+    "MG90S_x1|open|G=0.0": {
+      "progress_rate_mean": 0.13135919212635924,
+      "progress_rate_per_seed": [
+        0.13616930769521726,
+        0.1305686900698213,
+        0.12733957861403908
+      ],
+      "full_horizon_rate_mean": 0.13136192877613725,
+      "full_horizon_rate_per_seed": [
+        0.1361721445557342,
+        0.13057141025080685,
+        0.1273422315218707
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x1|open|G=0.75": {
+      "progress_rate_mean": 0.08520996592328361,
+      "progress_rate_per_seed": [
+        0.08599374749800617,
+        0.08772782649996819,
+        0.08190832377187648
+      ],
+      "full_horizon_rate_mean": 0.08521174113086943,
+      "full_horizon_rate_per_seed": [
+        0.08599553903437446,
+        0.08772965416298158,
+        0.08191003019525227
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.026235564536849925,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x1|open|G=1.0": {
+      "progress_rate_mean": 0.08456624801620127,
+      "progress_rate_per_seed": [
+        0.08454346749142247,
+        0.08636982569645703,
+        0.08278545086072428
+      ],
+      "full_horizon_rate_mean": 0.08456800981299763,
+      "full_horizon_rate_per_seed": [
+        0.08454522881362458,
+        0.08637162506778762,
+        0.0827871755575807
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.02629806323479372,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x1|medium|G=0.0": {
+      "progress_rate_mean": 0.10514208620861189,
+      "progress_rate_per_seed": [
+        0.135039558565965,
+        0.10028812862109879,
+        0.0800985714387719
+      ],
+      "full_horizon_rate_mean": 0.04171596720801832,
+      "full_horizon_rate_per_seed": [
+        0.02024186716421287,
+        0.062318625257976344,
+        0.04258740920186573
+      ],
+      "cycles_elapsed": [
+        0.8993750000000922,
+        3.7283750000016838,
+        3.190125000001026
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.08126630026662195,
+      "overload_endings": 3,
+      "outcomes": [
+        "overload",
+        "overload",
+        "overload"
+      ]
+    },
+    "MG90S_x1|medium|G=0.75": {
+      "progress_rate_mean": 0.013674693537279731,
+      "progress_rate_per_seed": [
+        -6.254621631093568e-05,
+        0.021315118081841448,
+        0.019771508746308685
+      ],
+      "full_horizon_rate_mean": 0.013674978426722396,
+      "full_horizon_rate_per_seed": [
+        -6.254751935708125e-05,
+        0.021315562146792085,
+        0.019771920652732183
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.023728672319326682,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x1|medium|G=1.0": {
+      "progress_rate_mean": 0.012767785330697187,
+      "progress_rate_per_seed": [
+        -0.0013693328225078006,
+        0.019760231936970234,
+        0.019912456877629124
+      ],
+      "full_horizon_rate_mean": 0.012768051326219276,
+      "full_horizon_rate_per_seed": [
+        -0.0013693613502743323,
+        0.019760643608460207,
+        0.01991287172047196
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.025902238147816364,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x2|open|G=0.0": {
+      "progress_rate_mean": 0.13469986617046834,
+      "progress_rate_per_seed": [
+        0.13824376196436305,
+        0.1335204719447291,
+        0.13233536460231282
+      ],
+      "full_horizon_rate_mean": 0.1347026724176208,
+      "full_horizon_rate_per_seed": [
+        0.13824664204267634,
+        0.13352325362116904,
+        0.132338121589017
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x2|open|G=0.75": {
+      "progress_rate_mean": 0.08487409063027151,
+      "progress_rate_per_seed": [
+        0.08730414742073515,
+        0.08468693160405269,
+        0.08263119286602669
+      ],
+      "full_horizon_rate_mean": 0.08487585884045555,
+      "full_horizon_rate_per_seed": [
+        0.08730596625710124,
+        0.08468869591509043,
+        0.08263291434917495
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.030909078283091324,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x2|open|G=1.0": {
+      "progress_rate_mean": 0.08727144010765381,
+      "progress_rate_per_seed": [
+        0.08914029553431543,
+        0.08603381825509818,
+        0.0866402065335478
+      ],
+      "full_horizon_rate_mean": 0.08727325826261756,
+      "full_horizon_rate_per_seed": [
+        0.08914215262376642,
+        0.08603561062627389,
+        0.08664201153781237
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.029916043415762168,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x2|medium|G=0.0": {
+      "progress_rate_mean": 0.1277716322058305,
+      "progress_rate_per_seed": [
+        0.17709051137959422,
+        0.15035861489425245,
+        0.05586577034364476
+      ],
+      "full_horizon_rate_mean": 0.04121306199760457,
+      "full_horizon_rate_per_seed": [
+        0.04008148574224601,
+        0.04440277846095136,
+        0.03915492178961633
+      ],
+      "cycles_elapsed": [
+        1.3579999999999273,
+        1.7718749999996979,
+        4.205250000001537
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.10166143299983732,
+      "overload_endings": 3,
+      "outcomes": [
+        "overload",
+        "overload",
+        "overload"
+      ]
+    },
+    "MG90S_x2|medium|G=0.75": {
+      "progress_rate_mean": 0.017670735066460292,
+      "progress_rate_per_seed": [
+        0.0038959182876771572,
+        0.024699557830927792,
+        0.02441672908077593
+      ],
+      "full_horizon_rate_mean": 0.017671103206766386,
+      "full_horizon_rate_per_seed": [
+        0.0038959994526397653,
+        0.024700072405038378,
+        0.024417237762621013
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.03161739685978764,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG90S_x2|medium|G=1.0": {
+      "progress_rate_mean": 0.015860617133306335,
+      "progress_rate_per_seed": [
+        0.0012942393598706524,
+        0.023255764102755042,
+        0.023031847937293307
+      ],
+      "full_horizon_rate_mean": 0.01586094756282295,
+      "full_horizon_rate_per_seed": [
+        0.0012942663231900787,
+        0.02325624859783026,
+        0.02303232776744851
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.03355485649604522,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x1|open|G=0.0": {
+      "progress_rate_mean": 0.13035410502769915,
+      "progress_rate_per_seed": [
+        0.12950898979543132,
+        0.12991009488542454,
+        0.13164323040224155
+      ],
+      "full_horizon_rate_mean": 0.13035682073816304,
+      "full_horizon_rate_per_seed": [
+        0.1295116878993283,
+        0.12991280134567737,
+        0.13164597296948352
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x1|open|G=0.75": {
+      "progress_rate_mean": 0.09546424758575629,
+      "progress_rate_per_seed": [
+        0.09608478381444598,
+        0.09417110392979425,
+        0.09613685501302867
+      ],
+      "full_horizon_rate_mean": 0.09546623642420558,
+      "full_horizon_rate_per_seed": [
+        0.09608678558073307,
+        0.09417306582775126,
+        0.09613885786413238
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0012708068581904544,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x1|open|G=1.0": {
+      "progress_rate_mean": 0.0952456491758401,
+      "progress_rate_per_seed": [
+        0.09494777408925936,
+        0.09470983451220556,
+        0.09607933892605536
+      ],
+      "full_horizon_rate_mean": 0.09524763346015591,
+      "full_horizon_rate_per_seed": [
+        0.09494975216784435,
+        0.09471180763371613,
+        0.09608134057890727
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0013819156545349749,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x1|medium|G=0.0": {
+      "progress_rate_mean": 0.17743369601057787,
+      "progress_rate_per_seed": [
+        0.16545810306184228,
+        0.23332355833602583,
+        0.13351942663386548
+      ],
+      "full_horizon_rate_mean": 0.0695573819449548,
+      "full_horizon_rate_per_seed": [
+        0.03509090602436502,
+        0.10225404944077658,
+        0.07132719036972279
+      ],
+      "cycles_elapsed": [
+        1.2724999999999747,
+        2.629500000000341,
+        3.2052500000010444
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.07518344746752821,
+      "overload_endings": 3,
+      "outcomes": [
+        "overload",
+        "overload",
+        "overload"
+      ]
+    },
+    "MG996R_x1|medium|G=0.75": {
+      "progress_rate_mean": 0.03147126612245665,
+      "progress_rate_per_seed": [
+        0.004243057064233285,
+        0.02791613700892435,
+        0.06225460429421229
+      ],
+      "full_horizon_rate_mean": 0.03147192177382032,
+      "full_horizon_rate_per_seed": [
+        0.004243145461253585,
+        0.027916718595099727,
+        0.06225590126510763
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0037290889773129734,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x1|medium|G=1.0": {
+      "progress_rate_mean": 0.0172951627420152,
+      "progress_rate_per_seed": [
+        0.0029941834810246065,
+        0.024772624778076485,
+        0.024118679966944508
+      ],
+      "full_horizon_rate_mean": 0.01729552305789803,
+      "full_horizon_rate_per_seed": [
+        0.0029942458598458074,
+        0.024773140874415105,
+        0.024119182439433184
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0019513482358006432,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x2|open|G=0.0": {
+      "progress_rate_mean": 0.12087451311033026,
+      "progress_rate_per_seed": [
+        0.11550365396927732,
+        0.12126998440065591,
+        0.12584990096105753
+      ],
+      "full_horizon_rate_mean": 0.12087703132930007,
+      "full_horizon_rate_per_seed": [
+        0.11550606029535075,
+        0.12127251085861078,
+        0.1258525228339387
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x2|open|G=0.75": {
+      "progress_rate_mean": 0.09359327386357304,
+      "progress_rate_per_seed": [
+        0.0914413715674394,
+        0.09382475163459195,
+        0.0955136983886878
+      ],
+      "full_horizon_rate_mean": 0.09359522372340394,
+      "full_horizon_rate_per_seed": [
+        0.09144327659597339,
+        0.09382670631687628,
+        0.0955156882573621
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0033888182885078778,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x2|open|G=1.0": {
+      "progress_rate_mean": 0.0971704753974758,
+      "progress_rate_per_seed": [
+        0.09477485581036271,
+        0.09739318769755471,
+        0.09934338268450993
+      ],
+      "full_horizon_rate_mean": 0.09717249978233705,
+      "full_horizon_rate_per_seed": [
+        0.09477683028648363,
+        0.09739521672225547,
+        0.09934545233827204
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        6.000124999997354,
+        6.000124999997354
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0034027068880509432,
+      "overload_endings": 0,
+      "outcomes": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ]
+    },
+    "MG996R_x2|medium|G=0.0": {
+      "progress_rate_mean": 0.19968412266486224,
+      "progress_rate_per_seed": [
+        0.23459539126135073,
+        0.1779108350208387,
+        0.1865461417123972
+      ],
+      "full_horizon_rate_mean": 0.08553976921262875,
+      "full_horizon_rate_per_seed": [
+        0.06917142859419444,
+        0.09239873346324624,
+        0.09504914558044557
+      ],
+      "cycles_elapsed": [
+        1.7691249999996994,
+        3.1161250000009355,
+        3.0571250000008634
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.0856946774175605,
+      "overload_endings": 3,
+      "outcomes": [
+        "overload",
+        "overload",
+        "overload"
+      ]
+    },
+    "MG996R_x2|medium|G=0.75": {
+      "progress_rate_mean": 0.09860242180032697,
+      "progress_rate_per_seed": [
+        0.10962051091357314,
+        0.11107696099767661,
+        0.07510979348973118
+      ],
+      "full_horizon_rate_mean": 0.054240466042837464,
+      "full_horizon_rate_per_seed": [
+        0.03438430025655081,
+        0.06998774184198508,
+        0.058349356029976485
+      ],
+      "cycles_elapsed": [
+        1.8819999999996369,
+        3.7805000000017475,
+        4.6611250000004745
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.05367800125054023,
+      "overload_endings": 3,
+      "outcomes": [
+        "overload",
+        "overload",
+        "overload"
+      ]
+    },
+    "MG996R_x2|medium|G=1.0": {
+      "progress_rate_mean": 0.12919686729128252,
+      "progress_rate_per_seed": [
+        0.11398596223667455,
+        0.1124730323811428,
+        0.16113160725603018
+      ],
+      "full_horizon_rate_mean": 0.11597669730769367,
+      "full_horizon_rate_per_seed": [
+        0.11398833694417088,
+        0.09685568319737299,
+        0.13708607178153717
+      ],
+      "cycles_elapsed": [
+        6.000124999997354,
+        5.166874999999296,
+        5.104624999999441
+      ],
+      "frac_time_any_joint_at_cap_mean": 0.053969980538990193,
+      "overload_endings": 2,
+      "outcomes": [
+        "timeout",
+        "overload",
+        "overload"
+      ]
+    }
+  },
+  "stiffness_Nm_per_rad": 0.02,
+  "gait": [
+    59.5,
+    0.58
+  ],
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "n_cycles": 6
+}

@@ -1,0 +1,29 @@
+# Media run (2026-10-17, video handoff): one open-floor trial with the current
+# baseline model, so the angled/close-up footage and model stills come from a
+# logged, replay-checked run. Not an experiment; no conclusions are drawn from it.
+# Tagged like the other configs.
+run:
+  densities:
+    value: [open]
+    source: decision
+    note: "open floor (no posts)"
+  gait_by_density:
+    value: {open: [53.666667, 0.82], sparse: [56.0, 0.80], medium: [59.5, 0.58], dense: [84.0, 1.02]}
+    source: decision
+    note: "as the pilot (G4)"
+  temporal_freq_hz:
+    value: 0.125
+    source: decision
+    note: "as the pilot"
+  conditions:
+    value: [[paper, 0.75]]
+    source: proposal
+    note: "the paper's best-reported G"
+  seed_start:
+    value: 1001
+    source: proposal
+    note: ""
+  n_trials:
+    value: 1
+    source: proposal
+    note: "footage only"

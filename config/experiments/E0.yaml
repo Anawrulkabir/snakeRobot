@@ -1,0 +1,52 @@
+# E0: flat ground, no posts, stiff body (G = 0 behaviour via stiff position servos).
+# Tagged like the other configs.
+run:
+  frequencies_hz:
+    value: [0.125, 0.25, 0.5]
+    source: decision
+    note: "Fahad 2026-10-16: 0.25 Hz provisional, plus 0.125 and 0.5 Hz for the quasi-static test"
+  trials_per_frequency:
+    value: 10
+    source: proposal
+    note: "E0 is a sanity check on symmetric flat ground; E1 uses the default 50 (CLAUDE.md 5.6)"
+  n_cycles:
+    value: 6
+    source: proposal
+    note: "first cycle discarded as transient, metrics over cycles 1..5"
+  skip_cycles:
+    value: 1
+    source: proposal
+    note: ""
+  base_seed:
+    value: 1000
+    source: proposal
+    note: "trial k uses seed base_seed + k; the same seeds at every frequency"
+  convergence_timestep:
+    value: 0.0005
+    source: proposal
+    note: "s, half the main timestep (CLAUDE.md 9)"
+  convergence_frequency_hz:
+    value: 0.25
+    source: proposal
+    note: ""
+  convergence_trials:
+    value: 5
+    source: proposal
+    note: "first 5 seeds"
+checks:
+  max_penetration_m:
+    value: 0.001
+    source: proposal
+    note: "1 mm; wheel contacts must not sink further"
+  max_relative_energy_increase:
+    value: 1.0e-6
+    source: proposal
+    note: "passive coast: largest step-to-step energy rise / initial energy"
+  timestep_tolerance_rel:
+    value: 0.05
+    source: proposal
+    note: "displacement per cycle at dt and dt/2 must agree within 5%"
+  quasi_static_tolerance_rel:
+    value: 0.10
+    source: proposal
+    note: "displacement per cycle at each frequency within 10% of the mean across frequencies => quasi-static"

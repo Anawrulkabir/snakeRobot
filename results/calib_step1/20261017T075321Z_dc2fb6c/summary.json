@@ -1,0 +1,625 @@
+{
+  "run_id": "20261017T075321Z_dc2fb6c",
+  "n_rows": 135,
+  "diverged": [],
+  "total_cpu_s": 9517.792985277,
+  "cells": {
+    "baseline": {
+      "0.0": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 5,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.007831733562541798,
+        "final_com_dx_mean_m": 0.313269342501672,
+        "cycles_mean": 3.0631500000008876,
+        "tracking_rms_rad_mean": 0.04584579948791402,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 3,
+          "overload": 2,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.004481050518572067,
+        "final_com_dx_mean_m": 0.17924202074288265,
+        "cycles_mean": 9.196475000011173,
+        "tracking_rms_rad_mean": 0.2649738900985099,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.00010488238035173167,
+        "final_com_dx_mean_m": 0.004195295214069267,
+        "cycles_mean": 11.383250000008847,
+        "tracking_rms_rad_mean": 0.545801531280361,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "amp_0.85": {
+      "0.0": {
+        "n": 5,
+        "successes": 2,
+        "outcomes": {
+          "success": 2,
+          "stuck": 0,
+          "overload": 3,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.032817434661183406,
+        "final_com_dx_mean_m": 0.9910469798212255,
+        "cycles_mean": 13.372025000036837,
+        "tracking_rms_rad_mean": 0.02054422579739363,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 1,
+          "overload": 4,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.0062623108253663465,
+        "final_com_dx_mean_m": 0.2504924330146538,
+        "cycles_mean": 5.7334250000018265,
+        "tracking_rms_rad_mean": 0.2555930718924306,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": -0.00035011375983732965,
+        "final_com_dx_mean_m": -0.014004550393493187,
+        "cycles_mean": 11.43825000000911,
+        "tracking_rms_rad_mean": 0.5070909319064508,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "friction_0.1": {
+      "0.0": {
+        "n": 5,
+        "successes": 4,
+        "outcomes": {
+          "success": 4,
+          "stuck": 0,
+          "overload": 1,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.21622999610922333,
+        "final_com_dx_mean_m": 1.6815171009024557,
+        "cycles_mean": 6.889999999996031,
+        "tracking_rms_rad_mean": 0.02080310838206808,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 1,
+        "outcomes": {
+          "success": 1,
+          "stuck": 3,
+          "overload": 1,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.061933391138719915,
+        "final_com_dx_mean_m": 0.5027510581063378,
+        "cycles_mean": 8.945925000005014,
+        "tracking_rms_rad_mean": 0.26164716325120596,
+        "stop_hit_cycle_fraction_mean": 0.05
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.0001080497807702689,
+        "final_com_dx_mean_m": 0.004321991230810757,
+        "cycles_mean": 11.574750000009761,
+        "tracking_rms_rad_mean": 0.5457344194377748,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "friction_0.2": {
+      "0.0": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 5,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.012108678854762361,
+        "final_com_dx_mean_m": 0.4843471541904945,
+        "cycles_mean": 3.5663000000014855,
+        "tracking_rms_rad_mean": 0.021374683161514096,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 4,
+          "overload": 1,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.004093502055220996,
+        "final_com_dx_mean_m": 0.16374008220883987,
+        "cycles_mean": 12.425075000020078,
+        "tracking_rms_rad_mean": 0.26629984538105533,
+        "stop_hit_cycle_fraction_mean": 0.05
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.00015184493260774132,
+        "final_com_dx_mean_m": 0.006073797304309653,
+        "cycles_mean": 11.381000000008836,
+        "tracking_rms_rad_mean": 0.5456415271429221,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "overload_3s": {
+      "0.0": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 5,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.007873902460990425,
+        "final_com_dx_mean_m": 0.314956098439617,
+        "cycles_mean": 4.2070750000008745,
+        "tracking_rms_rad_mean": 0.20396550001772332,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 1,
+        "outcomes": {
+          "success": 1,
+          "stuck": 3,
+          "overload": 1,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.059238633878323864,
+        "final_com_dx_mean_m": 0.7176675263229331,
+        "cycles_mean": 10.876550000008658,
+        "tracking_rms_rad_mean": 0.2757977501201072,
+        "stop_hit_cycle_fraction_mean": 0.15714285714285714
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.00010488238035173167,
+        "final_com_dx_mean_m": 0.004195295214069267,
+        "cycles_mean": 11.383250000008847,
+        "tracking_rms_rad_mean": 0.545801531280361,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "overload_off": {
+      "0.0": {
+        "n": 5,
+        "successes": 4,
+        "outcomes": {
+          "success": 4,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 1,
+          "diverged": 0
+        },
+        "rate_mean": 0.1301894332788551,
+        "final_com_dx_mean_m": 1.3894909295132638,
+        "cycles_mean": 18.408674999996915,
+        "tracking_rms_rad_mean": 0.28349396254162906,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 2,
+        "outcomes": {
+          "success": 2,
+          "stuck": 3,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.09845769462637287,
+        "final_com_dx_mean_m": 0.8544133323767698,
+        "cycles_mean": 11.28955000000884,
+        "tracking_rms_rad_mean": 0.2748946607523104,
+        "stop_hit_cycle_fraction_mean": 0.18888888888888888
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.00010488238035173167,
+        "final_com_dx_mean_m": 0.004195295214069267,
+        "cycles_mean": 11.383250000008847,
+        "tracking_rms_rad_mean": 0.545801531280361,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "passive_x4": {
+      "0.0": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 5,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.007639902530222789,
+        "final_com_dx_mean_m": 0.30559610120891156,
+        "cycles_mean": 3.360849999999931,
+        "tracking_rms_rad_mean": 0.043019287245381815,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 1,
+        "outcomes": {
+          "success": 1,
+          "stuck": 0,
+          "overload": 4,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.021912022218764905,
+        "final_com_dx_mean_m": 0.676914015149448,
+        "cycles_mean": 8.029200000017344,
+        "tracking_rms_rad_mean": 0.17962665250331256,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 2,
+          "overload": 0,
+          "timeout": 3,
+          "diverged": 0
+        },
+        "rate_mean": 0.01964059563111049,
+        "final_com_dx_mean_m": 0.7856238252444198,
+        "cycles_mean": 38.28582499995865,
+        "tracking_rms_rad_mean": 0.39629943931222084,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "servo_bound_1.0": {
+      "0.0": {
+        "n": 5,
+        "successes": 1,
+        "outcomes": {
+          "success": 1,
+          "stuck": 0,
+          "overload": 4,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.06771874427155593,
+        "final_com_dx_mean_m": 0.715385341531069,
+        "cycles_mean": 3.602274999999697,
+        "tracking_rms_rad_mean": 0.05864285298945817,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 3,
+          "overload": 2,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.0044299308202533,
+        "final_com_dx_mean_m": 0.177197232810132,
+        "cycles_mean": 8.45585000000762,
+        "tracking_rms_rad_mean": 0.26455587571645933,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.00010488238035173167,
+        "final_com_dx_mean_m": 0.004195295214069267,
+        "cycles_mean": 11.383250000008847,
+        "tracking_rms_rad_mean": 0.545801531280361,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    },
+    "servo_paper_eq": {
+      "0.0": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 5,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.007768884939456558,
+        "final_com_dx_mean_m": 0.3107553975782623,
+        "cycles_mean": 3.5661749999994647,
+        "tracking_rms_rad_mean": 0.043938742360297586,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "0.75": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 3,
+          "overload": 2,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.004381075801857125,
+        "final_com_dx_mean_m": 0.175243032074285,
+        "cycles_mean": 8.451450000007616,
+        "tracking_rms_rad_mean": 0.2650553620208193,
+        "stop_hit_cycle_fraction_mean": 0.0
+      },
+      "1.5": {
+        "n": 5,
+        "successes": 0,
+        "outcomes": {
+          "success": 0,
+          "stuck": 5,
+          "overload": 0,
+          "timeout": 0,
+          "diverged": 0
+        },
+        "rate_mean": 0.00010488238035173167,
+        "final_com_dx_mean_m": 0.004195295214069267,
+        "cycles_mean": 11.383250000008847,
+        "tracking_rms_rad_mean": 0.545801531280361,
+        "stop_hit_cycle_fraction_mean": 0.0
+      }
+    }
+  },
+  "paired_vs_baseline": {
+    "amp_0.85": {
+      "0.0": {
+        "mean_diff_vs_baseline": 0.024985701098641615,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": 0.0017812603067942784,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": -0.00045499614018906136,
+        "n": 5
+      }
+    },
+    "friction_0.1": {
+      "0.0": {
+        "mean_diff_vs_baseline": 0.20839826254668153,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": 0.05745234062014787,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 3.167400418537241e-06,
+        "n": 5
+      }
+    },
+    "friction_0.2": {
+      "0.0": {
+        "mean_diff_vs_baseline": 0.004276945292220564,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": -0.00038754846335107017,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 4.696255225600965e-05,
+        "n": 5
+      }
+    },
+    "overload_3s": {
+      "0.0": {
+        "mean_diff_vs_baseline": 4.2168898448625806e-05,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": 0.0547575833597518,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 0.0,
+        "n": 5
+      }
+    },
+    "overload_off": {
+      "0.0": {
+        "mean_diff_vs_baseline": 0.1223576997163133,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": 0.0939766441078008,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 0.0,
+        "n": 5
+      }
+    },
+    "passive_x4": {
+      "0.0": {
+        "mean_diff_vs_baseline": -0.00019183103231901061,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": 0.017430971700192834,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 0.019535713250758764,
+        "n": 5
+      }
+    },
+    "servo_bound_1.0": {
+      "0.0": {
+        "mean_diff_vs_baseline": 0.05988701070901412,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": -5.1119698318766497e-05,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 0.0,
+        "n": 5
+      }
+    },
+    "servo_paper_eq": {
+      "0.0": {
+        "mean_diff_vs_baseline": -6.28486230852406e-05,
+        "n": 5
+      },
+      "0.75": {
+        "mean_diff_vs_baseline": -9.997471671494126e-05,
+        "n": 5
+      },
+      "1.5": {
+        "mean_diff_vs_baseline": 0.0,
+        "n": 5
+      }
+    }
+  },
+  "plausible_a_priori": {
+    "post_friction": {
+      "baseline": true,
+      "friction_0.2": true,
+      "friction_0.1": true
+    },
+    "servo_torque": {
+      "baseline": true,
+      "servo_paper_eq": true,
+      "servo_bound_1.0": false
+    },
+    "overload_rule": {
+      "baseline": true,
+      "overload_3s": true,
+      "overload_off": false
+    },
+    "amplitude": {
+      "baseline": true,
+      "amp_0.85": true
+    },
+    "passive_coeff": {
+      "baseline": true,
+      "passive_x4": true
+    }
+  },
+  "step2_selection_at_G": 0.75,
+  "step2_selection": {
+    "post_friction": {
+      "chosen": "friction_0.1",
+      "reason": "most successes at G = 0.75, ties by mean full-horizon rate"
+    },
+    "servo_torque": {
+      "chosen": "baseline",
+      "reason": "no plausible level succeeded at G = 0.75: highest mean full-horizon rate"
+    },
+    "overload_rule": {
+      "chosen": "overload_3s",
+      "reason": "most successes at G = 0.75, ties by mean full-horizon rate"
+    },
+    "amplitude": {
+      "chosen": "amp_0.85",
+      "reason": "no plausible level succeeded at G = 0.75: highest mean full-horizon rate"
+    },
+    "passive_coeff": {
+      "chosen": "passive_x4",
+      "reason": "most successes at G = 0.75, ties by mean full-horizon rate"
+    }
+  },
+  "baseline_reproduces_pilot": {
+    "pilot_run": "20261017T062232Z_b5aac2a",
+    "n_checked": 15,
+    "mismatches": []
+  }
+}

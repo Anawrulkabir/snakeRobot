@@ -1,0 +1,194 @@
+# Robot parameters. Single source of truth for snake/model_builder.py.
+#
+# Every entry is {value, source, note}. Units are SI; angles are in degrees
+# only where the key name says _deg.
+#   source: hardware     -> CLAUDE.md section 4 (Fahad's first estimates)
+#           paper        -> Wang et al. 2023, page given in note
+#           decision     -> a logged gate decision in docs/decisions.md
+#           proposal     -> Claude's proposal in docs/model_plan.md (approved at G1)
+#           placeholder  -> NOT a real value. Exists only so the model compiles.
+#                           No reported result may depend on it.
+# snake.config.placeholders() lists every placeholder still in use.
+
+body:
+  n_segments:
+    value: 7
+    source: hardware
+    note: "7 rigid segments, 6 yaw joints"
+  segment_pitch:
+    value: 0.10
+    source: hardware
+    note: "m, distance between consecutive joint axes"
+  case_length:
+    value: 0.06
+    source: proposal
+    note: "m, printed case face to face, centred between pins. 0.06 = pitch - 2 x 20 mm, the value implied before it was split from the cable anchor offset (so models are unchanged)"
+  segment_width:
+    value: 0.05
+    source: placeholder
+    note: "m, capsule diameter. G1: Fahad keeps it as a parameter until the print design is fixed"
+  ride_height:
+    value: 0.03
+    source: placeholder
+    note: "m, height of the body axis above the ground. Set by the wheel and mount design"
+  vertical_compliance:
+    value: slide
+    source: decision
+    note: "PROVISIONAL load model (Fahad 2026-10-16): each segment gets its own spring-loaded vertical slide, so each wheel carries about its own segment's weight, with no tilt. 'none' = rigid plane (G1 original); 'rollpitch' = tilt springs. Final choice after the load diagnosis (results_E0.md)"
+  vertical_stiffness:
+    value: 380.0
+    source: proposal
+    note: "N/m for slide (about 1 mm sag under one segment's 0.38 N weight); N m/rad for rollpitch. Not measured; on the E4 list"
+  vertical_damping:
+    value: 0.5
+    source: proposal
+    note: "N s/m for slide, N m s/rad for rollpitch. Not measured; on the E4 list"
+
+mass:
+  # Fahad's estimates, 2026-10-16 (docs/decisions.md G3). Placeholders until weighed.
+  servo:
+    value: 0.013
+    source: hardware
+    note: "kg per servo. MG90S listing (config/servos.yaml), baseline servo (Fahad 2026-10-17). Weigh the real part"
+  shell:
+    value: 0.020
+    source: placeholder
+    note: "kg per printed PLA shell. Fahad's rough guess, depends on wall and infill"
+  hardware:
+    value: 0.005
+    source: placeholder
+    note: "kg per segment for wheel, axle and screws (the wheel's own mass is mass.wheel, included in this)"
+  wheel:
+    value: 0.002
+    source: placeholder
+    note: "kg, the rotating wheel itself (part of mass.hardware). Needs a nonzero value for the axle dynamics"
+  head_electronics:
+    value: 0.050
+    source: placeholder
+    note: "kg extra in the head: ESP32, 2S LiPo, regulator, wiring. Fahad's estimate"
+  servos_per_joint:
+    value: 1
+    source: hardware
+    note: "CLAUDE.md section 4. The paper uses 2 (one per cable); decided at G4"
+
+joint:
+  hard_limit_deg:
+    value: 90
+    source: paper
+    note: "mechanical stop of the printed joint, copied from the paper's +-90 deg joint (p. 54)"
+  stiffness:
+    value: 0.0
+    source: decision
+    note: "N m/rad, MuJoCo spring toward STRAIGHT. Superseded by joint.passive_model (Fahad 2026-10-17): Fig. 5A shows resistance centred on the commanded angle, not on straight (docs/stiffness_interpretation.md). Kept at 0"
+  passive_model:
+    value: quadratic_alpha
+    source: decision
+    note: "Fahad 2026-10-17. quadratic_alpha: tau = -c (zeta - alpha)|zeta - alpha| about the commanded angle alpha, from the Fig. 5A(iii) fit. linear_alpha: tau = -c (zeta - alpha) (E4 c). none. Cause of the alpha-centred force UNKNOWN (only loading curves published). Applied as a joint force outside the servo, so it does not count toward the servo cap or overload"
+  passive_coeff:
+    value: 0.06489
+    source: decision
+    note: "N m/rad^2 for quadratic_alpha. Paper c_q = 0.3372 N m/rad^2 (F - 2.02 N = 5.620 N/rad^2 (zeta - alpha)^2, x 0.060 m) x friction-ratio factor 0.1924 (primary scaling). Run results/stiffness_estimate/20261017T061904Z_10317fe (summary.json main_quadratic_about_alpha.c_q_scaled_Nm_per_rad2.friction_primary = 0.064892). APPROXIMATE (digitized). E1b multiplies it by 0, 1/4 .. 8"
+  frictionloss:
+    value: 0.0
+    source: decision
+    note: "N m, joint dry friction (MuJoCo frictionloss). 0 in main runs: f_s = 2.02 N is treated as a recording threshold (Fahad 2026-10-17). E4 (b): 0.1212 N m on the paper's robot, 0.0233 N m friction-scaled"
+  damping:
+    value: 0.0
+    source: proposal
+    note: "N m s/rad passive damping. UNKNOWN; varied in E4"
+
+cable:
+  # Joint geometry copied from paper Fig. S4: pin at L_j from each segment face,
+  # cable anchors at +-L_c from the centreline on each face.
+  half_spacing:
+    value: 0.020
+    source: decision
+    note: "m, L_c. G4: 20 mm for simulation; final value after E2 from measured cable tension"
+  joint_offset:
+    value: 0.020
+    source: decision
+    note: "m, L_j. G4: 20 mm for simulation; final value after E2"
+  l0_per_R:
+    value: 1.056210
+    source: decision
+    note: "dimensionless l0 / sqrt(L_c^2 + L_j^2). Paper: l0 = 0.73 mm/deg with R = 39.6 mm (p. 57, Eq. S2), i.e. 41.83 mm/rad / 39.6 mm. G4: keep this ratio so Eq. 3 is identical in joint-angle space. Must be >= 1 so no cable is commanded shorter than exact (paper_notes 1.6); the builder checks it"
+
+servo:
+  stall_torque:
+    value: 0.2027
+    source: hardware
+    note: "N m, MG90S at 6 V: 2.067 kg cm, linear between the listed 1.8 (4.8 V) and 2.2 kg cm (6.6 V) (config/servos.yaml). Baseline servo (Fahad 2026-10-17); 1 vs 2 per joint decided after E1"
+  speed_s_per_60deg:
+    value: 0.1
+    source: hardware
+    note: "s per 60 deg, assumption until confirmed"
+  kp:
+    value: 2.0
+    source: placeholder
+    note: "N m/rad, position-servo gain, used only when servo.actuation = position (E0)"
+  actuation:
+    value: compliance_A
+    source: decision
+    note: "position = stiff servo (E0); compliance_A = paper's Eq. 3 as a joint free range with a one-sided boundary torque (CLAUDE.md 5.2 A)"
+  boundary_stiffness:
+    value: 11.459
+    source: proposal
+    note: "N m/rad, restoring stiffness past the free-range boundary: reaches 0.200 N m after 1 deg of overshoot (chosen against the earlier 0.2 N m cap; with the MG90S cap 0.2027 N m the cap is reached at 1.01 deg). Stands in for cable + servo stiffness; on the E4 list (cable stiffness)"
+  boundary_damping:
+    value: 0.05
+    source: proposal
+    note: "N m s/rad, one-sided damping past the boundary, so a joint hitting its boundary does not bounce. Applied explicitly; tests check stability at dt = 1 ms and 0.5 ms"
+
+ground:
+  # G3: passive wheels (docs/decisions.md). One wheel under each segment centre,
+  # axle across the body, so it rolls along the body axis.
+  model:
+    value: wheels
+    source: decision
+    note: "G3 option 1"
+  friction_sliding:
+    value: 0.5
+    source: placeholder
+    note: "Coulomb mu between wheel tyre and floor. UNKNOWN (paper gives only the 1.6:1 ratio)"
+  wheel_radius:
+    value: 0.012
+    source: placeholder
+    note: "m. Set by the wheel Fahad buys or prints"
+  wheel_half_width:
+    value: 0.003
+    source: placeholder
+    note: "m"
+  contact_timeconst:
+    value: 0.02
+    source: proposal
+    note: "s, solref time constant of the tyre-floor contact (damping ratio 1). 0.02 s is MuJoCo's default; the chatter diagnosis varies it"
+  anisotropy_ratio:
+    value: 1.6
+    source: decision
+    note: "sideways/forward drag ratio of each wheel (paper p. 55: F_perp/F_par = 1.6). G3 follow-up: load-proportional rolling resistance set to give this. E4 sweeps it"
+  torsional_friction:
+    value: 0.0
+    source: proposal
+    note: "m, MuJoCo torsional friction coefficient (pivot torque = coef x N). MuJoCo's default 0.005 made up 72% of the torque to pivot a wheel in place (scripts/yaw_test.py). The tread's pivot scrub is already produced by the cylinder's two edge contacts (mu N half_width), so extra torsional friction double-counts it. Set to 0; see decisions.md"
+  axle_friction:
+    value: 0.0
+    source: proposal
+    note: "N m, extra dry friction on the wheel axle (MuJoCo frictionloss). 0 in main runs: rolling resistance comes from anisotropy_ratio. Kept for E4"
+  axle_friction_timeconst:
+    value: 0.002
+    source: proposal
+    note: "s, solreffriction time constant of the axle friction. MuJoCo's default (0.02 s) made the 'dry' friction act viscous below ~0.1 m/s (force proportional to speed); 0.002 s gives the Coulomb value from 0.02 m/s; at 0.01 m/s it is still ~12% low (tests/test_wheels.py). Must stay >= 2 x timestep"
+
+sim:
+  timestep:
+    value: 0.001
+    source: proposal
+    note: "s. Convergence check at 0.0005 s is required (CLAUDE.md section 9)"
+  cone:
+    value: elliptic
+    source: proposal
+    note: "friction cone. With MuJoCo's default pyramidal cone the sideways drag fell below mu*N at 0.01 m/s and the rolling-resistance ratio did not follow a clean law. The elliptic cone gives Coulomb sideways drag at both test speeds (progress.md, G3 follow-up)"
+  integrator:
+    value: implicitfast
+    source: proposal
+    note: "implicit in velocity-dependent forces, so stiff position servos stay stable"

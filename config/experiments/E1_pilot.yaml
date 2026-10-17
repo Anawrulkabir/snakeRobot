@@ -1,0 +1,28 @@
+# E1 pilot (Fahad 2026-10-17): medium density, 20 paired trials, full-horizon metric.
+# Purpose: measure the spread of paired differences, to size E1 for the +-15% equivalence test.
+# Tagged like the other configs.
+run:
+  densities:
+    value: [medium]
+    source: decision
+    note: "Fahad 2026-10-16: pilot at medium density"
+  gait_by_density:
+    value: {open: [53.666667, 0.82], sparse: [56.0, 0.80], medium: [59.5, 0.58], dense: [84.0, 1.02]}
+    source: decision
+    note: "[amplitude deg, spatial freq]: paper's per-density values x 7/6 amplitude for 6 joints (G4, g4_options.md)"
+  temporal_freq_hz:
+    value: 0.125
+    source: decision
+    note: "E1 frequency (Fahad 2026-10-16)"
+  conditions:
+    value: [[paper, 0.0], [paper, 0.25], [paper, 0.5], [paper, 0.75], [paper, 1.0], [paper, 1.25], [paper, 1.5], [tight_spool, null]]
+    source: decision
+    note: "[law, G]: the paper's G sweep plus the tight-spool law (g4_options.md 4)"
+  seed_start:
+    value: 1001
+    source: proposal
+    note: "pilot seeds 1001-1020, kept apart from the E1 seeds so pilot trials are not reused in E1"
+  n_trials:
+    value: 20
+    source: decision
+    note: "Fahad 2026-10-16/17: 20 paired trials"

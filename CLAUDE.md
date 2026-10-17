@@ -41,11 +41,27 @@ Label every item: `read-directly (page X)`, `abstract-only`, or `my-inference`.
 
 If the methods or supplementary material are missing from arXiv, stop and tell me exactly which file you need (section 13). Do not guess the missing values.
 
-## 3. Existing assets
+## 3. Starting point
 
-I already have a basic MuJoCo snake model in Python. Path: `<FILL IN>`.
+There is no existing model to reuse. Build from scratch in an empty repo.
 
-Inspect it. Report what is reusable: joint setup, actuation, contact settings. Recommend whether to extend it or replace it, then wait for my answer (gate G1).
+1. **Check the environment first.** Set up a virtual environment and install pinned `mujoco` and the rest of the stack (section 8). Confirm on my machine that:
+   - `import mujoco` works,
+   - a tiny test model steps headless,
+   - `mujoco.viewer` opens a window,
+   - offscreen rendering to a video file works.
+
+   Report the OS, Python version and MuJoCo version in `docs/progress.md`. If something fails (often OpenGL or offscreen rendering), stop and tell me the exact error and the options.
+2. **Write the model plan and wait for approval (gate G1).** Write a one-page `docs/model_plan.md` covering:
+   - segment geometry (box or capsule) and how mass and inertia are set,
+   - the joint type and limits,
+   - how planarity is enforced,
+   - where the cable sites go,
+   - which values come from the paper and which from my hardware assumptions (section 4).
+
+   Then stop. Write no model code until I approve the plan.
+
+If I later find my earlier snake experiment, I will add its path here. It was only a basic test, so do not wait for it.
 
 ## 4. Target hardware (the simulation must describe a robot I can build)
 
@@ -170,7 +186,7 @@ results/       (git-ignored except summaries)
 
 | Gate | Question |
 |---|---|
-| G1 | Extend my existing model or rebuild? |
+| G1 | Environment works, and is `docs/model_plan.md` approved? |
 | G2 | Does the paper's compliance definition, as you summarized it, match my understanding? |
 | G3 | Ground contact model (5.4) |
 | G4 | Segment length, joint count and wave parameters for my robot |
@@ -181,7 +197,7 @@ results/       (git-ignored except summaries)
 
 ## 11. Milestone order
 
-1. Read papers → `paper_notes.md` → G1, G2.
+1. Environment check (section 3) → read papers → `paper_notes.md` → `model_plan.md` → G1, G2.
 2. Model builder + gait + flat ground → E0 → G3, G4.
 3. Compliance implementation A + metrics + tests.
 4. Arena + trial runner → E1 (with A) → G6.
@@ -198,6 +214,5 @@ results/       (git-ignored except summaries)
 
 ## 13. Inputs only I can provide
 
-1. Path to my existing MuJoCo snake model.
-2. The *Science Robotics* published version and its Supplementary Materials, if the arXiv version lacks methods detail. Tell me exactly which values are missing first; I will get the files or contact the authors.
-3. The actual servo model and its spec listing from a local shop, before G7.
+1. The *Science Robotics* published version and its Supplementary Materials, if the arXiv version lacks methods detail. Tell me exactly which values are missing first; I will get the files or contact the authors.
+2. The actual servo model and its spec listing from a local shop, before G7.

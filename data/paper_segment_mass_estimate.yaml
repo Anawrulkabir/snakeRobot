@@ -1,0 +1,29 @@
+# Estimate of one module of the paper's robot (Wang et al. 2023). NOT a value
+# from the paper: the paper gives no mass (paper_notes 6, UNKNOWN).
+# Each item: [low, high] in grams, with its basis. Fahad, 2026-10-16:
+# "estimate the paper's segment mass from its listed components".
+items:
+  servo:
+    range_g: [98.2, 98.2]
+    basis: "Dynamixel 2XL430-W250 datasheet mass 98.2 g (ROBOTIS e-manual, emanual.robotis.com/docs/en/dxl/x/2xl430-w250/); paper p. 53 names the -T model"
+  case:
+    range_g: [30, 70]
+    basis: "PLA case 55 mm long, 68 mm diameter (p. 53). Thin-wall shell estimate: cylinder wall + two end faces ~1.9e4 mm^2 x 1.5-3 mm wall x PLA ~1.24 g/cm^3 ~ 35-70 g; lower bound allows open faces. My inference, not measured"
+  joint_link:
+    range_g: [5, 10]
+    basis: "28 mm PLA joint (p. 54). My inference"
+  pulleys:
+    range_g: [2, 5]
+    basis: "two 9.5 mm PLA pulleys (p. 54). My inference"
+  fasteners_inserts:
+    range_g: [5, 10]
+    basis: "heat inserts and screws (p. 54). My inference"
+  wheel_assembly:
+    range_g: [5, 20]
+    basis: "printed base + LEGO wheel frame + wheel with tape (p. 55). Individual LEGO frame masses not found; my inference"
+  sleeve:
+    range_g: [4, 5]
+    basis: "1.75 in polyester sleeving (p. 55). Proxy: Techflex PTN1.75 listed at 27 lb / 1000 ft (waytekwire.com), ~40 g/m, x ~0.11 m per module. Paper used a McMaster product whose mass was not found"
+module_pitch_m:
+  value: 0.1075
+  basis: "86 cm body / 8 modules (7 joints, p. 10). My inference. Note: case 55 mm + joint 28 mm = 83 mm, so the stated 86 cm may include head and tail parts"

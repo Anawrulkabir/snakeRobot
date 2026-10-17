@@ -1,0 +1,47 @@
+# Post lattice (CLAUDE.md 5.1; g4_options.md section 3). Tagged like the other configs.
+lattice:
+  pattern:
+    value: hexagonal
+    source: proposal
+    note: "rows offset by half a spacing. The paper's nematode arrays are hexagonal (p. 7); the robot lattice pattern is UNKNOWN (paper_notes 4), its photo (Fig. S1B) looks staggered"
+  spacing_is_centre_to_centre:
+    value: true
+    source: proposal
+    note: "the paper does not say (paper_notes 4)"
+  L_over_d:
+    value: {open: 0.0, sparse: 1.8, medium: 2.8, dense: 3.3}
+    source: paper
+    note: "body length / post spacing (p. 8; robot lattices scaled to match, p. 16, Fig. 4C)"
+  post_diameter_m:
+    value: 0.103
+    source: proposal
+    note: "paper 12.7 cm (p. 36) x 0.70/0.86"
+  post_height_m:
+    value: 0.08
+    source: proposal
+    note: "taller than the body; paper 10 cm caps x 0.70/0.86 = 8.1 cm"
+  length_m:
+    value: 1.95
+    source: proposal
+    note: "lattice depth along the travel direction = success finish line. Paper's 2.4 m pegboard (p. 36) x 0.70/0.86; the paper's lattice extent is UNKNOWN"
+  width_m:
+    value: 2.0
+    source: proposal
+    note: "wide enough that the robot does not leave the lattice sideways within 40 cycles (checked per trial: max |lateral excursion| is logged)"
+  post_friction:
+    value: 0.4
+    source: placeholder
+    note: "Coulomb mu between body and post. The paper gives none (sleeve on PVC caps, paper_notes 6). Fahad 2026-10-16: 0.4 as a PLA-on-PVC/wood placeholder; on the E4 sweep"
+start:
+  head_x_m:
+    value: -0.05
+    source: proposal
+    note: "the body's front-most surface point starts at this x, 5 cm before the lattice front (x = 0). The body's tail-to-head axis points along the heading (snake/trial.py place_body)"
+  heading_noise_deg:
+    value: 15
+    source: proposal
+    note: "the body axis (tail pin to head pin) starts uniform in +-15 deg about +x (towards the lattice)"
+  lateral_offset:
+    value: half_spacing
+    source: proposal
+    note: "initial y uniform in +-d/2, so starts sample every position relative to the post rows. Open ground: +-0.05 m"

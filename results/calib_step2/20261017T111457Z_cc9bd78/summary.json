@@ -1,0 +1,347 @@
+{
+  "run_id": "20261017T111457Z_cc9bd78",
+  "n_rows": 35,
+  "diverged": [],
+  "total_cpu_s": 8086.54034548,
+  "per_G": {
+    "0.0": {
+      "n": 5,
+      "successes": 5,
+      "outcomes": {
+        "success": 5,
+        "stuck": 0,
+        "overload": 0,
+        "timeout": 0
+      },
+      "rate_mean": 0.18805825743244334,
+      "final_com_dx_mean_m": 2.0193958350185066,
+      "cycles_mean": 16.458775000036617,
+      "tracking_rms_rad_mean": 0.01069964045099891,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    },
+    "0.25": {
+      "n": 5,
+      "successes": 4,
+      "outcomes": {
+        "success": 4,
+        "stuck": 0,
+        "overload": 0,
+        "timeout": 1
+      },
+      "rate_mean": 0.17769610296119737,
+      "final_com_dx_mean_m": 1.5980344275426406,
+      "cycles_mean": 16.24707499999012,
+      "tracking_rms_rad_mean": 0.11181028403942798,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    },
+    "0.5": {
+      "n": 5,
+      "successes": 1,
+      "outcomes": {
+        "success": 1,
+        "stuck": 4,
+        "overload": 0,
+        "timeout": 0
+      },
+      "rate_mean": 0.0614791121900076,
+      "final_com_dx_mean_m": 0.4640014759698321,
+      "cycles_mean": 11.18887500000975,
+      "tracking_rms_rad_mean": 0.15167023837338747,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    },
+    "0.75": {
+      "n": 5,
+      "successes": 2,
+      "outcomes": {
+        "success": 2,
+        "stuck": 3,
+        "overload": 0,
+        "timeout": 0
+      },
+      "rate_mean": 0.07357657504988668,
+      "final_com_dx_mean_m": 0.85726723952982,
+      "cycles_mean": 14.821100000024497,
+      "tracking_rms_rad_mean": 0.17612481255977347,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    },
+    "1.0": {
+      "n": 5,
+      "successes": 5,
+      "outcomes": {
+        "success": 5,
+        "stuck": 0,
+        "overload": 0,
+        "timeout": 0
+      },
+      "rate_mean": 0.17993200161995923,
+      "final_com_dx_mean_m": 2.0287130262226616,
+      "cycles_mean": 19.77354999998709,
+      "tracking_rms_rad_mean": 0.1881588050297637,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    },
+    "1.25": {
+      "n": 5,
+      "successes": 0,
+      "outcomes": {
+        "success": 0,
+        "stuck": 0,
+        "overload": 0,
+        "timeout": 5
+      },
+      "rate_mean": 0.018376036407373474,
+      "final_com_dx_mean_m": 0.7350414562949389,
+      "cycles_mean": 40.00012499991811,
+      "tracking_rms_rad_mean": 0.3408768546989472,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    },
+    "1.5": {
+      "n": 5,
+      "successes": 0,
+      "outcomes": {
+        "success": 0,
+        "stuck": 0,
+        "overload": 0,
+        "timeout": 5
+      },
+      "rate_mean": 0.01650374973850381,
+      "final_com_dx_mean_m": 0.6601499895401525,
+      "cycles_mean": 40.00012499991811,
+      "tracking_rms_rad_mean": 0.3397315104671814,
+      "stop_hit_cycle_fraction_mean": 0.0,
+      "stop_hit_step_fraction_mean": 0.0,
+      "n_trials_with_stop_contact": 0
+    }
+  },
+  "successes_by_G": {
+    "0.0": 5,
+    "0.25": 4,
+    "0.5": 1,
+    "0.75": 2,
+    "1.0": 5,
+    "1.25": 0,
+    "1.5": 0
+  },
+  "outcome_rule": "inconclusive",
+  "stop_contact_split_all_G": {
+    "with_stop_contact": {
+      "n": 0,
+      "successes": 0,
+      "rate_mean": null,
+      "cycles_mean": null,
+      "outcomes": {
+        "success": 0,
+        "stuck": 0,
+        "overload": 0,
+        "timeout": 0
+      }
+    },
+    "without_stop_contact": {
+      "n": 35,
+      "successes": 17,
+      "rate_mean": 0.10223169077133877,
+      "cycles_mean": 22.64137499998347,
+      "outcomes": {
+        "success": 17,
+        "stuck": 7,
+        "overload": 0,
+        "timeout": 11
+      }
+    }
+  },
+  "stop_contact_split_by_G": {
+    "0.0": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 5,
+        "rate_mean": 0.18805825743244334,
+        "cycles_mean": 16.458775000036617,
+        "outcomes": {
+          "success": 5,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      }
+    },
+    "0.25": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 4,
+        "rate_mean": 0.17769610296119737,
+        "cycles_mean": 16.24707499999012,
+        "outcomes": {
+          "success": 4,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 1
+        }
+      }
+    },
+    "0.5": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 1,
+        "rate_mean": 0.0614791121900076,
+        "cycles_mean": 11.18887500000975,
+        "outcomes": {
+          "success": 1,
+          "stuck": 4,
+          "overload": 0,
+          "timeout": 0
+        }
+      }
+    },
+    "0.75": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 2,
+        "rate_mean": 0.07357657504988668,
+        "cycles_mean": 14.821100000024497,
+        "outcomes": {
+          "success": 2,
+          "stuck": 3,
+          "overload": 0,
+          "timeout": 0
+        }
+      }
+    },
+    "1.0": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 5,
+        "rate_mean": 0.17993200161995923,
+        "cycles_mean": 19.77354999998709,
+        "outcomes": {
+          "success": 5,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      }
+    },
+    "1.25": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 0,
+        "rate_mean": 0.018376036407373474,
+        "cycles_mean": 40.00012499991811,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 5
+        }
+      }
+    },
+    "1.5": {
+      "with_stop_contact": {
+        "n": 0,
+        "successes": 0,
+        "rate_mean": null,
+        "cycles_mean": null,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 0
+        }
+      },
+      "without_stop_contact": {
+        "n": 5,
+        "successes": 0,
+        "rate_mean": 0.01650374973850381,
+        "cycles_mean": 40.00012499991811,
+        "outcomes": {
+          "success": 0,
+          "stuck": 0,
+          "overload": 0,
+          "timeout": 5
+        }
+      }
+    }
+  }
+}

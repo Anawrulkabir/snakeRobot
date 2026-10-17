@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+env_check_output/
+# Raw results stay local; per-run summaries are committed so docs can cite them.
+results/**
+!results/**/
+!results/**/summary*
+!results/**/trials.jsonl
+!results/**/trials.parquet
+!results/.gitkeep
+# Authors' original figure files (Wang et al. 2023). Fahad 2026-10-17: never commit.
+paper_figures/
+MUJOCO_LOG.TXT
+media/handoff/
+media/handoff.zip

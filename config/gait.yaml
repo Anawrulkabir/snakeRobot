@@ -1,0 +1,19 @@
+# Gait parameters (paper Eq. 2). Tagged like robot.yaml. Final values are set at G4.
+wave:
+  amplitude_deg:
+    value: 53.666667
+    source: decision
+    note: "open environment: paper 46 deg (p. 36) x 7/6 for 6 joints (G4). Per-density amplitudes live in config/experiments/E1.yaml"
+  spatial_freq:
+    value: 0.82
+    source: paper
+    note: "xi, open environment, p. 36; unchanged by the G4 scaling"
+  temporal_freq:
+    value: 0.125
+    source: decision
+    note: "Hz, E1 frequency (Fahad 2026-10-16). The paper gives no value"
+compliance:
+  G:
+    value: 0.0
+    source: proposal
+    note: "generalized compliance (paper Eq. 3), same at every joint. Experiments override it"

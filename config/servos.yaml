@@ -1,0 +1,71 @@
+# Candidate servos (Fahad 2026-10-17, from local shop listings). Tagged like the other configs.
+# Stall torque at 6 V: linear interpolation between the two listed voltage points (Fahad: "Assume 6 V").
+# 1 kg cm = 0.0980665 N m.
+MG90S:
+  status:
+    value: baseline
+    source: decision
+    note: "Fahad 2026-10-17; robot.yaml servo.stall_torque and mass.servo use it"
+  ref:
+    value: "RoboticsBD RBD-0217"
+    source: hardware
+    note: "Fahad 2026-10-17"
+  mass_kg:
+    value: 0.013
+    source: hardware
+    note: "listing: 13 g"
+  stall_kgcm_at_4p8V:
+    value: 1.8
+    source: hardware
+    note: "listing"
+  stall_kgcm_at_6p6V:
+    value: 2.2
+    source: hardware
+    note: "listing"
+  speed_s_per_60deg:
+    value: 0.10
+    source: hardware
+    note: "listing"
+  size_mm:
+    value: [12.4, 22.8, 32.5]
+    source: hardware
+    note: "listing"
+  rotation_deg:
+    value: 180
+    source: proposal
+    note: "not in Fahad's listing; MG90S-class servos are usually sold as 180 deg. To confirm on the bought part"
+MG996R:
+  # DROPPED (Fahad 2026-10-17): overloads at G = 0 anyway, 4x heavier, barely
+  # fits, may turn only ~120 deg. Kept for the record of diag_servo_choice.
+  status:
+    value: dropped
+    source: decision
+    note: "Fahad 2026-10-17; docs/decisions.md"
+  ref:
+    value: "local shop, Tk 480"
+    source: hardware
+    note: "Fahad 2026-10-17"
+  mass_kg:
+    value: 0.055
+    source: hardware
+    note: "listing: 55 g"
+  stall_kgcm_at_4p8V:
+    value: 9.4
+    source: hardware
+    note: "listing"
+  stall_kgcm_at_6V:
+    value: 11.0
+    source: hardware
+    note: "listing"
+  speed_s_per_60deg:
+    value: 0.19
+    source: hardware
+    note: "listing"
+  size_mm:
+    value: [40.7, 19.7, 42.9]
+    source: hardware
+    note: "listing"
+  rotation_deg:
+    value: 120
+    source: hardware
+    note: "Fahad: 'possibly only ~120 deg rotation'. To confirm"

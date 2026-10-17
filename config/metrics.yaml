@@ -1,0 +1,40 @@
+# Metric thresholds (CLAUDE.md 5.5). Tagged like the other configs.
+jam:
+  disp_per_cycle_threshold_m:
+    value: 0.01
+    source: proposal
+    note: "jammed while the CoM's displacement over the last gait cycle stays below this. ~10% of the free-ground value under the slide load model (0.0978 m/cycle at 0.125 Hz, run 20261016T174857Z_00f197e). To confirm before E1"
+  min_duration_cycles:
+    value: 3
+    source: proposal
+    note: "must persist this many cycles to count as a jam. To confirm before E1"
+trial:
+  stuck_terminate_cycles:
+    value: 10
+    source: paper
+    note: "paper ends a trial when the robot 'did not proceed for 10 consecutive gait cycles' (p. 37)"
+collision:
+  min_gap_s:
+    value: 0.05
+    source: proposal
+    note: "a body-post contact must be absent this long before a new contact counts as a new collision; contact chatter flickers on ~10 ms scales (results_E0.md)"
+success:
+  # Finish line: the far edge of the lattice, config/arena.yaml lattice.length_m (1.95 m = 2.79 body lengths).
+  max_cycles:
+    value: 40
+    source: proposal
+    note: "time limit T. Crossing 1.95 m in 40 cycles needs >= 0.049 m/cycle (0.07 body lengths/cycle), 43% of the free-ground G = 0 value 0.1141 m/cycle (smoke run 20261016T181330Z_9fae347)"
+overload:
+  torque_fraction_of_stall:
+    value: 0.99
+    source: proposal
+    note: "paper ends a trial when a servo 'experienc[es] torque that exceeded the stall torque' (p. 37). Our torques are capped at stall, so time spent at the cap is the analogue"
+  min_duration_s:
+    value: 1.0
+    source: proposal
+    note: "sustained at the cap this long = overload. 1 s = 0.125 cycle at 0.125 Hz: long enough to exclude impact spikes, short against a cycle"
+report:
+  success_cutoffs_cycles:
+    value: [20, 30, 40]
+    source: decision
+    note: "Fahad 2026-10-16: compute success post hoc at 20/30/40 cycles and report whether the G ranking holds at each"

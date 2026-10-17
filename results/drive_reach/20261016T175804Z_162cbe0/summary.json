@@ -1,0 +1,499 @@
+{
+  "Lc_m": 0.02,
+  "Lj_m": 0.02,
+  "l0_m_per_rad": 0.029874132308849426,
+  "l0_mm_per_deg": 0.521401969965838,
+  "max_length_rate_mm_per_deg": 0.493653659795374,
+  "cases": [
+    {
+      "A_deg": 53.666666666666664,
+      "paper": [
+        {
+          "G": 0,
+          "sum_variation_mm": 8.61413140058756,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                26.83333333333334,
+                26.833333333334775
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                53.666666666666686,
+                53.66666666666668
+              ]
+            }
+          }
+        },
+        {
+          "G": 0.25,
+          "sum_variation_mm": 2.1833260542671455,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                26.83333333333334,
+                26.833333333334775
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                53.666666666666686,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 0.5,
+          "sum_variation_mm": 5.618970031730328,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                26.83333333333334,
+                55.27437654591671
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                53.666666666666686,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 0.75,
+          "sum_variation_mm": 2.0009147068350277,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -10.899345095473661,
+                10.899345095473661
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                26.83333333333334,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                53.666666666666686,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 1.0,
+          "sum_variation_mm": 1.3877787807814457e-14,
+          "reachable_by_circular_spool": true,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -17.498541186325586,
+                17.498541186325586
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                22.011509118614615,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                53.666666666666686,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 1.25,
+          "sum_variation_mm": 2.7755575615628914e-14,
+          "reachable_by_circular_spool": true,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -90.0,
+                90.0
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                -17.498541186325543,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                22.011509118614637,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 1.5,
+          "sum_variation_mm": 0.0,
+          "reachable_by_circular_spool": true,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -90.0,
+                90.0
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                -90.0,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                -17.498541186325586,
+                90.0
+              ]
+            }
+          }
+        }
+      ],
+      "spool": {
+        "spool_l0_at_G1_min_slack_mm": 3.469446951953614e-15,
+        "spool_l0_shorter_by_1mm_min_slack_mm": -0.499999999999997,
+        "tight": {
+          "k_mm_per_deg": 0.34906585039886584,
+          "S_mm": 80.0,
+          "min_slack_mm": 0.0,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 26.833333333333332,
+              "free_deg": [
+                24.424686230592087,
+                31.544677388360586
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 53.666666666666664,
+              "free_deg": [
+                45.8342335916265,
+                90.0
+              ]
+            }
+          }
+        }
+      },
+      "two_servo_travel_mm_per_G": {
+        "0": 36.111739978951746,
+        "0.25": 44.543460032107184,
+        "0.5": 50.344841411269634,
+        "0.75": 53.962896736164915,
+        "1.0": 55.96381144299995,
+        "1.25": 55.963811442999955,
+        "1.5": 55.96381144299995
+      },
+      "two_servo_travel_mm_G0_to_1.5": 83.94571716449991,
+      "one_spool_l0_travel_mm": 55.96381144299995,
+      "fully_passive_G": 1.695654516389503
+    },
+    {
+      "A_deg": 84.0,
+      "paper": [
+        {
+          "G": 0,
+          "sum_variation_mm": 20.548413961808475,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                42.000000000000014,
+                41.99999999999999
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                83.99999999999906,
+                83.9999999999983
+              ]
+            }
+          }
+        },
+        {
+          "G": 0.25,
+          "sum_variation_mm": 5.313565880223859,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                42.000000000000014,
+                41.99999999999999
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                83.99999999999906,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 0.5,
+          "sum_variation_mm": 6.758334241871819,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                42.000000000000014,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                83.99999999999906,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 0.75,
+          "sum_variation_mm": 1.850952425230576,
+          "reachable_by_circular_spool": false,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -15.095019835319876,
+                15.095019835319876
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                42.000000000000014,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                83.99999999999906,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 1.0,
+          "sum_variation_mm": 2.7755575615628914e-14,
+          "reachable_by_circular_spool": true,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -21.4976852884507,
+                21.4976852884507
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                37.86149704846202,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                83.99999999999906,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 1.25,
+          "sum_variation_mm": 2.7755575615628914e-14,
+          "reachable_by_circular_spool": true,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -90.0,
+                90.0
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                -21.497685288450672,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                37.86149704846202,
+                90.0
+              ]
+            }
+          }
+        },
+        {
+          "G": 1.5,
+          "sum_variation_mm": 5.551115123125783e-14,
+          "reachable_by_circular_spool": true,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                -90.0,
+                90.0
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                -90.0,
+                90.0
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                -21.4976852884507,
+                90.0
+              ]
+            }
+          }
+        }
+      ],
+      "spool": {
+        "spool_l0_at_G1_min_slack_mm": -2.168404344971009e-15,
+        "spool_l0_shorter_by_1mm_min_slack_mm": -0.5000000000000027,
+        "tight": {
+          "k_mm_per_deg": 0.34906585039886584,
+          "S_mm": 80.0,
+          "min_slack_mm": 0.0,
+          "ranges": {
+            "alpha0": {
+              "suggested_deg": 0.0,
+              "free_deg": [
+                1.1169494664903991e-11,
+                -1.1169494664903991e-11
+              ]
+            },
+            "alphaHalfA": {
+              "suggested_deg": 42.0,
+              "free_deg": [
+                36.776991961502475,
+                60.15496599380528
+              ]
+            },
+            "alphaA": {
+              "suggested_deg": 84.0,
+              "free_deg": [
+                68.23792582713325,
+                90.0
+              ]
+            }
+          }
+        }
+      },
+      "two_servo_travel_mm_per_G": {
+        "0": 53.53044850870866,
+        "0.25": 70.61624901552385,
+        "0.5": 80.83719671238896,
+        "0.75": 85.7445785290302,
+        "1.0": 87.59553095426078,
+        "1.25": 87.59553095426078,
+        "1.5": 87.59553095426077
+      },
+      "two_servo_travel_mm_G0_to_1.5": 131.39329643139118,
+      "one_spool_l0_travel_mm": 87.59553095426078,
+      "fully_passive_G": 1.6119943922501538
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[project]
+name = "snakerobot-sim"
+version = "0.1.0"
+description = "MuJoCo simulation of a compliant bilateral-cable snake robot (simulation before hardware)"
+readme = "README.md"
+requires-python = ">=3.11"
+# Exact pins for everything that touches results: these are the versions that
+# produced every run in results/ (Python 3.13, 2026-10-17). The full transitive
+# set is pinned in uv.lock.
+dependencies = [
+    "mujoco==3.2.6",
+    "numpy==2.1.3",
+    "scipy==1.14.1",
+    "matplotlib==3.9.2",
+    "pyyaml==6.0.2",
+    "pandas==2.2.3",
+    "mediapy==1.2.2",
+    "pillow==12.3.0",
+    "pyopengl==3.1.10",
+    "pyarrow>=18",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==8.3.3",
+    "ruff>=0.8",
+    "pre-commit>=4",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["paper_figures", "results"]
+
+[tool.ruff.lint]
+# Pyflakes + pycodestyle errors/warnings. Kept small on purpose: lint fixes
+# go in their own commit, separate from formatting.
+select = ["E", "F", "W"]
+ignore = ["E731"]   # lambdas assigned to names are used deliberately for short config loaders

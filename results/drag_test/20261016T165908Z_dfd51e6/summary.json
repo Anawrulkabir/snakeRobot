@@ -1,0 +1,52 @@
+{
+  "target_ratio": 1.6,
+  "tolerance_rel": 0.02,
+  "all_within_tolerance": true,
+  "rows": [
+    {
+      "segment": "head",
+      "speed_m_per_s": 0.01,
+      "weight_N": 0.7357500000000001,
+      "forward_force_N": 0.2310360479285548,
+      "forward_force_std_N": 4.14254402336066e-11,
+      "sideways_force_N": 0.3678750187040261,
+      "sideways_force_std_N": 1.2037922643672423e-07,
+      "ratio_sideways_over_forward": 1.5922840699637797,
+      "coulomb_reference_mu_W_N": 0.36787500000000006
+    },
+    {
+      "segment": "head",
+      "speed_m_per_s": 0.05,
+      "weight_N": 0.7357500000000001,
+      "forward_force_N": 0.23004957809170534,
+      "forward_force_std_N": 0.02839945497295803,
+      "sideways_force_N": 0.3677701323328714,
+      "sideways_force_std_N": 0.07833070624128632,
+      "ratio_sideways_over_forward": 1.598655974001683,
+      "coulomb_reference_mu_W_N": 0.36787500000000006
+    },
+    {
+      "segment": "body",
+      "speed_m_per_s": 0.01,
+      "weight_N": 0.377685,
+      "forward_force_N": 0.11851816352353832,
+      "forward_force_std_N": 4.8974075938682e-11,
+      "sideways_force_N": 0.18884250830355676,
+      "sideways_force_std_N": 3.14639208800827e-08,
+      "ratio_sideways_over_forward": 1.5933634363651918,
+      "coulomb_reference_mu_W_N": 0.1888425
+    },
+    {
+      "segment": "body",
+      "speed_m_per_s": 0.05,
+      "weight_N": 0.377685,
+      "forward_force_N": 0.11805690805241162,
+      "forward_force_std_N": 0.020354858721745542,
+      "sideways_force_N": 0.1888578994538107,
+      "sideways_force_std_N": 0.05180625697273749,
+      "ratio_sideways_over_forward": 1.5997191741627421,
+      "coulomb_reference_mu_W_N": 0.1888425
+    }
+  ],
+  "note": "one segment on its own wheel, yaw held by the rig; 'body' segments carry servos, the head carries electronics"
+}

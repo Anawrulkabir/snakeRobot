@@ -1,0 +1,38 @@
+# Calibration step 2 (Fahad 2026-10-17): the combined setup chosen by the
+# pre-registered rule from step 1 (run 20261017T075321Z_dc2fb6c), at the full
+# G sweep. Outcome rule: docs/decisions.md, "Calibration step 2".
+# Tagged like the other configs.
+run:
+  densities:
+    value: [medium]
+    source: decision
+    note: "as step 1"
+  gait_by_density:
+    value: {open: [53.666667, 0.82], sparse: [56.0, 0.80], medium: [59.5, 0.58], dense: [84.0, 1.02]}
+    source: decision
+    note: "as step 1; the combined variant scales the amplitude by 0.85"
+  temporal_freq_hz:
+    value: 0.125
+    source: decision
+    note: "as step 1"
+  conditions:
+    value: [[paper, 0.0], [paper, 0.25], [paper, 0.5], [paper, 0.75], [paper, 1.0], [paper, 1.25], [paper, 1.5]]
+    source: decision
+    note: "Fahad 2026-10-17"
+  seed_start:
+    value: 1001
+    source: decision
+    note: "seeds 1001-1005, the same as step 1"
+  n_trials:
+    value: 5
+    source: decision
+    note: "Fahad 2026-10-17"
+  variants:
+    value:
+      combined:
+        arena.lattice.post_friction: 0.1
+        metrics.overload.min_duration_s: 3.0
+        gait.amplitude_scale: 0.85
+        robot.joint.passive_coeff: 0.25956
+    source: decision
+    note: "step-1 selection (results_calib_step1.md): friction 0.1, overload 3 s, amplitude x0.85, passive x4; servo torque stays at the MG90S baseline (0.2027 N m, robot.yaml)"

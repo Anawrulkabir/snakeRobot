@@ -1,0 +1,750 @@
+{
+  "stiffness_Nm_per_rad": 0.02,
+  "n_cycles": 6,
+  "seeds": [
+    1,
+    2,
+    3
+  ],
+  "cells": {
+    "a_open_mediumgait|G=0.0": {
+      "com_dx_per_cycle_m": [
+        -0.0183,
+        0.1271,
+        0.1347
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.063,
+          -0.083,
+          -0.101,
+          -0.118,
+          -0.137,
+          -0.155
+        ],
+        [
+          -0.045,
+          0.083,
+          0.21,
+          0.336,
+          0.464,
+          0.59,
+          0.717
+        ],
+        [
+          -0.045,
+          0.089,
+          0.225,
+          0.361,
+          0.495,
+          0.629,
+          0.765
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collisions": [
+        0,
+        0,
+        0
+      ],
+      "torque_peak_Nm": [
+        0.09,
+        0.093,
+        0.091
+      ],
+      "initial_post_contacts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "a_open_opengait|G=0.0": {
+      "com_dx_per_cycle_m": [
+        0.0243,
+        0.0797,
+        0.1032
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.02,
+          0.005,
+          0.029,
+          0.053,
+          0.077,
+          0.102
+        ],
+        [
+          -0.045,
+          0.034,
+          0.114,
+          0.194,
+          0.274,
+          0.354,
+          0.433
+        ],
+        [
+          -0.045,
+          0.057,
+          0.161,
+          0.264,
+          0.367,
+          0.47,
+          0.574
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collisions": [
+        0,
+        0,
+        0
+      ],
+      "torque_peak_Nm": [
+        0.07,
+        0.071,
+        0.07
+      ],
+      "initial_post_contacts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "a_open_mediumgait|G=0.75": {
+      "com_dx_per_cycle_m": [
+        -0.003,
+        0.0844,
+        0.0885
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.045,
+          -0.05,
+          -0.054,
+          -0.056,
+          -0.06,
+          -0.069
+        ],
+        [
+          -0.045,
+          -0.004,
+          0.076,
+          0.156,
+          0.238,
+          0.32,
+          0.405
+        ],
+        [
+          -0.045,
+          0.025,
+          0.112,
+          0.199,
+          0.286,
+          0.371,
+          0.457
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.86,
+        0.86,
+        0.86
+      ],
+      "collisions": [
+        0,
+        0,
+        0
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "a_open_opengait|G=0.75": {
+      "com_dx_per_cycle_m": [
+        0.0182,
+        0.0519,
+        0.0643
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.029,
+          -0.01,
+          0.009,
+          0.026,
+          0.045,
+          0.063
+        ],
+        [
+          -0.045,
+          0.006,
+          0.058,
+          0.11,
+          0.161,
+          0.213,
+          0.266
+        ],
+        [
+          -0.045,
+          0.009,
+          0.073,
+          0.137,
+          0.201,
+          0.265,
+          0.33
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collisions": [
+        0,
+        0,
+        0
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "a_open_mediumgait|G=1.0": {
+      "com_dx_per_cycle_m": [
+        -0.0028,
+        0.0828,
+        0.0853
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.045,
+          -0.047,
+          -0.052,
+          -0.059,
+          -0.063,
+          -0.066
+        ],
+        [
+          -0.045,
+          -0.001,
+          0.08,
+          0.16,
+          0.239,
+          0.319,
+          0.398
+        ],
+        [
+          -0.045,
+          0.021,
+          0.103,
+          0.184,
+          0.27,
+          0.349,
+          0.429
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.86,
+        0.86,
+        0.86
+      ],
+      "collisions": [
+        0,
+        0,
+        0
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "a_open_opengait|G=1.0": {
+      "com_dx_per_cycle_m": [
+        0.0178,
+        0.0472,
+        0.0574
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.026,
+          -0.008,
+          0.01,
+          0.028,
+          0.046,
+          0.063
+        ],
+        [
+          -0.045,
+          0.005,
+          0.053,
+          0.1,
+          0.148,
+          0.194,
+          0.241
+        ],
+        [
+          -0.045,
+          0.004,
+          0.061,
+          0.12,
+          0.177,
+          0.234,
+          0.292
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collisions": [
+        0,
+        0,
+        0
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        0,
+        0,
+        0
+      ]
+    },
+    "c_medium|G=0.0": {
+      "com_dx_per_cycle_m": [
+        0.0049,
+        0.1111,
+        0.0377
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.002,
+          -0.008,
+          -0.017,
+          -0.05,
+          -0.045,
+          -0.046
+        ],
+        [
+          -0.045,
+          0.054,
+          0.085,
+          0.279
+        ],
+        [
+          -0.045,
+          0.053,
+          0.007,
+          0.012,
+          0.025,
+          0.058,
+          0.18
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "overload",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collisions": [
+        22,
+        13,
+        23
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        1,
+        0,
+        0
+      ]
+    },
+    "c_medium|G=0.75": {
+      "com_dx_per_cycle_m": [
+        -0.0021,
+        0.0207,
+        0.013
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.024,
+          0.013,
+          -0.003,
+          -0.012,
+          -0.028,
+          -0.021
+        ],
+        [
+          -0.045,
+          -0.004,
+          0.026,
+          0.027,
+          0.012,
+          0.009,
+          0.02
+        ],
+        [
+          -0.045,
+          0.021,
+          0.018,
+          0.019,
+          0.017,
+          0.017,
+          0.017
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.86,
+        0.86,
+        0.86
+      ],
+      "collisions": [
+        29,
+        22,
+        23
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        1,
+        0,
+        0
+      ]
+    },
+    "c_medium|G=1.0": {
+      "com_dx_per_cycle_m": [
+        0.0018,
+        0.0194,
+        0.014
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.024,
+          -0.005,
+          0.019,
+          0.033,
+          0.024,
+          0.019
+        ],
+        [
+          -0.045,
+          -0.001,
+          0.023,
+          0.021,
+          0.021,
+          0.017,
+          0.018
+        ],
+        [
+          -0.045,
+          0.02,
+          0.038,
+          0.04,
+          0.035,
+          0.023,
+          0.022
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.86,
+        0.86,
+        0.86
+      ],
+      "collisions": [
+        30,
+        26,
+        29
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        1,
+        0,
+        0
+      ]
+    },
+    "d_medium_postmu0|G=0.0": {
+      "com_dx_per_cycle_m": [
+        0.0049,
+        0.1111,
+        0.0377
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.002,
+          -0.008,
+          -0.017,
+          -0.05,
+          -0.045,
+          -0.046
+        ],
+        [
+          -0.045,
+          0.054,
+          0.085,
+          0.279
+        ],
+        [
+          -0.045,
+          0.053,
+          0.007,
+          0.012,
+          0.025,
+          0.058,
+          0.18
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "overload",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collisions": [
+        22,
+        13,
+        23
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        1,
+        0,
+        0
+      ]
+    },
+    "d_medium_postmu0|G=0.75": {
+      "com_dx_per_cycle_m": [
+        -0.0021,
+        0.0207,
+        0.013
+      ],
+      "head_x_per_cycle_m": [
+        [
+          -0.045,
+          -0.024,
+          0.013,
+          -0.003,
+          -0.012,
+          -0.028,
+          -0.021
+        ],
+        [
+          -0.045,
+          -0.004,
+          0.026,
+          0.027,
+          0.012,
+          0.009,
+          0.02
+        ],
+        [
+          -0.045,
+          0.021,
+          0.018,
+          0.019,
+          0.017,
+          0.017,
+          0.017
+        ]
+      ],
+      "outcome": [
+        "timeout",
+        "timeout",
+        "timeout"
+      ],
+      "stop_hit_cycle_fraction": [
+        0.86,
+        0.86,
+        0.86
+      ],
+      "collisions": [
+        29,
+        22,
+        23
+      ],
+      "torque_peak_Nm": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "initial_post_contacts": [
+        1,
+        0,
+        0
+      ]
+    }
+  },
+  "b_initial_overlap": {
+    "sparse": {
+      "seeds": 50,
+      "trials_with_initial_post_contact": 0,
+      "max_initial_penetration_m": 0.0,
+      "max_initial_body_front_x_m": 0.02440778797273688
+    },
+    "medium": {
+      "seeds": 50,
+      "trials_with_initial_post_contact": 17,
+      "max_initial_penetration_m": 0.0885788320269893,
+      "max_initial_body_front_x_m": 0.2355284048168278
+    },
+    "dense": {
+      "seeds": 50,
+      "trials_with_initial_post_contact": 5,
+      "max_initial_penetration_m": 0.039858613210976786,
+      "max_initial_body_front_x_m": 0.06816558301532202
+    }
+  },
+  "e_wave_geometry": {
+    "open": {
+      "A_deg": 53.666667,
+      "xi": 0.82,
+      "lateral_extent_mean_m": 0.21617671020956586,
+      "lateral_extent_max_m": 0.22655459986778292,
+      "axial_length_m": 0.49590856742813766,
+      "body_wavelength_m": 0.6047665456440704,
+      "spacing_m": null,
+      "gap_m": null,
+      "body_width_m": 0.05,
+      "wavelength_over_spacing": null,
+      "paper_wavelength_over_spacing": null
+    },
+    "sparse": {
+      "A_deg": 56.0,
+      "xi": 0.8,
+      "lateral_extent_mean_m": 0.22455361218552494,
+      "lateral_extent_max_m": 0.24083387456264635,
+      "axial_length_m": 0.4706410142338632,
+      "body_wavelength_m": 0.5883012677923289,
+      "spacing_m": 0.3888888888888889,
+      "gap_m": 0.2858888888888889,
+      "body_width_m": 0.05,
+      "wavelength_over_spacing": 1.5127746886088458,
+      "paper_wavelength_over_spacing": 2.0
+    },
+    "medium": {
+      "A_deg": 59.5,
+      "xi": 0.58,
+      "lateral_extent_mean_m": 0.23393597377327213,
+      "lateral_extent_max_m": 0.27458249294732556,
+      "axial_length_m": 0.3413321485617805,
+      "body_wavelength_m": 0.588503704416863,
+      "spacing_m": 0.25000000000000006,
+      "gap_m": 0.14700000000000008,
+      "body_width_m": 0.05,
+      "wavelength_over_spacing": 2.3540148176674514,
+      "paper_wavelength_over_spacing": 2.2
+    },
+    "dense": {
+      "A_deg": 84.0,
+      "xi": 1.02,
+      "lateral_extent_mean_m": 0.24579698135414818,
+      "lateral_extent_max_m": 0.26184025217703094,
+      "axial_length_m": 0.39156477508697574,
+      "body_wavelength_m": 0.3838870343989958,
+      "spacing_m": 0.21212121212121215,
+      "gap_m": 0.10912121212121216,
+      "body_width_m": 0.05,
+      "wavelength_over_spacing": 1.8097531621666942,
+      "paper_wavelength_over_spacing": 1.8
+    }
+  }
+}
