@@ -63,7 +63,7 @@ each segment.
 | Passive element from paper Fig. 5A | done | [`stiffness_interpretation.md`](docs/stiffness_interpretation.md) |
 | E1 pilot (medium lattice, 8 conditions × 20 paired seeds) | done: **floor effect** | [`results_E1_pilot.md`](docs/results_E1_pilot.md) |
 | Calibration step 1 (one assumption at a time) | done | [`results_calib_step1.md`](docs/results_calib_step1.md) |
-| Calibration step 2 (combined setup, G sweep) | **running** | — |
+| Calibration step 2 (combined setup, G sweep) | done: **inconclusive** (pre-registered rule) | [`results_calib_step2.md`](docs/results_calib_step2.md) |
 | E1 full sweep, implementation B (cable level), E2–E4 | not started | [`CLAUDE.md`](CLAUDE.md) §6 |
 
 Every engineering choice and its reason is logged in [`docs/decisions.md`](docs/decisions.md). Progress notes
@@ -91,8 +91,12 @@ Every number below is copied from a saved run; the run ID is given with it.
 | servo 1.0 N·m (bound, not purchasable) | 1 | 0 | 0 |
 
 The changes that help most help the *stiff* body most. Whether the compliance benefit depends on body–post
-friction is logged as an [open question](docs/open_lists.md), not a claim. Step 2 tests the pre-registered
-combination against a pre-registered outcome rule ([`decisions.md`](docs/decisions.md)).
+friction is logged as an [open question](docs/open_lists.md), not a claim.
+
+**Calibration step 2** (run `20261017T111457Z_cc9bd78`, the pre-registered combination: friction 0.1, 3 s overload
+rule, amplitude × 0.85, passive × 4). Successes out of 5 for G = 0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5: **5, 4, 1, 2, 5,
+0, 0**. The pre-registered outcome is **inconclusive**: G = 1.0 ties G = 0 instead of beating both ends by 2. No
+setup has been adopted for E1 yet.
 
 > **E1 results will be conditional on calibrated assumptions** (friction, overload rule, amplitude, passive
 > stiffness), chosen within plausible ranges. E1 cannot be presented as an independent reproduction of the
