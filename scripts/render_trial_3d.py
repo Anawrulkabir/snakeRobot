@@ -59,7 +59,7 @@ def overlay(img, lines, scale):
     return np.asarray(im)
 
 
-def setup_view(m, rec, camera, joint, W, H, view=None, bound_frames=None):
+def setup_view(m, rec, camera, joint, W, H, view=None, bound_frames=None, orient=None):
     """Display-only changes (the trial has already run) and the camera."""
     for k in range(len(rec["posts"])):
         m.geom_rgba[m.geom(f"post{k}").id] = [0.45, 0.45, 0.5, 1.0]
@@ -87,7 +87,9 @@ def setup_view(m, rec, camera, joint, W, H, view=None, bound_frames=None):
         m.vis.global_.orthographic = 0
         m.vis.global_.fovy = 45
         if camera == "angled":
-            cam.elevation, cam.azimuth, cam.distance = -32.0, 215.0, 0.95
+            # Low and close enough that the wheels under the segments are visible; at
+            # fovy 45 the frame top is 22.5 deg above the axis, so >= ~23 deg down hides the sky.
+            cam.elevation, cam.azimuth, cam.distance = -27.0, 235.0, 0.5
         else:  # closeup
             cam.elevation, cam.azimuth, cam.distance = -55.0, 200.0, 0.22
             for side, rgba in (("l", [0.85, 0.1, 0.1, 1]), ("r", [0.1, 0.6, 0.1, 1])):
@@ -101,6 +103,10 @@ def setup_view(m, rec, camera, joint, W, H, view=None, bound_frames=None):
             # capsules, so the capsules are drawn see-through here.
             for i in range(len(frames[0]["yaw"])):
                 m.geom_rgba[m.geom(f"seg{i}_body").id, 3] = 0.3
+    if orient is not None:  # --elevation / --azimuth / --distance overrides
+        for k, v in orient.items():
+            if v is not None:
+                setattr(cam, k, v)
     return cam, opt
 
 
@@ -135,6 +141,9 @@ def main():
     ap.add_argument("--still", help="one PNG frame at this sim time, or 'end'")
     ap.add_argument("--view", help="overhead: x0,x1,y0,y1 in metres (default: the trajectory)")
     ap.add_argument("--tight", action="store_true", help="overhead: frame only the frames shown")
+    ap.add_argument("--elevation", type=float, help="camera elevation in deg (overrides the preset)")
+    ap.add_argument("--azimuth", type=float, help="camera azimuth in deg (overrides the preset)")
+    ap.add_argument("--distance", type=float, help="camera distance in m (overrides the preset)")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     W, H = (int(v) for v in a.size.split("x"))
@@ -152,7 +161,8 @@ def main():
         times = list(np.arange(a.t0, t1, speed / a.fps)) + [t1] * a.fps  # hold the last frame 1 s
     shown = [frames[min(int(np.searchsorted(ts, t)), len(frames) - 1)] for t in times]
     view = [float(v) for v in a.view.split(",")] if a.view else None
-    cam, opt = setup_view(m, rec, a.camera, a.joint, W, H, view, shown if a.tight else None)
+    orient = {"elevation": a.elevation, "azimuth": a.azimuth, "distance": a.distance}
+    cam, opt = setup_view(m, rec, a.camera, a.joint, W, H, view, shown if a.tight else None, orient)
     d = mujoco.MjData(m)
     seg_geoms = [m.geom(f"seg{i}_body").id for i in range(len(frames[0]["yaw"]))]
     seg_rgba = m.geom_rgba[seg_geoms].copy()
