@@ -14,6 +14,7 @@ Step 2: vertical slide at 0.0625 and 0.125 Hz, with contact time constant
 
   python experiments/diag_load.py
 """
+
 import copy
 import json
 import sys
@@ -31,7 +32,7 @@ from snake.sim import run_trial  # noqa: E402
 
 SEEDS = list(range(1000, 1005))
 N_CYCLES, SKIP = 6, 1
-LOADED = 0.25   # a sample counts as loaded if N > 25% of the wheel's mean share
+LOADED = 0.25  # a sample counts as loaded if N > 25% of the wheel's mean share
 VARIANTS = {
     "rigid": dict(vertical_compliance="none"),
     "rollpitch": dict(vertical_compliance="rollpitch", vertical_stiffness=2.0, vertical_damping=0.01),
@@ -62,7 +63,9 @@ def worker(job):
     mu_side = w["f_axle"][ok] / N[ok]
     mu_fwd = w["f_roll"][ok] / N[ok]
     return {
-        "label": label, "freq_hz": freq, "seed": seed,
+        "label": label,
+        "freq_hz": freq,
+        "seed": seed,
         "forward_disp_per_cycle_m": fwd,
         "wheel_airborne_fraction": r["wheel_airborne_fraction"],
         "normal_mean_per_wheel_N": N.mean(axis=0).tolist(),
@@ -88,14 +91,15 @@ def agg(rows):
                 "forward_disp_per_cycle_m": {"mean": m, "ci95_half": h},
                 "wheel_airborne_fraction": float(np.mean([r["wheel_airborne_fraction"] for r in sub])),
                 "normal_mean_per_wheel_N_head_to_tail": np.mean(
-                    [r["normal_mean_per_wheel_N"] for r in sub], axis=0).tolist(),
+                    [r["normal_mean_per_wheel_N"] for r in sub], axis=0
+                ).tolist(),
                 "tilt_mean_deg": float(np.mean([r["tilt_mean_deg"] for r in sub])),
                 "tilt_max_deg": float(np.max([r["tilt_max_deg"] for r in sub])),
                 "mu_side_p99": side99,
                 "mu_fwd_p99": fwd99,
                 "in_gait_ratio_p99": side99 / fwd99,
-                "in_gait_ratio_max": float(np.mean([r["mu_side_max"] for r in sub])) /
-                float(np.mean([r["mu_fwd_max"] for r in sub])),
+                "in_gait_ratio_max": float(np.mean([r["mu_side_max"] for r in sub]))
+                / float(np.mean([r["mu_fwd_max"] for r in sub])),
             }
     return out
 
@@ -106,35 +110,42 @@ def main():
     # sets its own load model.
     base["servo"]["actuation"] = "position"
     gait = cfgmod.load("gait.yaml")["wave"]
-    gait = dict(gait, amplitude_deg=46, spatial_freq=0.82)  # as run: paper open-environment values, before the G4 x7/6 scaling
+    gait = dict(
+        gait, amplitude_deg=46, spatial_freq=0.82
+    )  # as run: paper open-environment values, before the G4 x7/6 scaling
     jobs = []
-    for v in VARIANTS:                                             # step 1
+    for v in VARIANTS:  # step 1
         jobs += [(v, make_cfg(base, v), gait, 0.25, s) for s in SEEDS]
-    for v in ("rigid", "slide"):                                   # step 1 control
+    for v in ("rigid", "slide"):  # step 1 control
         jobs += [(f"{v}_uniform_mass", make_cfg(base, v, uniform_mass=True), gait, 0.25, s) for s in SEEDS]
-    for tc in (0.02, 0.04):                                        # step 2
+    for tc in (0.02, 0.04):  # step 2
         for f in (0.0625, 0.125):
-            jobs += [(f"slide_tc{tc}", make_cfg(base, "slide", contact_timeconst=tc), gait, f, s)
-                     for s in SEEDS]
+            jobs += [(f"slide_tc{tc}", make_cfg(base, "slide", contact_timeconst=tc), gait, f, s) for s in SEEDS]
     with Pool() as pool:
         rows = pool.map(worker, jobs)
-    summary = {"results": agg(rows), "variants": VARIANTS, "seeds": SEEDS,
-               "loaded_threshold_of_mean_share": LOADED,
-               "drag_test_reference_ratio": base["ground"]["anisotropy_ratio"],
-               "segment_weights_N_head_to_tail": None}
+    summary = {
+        "results": agg(rows),
+        "variants": VARIANTS,
+        "seeds": SEEDS,
+        "loaded_threshold_of_mean_share": LOADED,
+        "drag_test_reference_ratio": base["ground"]["anisotropy_ratio"],
+        "segment_weights_N_head_to_tail": None,
+    }
     from snake.model_builder import segment_masses
+
     m = base["mass"]
-    summary["segment_weights_N_head_to_tail"] = [
-        (sm + m["wheel"]) * 9.81 for sm in segment_masses(base)]
+    summary["segment_weights_N_head_to_tail"] = [(sm + m["wheel"]) * 9.81 for sm in segment_masses(base)]
     run_dir = new_run("diag_load", {"seeds": SEEDS})
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2))
     (run_dir / "trials.json").write_text(json.dumps(rows))
     for label, per in summary["results"].items():
         for f, v in per.items():
-            print(f"{label:22s} {f:>6s} Hz  disp {v['forward_disp_per_cycle_m']['mean']:.4f}"
-                  f"+-{v['forward_disp_per_cycle_m']['ci95_half']:.4f}  air {v['wheel_airborne_fraction']:.3f}"
-                  f"  tilt {v['tilt_mean_deg']:.2f}/{v['tilt_max_deg']:.2f}  ratio p99 {v['in_gait_ratio_p99']:.3f}"
-                  f" max {v['in_gait_ratio_max']:.3f}  N {np.round(v['normal_mean_per_wheel_N_head_to_tail'], 3)}")
+            print(
+                f"{label:22s} {f:>6s} Hz  disp {v['forward_disp_per_cycle_m']['mean']:.4f}"
+                f"+-{v['forward_disp_per_cycle_m']['ci95_half']:.4f}  air {v['wheel_airborne_fraction']:.3f}"
+                f"  tilt {v['tilt_mean_deg']:.2f}/{v['tilt_max_deg']:.2f}  ratio p99 {v['in_gait_ratio_p99']:.3f}"
+                f" max {v['in_gait_ratio_max']:.3f}  N {np.round(v['normal_mean_per_wheel_N_head_to_tail'], 3)}"
+            )
     print("segment weights N:", np.round(summary["segment_weights_N_head_to_tail"], 3))
     print(f"saved {run_dir}")
 

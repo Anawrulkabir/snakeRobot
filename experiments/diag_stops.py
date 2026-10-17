@@ -8,6 +8,7 @@ changes the config.
 
   python experiments/diag_stops.py   # writes results/diag_stops/<run_id>/
 """
+
 import copy
 import json
 import sys
@@ -45,12 +46,17 @@ def job(args):
     h = metrics.mean_body_heading(r["t"], r["body_axis_xy"], f, SKIP, n)
     fwd, _ = metrics.displacement_per_cycle(r["t"], r["com_xy"], f, SKIP, n, h)
     w = metrics.cycle_window(r["t"], f, SKIP, n)
-    return {"variant": name, "G": G, "seed": seed, "forward_disp_per_cycle_m": fwd,
-            "stop_hit_cycle_fraction": r["stop_hit_cycle_fraction"],
-            "stop_step_fraction_per_joint": r["stop_step_fraction_per_joint"],
-            "max_deviation_deg": float(np.degrees(np.abs(r["tracking_error"][w]).max())),
-            "torque_peak_Nm": float(np.abs(r["actuator_torque"][w]).max()),
-            "torque_p95_Nm": float(np.percentile(np.abs(r["actuator_torque"][w]), 95))}
+    return {
+        "variant": name,
+        "G": G,
+        "seed": seed,
+        "forward_disp_per_cycle_m": fwd,
+        "stop_hit_cycle_fraction": r["stop_hit_cycle_fraction"],
+        "stop_step_fraction_per_joint": r["stop_step_fraction_per_joint"],
+        "max_deviation_deg": float(np.degrees(np.abs(r["tracking_error"][w]).max())),
+        "torque_peak_Nm": float(np.abs(r["actuator_torque"][w]).max()),
+        "torque_p95_Nm": float(np.percentile(np.abs(r["actuator_torque"][w]), 95)),
+    }
 
 
 def main():
@@ -71,7 +77,8 @@ def main():
                 "forward_disp_per_cycle_m": float(np.mean([r["forward_disp_per_cycle_m"] for r in sub])),
                 "stop_hit_cycle_fraction": float(np.mean([r["stop_hit_cycle_fraction"] for r in sub])),
                 "stop_step_fraction_per_joint_head_to_tail": np.mean(
-                    [r["stop_step_fraction_per_joint"] for r in sub], axis=0).tolist(),
+                    [r["stop_step_fraction_per_joint"] for r in sub], axis=0
+                ).tolist(),
                 "max_deviation_deg": float(np.max([r["max_deviation_deg"] for r in sub])),
                 "torque_peak_Nm": float(np.max([r["torque_peak_Nm"] for r in sub])),
                 "torque_p95_Nm": float(np.mean([r["torque_p95_Nm"] for r in sub])),
@@ -81,9 +88,11 @@ def main():
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2))
     for name, per in out.items():
         for G, v in per.items():
-            print(f"{name:14s} G={G:4s} disp {v['forward_disp_per_cycle_m']:.4f}  stop cycles "
-                  f"{v['stop_hit_cycle_fraction']:.2f}  per-joint {np.round(v['stop_step_fraction_per_joint_head_to_tail'], 2)}"
-                  f"  dev {v['max_deviation_deg']:.0f}  p95 {v['torque_p95_Nm']:.3f} peak {v['torque_peak_Nm']:.3f}")
+            print(
+                f"{name:14s} G={G:4s} disp {v['forward_disp_per_cycle_m']:.4f}  stop cycles "
+                f"{v['stop_hit_cycle_fraction']:.2f}  per-joint {np.round(v['stop_step_fraction_per_joint_head_to_tail'], 2)}"
+                f"  dev {v['max_deviation_deg']:.0f}  p95 {v['torque_p95_Nm']:.3f} peak {v['torque_peak_Nm']:.3f}"
+            )
     print(f"saved {run_dir}")
 
 

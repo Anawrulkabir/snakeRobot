@@ -9,6 +9,7 @@ its length <= interior length. Spools, horns, wiring and the wheel mount are
 NOT included, so a 'fits' here is necessary, not sufficient.
   python scripts/servo_fit.py   # writes results/servo_fit/<run_id>/summary.json
 """
+
 import itertools
 import json
 import math
@@ -24,7 +25,7 @@ from snake import config as cfgmod  # noqa: E402
 from snake.model_builder import segment_masses  # noqa: E402
 from snake.runlog import new_run  # noqa: E402
 
-WALL = 0.002   # m, proposal (printed shell wall); not a measured value
+WALL = 0.002  # m, proposal (printed shell wall); not a measured value
 
 
 def arrangements(size, n):
@@ -50,9 +51,15 @@ def main():
             for arr, a, b, L in arrangements(size, n):
                 diag = math.hypot(a, b)
                 fits = diag <= D and L <= Lin
-                cand = {"arrangement": arr, "cross_mm": [a, b], "length_mm": L,
-                        "cross_diagonal_mm": diag, "fits": fits,
-                        "width_needed_mm": diag + 2 * WALL * 1000, "case_length_needed_mm": L + 2 * WALL * 1000}
+                cand = {
+                    "arrangement": arr,
+                    "cross_mm": [a, b],
+                    "length_mm": L,
+                    "cross_diagonal_mm": diag,
+                    "fits": fits,
+                    "width_needed_mm": diag + 2 * WALL * 1000,
+                    "case_length_needed_mm": L + 2 * WALL * 1000,
+                }
                 key = (not fits, max(diag - D, 0) + max(L - Lin, 0), diag)
                 if best is None or key < best[0]:
                     best = (key, cand)

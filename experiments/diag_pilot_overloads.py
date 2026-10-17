@@ -11,6 +11,7 @@ a post, and which side of the free range it was on.
   python experiments/diag_pilot_overloads.py results/E1_pilot/<run_id>
 writes <run_dir>/summary_overload_diag.json
 """
+
 import json
 import sys
 from multiprocessing import Pool
@@ -32,12 +33,32 @@ def job(args):
     cfg, arena, mc, ex = load("robot.yaml"), load("arena.yaml"), load("metrics.yaml"), load("experiment.yaml")["run"]
     A, xi = ex["gait_by_density"][row["density"]]
     G = row["G"]
-    r = run_lattice_trial(cfg, arena, mc, row["density"], A, xi, ex["temporal_freq_hz"], row["law"],
-                          0.0 if G is None else G, row["seed"], diag=True)
-    same = (r["outcome"] == row["outcome"] and r["final_com_dx_m"] == row["final_com_dx_m"]
-            and r["t_end_s"] == row["t_end_s"])
-    return {"key": row["key"], "law": row["law"], "G": G, "seed": row["seed"],
-            "reproduced_exactly": same, **(r["overload_diag"] or {})}
+    r = run_lattice_trial(
+        cfg,
+        arena,
+        mc,
+        row["density"],
+        A,
+        xi,
+        ex["temporal_freq_hz"],
+        row["law"],
+        0.0 if G is None else G,
+        row["seed"],
+        diag=True,
+    )
+    same = (
+        r["outcome"] == row["outcome"]
+        and r["final_com_dx_m"] == row["final_com_dx_m"]
+        and r["t_end_s"] == row["t_end_s"]
+    )
+    return {
+        "key": row["key"],
+        "law": row["law"],
+        "G": G,
+        "seed": row["seed"],
+        "reproduced_exactly": same,
+        **(r["overload_diag"] or {}),
+    }
 
 
 def main():
@@ -64,12 +85,20 @@ def main():
             "n_mostly_past_upper_bound": sum(r["frac_past_upper_bound"] > 0.5 for r in v),
             "mean_overshoot_deg": float(np.mean([r["overshoot_deg_mean"] for r in v])),
         }
-    out = {"run_id": run_dir.name, "n_overloads": len(ov), "n_reproduced_exactly": len(ok),
-           "not_reproduced": [r["key"] for r in res if not r["reproduced_exactly"]],
-           "by_condition": agg, "trials": res}
+    out = {
+        "run_id": run_dir.name,
+        "n_overloads": len(ov),
+        "n_reproduced_exactly": len(ok),
+        "not_reproduced": [r["key"] for r in res if not r["reproduced_exactly"]],
+        "by_condition": agg,
+        "trials": res,
+    }
     (run_dir / "summary_overload_diag.json").write_text(json.dumps(out, indent=2))
-    print(json.dumps({k: out[k] for k in ("n_overloads", "n_reproduced_exactly", "not_reproduced",
-                                          "by_condition")}, indent=2))
+    print(
+        json.dumps(
+            {k: out[k] for k in ("n_overloads", "n_reproduced_exactly", "not_reproduced", "by_condition")}, indent=2
+        )
+    )
 
 
 if __name__ == "__main__":

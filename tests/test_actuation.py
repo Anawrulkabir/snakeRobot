@@ -3,6 +3,7 @@
 The expected behaviours are the paper's own descriptions of G
 (Wang et al. 2023, pp. 13-16; paper_notes.md 1.4).
 """
+
 import copy
 import math
 
@@ -35,6 +36,7 @@ def rng(alpha, G, geom):
 
 # ---- the inverse of Eq. S1 ----
 
+
 def test_inverse_exact_round_trip(geom):
     Lc, Lj, _ = geom
     for z in np.linspace(-1.4, 1.4, 29):
@@ -43,6 +45,7 @@ def test_inverse_exact_round_trip(geom):
 
 
 # ---- the paper's descriptions of G ----
+
 
 @pytest.mark.parametrize("alpha_deg", [-50, -20, 0, 20, 50])
 def test_G0_tracks_suggested_angle(geom, alpha_deg):
@@ -96,10 +99,16 @@ def test_narrative_check_catches_sign_flip(geom, monkeypatch):
     # (l0 * (g - alpha) for the left cable instead of l0 * (g + alpha)).
     def flipped(alpha, G, A_, Lc, Lj, l0):
         g = (2 * G - 1) * A_
-        Ll = (exact_length(alpha, Lc, Lj, "l") if alpha <= -g
-              else exact_length(-A_ * min(1, 2 * G - 1), Lc, Lj, "l") + l0 * (g - alpha))
-        Lr = (exact_length(alpha, Lc, Lj, "r") if alpha >= g
-              else exact_length(A_ * min(1, 2 * G - 1), Lc, Lj, "r") + l0 * (g + alpha))
+        Ll = (
+            exact_length(alpha, Lc, Lj, "l")
+            if alpha <= -g
+            else exact_length(-A_ * min(1, 2 * G - 1), Lc, Lj, "l") + l0 * (g - alpha)
+        )
+        Lr = (
+            exact_length(alpha, Lc, Lj, "r")
+            if alpha >= g
+            else exact_length(A_ * min(1, 2 * G - 1), Lc, Lj, "r") + l0 * (g + alpha)
+        )
         return Ll, Lr
 
     monkeypatch.setattr(act, "commanded_lengths", flipped)
@@ -119,6 +128,7 @@ def test_no_cable_commanded_shorter_than_exact(geom):
 
 
 # ---- G4: independence from anchor offsets ----
+
 
 @pytest.mark.parametrize("scale", [0.5, 0.75, 1.5])
 def test_free_range_independent_of_anchor_offsets(cfg, scale):
@@ -140,10 +150,12 @@ def test_anchor_check_catches_unscaled_l0(cfg):
     Lc, Lj, l0 = act.geometry(cfg)
     a = 0.3
     assert act.free_range(a, 0.75, A, Lc / 2, Lj / 2, l0) != pytest.approx(
-        act.free_range(a, 0.75, A, Lc, Lj, l0), abs=1e-6)
+        act.free_range(a, 0.75, A, Lc, Lj, l0), abs=1e-6
+    )
 
 
 # ---- boundary torque ----
+
 
 def test_boundary_torque_inside_zero_outside_restoring_capped():
     k, c, cap = 10.0, 0.05, 0.2
@@ -162,6 +174,7 @@ def test_boundary_damping_one_sided():
 
 
 # ---- in simulation: a pushed joint stops at its free-range boundary ----
+
 
 def push_joint(cfg, G, alpha, push, seconds=3.0):
     """Hold the snake in place (root slides locked by large damping), command
@@ -187,8 +200,9 @@ def push_joint(cfg, G, alpha, push, seconds=3.0):
     mujoco.mj_forward(m, d)
     j3 = m.joint("j3").dofadr[0]
     while d.time < seconds:
-        d.ctrl[:] = law.torques([alpha] * m.nu, d.qpos[jq], d.qvel[jv], m.opt.timestep,
-                                act.effective_inertias(m, d, jv))
+        d.ctrl[:] = law.torques(
+            [alpha] * m.nu, d.qpos[jq], d.qvel[jv], m.opt.timestep, act.effective_inertias(m, d, jv)
+        )
         d.qfrc_applied[:] = 0
         d.qfrc_applied[j3] = push
         mujoco.mj_step(m, d)
@@ -240,8 +254,7 @@ def test_stability_check_catches_explicit_damping(cfg, monkeypatch):
     monkeypatch.setattr(act, "implicit_damping", lambda c, dt, inertia: c)
     alpha = 0.4 * A
     z = [push_joint(cfg, 0.0, alpha, 0.1, s) - alpha for s in (3.0, 3.5, 4.0)]
-    settled = (max(z) - min(z) < 0.05 * DEG and
-               abs(sum(z) / 3 - 0.1 / cfg["servo"]["boundary_stiffness"]) < 0.05 * DEG)
+    settled = max(z) - min(z) < 0.05 * DEG and abs(sum(z) / 3 - 0.1 / cfg["servo"]["boundary_stiffness"]) < 0.05 * DEG
     assert not settled
 
 
@@ -250,6 +263,7 @@ def test_simulated_trial_independent_of_anchor_offsets(cfg):
     # so halving the anchor offsets (with l0 scaled by R) must not change the
     # locomotion. A short trial at G = 0.75 is compared step for step.
     from snake.sim import run_trial
+
     gait = cfgmod.load("gait.yaml")["wave"]
     base = run_trial(cfg, gait, 0.25, 1, seed=7, G=0.75)
     c = copy.deepcopy(cfg)
@@ -257,7 +271,6 @@ def test_simulated_trial_independent_of_anchor_offsets(cfg):
     c["cable"]["joint_offset"] *= 0.5
     half = run_trial(c, gait, 0.25, 1, seed=7, G=0.75)
     assert np.allclose(base["com_xy"], half["com_xy"], atol=1e-9)
-
 
 
 def test_tight_spool_matches_drive_reach(geom):

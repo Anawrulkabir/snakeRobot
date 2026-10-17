@@ -5,6 +5,7 @@ Pure arithmetic, no simulation. Every input below is copied from the paper
 with its page number; the script prints the derived values next to the
 values the paper states.
 """
+
 import math
 
 # Eq. S2 (p. 57): L^l(a) = 79.2 cos(-a/2 + pi/4) mm, L^r(a) = 79.2 cos(a/2 + pi/4) mm
@@ -48,8 +49,7 @@ for A_deg in (46, 72):
     for G in (0.25, 0.5, 0.75, 1.0, 1.5):
         g = (2 * G - 1) * A_deg
         worst = min(
-            L_left(math.radians(-A_deg * min(1, 2 * G - 1))) + 0.73 * (g + a / 10)
-            - L_left(math.radians(a / 10))
+            L_left(math.radians(-A_deg * min(1, 2 * G - 1))) + 0.73 * (g + a / 10) - L_left(math.radians(a / 10))
             for a in range(-A_deg * 10, A_deg * 10 + 1)
             if a / 10 > -g
         )

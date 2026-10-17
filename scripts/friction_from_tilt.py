@@ -3,6 +3,7 @@
   python scripts/friction_from_tilt.py   # reads data/measured/post_friction_tilt.csv
 Writes results/friction_tilt/<run_id>/summary.json.
 """
+
 import json
 import math
 import sys
@@ -23,9 +24,15 @@ def main():
     ang = np.atleast_1d(d["angle_deg"])
     mu = np.tan(np.radians(ang))
     m, h = mean_ci95(mu)
-    summary = {"n_trials": int(len(mu)), "angle_deg": ang.tolist(), "mu_per_trial": mu.tolist(),
-               "mu_mean": m, "mu_sd": float(mu.std(ddof=1)) if len(mu) > 1 else None, "mu_ci95_half": h,
-               "note": "static friction at slip onset (tilt test); the model uses one Coulomb mu"}
+    summary = {
+        "n_trials": int(len(mu)),
+        "angle_deg": ang.tolist(),
+        "mu_per_trial": mu.tolist(),
+        "mu_mean": m,
+        "mu_sd": float(mu.std(ddof=1)) if len(mu) > 1 else None,
+        "mu_ci95_half": h,
+        "note": "static friction at slip onset (tilt test); the model uses one Coulomb mu",
+    }
     run_dir = new_run("friction_tilt")
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2))
     print(json.dumps(summary, indent=2))

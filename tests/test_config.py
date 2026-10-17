@@ -1,4 +1,5 @@
 """Tests for snake/config.py."""
+
 import pytest
 
 from snake import config as cfgmod

@@ -22,6 +22,7 @@ Contact groups (contype/conaffinity bits):
   body   4/6  posts and non-adjacent segments (MuJoCo skips parent-child pairs)
   post   2/0  bodies only (posts are added by snake/arena.py, milestone 4)
 """
+
 import math
 import xml.etree.ElementTree as ET
 
@@ -105,37 +106,54 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
 
     root = ET.Element("mujoco", model="planar_snake")
     ET.SubElement(root, "compiler", angle="radian", autolimits="true")
-    ET.SubElement(root, "option", timestep=_fmt(sim["timestep"]), integrator=sim["integrator"],
-                  cone=sim["cone"])
+    ET.SubElement(root, "option", timestep=_fmt(sim["timestep"]), integrator=sim["integrator"], cone=sim["cone"])
     ET.SubElement(root, "visual").append(ET.Element("global", offwidth="1280", offheight="720"))
 
     asset = ET.SubElement(root, "asset")
-    ET.SubElement(asset, "texture", name="grid", type="2d", builtin="checker", width="512",
-                  height="512", rgb1=".85 .85 .85", rgb2=".75 .75 .75")
+    ET.SubElement(
+        asset,
+        "texture",
+        name="grid",
+        type="2d",
+        builtin="checker",
+        width="512",
+        height="512",
+        rgb1=".85 .85 .85",
+        rgb2=".75 .75 .75",
+    )
     ET.SubElement(asset, "material", name="grid", texture="grid", texrepeat="10 10")
 
     world = ET.SubElement(root, "worldbody")
     ET.SubElement(world, "light", pos="0 0 3", dir="0 0 -1", directional="true")
-    ET.SubElement(world, "geom", name="floor", type="plane", size="5 5 0.1", material="grid",
-                  friction=floor_friction, **FLOOR)
+    ET.SubElement(
+        world, "geom", name="floor", type="plane", size="5 5 0.1", material="grid", friction=floor_friction, **FLOOR
+    )
 
     # Structure (case) and cable anchors are separate parameters, so moving the
     # anchors does not change the body's shape or inertia.
     if posts is not None:
         for k, (px, py) in enumerate(posts):
-            ET.SubElement(world, "geom", name=f"post{k}", type="cylinder",
-                          size=_fmt(post_radius, post_height / 2), pos=_fmt(px, py, post_height / 2),
-                          friction=_fmt(post_friction, 0.005, 0.0001), priority="2",
-                          rgba="0.95 0.95 0.95 1", **POST)
+            ET.SubElement(
+                world,
+                "geom",
+                name=f"post{k}",
+                type="cylinder",
+                size=_fmt(post_radius, post_height / 2),
+                pos=_fmt(px, py, post_height / 2),
+                friction=_fmt(post_friction, 0.005, 0.0001),
+                priority="2",
+                rgba="0.95 0.95 0.95 1",
+                **POST,
+            )
             # priority="2": the post's friction is used for body-post contacts.
             # Without it MuJoCo takes the larger of the two geoms' values, and
             # the capsules' default 1.0 overrode the configured value
             # (lattice diagnosis, run 20261016T185419Z_91e48fc).
 
-    seg_len = b["case_length"]                          # case, face to face
+    seg_len = b["case_length"]  # case, face to face
     x_mid = -p / 2
     x_front, x_rear = x_mid + seg_len / 2, x_mid - seg_len / 2
-    x_anchor_front, x_anchor_rear = -Lj, -(p - Lj)      # paper Fig. S4: L_j from each pin
+    x_anchor_front, x_anchor_rear = -Lj, -(p - Lj)  # paper Fig. S4: L_j from each pin
     hinge_limit = math.radians(j["hard_limit_deg"])
     masses = segment_masses(c)
 
@@ -144,15 +162,26 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
         if i == 0:
             body = ET.SubElement(parent, "body", name="seg0", pos=_fmt(0, 0, h))
             # Planar root (G1): x/y/z slides + yaw hinge, no roll or pitch.
-            for name, typ, axis in (("root_x", "slide", "1 0 0"), ("root_y", "slide", "0 1 0"),
-                                    ("root_z", "slide", "0 0 1"), ("root_yaw", "hinge", "0 0 1")):
+            for name, typ, axis in (
+                ("root_x", "slide", "1 0 0"),
+                ("root_y", "slide", "0 1 0"),
+                ("root_z", "slide", "0 0 1"),
+                ("root_yaw", "hinge", "0 0 1"),
+            ):
                 ET.SubElement(body, "joint", name=name, type=typ, axis=axis)
         else:
             body = ET.SubElement(parent, "body", name=f"seg{i}", pos=_fmt(-p, 0, 0))
-            ET.SubElement(body, "joint", name=f"j{i}", type="hinge", axis="0 0 1",
-                          range=_fmt(-hinge_limit, hinge_limit),
-                          stiffness=_fmt(j["stiffness"]), damping=_fmt(j["damping"]),
-                          frictionloss=_fmt(j["frictionloss"]))
+            ET.SubElement(
+                body,
+                "joint",
+                name=f"j{i}",
+                type="hinge",
+                axis="0 0 1",
+                range=_fmt(-hinge_limit, hinge_limit),
+                stiffness=_fmt(j["stiffness"]),
+                damping=_fmt(j["damping"]),
+                frictionloss=_fmt(j["frictionloss"]),
+            )
             # Optional out-of-plane compliance (chatter diagnosis, not the
             # approved model): springs that let each segment tilt or rise a
             # little, so the 7 wheels are no longer forced onto one rigid plane.
@@ -161,22 +190,32 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
                 k, damp = _fmt(b["vertical_stiffness"]), _fmt(b["vertical_damping"])
                 if vc == "rollpitch":
                     for nm, ax in (("roll", "1 0 0"), ("pitch", "0 1 0")):
-                        ET.SubElement(body, "joint", name=f"{nm}{i}", type="hinge", axis=ax,
-                                      stiffness=k, damping=damp)
+                        ET.SubElement(body, "joint", name=f"{nm}{i}", type="hinge", axis=ax, stiffness=k, damping=damp)
                 elif vc == "slide":
-                    ET.SubElement(body, "joint", name=f"lift{i}", type="slide", axis="0 0 1",
-                                  stiffness=k, damping=damp)
+                    ET.SubElement(body, "joint", name=f"lift{i}", type="slide", axis="0 0 1", stiffness=k, damping=damp)
                 else:
                     raise ValueError(f"unknown body.vertical_compliance {vc!r}")
 
         # Inertia of a solid box seg_len x width x width (model_plan.md section 1).
         mass, w = masses[i], 2 * r
-        ET.SubElement(body, "inertial", pos=_fmt(x_mid, 0, 0), mass=_fmt(mass),
-                      diaginertia=_fmt(mass * 2 * w**2 / 12, mass * (seg_len**2 + w**2) / 12,
-                                       mass * (seg_len**2 + w**2) / 12))
-        ET.SubElement(body, "geom", name=f"seg{i}_body", type="capsule", size=_fmt(r),
-                      fromto=_fmt(x_front, 0, 0, x_rear, 0, 0), mass="0",
-                      rgba="0.85 0.45 0.1 1" if i == 0 else "0.9 0.6 0.2 1", **BODY)
+        ET.SubElement(
+            body,
+            "inertial",
+            pos=_fmt(x_mid, 0, 0),
+            mass=_fmt(mass),
+            diaginertia=_fmt(mass * 2 * w**2 / 12, mass * (seg_len**2 + w**2) / 12, mass * (seg_len**2 + w**2) / 12),
+        )
+        ET.SubElement(
+            body,
+            "geom",
+            name=f"seg{i}_body",
+            type="capsule",
+            size=_fmt(r),
+            fromto=_fmt(x_front, 0, 0, x_rear, 0, 0),
+            mass="0",
+            rgba="0.85 0.45 0.1 1" if i == 0 else "0.9 0.6 0.2 1",
+            **BODY,
+        )
         if i == 0:
             ET.SubElement(body, "site", name="head_tip", pos=_fmt(x_front + r, 0, 0), size="0.004")
         # Cable anchor sites on both faces (paper Fig. S4).
@@ -186,14 +225,30 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
 
         # Passive wheel: axle along local y, so it rolls along the body axis.
         wheel = ET.SubElement(body, "body", name=f"wheel{i}", pos=_fmt(x_mid, 0, -(h - rw)))
-        ET.SubElement(wheel, "joint", name=f"axle{i}", type="hinge", axis="0 1 0",
-                      frictionloss=_fmt(g["axle_friction"]),
-                      solreffriction=_fmt(g["axle_friction_timeconst"], 1))
-        ET.SubElement(wheel, "geom", name=f"wheel{i}_tyre", type="cylinder",
-                      size=_fmt(rw, g["wheel_half_width"]), zaxis="0 1 0", mass=_fmt(m["wheel"]),
-                      friction=tyre_friction, condim="6", priority="1",
-                      solref=_fmt(g["contact_timeconst"], 1),
-                      rgba="0.2 0.2 0.2 1", **WHEEL)
+        ET.SubElement(
+            wheel,
+            "joint",
+            name=f"axle{i}",
+            type="hinge",
+            axis="0 1 0",
+            frictionloss=_fmt(g["axle_friction"]),
+            solreffriction=_fmt(g["axle_friction_timeconst"], 1),
+        )
+        ET.SubElement(
+            wheel,
+            "geom",
+            name=f"wheel{i}_tyre",
+            type="cylinder",
+            size=_fmt(rw, g["wheel_half_width"]),
+            zaxis="0 1 0",
+            mass=_fmt(m["wheel"]),
+            friction=tyre_friction,
+            condim="6",
+            priority="1",
+            solref=_fmt(g["contact_timeconst"], 1),
+            rgba="0.2 0.2 0.2 1",
+            **WHEEL,
+        )
         parent = body
 
     # Cables as spatial tendons from segment i-1's rear face to segment i's
@@ -203,7 +258,7 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
     for i in range(1, n):
         for side in ("l", "r"):
             t = ET.SubElement(tendon, "spatial", name=f"cable{i}_{side}", width="0.001")
-            ET.SubElement(t, "site", site=f"seg{i-1}_rear_{side}")
+            ET.SubElement(t, "site", site=f"seg{i - 1}_rear_{side}")
             ET.SubElement(t, "site", site=f"seg{i}_front_{side}")
 
     # Joint actuation, torque capped at servo stall:
@@ -212,12 +267,24 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
     act = ET.SubElement(root, "actuator")
     for i in range(1, n):
         if s["actuation"] == "position":
-            ET.SubElement(act, "position", name=f"servo{i}", joint=f"j{i}", kp=_fmt(s["kp"]),
-                          forcerange=_fmt(-s["stall_torque"], s["stall_torque"]))
+            ET.SubElement(
+                act,
+                "position",
+                name=f"servo{i}",
+                joint=f"j{i}",
+                kp=_fmt(s["kp"]),
+                forcerange=_fmt(-s["stall_torque"], s["stall_torque"]),
+            )
         elif s["actuation"] == "compliance_A":
-            ET.SubElement(act, "motor", name=f"servo{i}", joint=f"j{i}", gear="1",
-                          ctrlrange=_fmt(-s["stall_torque"], s["stall_torque"]),
-                          forcerange=_fmt(-s["stall_torque"], s["stall_torque"]))
+            ET.SubElement(
+                act,
+                "motor",
+                name=f"servo{i}",
+                joint=f"j{i}",
+                gear="1",
+                ctrlrange=_fmt(-s["stall_torque"], s["stall_torque"]),
+                forcerange=_fmt(-s["stall_torque"], s["stall_torque"]),
+            )
         else:
             raise ValueError(f"unknown servo.actuation {s['actuation']!r}")
     if drag_rig:

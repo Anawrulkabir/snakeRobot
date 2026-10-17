@@ -2,6 +2,7 @@
 
 Jam detection, success and collision counts come with the arena (milestone 4).
 """
+
 import numpy as np
 
 
@@ -44,8 +45,9 @@ def heading_drift_per_cycle(t, xy, freq, skip_cycles, n_cycles):
     turn slowly; this reports how much.
     """
     period = 1.0 / freq
-    pts = np.array([[np.interp((skip_cycles + k) * period, t, xy[:, j]) for j in range(2)]
-                    for k in range(n_cycles + 1)])
+    pts = np.array(
+        [[np.interp((skip_cycles + k) * period, t, xy[:, j]) for j in range(2)] for k in range(n_cycles + 1)]
+    )
     steps = np.diff(pts, axis=0)
     ang = np.unwrap(np.arctan2(steps[:, 1], steps[:, 0]))
     if len(ang) < 2:
@@ -62,6 +64,7 @@ def summary_stats(x):
 def mean_ci95(values):
     """Mean and 95% confidence half-width (Student t) across trials."""
     from scipy import stats
+
     v = np.asarray(values, dtype=float)
     n = len(v)
     if n < 2:

@@ -35,6 +35,7 @@ extended until both other scalings fall inside the range.
 All outputs are labelled APPROXIMATE (digitized from figure).
   python scripts/stiffness_estimate.py
 """
+
 import json
 import math
 import sys
@@ -50,10 +51,10 @@ from snake import config as cfgmod  # noqa: E402
 from snake.model_builder import segment_masses  # noqa: E402
 from snake.runlog import new_run  # noqa: E402
 
-R_PUSH = 0.060          # m, p. 38
-ALPHA = 15.0            # deg, Fig. 5A
-F_S = 2.02              # N, zero-deflection force (black dot), data/digitized/README.md
-STALL_PAPER = 1.4       # N m, p. 53
+R_PUSH = 0.060  # m, p. 38
+ALPHA = 15.0  # deg, Fig. 5A
+F_S = 2.02  # N, zero-deflection force (black dot), data/digitized/README.md
+STALL_PAPER = 1.4  # N m, p. 53
 G = 9.81
 PANEL = "fig5a_iii_data.csv"
 
@@ -86,17 +87,20 @@ def fit_free_quadratic(z_deg, F):
     c2, c1, c0 = np.polyfit(z_deg, F, 2)
     v = -c1 / (2 * c2)
     rms = float(np.sqrt(np.mean((np.polyval([c2, c1, c0], z_deg) - F) ** 2)))
-    return float(v), float(c0 - c1 ** 2 / (4 * c2)), float(c2), rms
+    return float(v), float(c0 - c1**2 / (4 * c2)), float(c2), rms
 
 
 def scalings(cfg):
     lo, hi, pitch_paper = mass_estimate()
-    m_ours = segment_masses(cfg)[1] + cfg["mass"]["wheel"]          # a body segment
+    m_ours = segment_masses(cfg)[1] + cfg["mass"]["wheel"]  # a body segment
     lever_ours = cfg["body"]["segment_pitch"]
-    out = {"paper_segment_mass_kg_range": [lo, hi], "ours_body_segment_mass_kg": m_ours,
-           # Bound only (Fahad 2026-10-16): Morphing MILR module mass 0.25 kg.
-           "bound_check_morphing_milr_module_kg": 0.25,
-           "estimate_within_bound": hi <= 0.25}
+    out = {
+        "paper_segment_mass_kg_range": [lo, hi],
+        "ours_body_segment_mass_kg": m_ours,
+        # Bound only (Fahad 2026-10-16): Morphing MILR module mass 0.25 kg.
+        "bound_check_morphing_milr_module_kg": 0.25,
+        "estimate_within_bound": hi <= 0.25,
+    }
     out["friction_factor_range"] = [(m_ours * lever_ours) / (m * pitch_paper) for m in (hi, lo)]
     out["friction_factor_mid"] = (m_ours * lever_ours) / (0.5 * (lo + hi) * pitch_paper)
     out["stall_factor"] = cfg["servo"]["stall_torque"] / STALL_PAPER
@@ -115,9 +119,12 @@ def scalings(cfg):
 
 
 def scaled(value, sc):
-    return {"absolute": value * sc["absolute_factor"], "stall": value * sc["stall_factor"],
-            "friction_primary": value * sc["friction_factor_mid"],
-            "friction_range": [value * f for f in sc["friction_factor_range"]]}
+    return {
+        "absolute": value * sc["absolute_factor"],
+        "stall": value * sc["stall_factor"],
+        "friction_primary": value * sc["friction_factor_mid"],
+        "friction_range": [value * f for f in sc["friction_factor_range"]],
+    }
 
 
 def main():
@@ -125,8 +132,10 @@ def main():
     d = np.loadtxt(ROOT / "data" / "digitized" / PANEL, delimiter=",", skiprows=1)
     z, F = d[:, 0], d[:, 1]
     a, rms = fit_quadratic_about(z, F)
-    branches = {side: dict(zip(("a_N_per_rad2", "rms_N"), fit_quadratic_about(z[m], F[m])))
-                for side, m in (("left", z < ALPHA), ("right", z > ALPHA))}
+    branches = {
+        side: dict(zip(("a_N_per_rad2", "rms_N"), fit_quadratic_about(z[m], F[m])))
+        for side, m in (("left", z < ALPHA), ("right", z > ALPHA))
+    }
     b, rms_lin = fit_linear_about(z, F)
     v, fmin, curv, rms_free = fit_free_quadratic(z, F)
     sc = scalings(cfg)
@@ -136,19 +145,28 @@ def main():
     defl = math.radians(30)
     summary = {
         "label": "APPROXIMATE (digitized from figure)",
-        "panel": PANEL, "n_points": int(len(z)), "zeta_range_deg": [float(z.min()), float(z.max())],
-        "alpha_deg": ALPHA, "f_s_N": F_S, "lever_m": R_PUSH,
+        "panel": PANEL,
+        "n_points": int(len(z)),
+        "zeta_range_deg": [float(z.min()), float(z.max())],
+        "alpha_deg": ALPHA,
+        "f_s_N": F_S,
+        "lever_m": R_PUSH,
         "main_quadratic_about_alpha": {
-            "a_N_per_rad2": a, "rms_N": rms, "c_q_paper_Nm_per_rad2": c_q,
+            "a_N_per_rad2": a,
+            "rms_N": rms,
+            "c_q_paper_Nm_per_rad2": c_q,
             "branches": branches,
             "c_q_scaled_Nm_per_rad2": scaled(c_q, sc),
-            "torque_at_30deg_paper_Nm": c_q * defl ** 2,
-            "torque_at_30deg_scaled_Nm": scaled(c_q * defl ** 2, sc),
+            "torque_at_30deg_paper_Nm": c_q * defl**2,
+            "torque_at_30deg_scaled_Nm": scaled(c_q * defl**2, sc),
         },
-        "free_quadratic": {"vertex_deg": v, "min_force_N": fmin, "curvature_N_per_deg2": curv,
-                           "rms_N": rms_free},
-        "E4c_linear_about_alpha": {"b_N_per_rad": b, "rms_N": rms_lin, "k_lin_paper_Nm_per_rad": k_lin,
-                                   "k_lin_scaled_Nm_per_rad": scaled(k_lin, sc)},
+        "free_quadratic": {"vertex_deg": v, "min_force_N": fmin, "curvature_N_per_deg2": curv, "rms_N": rms_free},
+        "E4c_linear_about_alpha": {
+            "b_N_per_rad": b,
+            "rms_N": rms_lin,
+            "k_lin_paper_Nm_per_rad": k_lin,
+            "k_lin_scaled_Nm_per_rad": scaled(k_lin, sc),
+        },
         "E4b_dry_friction": {"breakaway_paper_Nm": tau_s, "breakaway_scaled_Nm": scaled(tau_s, sc)},
         "scaling": sc,
         "ours_stall_Nm": cfg["servo"]["stall_torque"],

@@ -1,4 +1,5 @@
 """Tests for snake/gait.py (paper Eq. 2)."""
+
 import ast
 import math
 from pathlib import Path

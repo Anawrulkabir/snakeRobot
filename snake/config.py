@@ -1,4 +1,5 @@
 """Load the tagged YAML configs ({value, source, note} entries)."""
+
 from pathlib import Path
 
 import yaml

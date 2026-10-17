@@ -10,6 +10,7 @@ A trial ends at the first of:
 Success at shorter cutoffs is computed afterwards from t_success
 (Fahad 2026-10-16: 20/30/40 cycles).
 """
+
 import copy
 import math
 
@@ -61,8 +62,9 @@ def place_body(m, d, c, angles, jq, heading, front_x, y0):
     mujoco.mj_forward(m, d)
 
 
-def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, freq, law, G, seed,
-                      timestep=None, diag=False, record=None):
+def run_lattice_trial(
+    cfg, arena, mcfg, density, amplitude_deg, spatial_freq, freq, law, G, seed, timestep=None, diag=False, record=None
+):
     """diag=True adds 'overload_diag' (what the overloading joint was doing
     over the overload window). record: a dict, filled with the model, the posts
     and one frame per log step (segment capsules, joint anchors, commanded
@@ -78,8 +80,13 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     L = n * c["body"]["segment_pitch"]
     lat = arena["lattice"]
     posts = arena_mod.post_centres(arena, density, L)
-    m = build_model(c, posts=posts if len(posts) else None, post_radius=lat["post_diameter_m"] / 2,
-                    post_height=lat["post_height_m"], post_friction=lat["post_friction"])
+    m = build_model(
+        c,
+        posts=posts if len(posts) else None,
+        post_radius=lat["post_diameter_m"] / 2,
+        post_height=lat["post_height_m"],
+        post_friction=lat["post_friction"],
+    )
     d = mujoco.MjData(m)
 
     # Randomized start (config/arena.yaml start).
@@ -119,9 +126,16 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     if record is not None:
         seg_geoms = [m.geom(f"seg{i}_body").id for i in range(n)]
         jids = [m.joint(f"j{i}").id for i in range(1, nj + 1)]
-        record.update(posts=np.asarray(posts).tolist(), post_radius=lat["post_diameter_m"] / 2,
-                      capsule_radius=c["body"]["segment_width"] / 2, segment_pitch=c["body"]["segment_pitch"],
-                      finish_x=lat["length_m"], period_s=1.0 / freq, frames=[], model=m)
+        record.update(
+            posts=np.asarray(posts).tolist(),
+            post_radius=lat["post_diameter_m"] / 2,
+            capsule_radius=c["body"]["segment_width"] / 2,
+            segment_pitch=c["body"]["segment_pitch"],
+            finish_x=lat["length_m"],
+            period_s=1.0 / freq,
+            frames=[],
+            model=m,
+        )
     post_ids = {m.geom(f"post{k}").id: k for k in range(len(posts))}
     hard = math.radians(c["joint"]["hard_limit_deg"])
     stall = c["servo"]["stall_torque"]
@@ -162,14 +176,14 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     pmodel, pcoeff = c["joint"]["passive_model"], c["joint"]["passive_coeff"]
     if diag:
         from collections import deque
+
         seg_of_body = {m.body(f"seg{i}").id: i for i in range(n)}
         window = deque(maxlen=int(math.ceil(ov_dur / m.opt.timestep)) + 1)
 
     k = 0
     while d.time < t_end:
         alphas = command(d.time)
-        d.ctrl[:] = law_obj.torques(alphas, d.qpos[jq], d.qvel[jv], m.opt.timestep,
-                                    effective_inertias(m, d, jv))
+        d.ctrl[:] = law_obj.torques(alphas, d.qpos[jq], d.qvel[jv], m.opt.timestep, effective_inertias(m, d, jv))
         # Passive element about alpha (outside the servo; not in actuator_force).
         d.qfrc_applied[jv] = [passive_torque(z, a, pcoeff, pmodel) for z, a in zip(d.qpos[jq], alphas)]
         mujoco.mj_step(m, d)
@@ -207,9 +221,17 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         over_t = np.where(at_cap, over_t + m.opt.timestep, 0.0)
         if diag:
             rng_ = law_obj.ranges(alphas)
-            window.append((d.qpos[jq].copy(), np.array(alphas), np.array([r[0] for r in rng_]),
-                           np.array([r[1] for r in rng_]), d.actuator_force.copy(), on_stop.copy(),
-                           seg_touch.copy()))
+            window.append(
+                (
+                    d.qpos[jq].copy(),
+                    np.array(alphas),
+                    np.array([r[0] for r in rng_]),
+                    np.array([r[1] for r in rng_]),
+                    d.actuator_force.copy(),
+                    on_stop.copy(),
+                    seg_touch.copy(),
+                )
+            )
         max_over = max(max_over, float(over_t.max()))
         if over_t.max() >= ov_dur:
             outcome = "overload"
@@ -226,19 +248,27 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
             for g in seg_geoms:
                 ax = d.geom_xmat[g].reshape(3, 3)[:2, 2] * m.geom_size[g][1]
                 ends.append([(d.geom_xpos[g][:2] - ax).tolist(), (d.geom_xpos[g][:2] + ax).tolist()])
-            record["frames"].append({
-                "t": d.time, "capsules": ends,
-                "anchors": d.xanchor[jids][:, :2].tolist(),
-                "yaw": [float(math.atan2(d.xmat[b].reshape(3, 3)[1, 0], d.xmat[b].reshape(3, 3)[0, 0]))
-                        for b in seg_ids],
-                "alpha": list(map(float, alphas)), "q": d.qpos[jq].tolist(), "qpos": d.qpos.tolist(),
-                "at_cap": at_cap.tolist(), "on_stop": on_stop.tolist()})
+            record["frames"].append(
+                {
+                    "t": d.time,
+                    "capsules": ends,
+                    "anchors": d.xanchor[jids][:, :2].tolist(),
+                    "yaw": [
+                        float(math.atan2(d.xmat[b].reshape(3, 3)[1, 0], d.xmat[b].reshape(3, 3)[0, 0])) for b in seg_ids
+                    ],
+                    "alpha": list(map(float, alphas)),
+                    "q": d.qpos[jq].tolist(),
+                    "qpos": d.qpos.tolist(),
+                    "at_cap": at_cap.tolist(),
+                    "on_stop": on_stop.tolist(),
+                }
+            )
         if k % log_every == 0:
             cxy = com()
             t_log.append(d.time)
             com_log.append(cxy)
             max_lat = max(max_lat, abs(cxy[1]))
-            torques.append(np.abs(d.actuator_force).copy())   # from t = 0 (diag run c61d84c)
+            torques.append(np.abs(d.actuator_force).copy())  # from t = 0 (diag run c61d84c)
             track_err.append(d.qpos[jq] - alphas)
             # Displacement over the last cycle -> jam flag and stuck termination.
             if d.time >= period:
@@ -258,7 +288,7 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
 
     od = None
     if diag and outcome == "overload":
-        j = int(np.argmax(over_t))                      # 0-based: joint j+1, between seg j and seg j+1
+        j = int(np.argmax(over_t))  # 0-based: joint j+1, between seg j and seg j+1
         Z, Al, Lo, Hi, T, S, P = (np.array([w[i] for w in window]) for i in range(7))
         z, tq_j = Z[:, j], T[:, j]
         on = S[:, j]
@@ -277,8 +307,7 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
             "range_deg_mean": [float(np.degrees(Lo[:, j].mean())), float(np.degrees(Hi[:, j].mean()))],
             "overshoot_deg_mean": float(np.degrees(np.mean(np.maximum(z - Hi[:, j], Lo[:, j] - z)))),
             "torque_Nm_mean": float(tq_j.mean()),
-            "other_joints_at_cap_frac": [float(np.mean(np.abs(T[:, i]) >= ov_frac * stall))
-                                         for i in range(nj)],
+            "other_joints_at_cap_frac": [float(np.mean(np.abs(T[:, i]) >= ov_frac * stall)) for i in range(nj)],
             "other_joints_on_stop_frac": [float(S[:, i].mean()) for i in range(nj)],
         }
 
@@ -286,12 +315,20 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     tq = np.array(torques) if torques else np.zeros((1, nj))
     cycles = d.time * freq
     return {
-        "density": density, "law": law, "G": G, "seed": seed, "freq_hz": freq,
-        "amplitude_deg": amplitude_deg, "spatial_freq": spatial_freq,
+        "density": density,
+        "law": law,
+        "G": G,
+        "seed": seed,
+        "freq_hz": freq,
+        "amplitude_deg": amplitude_deg,
+        "spatial_freq": spatial_freq,
         "timestep_s": m.opt.timestep,
-        "initial_heading_deg": math.degrees(heading), "initial_y_m": y0, "wave_phase_rad": phase,
+        "initial_heading_deg": math.degrees(heading),
+        "initial_y_m": y0,
+        "wave_phase_rad": phase,
         "outcome": outcome,
-        "t_end_s": d.time, "cycles_elapsed": cycles,
+        "t_end_s": d.time,
+        "cycles_elapsed": cycles,
         "t_success_s": t_success,
         "success_cycles": None if t_success is None else t_success * freq,
         "final_head_x_m": float(d.site_xpos[tip][0]),
@@ -304,9 +341,11 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         # (diag_torque_cap: 0.9-cycle overload 0.127 m/cycle vs full 6-cycle
         # run 0.040 m/cycle).
         "com_dx_per_cycle_full_horizon_m": metrics.progress_rate_full_horizon(
-            cxy[0] - com0[0], outcome, cycles, mcfg["success"]["max_cycles"]),
+            cxy[0] - com0[0], outcome, cycles, mcfg["success"]["max_cycles"]
+        ),
         "max_lateral_com_m": float(max_lat),
-        "jammed": jam_t is not None, "t_jam_s": jam_t,
+        "jammed": jam_t is not None,
+        "t_jam_s": jam_t,
         "collisions": collisions,
         "stop_hit_cycle_fraction": len(stop_cycles) / max(1, math.ceil(cycles)),
         "stop_hit_step_fraction": stop_steps / max(1, k),

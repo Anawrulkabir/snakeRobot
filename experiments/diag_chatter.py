@@ -10,6 +10,7 @@
 Diagnostic only; nothing here changes the approved model.
   python experiments/diag_chatter.py
 """
+
 import copy
 import json
 import math
@@ -32,11 +33,11 @@ from snake.model_builder import build_model  # noqa: E402
 from snake.runlog import new_run  # noqa: E402
 
 FREQS = (0.125, 0.25, 0.5)
-SEEDS = list(range(1000, 1005))      # first 5 E0 seeds
+SEEDS = list(range(1000, 1005))  # first 5 E0 seeds
 N_CYCLES, SKIP = 6, 1
 
-SOFT_TIMECONST = 0.04                # s, 2x MuJoCo's default 0.02
-STIFF_KP = 20.0                      # N m/rad, 10x the placeholder; torque cap unchanged
+SOFT_TIMECONST = 0.04  # s, 2x MuJoCo's default 0.02
+STIFF_KP = 20.0  # N m/rad, 10x the placeholder; torque cap unchanged
 # Over-constraint variants. Stiffness chosen so the out-of-plane deflection is
 # small: segment weight ~0.38 N acting over ~0.05 m gives ~0.019 N m, which a
 # 2 N m/rad spring holds at ~0.5 deg. The slide spring sags ~1 mm under 0.38 N.
@@ -142,10 +143,10 @@ def summarize(df):
     for (name, f), sub in df.groupby(["variant", "freq_hz"]):
         out.setdefault(name, {})[str(f)] = {
             "n": int(len(sub)),
-            "forward_disp_per_cycle_m": dict(zip(("mean", "ci95_half"),
-                                                 metrics.mean_ci95(sub.forward_disp_per_cycle_m))),
-            "wheel_airborne_fraction": dict(zip(("mean", "ci95_half"),
-                                                metrics.mean_ci95(sub.wheel_airborne_fraction))),
+            "forward_disp_per_cycle_m": dict(
+                zip(("mean", "ci95_half"), metrics.mean_ci95(sub.forward_disp_per_cycle_m))
+            ),
+            "wheel_airborne_fraction": dict(zip(("mean", "ci95_half"), metrics.mean_ci95(sub.wheel_airborne_fraction))),
             "max_tracking_error_deg": float(sub.max_tracking_error_deg.mean()),
             "torque_peak_Nm": float(sub.torque_peak_Nm.mean()),
             "torque_p95_Nm": float(sub.torque_p95_Nm.mean()),
@@ -159,7 +160,9 @@ def main():
     cfg["servo"]["actuation"] = "position"
     cfg["body"]["vertical_compliance"] = "none"
     gait = cfgmod.load("gait.yaml")["wave"]
-    gait = dict(gait, amplitude_deg=46, spatial_freq=0.82)  # as run: paper open-environment values, before the G4 x7/6 scaling
+    gait = dict(
+        gait, amplitude_deg=46, spatial_freq=0.82
+    )  # as run: paper open-environment values, before the G4 x7/6 scaling
     jobs, labels = [], []
     for name in ("baseline", "soft_contact", "stiff_servo"):
         for f in FREQS:
@@ -178,18 +181,26 @@ def main():
     summary = {
         "part1_and_3": summarize(df),
         "part2_bounce": bounce_analysis(cfg),
-        "settings": {"soft_contact_timeconst_s": SOFT_TIMECONST, "stiff_kp_Nm_per_rad": STIFF_KP,
-                     "rollpitch": ROLLPITCH, "slide": SLIDE, "seeds": SEEDS, "freqs_hz": FREQS},
+        "settings": {
+            "soft_contact_timeconst_s": SOFT_TIMECONST,
+            "stiff_kp_Nm_per_rad": STIFF_KP,
+            "rollpitch": ROLLPITCH,
+            "slide": SLIDE,
+            "seeds": SEEDS,
+            "freqs_hz": FREQS,
+        },
     }
     run_dir = new_run("diag_chatter", {"seeds": SEEDS})
     df.to_csv(run_dir / "trials.csv", index=False)
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2))
     for name, per in summary["part1_and_3"].items():
         for f, v in per.items():
-            print(f"{name:13s} {f:>5s} Hz: disp/cycle {v['forward_disp_per_cycle_m']['mean']:.4f} "
-                  f"+- {v['forward_disp_per_cycle_m']['ci95_half']:.4f}  airborne "
-                  f"{v['wheel_airborne_fraction']['mean']:.3f}  track {v['max_tracking_error_deg']:.2f} deg  "
-                  f"peak tq {v['torque_peak_Nm']:.4f}")
+            print(
+                f"{name:13s} {f:>5s} Hz: disp/cycle {v['forward_disp_per_cycle_m']['mean']:.4f} "
+                f"+- {v['forward_disp_per_cycle_m']['ci95_half']:.4f}  airborne "
+                f"{v['wheel_airborne_fraction']['mean']:.3f}  track {v['max_tracking_error_deg']:.2f} deg  "
+                f"peak tq {v['torque_peak_Nm']:.4f}"
+            )
     print(json.dumps(summary["part2_bounce"], indent=2))
     print(f"saved {run_dir}")
 

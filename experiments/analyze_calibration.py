@@ -11,6 +11,7 @@ ran). Also checks that the baseline rows reproduce the pilot exactly.
       --pilot results/E1_pilot/20261017T062232Z_b5aac2a
 writes <run_dir>/summary.json
 """
+
 import argparse
 import json
 import sys
@@ -34,15 +35,18 @@ PLAUSIBLE = {
 
 
 def cell_stats(rows):
-    return {"n": len(rows),
-            "successes": sum(r["outcome"] == "success" for r in rows),
-            "outcomes": {o: sum(r["outcome"] == o for r in rows)
-                         for o in ("success", "stuck", "overload", "timeout", "diverged")},
-            "rate_mean": float(np.mean([r[PRIMARY] for r in rows])),
-            "final_com_dx_mean_m": float(np.mean([r["final_com_dx_m"] for r in rows])),
-            "cycles_mean": float(np.mean([r["cycles_elapsed"] for r in rows])),
-            "tracking_rms_rad_mean": float(np.mean([r["tracking_rms_rad"] for r in rows])),
-            "stop_hit_cycle_fraction_mean": float(np.mean([r["stop_hit_cycle_fraction"] for r in rows]))}
+    return {
+        "n": len(rows),
+        "successes": sum(r["outcome"] == "success" for r in rows),
+        "outcomes": {
+            o: sum(r["outcome"] == o for r in rows) for o in ("success", "stuck", "overload", "timeout", "diverged")
+        },
+        "rate_mean": float(np.mean([r[PRIMARY] for r in rows])),
+        "final_com_dx_mean_m": float(np.mean([r["final_com_dx_m"] for r in rows])),
+        "cycles_mean": float(np.mean([r["cycles_elapsed"] for r in rows])),
+        "tracking_rms_rad_mean": float(np.mean([r["tracking_rms_rad"] for r in rows])),
+        "stop_hit_cycle_fraction_mean": float(np.mean([r["stop_hit_cycle_fraction"] for r in rows])),
+    }
 
 
 def select(group, cells):
@@ -67,8 +71,9 @@ def main():
     ok = [r for r in rows if r["outcome"] != "diverged"]
     variants = sorted({r["variant"] for r in rows}, key=lambda v: (v != "baseline", v))
     Gs = sorted({r["G"] for r in rows})
-    cells = {v: {str(G): cell_stats([r for r in ok if r["variant"] == v and r["G"] == G]) for G in Gs}
-             for v in variants}
+    cells = {
+        v: {str(G): cell_stats([r for r in ok if r["variant"] == v and r["G"] == G]) for G in Gs} for v in variants
+    }
     base = {(r["G"], r["seed"]): r for r in ok if r["variant"] == "baseline"}
     paired = {}
     for v in variants:
@@ -76,29 +81,51 @@ def main():
             continue
         paired[v] = {}
         for G in Gs:
-            d = [r[PRIMARY] - base[(G, r["seed"])][PRIMARY] for r in ok
-                 if r["variant"] == v and r["G"] == G and (G, r["seed"]) in base]
+            d = [
+                r[PRIMARY] - base[(G, r["seed"])][PRIMARY]
+                for r in ok
+                if r["variant"] == v and r["G"] == G and (G, r["seed"]) in base
+            ]
             paired[v][str(G)] = {"mean_diff_vs_baseline": float(np.mean(d)) if d else None, "n": len(d)}
     sel = {}
     for g in PLAUSIBLE:
         v, why = select(g, {k: cells[k][str(SELECT_G)] for k in PLAUSIBLE[g] if k in cells})
         sel[g] = {"chosen": v, "reason": why}
-    out = {"run_id": run_dir.name, "n_rows": len(rows),
-           "diverged": [r["key"] for r in rows if r["outcome"] == "diverged"],
-           "total_cpu_s": float(sum(r["cpu_s"] for r in rows)),
-           "cells": cells, "paired_vs_baseline": paired,
-           "plausible_a_priori": PLAUSIBLE, "step2_selection_at_G": SELECT_G, "step2_selection": sel}
+    out = {
+        "run_id": run_dir.name,
+        "n_rows": len(rows),
+        "diverged": [r["key"] for r in rows if r["outcome"] == "diverged"],
+        "total_cpu_s": float(sum(r["cpu_s"] for r in rows)),
+        "cells": cells,
+        "paired_vs_baseline": paired,
+        "plausible_a_priori": PLAUSIBLE,
+        "step2_selection_at_G": SELECT_G,
+        "step2_selection": sel,
+    }
     if a.pilot:
-        pilot = {(r["G"], r["seed"]): r for r in map(json.loads, (Path(a.pilot) / "trials.jsonl").read_text().splitlines())
-                 if r["law"] == "paper"}
-        mism = [f"G={G}|{s}" for (G, s), r in base.items()
-                if (G, s) not in pilot or (pilot[(G, s)]["final_com_dx_m"], pilot[(G, s)]["t_end_s"],
-                                           pilot[(G, s)]["outcome"]) != (r["final_com_dx_m"], r["t_end_s"], r["outcome"])]
-        out["baseline_reproduces_pilot"] = {"pilot_run": Path(a.pilot).name, "n_checked": len(base),
-                                            "mismatches": mism}
+        pilot = {
+            (r["G"], r["seed"]): r
+            for r in map(json.loads, (Path(a.pilot) / "trials.jsonl").read_text().splitlines())
+            if r["law"] == "paper"
+        }
+        mism = [
+            f"G={G}|{s}"
+            for (G, s), r in base.items()
+            if (G, s) not in pilot
+            or (pilot[(G, s)]["final_com_dx_m"], pilot[(G, s)]["t_end_s"], pilot[(G, s)]["outcome"])
+            != (r["final_com_dx_m"], r["t_end_s"], r["outcome"])
+        ]
+        out["baseline_reproduces_pilot"] = {"pilot_run": Path(a.pilot).name, "n_checked": len(base), "mismatches": mism}
     (run_dir / "summary.json").write_text(json.dumps(out, indent=2))
-    print(json.dumps({k: out[k] for k in ("n_rows", "diverged", "step2_selection")
-                      + (("baseline_reproduces_pilot",) if a.pilot else ())}, indent=2))
+    print(
+        json.dumps(
+            {
+                k: out[k]
+                for k in ("n_rows", "diverged", "step2_selection") + (("baseline_reproduces_pilot",) if a.pilot else ())
+            },
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

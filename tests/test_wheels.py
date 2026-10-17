@@ -2,6 +2,7 @@
 
 Each check is paired with a planted fault it must catch (CLAUDE.md 9).
 """
+
 import copy
 import math
 import sys
@@ -74,8 +75,11 @@ def test_anisotropy_check_catches_wheel_turned_90deg(cfg, monkeypatch):
     real = mb.build_mjcf
 
     def turned(c=None, drag_rig=False):
-        return real(c, drag_rig).replace('type="hinge" axis="0 1 0"', 'type="hinge" axis="1 0 0"').replace(
-            'zaxis="0 1 0"', 'zaxis="1 0 0"')
+        return (
+            real(c, drag_rig)
+            .replace('type="hinge" axis="0 1 0"', 'type="hinge" axis="1 0 0"')
+            .replace('zaxis="0 1 0"', 'zaxis="1 0 0"')
+        )
 
     monkeypatch.setattr(mb, "build_mjcf", turned)
     assert ratio(cfg, "body") < 1

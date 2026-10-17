@@ -7,6 +7,7 @@ apply.
   python scripts/view_model.py --G 0.75             # Linux/Windows viewer
   python scripts/view_model.py --G 0 --video out.mp4   # headless, needs ffmpeg
 """
+
 import argparse
 import math
 import sys
@@ -24,8 +25,9 @@ from snake.sim import make_controller  # noqa: E402
 
 def controller(model, G):
     g = cfgmod.load("gait.yaml")["wave"]
-    _, ctrl = make_controller(model, cfgmod.load(), math.radians(g["amplitude_deg"]),
-                              g["spatial_freq"], g["temporal_freq"], G=G)
+    _, ctrl = make_controller(
+        model, cfgmod.load(), math.radians(g["amplitude_deg"]), g["spatial_freq"], g["temporal_freq"], G=G
+    )
     return ctrl
 
 
@@ -33,8 +35,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--video", help="write an mp4 instead of opening the viewer")
     ap.add_argument("--seconds", type=float, default=24.0)
-    ap.add_argument("--G", type=float, default=cfgmod.load("gait.yaml")["compliance"]["G"],
-                    help="generalized compliance (paper Eq. 3)")
+    ap.add_argument(
+        "--G",
+        type=float,
+        default=cfgmod.load("gait.yaml")["compliance"]["G"],
+        help="generalized compliance (paper Eq. 3)",
+    )
     args = ap.parse_args()
 
     ph = cfgmod.placeholders(cfgmod.load_raw()) + cfgmod.placeholders(cfgmod.load_raw("gait.yaml"))
@@ -46,6 +52,7 @@ def main():
 
     if args.video:
         import mediapy
+
         frames = []
         cam = mujoco.MjvCamera()
         cam.type = mujoco.mjtCamera.mjCAMERA_TRACKING
@@ -63,6 +70,7 @@ def main():
         return
 
     import mujoco.viewer
+
     with mujoco.viewer.launch_passive(m, d) as v:
         while v.is_running():
             t0 = time.time()

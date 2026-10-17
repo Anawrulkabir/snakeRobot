@@ -2,6 +2,7 @@
 
 Each physics check is paired with a planted fault it must catch (CLAUDE.md 9).
 """
+
 import copy
 import math
 
@@ -44,22 +45,20 @@ def max_cable_error(model, cfg, angle_sign=1.0):
 def test_structure(cfg):
     m = build_model(cfg)
     n = cfg["body"]["n_segments"]
-    assert m.nbody == 2 * n + 1                 # segments + wheels + world
+    assert m.nbody == 2 * n + 1  # segments + wheels + world
     extra = {"none": 0, "slide": n - 1, "rollpitch": 2 * (n - 1)}[cfg["body"]["vertical_compliance"]]
-    assert m.nv == 4 + (n - 1) + n + extra      # planar root + yaw joints + axles + load-model DOF
+    assert m.nv == 4 + (n - 1) + n + extra  # planar root + yaw joints + axles + load-model DOF
     assert m.nu == n - 1
     assert m.ntendon == 2 * (n - 1)
     for i in range(1, n):
         assert np.allclose(m.jnt_axis[m.joint(f"j{i}").id], [0, 0, 1])
-        assert m.jnt_range[m.joint(f"j{i}").id][1] == pytest.approx(
-            math.radians(cfg["joint"]["hard_limit_deg"]))
+        assert m.jnt_range[m.joint(f"j{i}").id][1] == pytest.approx(math.radians(cfg["joint"]["hard_limit_deg"]))
 
 
 def test_total_mass(cfg):
     # Head: shell + hardware + electronics. Others: shell + hardware + servos.
     m, n = cfg["mass"], cfg["body"]["n_segments"]
-    expected = (n * (m["shell"] + m["hardware"]) + m["head_electronics"]
-                + (n - 1) * m["servos_per_joint"] * m["servo"])
+    expected = n * (m["shell"] + m["hardware"]) + m["head_electronics"] + (n - 1) * m["servos_per_joint"] * m["servo"]
     assert build_model(cfg).body_subtreemass[1] == pytest.approx(expected)
 
 
@@ -110,8 +109,9 @@ def body_clearance(model, data):
     a body sunk into the floor would produce no contact at all. Clearance is
     therefore checked geometrically.
     """
-    lows = [data.geom_xpos[g][2] - model.geom_size[g][0]
-            for g in range(model.ngeom) if model.geom(g).name.endswith("_body")]
+    lows = [
+        data.geom_xpos[g][2] - model.geom_size[g][0] for g in range(model.ngeom) if model.geom(g).name.endswith("_body")
+    ]
     return min(lows)
 
 
@@ -125,6 +125,7 @@ def test_clearance_check_catches_low_body(cfg, monkeypatch):
     # Planted fault: ride_height below the capsule radius, with the builder's
     # guard switched off so the bad model can be built.
     import snake.model_builder as mb
+
     monkeypatch.setattr(mb, "_check", lambda c: None)
     bad = copy.deepcopy(cfg)
     bad["body"]["ride_height"] = bad["body"]["segment_width"] / 2 - 0.005
@@ -161,7 +162,7 @@ def test_invalid_geometry_rejected(cfg):
     with pytest.raises(ValueError):
         build_mjcf(bad)
     bad = copy.deepcopy(cfg)
-    bad["cable"]["half_spacing"] = cfg["body"]["segment_width"]   # anchor outside the body
+    bad["cable"]["half_spacing"] = cfg["body"]["segment_width"]  # anchor outside the body
     with pytest.raises(ValueError):
         build_mjcf(bad)
 

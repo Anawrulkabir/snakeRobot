@@ -1,4 +1,5 @@
 """Tests for snake/metrics.py on synthetic trajectories with known answers."""
+
 import math
 
 import numpy as np
@@ -77,6 +78,7 @@ def test_mean_body_heading_ignores_swing():
 
 # ---- jam, success, collisions (CLAUDE.md 5.5, 9) ----
 
+
 def pinned(T=40.0, f=0.125, sway=0.05, dt=0.01):
     """A robot pinned between posts: it wiggles in place with no net progress."""
     t = np.arange(0, T, dt)
@@ -92,7 +94,7 @@ def test_jam_flags_pinned_robot():
 
 def test_jam_does_not_flag_free_robot():
     f = 0.125
-    t, xy = wiggle(0.012, 0.3, f, T=60)       # 0.096 m per cycle, with sway
+    t, xy = wiggle(0.012, 0.3, f, T=60)  # 0.096 m per cycle, with sway
     assert metrics.detect_jam(t, xy, f, threshold=0.01, min_cycles=3) == (False, None)
 
 
@@ -129,8 +131,8 @@ def test_collision_count_debounces_chatter():
     t = np.arange(0, 2, 0.001)
     c = np.zeros_like(t, bool)
     c[(t > 0.2) & (t < 0.5)] = True
-    c[(t > 0.302) & (t < 0.305)] = False       # 3 ms flicker: same collision
-    c[(t > 1.0) & (t < 1.2)] = True            # a separate collision
+    c[(t > 0.302) & (t < 0.305)] = False  # 3 ms flicker: same collision
+    c[(t > 1.0) & (t < 1.2)] = True  # a separate collision
     assert metrics.count_collisions(t, c[:, None], min_gap=0.05) == 2
     # Planted fault: no debounce counts the flicker as an extra collision.
     assert metrics.count_collisions(t, c[:, None], min_gap=0.0) == 3
@@ -144,14 +146,21 @@ def _monotonicity_violations(rate):
     line at 0.30 m: only successes get there, so every success has reached
     further than every non-success."""
     max_c, finish = 6, 0.30
-    trials = [(0.114, "overload", 0.9), (0.24, "timeout", 6.0), (0.05, "stuck", 3.0),
-              (0.29, "overload", 5.0), (0.20, "stuck", 1.5), (0.31, "success", 5.5),
-              (0.35, "success", 2.0)]
+    trials = [
+        (0.114, "overload", 0.9),
+        (0.24, "timeout", 6.0),
+        (0.05, "stuck", 3.0),
+        (0.29, "overload", 5.0),
+        (0.20, "stuck", 1.5),
+        (0.31, "success", 5.5),
+        (0.35, "success", 2.0),
+    ]
     rng = np.random.default_rng(0)
     for _ in range(200):
         out = str(rng.choice(["stuck", "overload", "timeout"]))
-        trials.append((float(rng.uniform(-0.1, finish)), out,
-                       max_c if out == "timeout" else float(rng.uniform(0.1, max_c))))
+        trials.append(
+            (float(rng.uniform(-0.1, finish)), out, max_c if out == "timeout" else float(rng.uniform(0.1, max_c)))
+        )
     bad = []
     for a in trials:
         for b in trials:

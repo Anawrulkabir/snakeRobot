@@ -20,6 +20,7 @@ Two cases are evaluated:
 Writes results/drive_reach/<run_id>/summary.json (pure geometry, no simulation).
   python scripts/drive_reach.py
 """
+
 import json
 import math
 import sys
@@ -37,10 +38,16 @@ from snake.runlog import new_run  # noqa: E402
 def paper_cmd(alpha, G, A, Lc, Lj, l0):
     """Eq. 3 commanded (L_l, L_r)."""
     g = (2 * G - 1) * A
-    Ll = (exact_length(alpha, Lc, Lj, "l") if alpha <= -g
-          else exact_length(-A * min(1, 2 * G - 1), Lc, Lj, "l") + l0 * (g + alpha))
-    Lr = (exact_length(alpha, Lc, Lj, "r") if alpha >= g
-          else exact_length(A * min(1, 2 * G - 1), Lc, Lj, "r") + l0 * (g - alpha))
+    Ll = (
+        exact_length(alpha, Lc, Lj, "l")
+        if alpha <= -g
+        else exact_length(-A * min(1, 2 * G - 1), Lc, Lj, "l") + l0 * (g + alpha)
+    )
+    Lr = (
+        exact_length(alpha, Lc, Lj, "r")
+        if alpha >= g
+        else exact_length(A * min(1, 2 * G - 1), Lc, Lj, "r") + l0 * (g - alpha)
+    )
     return Ll, Lr
 
 
@@ -65,8 +72,10 @@ def line_cmd(alpha, S, k):
 
 def min_slack(fn, A, Lc, Lj):
     """Smallest commanded-minus-exact length over the cycle (m); < 0 means over-stretch."""
-    return min(min(fn(a)[0] - exact_length(a, Lc, Lj, "l"), fn(a)[1] - exact_length(a, Lc, Lj, "r"))
-               for a in np.linspace(-A, A, 2001))
+    return min(
+        min(fn(a)[0] - exact_length(a, Lc, Lj, "l"), fn(a)[1] - exact_length(a, Lc, Lj, "r"))
+        for a in np.linspace(-A, A, 2001)
+    )
 
 
 def ranges(fn, A, Lc, Lj):
@@ -82,12 +91,14 @@ def analyse(A_deg, Lc, Lj, l0):
     out = {"A_deg": A_deg, "paper": [], "spool": {}}
     for G in (0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5):
         sums = [sum(paper_cmd(a, G, A, Lc, Lj, l0)) for a in np.linspace(-A, A, 801)]
-        out["paper"].append({
-            "G": G,
-            "sum_variation_mm": (max(sums) - min(sums)) * 1e3,
-            "reachable_by_circular_spool": bool((max(sums) - min(sums)) < 1e-9),
-            "ranges": ranges(lambda a: paper_cmd(a, G, A, Lc, Lj, l0), A, Lc, Lj),
-        })
+        out["paper"].append(
+            {
+                "G": G,
+                "sum_variation_mm": (max(sums) - min(sums)) * 1e3,
+                "reachable_by_circular_spool": bool((max(sums) - min(sums)) < 1e-9),
+                "ranges": ranges(lambda a: paper_cmd(a, G, A, Lc, Lj, l0), A, Lc, Lj),
+            }
+        )
     # Cable travel each cable's spool must provide (max - min commanded length).
     alphas = np.linspace(-A, A, 801)
     per_G = {}
@@ -100,28 +111,37 @@ def analyse(A_deg, Lc, Lj, l0):
     out["two_servo_travel_mm_G0_to_1.5"] = (max(all_lengths) - min(all_lengths)) * 1e3
     out["one_spool_l0_travel_mm"] = 2 * l0 * A * 1e3
     out["fully_passive_G"] = 1 + (exact_length(math.pi / 2, Lc, Lj, "l") - exact_length(A, Lc, Lj, "r")) / (2 * l0 * A)
-    S1 = 2 * exact_length(-A, Lc, Lj, "l") + 2 * l0 * A          # paper's G = 1 total length
+    S1 = 2 * exact_length(-A, Lc, Lj, "l") + 2 * l0 * A  # paper's G = 1 total length
     out["spool"]["spool_l0_at_G1_min_slack_mm"] = min_slack(lambda a: line_cmd(a, S1, l0), A, Lc, Lj) * 1e3
-    out["spool"]["spool_l0_shorter_by_1mm_min_slack_mm"] = min_slack(
-        lambda a: line_cmd(a, S1 - 1e-3, l0), A, Lc, Lj) * 1e3
-    k0 = math.hypot(Lc, Lj) * math.sin(math.atan2(Lc, Lj))        # |dL/dalpha| at alpha = 0
+    out["spool"]["spool_l0_shorter_by_1mm_min_slack_mm"] = (
+        min_slack(lambda a: line_cmd(a, S1 - 1e-3, l0), A, Lc, Lj) * 1e3
+    )
+    k0 = math.hypot(Lc, Lj) * math.sin(math.atan2(Lc, Lj))  # |dL/dalpha| at alpha = 0
     tight = lambda a: line_cmd(a, 4 * Lj, k0)
-    out["spool"]["tight"] = {"k_mm_per_deg": k0 * 1e3 * math.pi / 180, "S_mm": 4 * Lj * 1e3,
-                             "min_slack_mm": min_slack(tight, A, Lc, Lj) * 1e3,
-                             "ranges": ranges(tight, A, Lc, Lj)}
+    out["spool"]["tight"] = {
+        "k_mm_per_deg": k0 * 1e3 * math.pi / 180,
+        "S_mm": 4 * Lj * 1e3,
+        "min_slack_mm": min_slack(tight, A, Lc, Lj) * 1e3,
+        "ranges": ranges(tight, A, Lc, Lj),
+    }
     return out
 
 
 def main():
-    Lc = Lj = 0.020                       # proposed (G4)
+    Lc = Lj = 0.020  # proposed (G4)
     R = math.hypot(Lc, Lj)
     # Paper: l0 = 0.73 mm/deg with R = 39.6 mm. Scaling l0 with R keeps Eq. 3
     # identical in angle space, so a given G means the same free range as in
     # the paper (exact lengths and slack both scale with R).
-    l0 = math.degrees(1) * 0.73e-3 * R / 0.0396   # m/rad
-    res = {"Lc_m": Lc, "Lj_m": Lj, "l0_m_per_rad": l0, "l0_mm_per_deg": l0 * 1e3 * math.pi / 180,
-           "max_length_rate_mm_per_deg": R * 1e3 * math.pi / 180,
-           "cases": [analyse(A, Lc, Lj, l0) for A in (46 * 7 / 6, 72 * 7 / 6)]}
+    l0 = math.degrees(1) * 0.73e-3 * R / 0.0396  # m/rad
+    res = {
+        "Lc_m": Lc,
+        "Lj_m": Lj,
+        "l0_m_per_rad": l0,
+        "l0_mm_per_deg": l0 * 1e3 * math.pi / 180,
+        "max_length_rate_mm_per_deg": R * 1e3 * math.pi / 180,
+        "cases": [analyse(A, Lc, Lj, l0) for A in (46 * 7 / 6, 72 * 7 / 6)],
+    }
     run_dir = new_run("drive_reach")
     (run_dir / "summary.json").write_text(json.dumps(res, indent=2))
     print(json.dumps(res, indent=1))

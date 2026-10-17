@@ -9,6 +9,7 @@ where it stopped.
   python experiments/run_sweep.py config/experiments/E1_pilot.yaml --resume results/E1_pilot/<run_id>
   python experiments/run_sweep.py ... --workers 4
 """
+
 import argparse
 import json
 import shutil
@@ -36,8 +37,9 @@ def jobs_for(ex):
     and gait.amplitude_scale (multiplies the density's amplitude)."""
     seeds = range(ex["seed_start"], ex["seed_start"] + ex["n_trials"])
     variants = list(ex.get("variants", {None: {}}))
-    return [(v, dn, law, G, s) for v in variants for dn in ex["densities"] for s in seeds
-            for law, G in ex["conditions"]]
+    return [
+        (v, dn, law, G, s) for v in variants for dn in ex["densities"] for s in seeds for law, G in ex["conditions"]
+    ]
 
 
 def apply_overrides(overrides, cfg, arena, mc):
@@ -68,12 +70,21 @@ def job(args):
         A *= apply_overrides(ex["variants"][variant], cfg, arena, mc)
     t0 = time.process_time()
     try:
-        r = run_lattice_trial(cfg, arena, mc, density, A, xi, ex["temporal_freq_hz"], law,
-                              0.0 if G is None else G, seed)
+        r = run_lattice_trial(
+            cfg, arena, mc, density, A, xi, ex["temporal_freq_hz"], law, 0.0 if G is None else G, seed
+        )
     except FloatingPointError as e:
         # Recorded, not retried: analyze.py reports it and drops the seed from paired comparisons.
-        r = {"density": density, "law": law, "seed": seed, "outcome": "diverged", "error": str(e),
-             "cycles_elapsed": float("nan"), "com_dx_per_cycle_full_horizon_m": float("nan"), "t_end_s": 0.0}
+        r = {
+            "density": density,
+            "law": law,
+            "seed": seed,
+            "outcome": "diverged",
+            "error": str(e),
+            "cycles_elapsed": float("nan"),
+            "com_dx_per_cycle_full_horizon_m": float("nan"),
+            "t_end_s": 0.0,
+        }
     r["G"] = G
     r["variant"] = variant
     r["cpu_s"] = time.process_time() - t0
@@ -106,8 +117,11 @@ def main():
         for i, r in enumerate(pool.imap_unordered(job, todo), 1):
             f.write(json.dumps(r) + "\n")
             f.flush()
-            print(f"[{i}/{len(todo)}] {r['key']} {r['outcome']} {r['cycles_elapsed']:.1f} cyc "
-                  f"rate_fh={r['com_dx_per_cycle_full_horizon_m']:.4f} cpu={r['cpu_s']:.0f}s", flush=True)
+            print(
+                f"[{i}/{len(todo)}] {r['key']} {r['outcome']} {r['cycles_elapsed']:.1f} cyc "
+                f"rate_fh={r['com_dx_per_cycle_full_horizon_m']:.4f} cpu={r['cpu_s']:.0f}s",
+                flush=True,
+            )
     print(f"saved {out}")
 
 

@@ -1,4 +1,5 @@
 """Run folders: results/<experiment>/<run_id>/ with config snapshot and git state (CLAUDE.md 7)."""
+
 import datetime
 import json
 import shutil
@@ -12,8 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def _git(*args):
     try:
-        return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True,
-                              check=True).stdout.strip()
+        return subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         return "unknown"
 

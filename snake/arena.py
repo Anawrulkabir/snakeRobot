@@ -1,4 +1,5 @@
 """Post lattice geometry (config/arena.yaml). Pure numpy: returns post centres."""
+
 import math
 
 import numpy as np

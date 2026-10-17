@@ -1,4 +1,5 @@
 """Single headless trial runner (CLAUDE.md 5.6). Returns raw time series; metrics live in metrics.py."""
+
 import copy
 import math
 
@@ -34,11 +35,14 @@ def make_controller(m, c, A, xi, freq, phase=0.0, G=None):
         law = ComplianceA(c, G, A)
 
         def control(d):
-            d.ctrl[:] = law.torques(command(d.time), d.qpos[jq], d.qvel[jv],
-                                    m.opt.timestep, effective_inertias(m, d, jv))
+            d.ctrl[:] = law.torques(
+                command(d.time), d.qpos[jq], d.qvel[jv], m.opt.timestep, effective_inertias(m, d, jv)
+            )
     else:
+
         def control(d):
             d.ctrl[:] = command(d.time)
+
     return command, control
 
 
@@ -128,7 +132,7 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
                     continue
                 mujoco.mj_contactForce(m, d, ci, f6)
                 N[w] += f6[0]
-                Fw[w] += con.frame.reshape(3, 3).T @ np.r_[0.0, f6[1:3]]   # friction only, world frame
+                Fw[w] += con.frame.reshape(3, 3).T @ np.r_[0.0, f6[1:3]]  # friction only, world frame
             axles = np.array([d.xmat[sid].reshape(3, 3)[:, 1] for sid in seg_ids])
             tilt = np.degrees(np.arcsin(np.clip(np.abs(axles[:, 2]), 0, 1)))
             a_h = axles[:, :2] / np.linalg.norm(axles[:, :2], axis=1, keepdims=True)
@@ -163,9 +167,14 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
         "stop_hit_cycle_fraction": len(stop_cycles) / n_cycles,
         "stop_hit_step_fraction": stop_steps / steps,
         "stop_step_fraction_per_joint": (stop_steps_per_joint / steps).tolist(),
-        "wheel_detail": None if detail_t0 is None else {
-            "normal": np.array(det_N), "tilt_deg": np.array(det_tilt),
-            "f_roll": np.array(det_fr), "f_axle": np.array(det_fa)},
+        "wheel_detail": None
+        if detail_t0 is None
+        else {
+            "normal": np.array(det_N),
+            "tilt_deg": np.array(det_tilt),
+            "f_roll": np.array(det_fr),
+            "f_axle": np.array(det_fa),
+        },
     }
 
 
@@ -178,7 +187,7 @@ def coast_energy_check(cfg, v0=0.2, seconds=1.0):
     c = copy.deepcopy(cfg)
     m = build_model(c)
     m.opt.enableflags |= mujoco.mjtEnableBit.mjENBL_ENERGY
-    m.actuator_gainprm[:, 0] = 0   # servos off
+    m.actuator_gainprm[:, 0] = 0  # servos off
     m.actuator_biasprm[:, :] = 0
     d = mujoco.MjData(m)
     mujoco.mj_forward(m, d)

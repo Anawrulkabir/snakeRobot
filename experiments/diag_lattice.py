@@ -15,6 +15,7 @@ lattice entry. This script tests, in order:
 6 cycles per trial, 3 seeds per cell.
   python experiments/diag_lattice.py   # writes results/diag_lattice/<run_id>/
 """
+
 import copy
 import json
 import math
@@ -32,17 +33,21 @@ from snake.gait import serpenoid  # noqa: E402
 from snake.runlog import new_run  # noqa: E402
 from snake.trial import run_lattice_trial  # noqa: E402
 
-STIFFNESS = 0.02          # as in the failing smoke trial
+STIFFNESS = 0.02  # as in the failing smoke trial
 SEEDS = (1, 2, 3)
 N_CYCLES = 6
 GAITS = {  # paper amplitude x 7/6, paper xi (G4)
-    "open": (53.666667, 0.82), "sparse": (56.0, 0.80), "medium": (59.5, 0.58), "dense": (84.0, 1.02)}
+    "open": (53.666667, 0.82),
+    "sparse": (56.0, 0.80),
+    "medium": (59.5, 0.58),
+    "dense": (84.0, 1.02),
+}
 
 
 def base():
     cfg = cfgmod.load()
     cfg["joint"]["stiffness"] = STIFFNESS
-    cfg["joint"]["passive_model"] = "none"   # as run (before the alpha-centred element, 2026-10-17)
+    cfg["joint"]["passive_model"] = "none"  # as run (before the alpha-centred element, 2026-10-17)
     mc = copy.deepcopy(cfgmod.load("metrics.yaml"))
     mc["success"]["max_cycles"] = N_CYCLES
     return cfg, cfgmod.load("arena.yaml"), mc
@@ -105,29 +110,35 @@ def main():
     for dn in ("sparse", "medium", "dense"):
         mc0 = copy.deepcopy(mc)
         mc0["success"]["max_cycles"] = 0
-        stats = [run_lattice_trial(cfg, arena, mc0, dn, *GAITS[dn], 0.125, "paper", 0.75, s)
-                 for s in range(50)]
-        init[dn] = {"seeds": 50,
-                    "trials_with_initial_post_contact": sum(r["initial_post_contacts"] > 0 for r in stats),
-                    "max_initial_penetration_m": max(r["initial_max_penetration_m"] for r in stats),
-                    "max_initial_body_front_x_m": max(r["initial_body_front_x_m"] for r in stats)}
+        stats = [run_lattice_trial(cfg, arena, mc0, dn, *GAITS[dn], 0.125, "paper", 0.75, s) for s in range(50)]
+        init[dn] = {
+            "seeds": 50,
+            "trials_with_initial_post_contact": sum(r["initial_post_contacts"] > 0 for r in stats),
+            "max_initial_penetration_m": max(r["initial_max_penetration_m"] for r in stats),
+            "max_initial_body_front_x_m": max(r["initial_body_front_x_m"] for r in stats),
+        }
 
     # (e) wave geometry vs lattice gaps
     geo = {}
     for dn, (A, xi) in GAITS.items():
         wmean, wmax, ax_len = wave_geometry(cfg, A, xi)
         d = arena_mod.spacing(arena, dn, L)
-        geo[dn] = {"A_deg": A, "xi": xi, "lateral_extent_mean_m": wmean, "lateral_extent_max_m": wmax,
-                   "axial_length_m": ax_len,
-                   "body_wavelength_m": ax_len / xi if xi > 0 else None,
-                   "spacing_m": d,
-                   "gap_m": None if d is None else d - arena["lattice"]["post_diameter_m"],
-                   "body_width_m": cfg["body"]["segment_width"],
-                   "wavelength_over_spacing": None if d is None else (ax_len / xi) / d,
-                   # Arc length: L / xi along the body (Fahad 2026-10-16: report both).
-                   "arc_wavelength_m": L / xi,
-                   "arc_wavelength_over_spacing": None if d is None else (L / xi) / d,
-                   "paper_wavelength_over_spacing": {"sparse": 2.0, "medium": 2.2, "dense": 1.8}.get(dn)}
+        geo[dn] = {
+            "A_deg": A,
+            "xi": xi,
+            "lateral_extent_mean_m": wmean,
+            "lateral_extent_max_m": wmax,
+            "axial_length_m": ax_len,
+            "body_wavelength_m": ax_len / xi if xi > 0 else None,
+            "spacing_m": d,
+            "gap_m": None if d is None else d - arena["lattice"]["post_diameter_m"],
+            "body_width_m": cfg["body"]["segment_width"],
+            "wavelength_over_spacing": None if d is None else (ax_len / xi) / d,
+            # Arc length: L / xi along the body (Fahad 2026-10-16: report both).
+            "arc_wavelength_m": L / xi,
+            "arc_wavelength_over_spacing": None if d is None else (L / xi) / d,
+            "paper_wavelength_over_spacing": {"sparse": 2.0, "medium": 2.2, "dense": 1.8}.get(dn),
+        }
 
     cells = {}
     for r in rows:
@@ -144,8 +155,14 @@ def main():
             "torque_peak_Nm": [round(r["torque_peak_Nm"], 3) for r in rs],
             "initial_post_contacts": [r["initial_post_contacts"] for r in rs],
         }
-    summary = {"stiffness_Nm_per_rad": STIFFNESS, "n_cycles": N_CYCLES, "seeds": SEEDS,
-               "cells": summary_cells, "b_initial_overlap": init, "e_wave_geometry": geo}
+    summary = {
+        "stiffness_Nm_per_rad": STIFFNESS,
+        "n_cycles": N_CYCLES,
+        "seeds": SEEDS,
+        "cells": summary_cells,
+        "b_initial_overlap": init,
+        "e_wave_geometry": geo,
+    }
     run_dir = new_run("diag_lattice", {"seeds": list(SEEDS)})
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2))
     print(json.dumps(summary, indent=1))

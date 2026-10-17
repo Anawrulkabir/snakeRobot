@@ -18,6 +18,7 @@ If offscreen rendering fails, retry with an explicit GL backend, e.g.
   MUJOCO_GL=osmesa python scripts/check_env.py   (Linux, software)
   MUJOCO_GL=glfw python scripts/check_env.py     (Windows/macOS default)
 """
+
 import argparse
 import os
 import platform
@@ -54,6 +55,7 @@ def check(name, fn):
 
 def step_headless():
     import mujoco
+
     m = mujoco.MjModel.from_xml_string(TINY_XML)
     d = mujoco.MjData(m)
     z0 = d.qpos[2]
@@ -69,6 +71,7 @@ def step_headless():
 def open_viewer(seconds=3.0):
     import mujoco
     import mujoco.viewer
+
     m = mujoco.MjModel.from_xml_string(TINY_XML)
     d = mujoco.MjData(m)
     with mujoco.viewer.launch_passive(m, d) as v:
@@ -83,6 +86,7 @@ def open_viewer(seconds=3.0):
 def render_video(path):
     import mujoco
     import mediapy
+
     m = mujoco.MjModel.from_xml_string(TINY_XML)
     d = mujoco.MjData(m)
     frames = []
@@ -109,6 +113,7 @@ def main():
 
     def imp():
         import mujoco
+
         return f"mujoco {mujoco.__version__}"
 
     check("1. import mujoco", imp)
@@ -121,6 +126,7 @@ def main():
 
     try:
         import mujoco
+
         mj_ver = mujoco.__version__
     except Exception:
         mj_ver = "not importable"

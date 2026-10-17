@@ -11,6 +11,7 @@ friction adds.
 
   python scripts/yaw_test.py      # writes results/yaw_test/<run_id>/summary.json
 """
+
 import copy
 import json
 import sys
@@ -27,15 +28,15 @@ from snake import config as cfgmod  # noqa: E402
 from snake.model_builder import build_mjcf  # noqa: E402
 from snake.runlog import new_run  # noqa: E402
 
-YAW_RATE = 1.0     # rad/s, same order as the gait's peak joint rate
+YAW_RATE = 1.0  # rad/s, same order as the gait's peak joint rate
 MEANINGFUL = 0.05  # torsional share of yaw torque above which it counts as meaningful
 
 
 def yaw_torque(cfg, kind="body", pivot="pin"):
     one = single_segment(cfg, kind)
     xml = build_mjcf(one, drag_rig=True).replace(
-        '<position name="hold_yaw" joint="root_yaw" kp="50" kv="5"',
-        '<velocity name="hold_yaw" joint="root_yaw" kv="5"')
+        '<position name="hold_yaw" joint="root_yaw" kp="50" kv="5"', '<velocity name="hold_yaw" joint="root_yaw" kv="5"'
+    )
     m = mujoco.MjModel.from_xml_string(xml)
     d = mujoco.MjData(m)
     ax = m.actuator("hold_yaw").id
@@ -66,16 +67,18 @@ def run(cfg):
         for pivot in ("pin", "wheel"):
             with_t = yaw_torque(cfg, kind, pivot)
             without_t = yaw_torque(c0, kind, pivot)
-            out["rows"].append({
-                "segment": kind,
-                "pivot": pivot,
-                "torsional_friction_m": cfg["ground"]["torsional_friction"],
-                "yaw_torque_Nm": with_t,
-                "yaw_torque_without_torsion_Nm": without_t,
-                "torsion_share": (with_t - without_t) / with_t if with_t > 0 else 0.0,
-                "torsion_model_prediction_Nm": cfg["ground"]["torsional_friction"] * segment_weight(cfg, kind),
-                "servo_stall_torque_Nm": cfg["servo"]["stall_torque"],
-            })
+            out["rows"].append(
+                {
+                    "segment": kind,
+                    "pivot": pivot,
+                    "torsional_friction_m": cfg["ground"]["torsional_friction"],
+                    "yaw_torque_Nm": with_t,
+                    "yaw_torque_without_torsion_Nm": without_t,
+                    "torsion_share": (with_t - without_t) / with_t if with_t > 0 else 0.0,
+                    "torsion_model_prediction_Nm": cfg["ground"]["torsional_friction"] * segment_weight(cfg, kind),
+                    "servo_stall_torque_Nm": cfg["servo"]["stall_torque"],
+                }
+            )
     out["meaningful"] = any(r["torsion_share"] > MEANINGFUL for r in out["rows"])
     return out
 

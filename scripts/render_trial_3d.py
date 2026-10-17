@@ -10,6 +10,7 @@ rendering; EGL failed without a GPU, 2026-10-17).
       results/E1_pilot/<run_id> --seed 1001 --G 0.75 --out media/x.gif
 Options: --seconds 16 (clip length, from t = 0), --speed 2 (x real time), --fps 10
 """
+
 import argparse
 import sys
 from pathlib import Path
@@ -48,7 +49,7 @@ def main():
     m.geom_matid[m.geom("floor").id] = -1
     m.geom_rgba[m.geom("floor").id] = [0.85, 0.87, 0.9, 1.0]
     opt = mujoco.MjvOption()
-    m.vis.global_.orthographic = 1                      # true top view: post walls not seen in perspective
+    m.vis.global_.orthographic = 1  # true top view: post walls not seen in perspective
     d = mujoco.MjData(m)
     frames = rec["frames"]
     ts = np.array([f["t"] for f in frames])
@@ -57,8 +58,8 @@ def main():
     cam.type = mujoco.mjtCamera.mjCAMERA_FREE
     cam.lookat[:] = [*(xy.min(axis=0) + xy.max(axis=0)) / 2, 0.0]
     cam.distance = 1.2 * max(np.ptp(xy, axis=0)) + 0.6
-    m.vis.global_.fovy = cam.distance * 0.9             # orthographic: fovy is the view height in metres
-    cam.elevation, cam.azimuth = -90.0, 90.0          # straight down, +x to the right
+    m.vis.global_.fovy = cam.distance * 0.9  # orthographic: fovy is the view height in metres
+    cam.elevation, cam.azimuth = -90.0, 90.0  # straight down, +x to the right
     renderer = mujoco.Renderer(m, a.height, a.width)
     renderer.scene.flags[mujoco.mjtRndFlag.mjRND_SHADOW] = False
     t_out = np.arange(0.0, min(a.seconds, ts[-1]), a.speed / a.fps)

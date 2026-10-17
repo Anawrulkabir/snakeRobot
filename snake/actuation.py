@@ -15,6 +15,7 @@ cable pulling), capped at the servo's stall torque.
 Pure functions (math only) so the same law can run on the ESP32. Angles are
 in radians, lengths in metres.
 """
+
 import math
 
 from snake.cable_geometry import exact_length
@@ -136,10 +137,11 @@ class ComplianceA:
         """Joint torques. With dt and the joints' effective inertias
         (1 / (M^-1)_jj, see effective_inertias), the boundary damping is
         applied in implicit form (see implicit_damping)."""
-        cs = ([self.c] * len(zetas) if dt is None
-              else [implicit_damping(self.c, dt, I) for I in inertias])
-        return [boundary_torque(z, zd, lo, hi, self.k, c, self.cap)
-                for (lo, hi), z, zd, c in zip(self.ranges(alphas), zetas, zeta_dots, cs)]
+        cs = [self.c] * len(zetas) if dt is None else [implicit_damping(self.c, dt, I) for I in inertias]
+        return [
+            boundary_torque(z, zd, lo, hi, self.k, c, self.cap)
+            for (lo, hi), z, zd, c in zip(self.ranges(alphas), zetas, zeta_dots, cs)
+        ]
 
 
 def effective_inertias(m, d, dofs):
@@ -148,6 +150,7 @@ def effective_inertias(m, d, dofs):
     the last forward pass."""
     import mujoco
     import numpy as np
+
     E = np.zeros((len(dofs), m.nv))
     E[np.arange(len(dofs)), dofs] = 1.0
     X = np.zeros_like(E)

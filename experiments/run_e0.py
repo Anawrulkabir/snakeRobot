@@ -9,6 +9,7 @@ so speeds are provisional (see run_info.json).
 
   python experiments/run_e0.py
 """
+
 import json
 import math
 import sys
@@ -35,7 +36,7 @@ def trial(args):
     w = metrics.cycle_window(r["t"], freq, skip, n_meas)
     tq = metrics.summary_stats(r["actuator_torque"][w])
     L = cfg["body"]["n_segments"] * cfg["body"]["segment_pitch"]
-    wavelength = L / gait["spatial_freq"]     # body arc length per wave
+    wavelength = L / gait["spatial_freq"]  # body arc length per wave
     mu = cfg["ground"]["friction_sliding"]
     speed = net * freq
     return {
@@ -69,15 +70,26 @@ def main():
     cfg["servo"]["actuation"] = "position"
     cfg["body"]["vertical_compliance"] = "none"
     gait = cfgmod.load("gait.yaml")["wave"]
-    gait = dict(gait, amplitude_deg=46, spatial_freq=0.82)  # as run: paper open-environment values, before the G4 x7/6 scaling
+    gait = dict(
+        gait, amplitude_deg=46, spatial_freq=0.82
+    )  # as run: paper open-environment values, before the G4 x7/6 scaling
     e0 = cfgmod.load("experiments/E0.yaml")
     run, chk = e0["run"], e0["checks"]
     seeds = [run["base_seed"] + k for k in range(run["trials_per_frequency"])]
 
-    jobs = [(cfg, gait, f, s, run["n_cycles"], run["skip_cycles"], None)
-            for f in run["frequencies_hz"] for s in seeds]
-    jobs += [(cfg, gait, run["convergence_frequency_hz"], s, run["n_cycles"], run["skip_cycles"],
-              run["convergence_timestep"]) for s in seeds[: run["convergence_trials"]]]
+    jobs = [(cfg, gait, f, s, run["n_cycles"], run["skip_cycles"], None) for f in run["frequencies_hz"] for s in seeds]
+    jobs += [
+        (
+            cfg,
+            gait,
+            run["convergence_frequency_hz"],
+            s,
+            run["n_cycles"],
+            run["skip_cycles"],
+            run["convergence_timestep"],
+        )
+        for s in seeds[: run["convergence_trials"]]
+    ]
     with Pool() as pool:
         rows = pool.map(trial, jobs)
     df = pd.DataFrame(rows)
@@ -87,10 +99,19 @@ def main():
     for f in run["frequencies_hz"]:
         sub = df[(df.freq_hz == f) & np.isclose(df.timestep_s, main_dt)]
         stat = {}
-        for col in ("forward_disp_per_cycle_m", "net_disp_per_cycle_m", "forward_disp_per_cycle_body_lengths",
-                    "speed_m_per_s", "wave_efficiency_eta", "coasting_number",
-                    "heading_drift_rad_per_cycle", "max_tracking_error_deg", "torque_peak_Nm",
-                    "torque_p95_Nm", "wheel_airborne_fraction"):
+        for col in (
+            "forward_disp_per_cycle_m",
+            "net_disp_per_cycle_m",
+            "forward_disp_per_cycle_body_lengths",
+            "speed_m_per_s",
+            "wave_efficiency_eta",
+            "coasting_number",
+            "heading_drift_rad_per_cycle",
+            "max_tracking_error_deg",
+            "torque_peak_Nm",
+            "torque_p95_Nm",
+            "wheel_airborne_fraction",
+        ):
             m, h = metrics.mean_ci95(sub[col])
             stat[col] = {"mean": m, "ci95_half": h}
         stat["n_trials"] = int(len(sub))
@@ -105,7 +126,7 @@ def main():
     a = df[(df.freq_hz == fc) & np.isclose(df.timestep_s, main_dt)].set_index("seed")
     b = df[(df.freq_hz == fc) & np.isclose(df.timestep_s, run["convergence_timestep"])].set_index("seed")
     common = b.index
-    conv_rel = (b.loc[common, "forward_disp_per_cycle_m"] / a.loc[common, "forward_disp_per_cycle_m"] - 1)
+    conv_rel = b.loc[common, "forward_disp_per_cycle_m"] / a.loc[common, "forward_disp_per_cycle_m"] - 1
 
     energy = coast_energy_check(cfg)
     rel_energy = energy["max_energy_increase_J"] / energy["initial_energy_J"]
@@ -123,8 +144,7 @@ def main():
         "quasi_static_deviation_rel": quasi_dev,
         "quasi_static": bool(max(abs(v) for v in quasi_dev.values()) <= chk["quasi_static_tolerance_rel"]),
     }
-    summary = {"per_frequency": per_freq, "checks": checks,
-               "gait": gait, "seeds": seeds, "thresholds": chk}
+    summary = {"per_frequency": per_freq, "checks": checks, "gait": gait, "seeds": seeds, "thresholds": chk}
 
     run_dir = new_run("E0", {"seeds": seeds})
     df.to_csv(run_dir / "trials.csv", index=False)
@@ -132,10 +152,12 @@ def main():
     print(json.dumps(checks, indent=2))
     for f in run["frequencies_hz"]:
         s = per_freq[str(f)]
-        print(f"{f} Hz: forward/cycle {s['forward_disp_per_cycle_m']['mean']:.4f} "
-              f"+- {s['forward_disp_per_cycle_m']['ci95_half']:.4f} m, "
-              f"track err {s['max_tracking_error_deg']['mean']:.2f} deg, "
-              f"airborne {s['wheel_airborne_fraction']['mean']:.3f}")
+        print(
+            f"{f} Hz: forward/cycle {s['forward_disp_per_cycle_m']['mean']:.4f} "
+            f"+- {s['forward_disp_per_cycle_m']['ci95_half']:.4f} m, "
+            f"track err {s['max_tracking_error_deg']['mean']:.2f} deg, "
+            f"airborne {s['wheel_airborne_fraction']['mean']:.3f}"
+        )
     print(f"saved {run_dir}")
 
 

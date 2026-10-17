@@ -18,6 +18,7 @@ Fahad 2026-10-17). Per density:
 
   python experiments/analyze.py results/E1_pilot/<run_id> [--margin 0.15]
 """
+
 import argparse
 import json
 import math
@@ -83,21 +84,31 @@ def analyze(rows, mcfg, margin):
             oc = [by[c][s]["outcome"] for s in seeds]
             sc = [by[c][s]["success_cycles"] for s in seeds]
             per[cond_name(*c)] = {
-                "law": c[0], "G": c[1], "one_spool": one_spool(*c), "n": len(seeds),
-                "rate_mean": m, "rate_sd": sd, "rate_ci95": [lo, hi],
+                "law": c[0],
+                "G": c[1],
+                "one_spool": one_spool(*c),
+                "n": len(seeds),
+                "rate_mean": m,
+                "rate_sd": sd,
+                "rate_ci95": [lo, hi],
                 "secondary_elapsed_rate_mean": float(np.mean([by[c][s][SECONDARY] for s in seeds])),
                 "outcomes": {o: oc.count(o) for o in ("success", "stuck", "overload", "timeout")},
-                "success_frac_at_cycles": {str(k): float(np.mean([v is not None and v <= k for v in sc]))
-                                           for k in cutoffs},
+                "success_frac_at_cycles": {
+                    str(k): float(np.mean([v is not None and v <= k for v in sc])) for k in cutoffs
+                },
                 "final_com_dx_mean_m": float(np.mean([by[c][s]["final_com_dx_m"] for s in seeds])),
-                "frac_time_any_joint_at_cap_mean": float(np.mean([by[c][s]["frac_time_any_joint_at_cap"]
-                                                                  for s in seeds])),
-                "stop_hit_cycle_fraction_mean": float(np.mean([by[c][s]["stop_hit_cycle_fraction"]
-                                                               for s in seeds])),
+                "frac_time_any_joint_at_cap_mean": float(
+                    np.mean([by[c][s]["frac_time_any_joint_at_cap"] for s in seeds])
+                ),
+                "stop_hit_cycle_fraction_mean": float(np.mean([by[c][s]["stop_hit_cycle_fraction"] for s in seeds])),
                 # Pooled: cycles with any joint-stop contact / all cycles run, over every trial.
                 "stop_hit_cycle_fraction_pooled": float(
-                    sum(by[c][s]["stop_hit_cycle_fraction"] * max(1, math.ceil(by[c][s]["cycles_elapsed"]))
-                        for s in seeds) / sum(max(1, math.ceil(by[c][s]["cycles_elapsed"])) for s in seeds)),
+                    sum(
+                        by[c][s]["stop_hit_cycle_fraction"] * max(1, math.ceil(by[c][s]["cycles_elapsed"]))
+                        for s in seeds
+                    )
+                    / sum(max(1, math.ceil(by[c][s]["cycles_elapsed"])) for s in seeds)
+                ),
                 "tracking_rms_rad_mean": float(np.mean([by[c][s]["tracking_rms_rad"] for s in seeds])),
                 "cpu_s_mean": float(np.mean([by[c][s]["cpu_s"] for s in seeds])),
                 "cycles_elapsed_mean": float(np.mean([by[c][s]["cycles_elapsed"] for s in seeds])),
@@ -114,23 +125,42 @@ def analyze(rows, mcfg, margin):
             d = [by[best][s][PRIMARY] - by[c][s][PRIMARY] for s in seeds]
             m, sd, lo, hi = ci95(d)
             diffs[cond_name(*c)] = {
-                "mean": m, "sd": sd, "ci95": [lo, hi],
+                "mean": m,
+                "sd": sd,
+                "ci95": [lo, hi],
                 "equivalent_within_margin": bool(lo >= -M and hi <= M),
                 "n_needed_if_true_diff_as_observed": n_needed(sd, m, M),
                 "n_needed_if_true_diff_zero": n_needed(sd, 0.0, M),
             }
         grid = np.round(np.arange(0.0, 2.01, 0.1), 2)
-        surv = {cond_name(*c): [float(np.mean([by[c][s]["final_com_dx_m"] >= g for s in seeds])) for g in grid]
-                for c in conds}
-        table = {str(s): {cond_name(*c): {"rate": by[c][s][PRIMARY], "outcome": by[c][s]["outcome"],
-                                          "cycles": by[c][s]["cycles_elapsed"]} for c in conds}
-                 for s in seeds}
-        out[dn] = {"seeds": seeds, "conditions": per, "per_seed": table,
-                   "overload_fraction_all_conditions": float(np.mean([r["outcome"] == "overload" for r in rs])), "best": cond_name(*best),
-                   "best_one_spool": cond_name(*best_spool) if best_spool else None,
-                   "margin_frac": margin, "margin_m_per_cycle": M,
-                   "paired_diff_best_minus": diffs,
-                   "survival_grid_m": grid.tolist(), "survival_frac": surv}
+        surv = {
+            cond_name(*c): [float(np.mean([by[c][s]["final_com_dx_m"] >= g for s in seeds])) for g in grid]
+            for c in conds
+        }
+        table = {
+            str(s): {
+                cond_name(*c): {
+                    "rate": by[c][s][PRIMARY],
+                    "outcome": by[c][s]["outcome"],
+                    "cycles": by[c][s]["cycles_elapsed"],
+                }
+                for c in conds
+            }
+            for s in seeds
+        }
+        out[dn] = {
+            "seeds": seeds,
+            "conditions": per,
+            "per_seed": table,
+            "overload_fraction_all_conditions": float(np.mean([r["outcome"] == "overload" for r in rs])),
+            "best": cond_name(*best),
+            "best_one_spool": cond_name(*best_spool) if best_spool else None,
+            "margin_frac": margin,
+            "margin_m_per_cycle": M,
+            "paired_diff_best_minus": diffs,
+            "survival_grid_m": grid.tolist(),
+            "survival_frac": surv,
+        }
     return out
 
 
@@ -142,12 +172,17 @@ def main():
     run_dir = Path(a.run_dir)
     allrows = [json.loads(line) for line in (run_dir / "trials.jsonl").read_text().splitlines() if line.strip()]
     diverged = [r["key"] for r in allrows if r["outcome"] == "diverged"]
-    rows = [r for r in allrows if r["outcome"] != "diverged"]   # their seeds drop out of the paired sets
+    rows = [r for r in allrows if r["outcome"] != "diverged"]  # their seeds drop out of the paired sets
     mcfg = cfgmod.values(cfgmod.yaml.safe_load(open(run_dir / "config" / "metrics.yaml")))
-    s = {"run_id": run_dir.name, "n_rows": len(allrows), "diverged": diverged, "primary_metric": PRIMARY,
-         "total_cpu_s": float(sum(r["cpu_s"] for r in allrows)),
-         "total_sim_s": float(sum(r["t_end_s"] for r in allrows)),
-         "by_density": analyze(rows, mcfg, a.margin)}
+    s = {
+        "run_id": run_dir.name,
+        "n_rows": len(allrows),
+        "diverged": diverged,
+        "primary_metric": PRIMARY,
+        "total_cpu_s": float(sum(r["cpu_s"] for r in allrows)),
+        "total_sim_s": float(sum(r["t_end_s"] for r in allrows)),
+        "by_density": analyze(rows, mcfg, a.margin),
+    }
     s["cpu_s_per_sim_s"] = s["total_cpu_s"] / s["total_sim_s"]
     (run_dir / "summary.json").write_text(json.dumps(s, indent=2))
     print(json.dumps(s, indent=2))

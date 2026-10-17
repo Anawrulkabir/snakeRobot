@@ -1,4 +1,5 @@
 """Tests for the lattice arena and trial setup, each with a planted fault."""
+
 import copy
 import math
 
