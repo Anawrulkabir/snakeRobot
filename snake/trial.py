@@ -158,7 +158,9 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         d.qfrc_applied[jv] = [passive_torque(z, a, pcoeff, pmodel) for z, a in zip(d.qpos[jq], alphas)]
         mujoco.mj_step(m, d)
         k += 1
-        if not np.all(np.isfinite(d.qpos)):
+        # MuJoCo resets the state itself on a bad acceleration (mjWARN_BADQACC),
+        # so finite qpos alone does not prove the run stayed stable.
+        if not np.all(np.isfinite(d.qpos)) or d.warning[mujoco.mjtWarning.mjWARN_BADQACC].number:
             raise FloatingPointError(f"diverged at t={d.time:.3f} (seed {seed})")
         # Collisions with posts (debounced onsets, metrics.count_collisions logic).
         if len(posts):

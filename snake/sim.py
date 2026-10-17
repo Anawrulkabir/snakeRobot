@@ -109,7 +109,8 @@ def run_trial(cfg, gait, freq, n_cycles, seed, timestep=None, detail_after_cycle
             stop_steps_per_joint += on_stop
             stop_steps += 1
             stop_cycles.add(int(d.time * freq))
-        if not np.all(np.isfinite(d.qpos)):
+        # MuJoCo resets the state itself on a bad acceleration (mjWARN_BADQACC).
+        if not np.all(np.isfinite(d.qpos)) or d.warning[mujoco.mjtWarning.mjWARN_BADQACC].number:
             raise FloatingPointError(f"simulation diverged at t={d.time:.3f}")
         touching = set()
         for con in d.contact[: d.ncon]:

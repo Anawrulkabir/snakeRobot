@@ -87,7 +87,7 @@ joint:
   passive_coeff:
     value: 0.06489
     source: decision
-    note: "N m/rad^2 for quadratic_alpha. Paper c_q = 0.3372 N m/rad^2 (F - 2.02 N = 5.620 N/rad^2 (zeta - alpha)^2, x 0.060 m) x friction-ratio factor 0.1924 (primary scaling). Run results/stiffness_estimate/20261017T061338Z_75c71fb-dirty. APPROXIMATE (digitized). E1b multiplies it by 0, 1/4 .. 8"
+    note: "N m/rad^2 for quadratic_alpha. Paper c_q = 0.3372 N m/rad^2 (F - 2.02 N = 5.620 N/rad^2 (zeta - alpha)^2, x 0.060 m) x friction-ratio factor 0.1924 (primary scaling). Run results/stiffness_estimate/20261017T061904Z_10317fe (summary.json main_quadratic_about_alpha.c_q_scaled_Nm_per_rad2.friction_primary = 0.064892). APPROXIMATE (digitized). E1b multiplies it by 0, 1/4 .. 8"
   frictionloss:
     value: 0.0
     source: decision

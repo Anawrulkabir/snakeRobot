@@ -1,0 +1,108 @@
+{
+  "label": "APPROXIMATE (digitized from figure)",
+  "panel": "fig5a_iii_data.csv",
+  "n_points": 2036,
+  "zeta_range_deg": [
+    -32.004,
+    61.926
+  ],
+  "alpha_deg": 15.0,
+  "f_s_N": 2.02,
+  "lever_m": 0.06,
+  "main_quadratic_about_alpha": {
+    "a_N_per_rad2": 5.6204743982598036,
+    "rms_N": 0.1391696237916894,
+    "c_q_paper_Nm_per_rad2": 0.3372284638955882,
+    "branches": {
+      "left": {
+        "a_N_per_rad2": 5.697304226860363,
+        "rms_N": 0.1398688432278753
+      },
+      "right": {
+        "a_N_per_rad2": 5.545320725863047,
+        "rms_N": 0.13471925274573976
+      }
+    },
+    "c_q_scaled_Nm_per_rad2": {
+      "absolute": 0.3372284638955882,
+      "stall": 0.04882586402259695,
+      "friction_primary": 0.06489185668257069,
+      "friction_range": [
+        0.054631686858791176,
+        0.0798970112103769
+      ]
+    },
+    "torque_at_30deg_paper_Nm": 0.09245309809545835,
+    "torque_at_30deg_scaled_Nm": {
+      "absolute": 0.09245309809545835,
+      "stall": 0.013385887845678148,
+      "friction_primary": 0.017790470953032208,
+      "friction_range": [
+        0.014977587140568361,
+        0.021904219263217263
+      ]
+    }
+  },
+  "free_quadratic": {
+    "vertex_deg": 15.226222920781819,
+    "min_force_N": 1.9781449035157683,
+    "curvature_N_per_deg2": 0.0017438722021939814,
+    "rms_N": 0.13464446707294075
+  },
+  "E4c_linear_about_alpha": {
+    "b_N_per_rad": 3.4220691720663394,
+    "rms_N": 0.5017628506551414,
+    "k_lin_paper_Nm_per_rad": 0.20532415032398035,
+    "k_lin_scaled_Nm_per_rad": {
+      "absolute": 0.20532415032398035,
+      "stall": 0.029728003764764872,
+      "friction_primary": 0.03950990726696082,
+      "friction_range": [
+        0.03326292376233136,
+        0.04864591129316823
+      ]
+    }
+  },
+  "E4b_dry_friction": {
+    "breakaway_paper_Nm": 0.1212,
+    "breakaway_scaled_Nm": {
+      "absolute": 0.1212,
+      "stall": 0.01754802857142857,
+      "friction_primary": 0.023322150624754723,
+      "friction_range": [
+        0.019634642849529982,
+        0.028715007170023066
+      ]
+    }
+  },
+  "scaling": {
+    "paper_segment_mass_kg_range": [
+      0.1492,
+      0.21819999999999998
+    ],
+    "ours_body_segment_mass_kg": 0.038,
+    "bound_check_morphing_milr_module_kg": 0.25,
+    "estimate_within_bound": true,
+    "friction_factor_range": [
+      0.16200200370899326,
+      0.23692250140283058
+    ],
+    "friction_factor_mid": 0.19242698535276173,
+    "stall_factor": 0.1447857142857143,
+    "absolute_factor": 1.0,
+    "other_scalings_as_multiples_of_friction": {
+      "stall": 0.7524189708646616,
+      "absolute": 5.196776315789473
+    },
+    "E1b_multiples_of_friction_scaled": [
+      0.0,
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0
+    ]
+  },
+  "ours_stall_Nm": 0.2027
+}

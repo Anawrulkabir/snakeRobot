@@ -109,7 +109,11 @@ def test_passive_check_catches_sign_flip(setup, monkeypatch):
     free = passive_trial(cfg, arena, mc, "none", 0.0)["tracking_rms_rad"]
     real = tr.passive_torque
     monkeypatch.setattr(tr, "passive_torque", lambda z, a, c, m: -real(z, a, c, m))
-    flipped = passive_trial(cfg, arena, mc, "quadratic_alpha", 0.5)["tracking_rms_rad"]
+    # The anti-restoring torque makes the model blow up; MuJoCo resets the
+    # state silently, and the trial must report it rather than carry on.
+    with pytest.raises(FloatingPointError):
+        passive_trial(cfg, arena, mc, "quadratic_alpha", 0.5)
+    flipped = passive_trial(cfg, arena, mc, "quadratic_alpha", 0.02)["tracking_rms_rad"]
     assert not flipped < 0.8 * free
 
 
