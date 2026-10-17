@@ -386,3 +386,57 @@ cycle is defined for every trial, however it ended.
   elapsed) rewards early overload** (`results_servo_choice.md`). A
   full-horizon variant (failures divided by the full time limit) is computed
   alongside it. Fahad decides which is primary before the pilot.
+
+---
+
+## Passive element, primary metric, servo (Fahad 2026-10-17, before any E1 or pilot data)
+
+**1. Passive element model.**
+- Question: where is the passive resistance centred, what shape, and what is f_s?
+- Options (`stiffness_interpretation.md`): (a) spring about the commanded
+  angle α; (b) friction about the current position; (c) spring toward
+  straight. Shape linear or quadratic. f_s as threshold or dry friction.
+- **Chosen:** (a), quadratic, F − f_s ∝ (ζ − α)² from Fig. 5A(iii), torque
+  with the 60 mm lever; f_s is a recording threshold.
+- **Why (Fahad):** the fit's vertex is at the commanded angle (15.23° vs
+  15°) and the quadratic fits better than a V. The cause of the α-centred
+  force is **unknown** (only loading curves were published).
+- E4 gets (a) friction about the current position, (b) f_s as dry friction
+  (0.12 N·m breakaway on the paper's robot, scaled), (c) the linear law.
+- Coefficient: friction-ratio scaling (primary, decided 2026-10-16),
+  0.06489 N·m/rad², run `20261017T061904Z_10317fe`.
+
+**2. Panel (ii) no-kink discrepancy:** kept as an open question in
+`stiffness_interpretation.md`. No action.
+
+**3. Primary metric changed to the full-horizon progress rate.**
+- **Why:** a flaw found in diagnostic runs, before any E1 or pilot data. The
+  elapsed-cycles rate scored an early overload above a longer run
+  (`results_servo_choice.md`; `diag_torque_cap`: a 0.9-cycle overload at
+  0.127 m/cycle vs a full 6-cycle run at 0.040 m/cycle).
+- **Definition** (`snake/metrics.py` `progress_rate_full_horizon`), with dx
+  the CoM's forward (x) displacement from the start pose:
+
+  | Ending | Rate |
+  |---|---|
+  | success (head tip crosses the far edge) | dx ÷ cycles elapsed |
+  | stuck (10 cycles below the jam threshold) | dx ÷ max_cycles (40) |
+  | overload (≥ 0.99 × stall for 1 s) | dx ÷ max_cycles |
+  | timeout (40 cycles) | dx ÷ max_cycles |
+
+- Test: a trial that reaches further never scores lower than one that stops
+  earlier (`tests/test_metrics.py`). Planted fault: the old rate fails it.
+- The old rate (dx ÷ cycles elapsed) is kept as a secondary metric
+  (`com_dx_per_cycle_m`).
+- Equivalence rule unchanged: the paired-difference 95% CI within ±15% of the
+  best condition's mean rate.
+
+**4. Servo: MG90S is the baseline; the MG996R is dropped.**
+- **Why (Fahad):** the MG996R still overloads at G = 0, is 4× heavier, barely
+  fits, and may turn only ~120°. The model should match the robot that will
+  be built.
+- Config: `servo.stall_torque` 0.2027 N·m (6 V), `mass.servo` 0.013 kg.
+- 1 vs 2 MG90S per joint is decided after E1 (both fit).
+
+**5. Test exit codes are checked on every commit** (after the masked failure
+at `d86fd6e`).

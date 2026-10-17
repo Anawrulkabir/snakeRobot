@@ -334,3 +334,26 @@ should not run until this is chosen.
 - Process slip: commit `d86fd6e` went in with 3 failing tests (the pytest
   exit code was masked by a pipe). Fixed in the next commit; from now on
   tests run without a pipe, with the exit code checked.
+
+### 2026-10-17: Fahad's decisions 1–5 implemented; stiffness estimate; pilot started
+- **Passive element:** α-centred quadratic, τ_p = −c_q (ζ − α)|ζ − α|, outside
+  the servo (`snake/actuation.py` `passive_torque`, applied in
+  `snake/trial.py`). Tests: restoring sign, quadratic magnitude, a trial-level
+  tracking test, each failing on a planted sign flip.
+- **Stiffness estimate** (run `20261017T061904Z_10317fe`): c_q = 0.3372
+  N·m/rad² on the paper's robot; 0.06489 N·m/rad² friction-scaled (primary,
+  now in `config/robot.yaml`). Details in `stiffness_interpretation.md`.
+- **Correction:** `stiffness_interpretation.md` first gave the quadratic
+  "curvature" as 0.00349 N/deg². That is d²F/dζ², twice the coefficient, and
+  the ΔF at 30° derived from it (3.1 N, 0.19 N·m) was 2× too large. Corrected
+  to 1.3 N, 0.08 N·m (read from the data).
+- **Primary metric:** full-horizon progress rate (`snake/metrics.py`), with a
+  monotonicity test that the old rate fails.
+- **Servo:** MG90S baseline (0.2027 N·m at 6 V, 13 g); MG996R dropped.
+- **Integrity fix:** MuJoCo resets the state on its own when accelerations
+  blow up (it writes `MUJOCO_LOG.TXT` and carries on). The trial loops now
+  raise on that warning, not only on NaN. It appeared only in a planted-fault
+  test; no earlier run in this container produced the log file.
+- **Sweep runner:** `experiments/run_sweep.py` (resumable, paired seeds,
+  config snapshot per run) and `experiments/analyze.py` (paired CIs, trial
+  count for the ±15% margin). Pilot started: run `20261017T062232Z_b5aac2a`.

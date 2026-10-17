@@ -5,7 +5,8 @@
 **Geometry:** paper L_c = L_j = 28 mm (Eq. S2), l0 = 0.73 mm/deg (p. 57).
 **Force-to-torque:** τ = F·r, r = 0.060 m (p. 38). Assumption: the force is
 tangential to the 60 mm circle.
-**Status:** analysis only. The stiffness estimate has **not** been run.
+**Status:** Fahad decided the model on 2026-10-17 (see "Decided" at the end).
+The stiffness estimate was run afterwards: `results/stiffness_estimate/20261017T061904Z_10317fe`.
 
 ## Q1: is the rise in panel (iii) (G = 1.5) from the sleeve, the cables, or both?
 
@@ -21,7 +22,11 @@ the whole panel (iii) curve. Free ranges (lower, upper bound), by A:
 
 **Not a sleeve pulling toward straight.** A quadratic fit to (iii) gives:
 - vertex at **15.23°**, minimum force 1.978 N;
-- curvature 0.00349 N/deg², rms residual 0.135 N;
+- F = 1.978 N + 0.001744 N/deg² · (ζ − 15.23°)², rms residual 0.135 N.
+  **Correction (2026-10-17):** this line first read "curvature
+  0.00349 N/deg²". That number is the second derivative d²F/dζ² = 2 × 0.001744,
+  not the coefficient of (ζ − v)². The ΔF at 30° quoted below was computed
+  with it and was 2× too large (fixed below);
 - a V-shape fits worse (rms 0.383 N);
 - F(ζ = 0) = 2.45 N.
 
@@ -116,5 +121,47 @@ stiffness to F − 2.02 N, and keep the offset as a separate, flagged question
 3. **The 2 N offset:** threshold (ignore) or static friction (0.12 N·m
    breakaway, on the E4 list).
 4. **Scaling to our robot:** as decided (friction ratio primary). The paper's
-   magnitude: at 30° from the vertex, ΔF = 3.1 N, i.e. **≈ 0.19 N·m** on
-   their 1.4 N·m robot.
+   magnitude: at 30° from the vertex, ΔF ≈ 1.3 N in the data (F = 3.32 N at
+   ζ = −15° and 45°, minus 2.02 N), i.e. **≈ 0.08 N·m** on their 1.4 N·m robot.
+   (First written as ΔF = 3.1 N, ≈ 0.19 N·m: 2× too large, from the
+   curvature slip above.)
+
+## Decided (Fahad 2026-10-17)
+
+- **Main model:** quadratic restoring force about the commanded angle α,
+  F − f_s = a (ζ − α)², from Fig. 5A(iii), as joint torque with the 60 mm
+  lever: τ_p = −c_q (ζ − α)|ζ − α|. f_s = 2.02 N is a recording threshold
+  (subtracted, not modelled). Implemented as `joint.passive_model =
+  quadratic_alpha` (`snake/actuation.py` `passive_torque`), applied as a
+  joint force outside the servo, so it counts toward neither the servo cap
+  nor the overload rule.
+- **Cause of the α-centred force: UNKNOWN.** Only loading curves were
+  published; an elastic element about the pose and path-dependent friction
+  give the same curves. The main model treats it as elastic.
+- **E4 alternatives:** (a) friction about the current position instead of
+  the α-centred spring (not yet implemented); (b) f_s as joint dry friction
+  (`joint.frictionloss`; 0.1212 N·m on the paper's robot, 0.0233 N·m
+  friction-scaled); (c) the linear approximation (`linear_alpha`).
+- **Fit** (run `20261017T061904Z_10317fe`, APPROXIMATE, digitized):
+
+  | Quantity | Value |
+  |---|---|
+  | a (one parameter, vertex fixed at α = 15°, f_s = 2.02 N) | 5.620 N/rad², rms 0.139 N |
+  | a, left branch / right branch | 5.697 / 5.545 N/rad² |
+  | c_q on the paper's robot (a × 0.060 m) | 0.3372 N·m/rad² |
+  | c_q, absolute / stall / **friction (primary)** scaling | 0.3372 / 0.04883 / **0.06489** N·m/rad² |
+  | c_q, friction scaling over the paper-mass range | 0.05463–0.07990 N·m/rad² |
+  | Torque at 30° deflection, friction-scaled | 0.01779 N·m (8.8% of the MG90S stall 0.2027 N·m) |
+  | E4 (c) linear fit k_lin, paper / friction-scaled | 0.2053 / 0.03951 N·m/rad (rms 0.502 N: fits worse) |
+
+  The two branches agree within 2.7%, which supports a single symmetric
+  coefficient. Main runs use the friction-scaled 0.06489 N·m/rad²
+  (`config/robot.yaml` `joint.passive_coeff`).
+
+## Open question: panel (ii) shows no cable boundary (Fahad 2026-10-17: keep open, no action)
+
+The right branch of (ii) (G = 0.75) follows (iii) within 0.3 N to 62°, but
+Eq. 3 puts the right cable boundary at 39–49° for any A in 15–90°. Possible
+causes: test conditions differed from Eq. 3 as published (A, l0, cable
+pre-tension), or the boundary is masked by something not modelled. Not
+resolved; nothing in the model depends on it yet.
