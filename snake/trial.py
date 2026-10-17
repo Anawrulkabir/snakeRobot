@@ -223,6 +223,14 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         "final_com_dx_m": float(cxy[0] - com0[0]),
         "final_com_dy_m": float(cxy[1] - com0[1]),
         "com_dx_per_cycle_m": float(cxy[0] - com0[0]) / cycles if cycles > 0 else 0.0,
+        # Full-horizon rate: a trial that stops early by overload or stuck is
+        # treated as stopped for the rest of the time limit, so its
+        # displacement is divided by max_cycles. Success keeps its own
+        # duration. com_dx_per_cycle_m (the pre-registered metric) rewards a
+        # fast start followed by an overload (diag_torque_cap: 0.9-cycle
+        # overload 0.127 m/cycle vs full 6-cycle run 0.040 m/cycle).
+        "com_dx_per_cycle_full_horizon_m": float(cxy[0] - com0[0]) / (
+            cycles if outcome == "success" else mcfg["success"]["max_cycles"]),
         "max_lateral_com_m": float(max_lat),
         "jammed": jam_t is not None, "t_jam_s": jam_t,
         "collisions": collisions,

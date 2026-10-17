@@ -58,6 +58,8 @@ def job(args):
     r = run_lattice_trial(cfg, cfgmod.load("arena.yaml"), mc, density, *GAIT, 0.125, "paper", G, seed)
     return {"servo": f"{name}_x{n_per_joint}", "cap_Nm": cap, "density": density, "G": G, "seed": seed,
             "progress_rate_m_per_cycle": r["com_dx_per_cycle_m"],
+            "progress_rate_full_horizon_m_per_cycle": r["com_dx_per_cycle_full_horizon_m"],
+            "cycles_elapsed": r["cycles_elapsed"],
             "frac_time_any_joint_at_cap": r["frac_time_any_joint_at_cap"],
             "outcome": r["outcome"], "torque_peak_Nm": r["torque_peak_Nm"]}
 
@@ -74,15 +76,20 @@ def main():
     summary = {"specs_6V": {k: {"stall_Nm": v[0], "mass_kg": v[1]} for k, v in servo_specs().items()},
                "cells": {k: {"progress_rate_mean": float(np.mean([r["progress_rate_m_per_cycle"] for r in v])),
                              "progress_rate_per_seed": [r["progress_rate_m_per_cycle"] for r in v],
+                             "full_horizon_rate_mean": float(np.mean([r["progress_rate_full_horizon_m_per_cycle"] for r in v])),
+                             "full_horizon_rate_per_seed": [r["progress_rate_full_horizon_m_per_cycle"] for r in v],
+                             "cycles_elapsed": [r["cycles_elapsed"] for r in v],
                              "frac_time_any_joint_at_cap_mean": float(np.mean([r["frac_time_any_joint_at_cap"] for r in v])),
                              "overload_endings": sum(r["outcome"] == "overload" for r in v),
                              "outcomes": [r["outcome"] for r in v]} for k, v in cells.items()},
                "stiffness_Nm_per_rad": STIFFNESS, "gait": GAIT, "seeds": SEEDS, "n_cycles": N_CYCLES}
     run_dir = new_run("diag_servo_choice", {"seeds": list(SEEDS)})
     (run_dir / "summary.json").write_text(json.dumps(summary, indent=2))
+    (run_dir / "trials.json").write_text(json.dumps(rows, indent=1))
     for k, v in summary["cells"].items():
-        print(f"{k:28s} rate {v['progress_rate_mean']:+.4f}  at-cap {v['frac_time_any_joint_at_cap_mean']:.3f}  "
-              f"overloads {v['overload_endings']}/3")
+        print(f"{k:28s} rate {v['progress_rate_mean']:+.4f}  full-horizon {v['full_horizon_rate_mean']:+.4f}  "
+              f"at-cap {v['frac_time_any_joint_at_cap_mean']:.3f}  overloads {v['overload_endings']}/3  "
+              f"cycles {[round(c, 1) for c in v['cycles_elapsed']]}")
     print(f"saved {run_dir}")
 
 
