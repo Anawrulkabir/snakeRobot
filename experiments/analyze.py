@@ -132,11 +132,13 @@ def main():
     ap.add_argument("--margin", type=float, default=0.15)
     a = ap.parse_args()
     run_dir = Path(a.run_dir)
-    rows = [json.loads(line) for line in (run_dir / "trials.jsonl").read_text().splitlines() if line.strip()]
+    allrows = [json.loads(line) for line in (run_dir / "trials.jsonl").read_text().splitlines() if line.strip()]
+    diverged = [r["key"] for r in allrows if r["outcome"] == "diverged"]
+    rows = [r for r in allrows if r["outcome"] != "diverged"]   # their seeds drop out of the paired sets
     mcfg = cfgmod.values(cfgmod.yaml.safe_load(open(run_dir / "config" / "metrics.yaml")))
-    s = {"run_id": run_dir.name, "n_rows": len(rows), "primary_metric": PRIMARY,
-         "total_cpu_s": float(sum(r["cpu_s"] for r in rows)),
-         "total_sim_s": float(sum(r["t_end_s"] for r in rows)),
+    s = {"run_id": run_dir.name, "n_rows": len(allrows), "diverged": diverged, "primary_metric": PRIMARY,
+         "total_cpu_s": float(sum(r["cpu_s"] for r in allrows)),
+         "total_sim_s": float(sum(r["t_end_s"] for r in allrows)),
          "by_density": analyze(rows, mcfg, a.margin)}
     s["cpu_s_per_sim_s"] = s["total_cpu_s"] / s["total_sim_s"]
     (run_dir / "summary.json").write_text(json.dumps(s, indent=2))

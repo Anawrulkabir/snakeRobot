@@ -42,8 +42,13 @@ def job(args):
     cfg, arena, mc, ex = load("robot.yaml"), load("arena.yaml"), load("metrics.yaml"), load("experiment.yaml")["run"]
     A, xi = ex["gait_by_density"][density]
     t0 = time.process_time()
-    r = run_lattice_trial(cfg, arena, mc, density, A, xi, ex["temporal_freq_hz"], law,
-                          0.0 if G is None else G, seed)
+    try:
+        r = run_lattice_trial(cfg, arena, mc, density, A, xi, ex["temporal_freq_hz"], law,
+                              0.0 if G is None else G, seed)
+    except FloatingPointError as e:
+        # Recorded, not retried: analyze.py reports it and drops the seed from paired comparisons.
+        r = {"density": density, "law": law, "seed": seed, "outcome": "diverged", "error": str(e),
+             "cycles_elapsed": float("nan"), "com_dx_per_cycle_full_horizon_m": float("nan"), "t_end_s": 0.0}
     r["G"] = G
     r["cpu_s"] = time.process_time() - t0
     r["key"] = key(density, law, G, seed)
