@@ -69,3 +69,11 @@ def test_selection_success_beats_rate():
     v, _ = ac.select("post_friction", {"baseline": cell(0, 0.02), "friction_0.2": cell(1, 0.01),
                                        "friction_0.1": cell(0, 0.03)})
     assert v == "friction_0.2"
+
+
+def test_override_string_number_is_an_error():
+    # Planted fault (calib_step1 crash, 2026-10-17): YAML read 1.0e9 as the string '1.0e9'.
+    cfg, arena, mc = configs()
+    bad = cfgmod.yaml.safe_load("v: 1.0e9")["v"]
+    with pytest.raises(TypeError):
+        rs.apply_overrides({"metrics.overload.min_duration_s": bad}, cfg, arena, mc)

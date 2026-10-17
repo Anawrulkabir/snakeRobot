@@ -35,8 +35,8 @@ run:
       servo_paper_eq: {robot.servo.stall_torque: 0.2694}
       servo_bound_1.0: {robot.servo.stall_torque: 1.0}
       overload_3s: {metrics.overload.min_duration_s: 3.0}
-      overload_off: {metrics.overload.min_duration_s: 1.0e9}
+      overload_off: {metrics.overload.min_duration_s: 1.0e+9}
       amp_0.85: {gait.amplitude_scale: 0.85}
       passive_x4: {robot.joint.passive_coeff: 0.25956}
     source: decision
-    note: "Fahad 2026-10-17. baseline is rerun (must reproduce the pilot rows exactly). servo_paper_eq = 1.4 N m x friction factor 0.1924 (run 20261017T061904Z_10317fe). servo_bound_1.0 is a BOUND, not a purchasable option. overload_off: duration 1e9 s (the cap still limits torque). passive_x4 = 4 x 0.06489 N m/rad^2"
+    note: "Fahad 2026-10-17. baseline is rerun (must reproduce the pilot rows exactly). servo_paper_eq = 1.4 N m x friction factor 0.1924 (run 20261017T061904Z_10317fe). servo_bound_1.0 is a BOUND, not a purchasable option. overload_off: duration 1.0e+9 s (the cap still limits torque). passive_x4 = 4 x 0.06489 N m/rad^2"

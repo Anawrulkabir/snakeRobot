@@ -44,6 +44,9 @@ def apply_overrides(overrides, cfg, arena, mc):
     amp_scale = 1.0
     tables = {"robot": cfg, "arena": arena, "metrics": mc}
     for path, value in overrides.items():
+        # A number must stay a number: PyYAML reads "1.0e9" (no sign) as a string.
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise TypeError(f"override {path}: {value!r} is not a number")
         if path == "gait.amplitude_scale":
             amp_scale = value
             continue

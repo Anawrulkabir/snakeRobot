@@ -365,3 +365,16 @@ should not run until this is chosen.
   Loose settings get stuck.
 - Equivalence trial count not computed (all G below 20% success). A
   calibration sweep is proposed and awaits Fahad.
+
+### 2026-10-17: calibration step 1 crash and fix (run `20261017T075321Z_dc2fb6c`)
+- The sweep stopped after 87/135 trials. `overload_off` had
+  `min_duration_s: 1.0e9`, which PyYAML reads as the **string** "1.0e9"
+  (without a sign in the exponent it is not a float), so its first trial
+  raised a TypeError.
+- No `overload_off` trial had been written. The value was corrected to
+  `1.0e+9` in `config/experiments/calib_step1.yaml` **and** in the run's own
+  snapshot (`config/experiment.yaml`, identical to the source after the fix),
+  and the run was resumed. The 87 completed trials are unaffected: they do
+  not read that variant.
+- Guard added: an override that is not a number now raises at load time
+  (`tests/test_sweep.py`, planted fault = the original string).
