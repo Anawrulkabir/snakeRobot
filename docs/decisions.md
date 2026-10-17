@@ -440,3 +440,72 @@ cycle is defined for every trial, however it ended.
 
 **5. Test exit codes are checked on every commit** (after the masked failure
 at `d86fd6e`).
+
+---
+
+## Calibration before E1, pre-registered (Fahad 2026-10-17, before step 1 is run)
+
+**Why:** the E1 pilot (run `20261017T062232Z_b5aac2a`, `results_E1_pilot.md`)
+had 0/160 successes at every G. That is a floor effect: the conditions cannot
+be ranked. The equivalence trial count was not computed.
+
+### Step 1: one assumption at a time (`config/experiments/calib_step1.yaml`)
+
+G = 0, 0.75, 1.5 × seeds 1001–1005 (a subset of the pilot), medium density.
+The baseline is rerun and must reproduce the pilot rows exactly.
+
+| Assumption | Levels (baseline first) | Plausible a priori? (fixed now, before data) |
+|---|---|---|
+| Body–post friction | 0.4, 0.2, 0.1 | all three. 0.4 PLA on PVC/wood (placeholder); 0.2 and 0.1 smooth or low-friction posts, which an arena can be built with |
+| Servo torque cap | 0.2027 (MG90S), 0.2694 (paper 1.4 N·m × friction factor 0.1924) N·m, **1.0 N·m** | 0.2027 and 0.2694 yes. **1.0 N·m: no.** It is a BOUND (Fahad), not a purchasable option |
+| Overload rule | 1 s, 3 s, off | 1 s and 3 s yes. **Off: no.** A real servo cannot hold stall indefinitely (the shop warns against continuous stall; `open_lists.md`) |
+| Gait amplitude | 59.5°, ×0.85 = 50.6° | both. The amplitude is a free gait choice |
+| Passive coefficient | 0.06489, ×4 = 0.25956 N·m/rad² | both. ×4 lies inside the spread of the three scalings (absolute = 5.2×, run `20261017T061904Z_10317fe`) |
+
+### Step 2 rule (pre-registered)
+
+1. **Per assumption,** take the level that most increased success at
+   **G = 0.75** in step 1, choosing only among levels marked plausible above
+   (the baseline included):
+   - if any plausible level had at least one success at G = 0.75: the level
+     with the most successes, ties broken by the higher mean full-horizon
+     rate;
+   - if none had a success: the level with the highest mean full-horizon rate;
+   - an exact tie with the baseline keeps the baseline.
+2. **Combine** the chosen levels. Run G = 0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5
+   × 5 seeds.
+3. **If mid-G (0.75–1.0) beats both ends,** that combination is the
+   calibrated setup for E1. Otherwise **stop and report: no further tuning
+   without Fahad's approval.**
+   - Operational reading, to confirm: "beats" means the better of G = 0.75
+     and 1.0 has more successes than G = 0 and than G = 1.5, ties broken by
+     mean full-horizon rate.
+   - With 5 seeds this is a screening check, not a test.
+
+The selection is automated in `experiments/analyze_calibration.py`, from
+the table above, so the step-1 data cannot change which levels are eligible.
+
+### Honesty note: E1 is conditional on calibration (Fahad 2026-10-17)
+
+**E1 results are conditional on calibrated assumptions.** These were chosen
+within their plausible ranges so that the setup reproduces the paper's
+qualitative result. **Every E1 write-up must say this,** and list each
+calibrated assumption with its range:
+
+| Assumption | Plausible range considered |
+|---|---|
+| Body–post friction | 0.1–0.4 |
+| Servo torque cap | 0.2027–0.2694 N·m |
+| Overload duration | 1–3 s |
+| Gait amplitude (medium) | 50.6–59.5° |
+| Passive coefficient | 0.06489–0.25956 N·m/rad² |
+
+Because the setup is tuned to show "mid-G best", E1 cannot be presented as an
+independent reproduction of that trend. It can say whether the trend holds
+across densities, seeds and the other G values once the setup has been
+calibrated at one density. E4 then says how fragile it is.
+
+### Raw data committed (Fahad 2026-10-17)
+
+`trials.jsonl` is committed for the pilot and for every future sweep
+(`.gitignore` exception).

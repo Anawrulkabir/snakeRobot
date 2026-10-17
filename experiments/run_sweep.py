@@ -25,22 +25,44 @@ from snake.runlog import new_run  # noqa: E402
 from snake.trial import run_lattice_trial  # noqa: E402
 
 
-def key(density, law, G, seed):
-    return f"{density}|{law}|{G}|{seed}"
+def key(variant, density, law, G, seed):
+    base = f"{density}|{law}|{G}|{seed}"
+    return base if variant is None else f"{variant}|{base}"
 
 
 def jobs_for(ex):
+    """Optional run.variants: {name: {dotted override: value}} (calibration sweeps).
+    Overrides: robot.<group>.<key>, arena.<group>.<key>, metrics.<group>.<key>,
+    and gait.amplitude_scale (multiplies the density's amplitude)."""
     seeds = range(ex["seed_start"], ex["seed_start"] + ex["n_trials"])
-    return [(dn, law, G, s) for dn in ex["densities"] for s in seeds for law, G in ex["conditions"]]
+    variants = list(ex.get("variants", {None: {}}))
+    return [(v, dn, law, G, s) for v in variants for dn in ex["densities"] for s in seeds
+            for law, G in ex["conditions"]]
+
+
+def apply_overrides(overrides, cfg, arena, mc):
+    amp_scale = 1.0
+    tables = {"robot": cfg, "arena": arena, "metrics": mc}
+    for path, value in overrides.items():
+        if path == "gait.amplitude_scale":
+            amp_scale = value
+            continue
+        top, group, k = path.split(".")
+        if k not in tables[top][group]:
+            raise KeyError(f"override {path}: no such config entry")
+        tables[top][group][k] = value
+    return amp_scale
 
 
 def job(args):
-    run_dir, density, law, G, seed = args
+    run_dir, variant, density, law, G, seed = args
     # Configs come from the run's own snapshot, so a resumed run uses the same values.
     cdir = Path(run_dir) / "config"
     load = lambda n: cfgmod.values(cfgmod.yaml.safe_load(open(cdir / n)))  # noqa: E731
     cfg, arena, mc, ex = load("robot.yaml"), load("arena.yaml"), load("metrics.yaml"), load("experiment.yaml")["run"]
     A, xi = ex["gait_by_density"][density]
+    if variant is not None:
+        A *= apply_overrides(ex["variants"][variant], cfg, arena, mc)
     t0 = time.process_time()
     try:
         r = run_lattice_trial(cfg, arena, mc, density, A, xi, ex["temporal_freq_hz"], law,
@@ -50,8 +72,9 @@ def job(args):
         r = {"density": density, "law": law, "seed": seed, "outcome": "diverged", "error": str(e),
              "cycles_elapsed": float("nan"), "com_dx_per_cycle_full_horizon_m": float("nan"), "t_end_s": 0.0}
     r["G"] = G
+    r["variant"] = variant
     r["cpu_s"] = time.process_time() - t0
-    r["key"] = key(density, law, G, seed)
+    r["key"] = key(variant, density, law, G, seed)
     return r
 
 

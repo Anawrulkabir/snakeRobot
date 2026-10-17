@@ -7,6 +7,7 @@ env_check_output/
 results/**
 !results/**/
 !results/**/summary*
+!results/**/trials.jsonl
 !results/.gitkeep
 # Authors' original figure files (Wang et al. 2023). Fahad 2026-10-17: never commit.
 paper_figures/

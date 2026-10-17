@@ -1,0 +1,42 @@
+# Calibration step 1 (Fahad 2026-10-17, after the E1 pilot floor effect; results_E1_pilot.md).
+# One assumption changed at a time from the pilot baseline. Selection rule for
+# step 2 is pre-registered in docs/decisions.md (2026-10-17, calibration).
+# Tagged like the other configs.
+run:
+  densities:
+    value: [medium]
+    source: decision
+    note: "as the pilot"
+  gait_by_density:
+    value: {open: [53.666667, 0.82], sparse: [56.0, 0.80], medium: [59.5, 0.58], dense: [84.0, 1.02]}
+    source: decision
+    note: "as the pilot (G4)"
+  temporal_freq_hz:
+    value: 0.125
+    source: decision
+    note: "as the pilot"
+  conditions:
+    value: [[paper, 0.0], [paper, 0.75], [paper, 1.5]]
+    source: decision
+    note: "Fahad 2026-10-17"
+  seed_start:
+    value: 1001
+    source: decision
+    note: "seeds 1001-1005: a subset of the pilot, so variants pair with the pilot baseline"
+  n_trials:
+    value: 5
+    source: decision
+    note: "Fahad 2026-10-17"
+  variants:
+    value:
+      baseline: {}
+      friction_0.1: {arena.lattice.post_friction: 0.1}
+      friction_0.2: {arena.lattice.post_friction: 0.2}
+      servo_paper_eq: {robot.servo.stall_torque: 0.2694}
+      servo_bound_1.0: {robot.servo.stall_torque: 1.0}
+      overload_3s: {metrics.overload.min_duration_s: 3.0}
+      overload_off: {metrics.overload.min_duration_s: 1.0e9}
+      amp_0.85: {gait.amplitude_scale: 0.85}
+      passive_x4: {robot.joint.passive_coeff: 0.25956}
+    source: decision
+    note: "Fahad 2026-10-17. baseline is rerun (must reproduce the pilot rows exactly). servo_paper_eq = 1.4 N m x friction factor 0.1924 (run 20261017T061904Z_10317fe). servo_bound_1.0 is a BOUND, not a purchasable option. overload_off: duration 1e9 s (the cap still limits torque). passive_x4 = 4 x 0.06489 N m/rad^2"
