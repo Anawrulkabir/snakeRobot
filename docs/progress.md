@@ -408,3 +408,9 @@ should not run until this is chosen.
 - **CI:** `.github/workflows/tests.yml` runs ruff (lint, format check) and
   pytest in the locked env on every push and PR. The first runs were green
   (runs 39027267243 push, 39027267930 PR). Badge in the README.
+
+### 2026-10-17: calibration step 2 done: inconclusive (`results_calib_step2.md`)
+- Run `20261017T111457Z_cc9bd78`: 35 trials, 0 diverged. Successes 5, 4, 1, 2,
+  5, 0, 0 for G = 0 … 1.5. Pre-registered outcome **inconclusive** (G = 1.0
+  ties G = 0 at 5/5). Stopped as required; no setup adopted for E1.
+- No stop contacts at any G, so the with/without comparison is empty.
