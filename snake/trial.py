@@ -62,7 +62,9 @@ def place_body(m, d, c, angles, jq, heading, front_x, y0):
 
 
 def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, freq, law, G, seed,
-                      timestep=None):
+                      timestep=None, diag=False):
+    """diag=True adds 'overload_diag' (what the overloading joint was doing
+    over the overload window). Logging only; the dynamics are unchanged."""
     c = copy.deepcopy(cfg)
     if timestep is not None:
         c["sim"]["timestep"] = timestep
@@ -148,6 +150,10 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     next_cycle = period
 
     pmodel, pcoeff = c["joint"]["passive_model"], c["joint"]["passive_coeff"]
+    if diag:
+        from collections import deque
+        seg_of_body = {m.body(f"seg{i}").id: i for i in range(n)}
+        window = deque(maxlen=int(math.ceil(ov_dur / m.opt.timestep)) + 1)
 
     k = 0
     while d.time < t_end:
@@ -163,12 +169,18 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         if not np.all(np.isfinite(d.qpos)) or d.warning[mujoco.mjtWarning.mjWARN_BADQACC].number:
             raise FloatingPointError(f"diverged at t={d.time:.3f} (seed {seed})")
         # Collisions with posts (debounced onsets, metrics.count_collisions logic).
+        seg_touch = np.zeros(n, bool)
         if len(posts):
             now = np.zeros(len(posts), bool)
             for con in d.contact[: d.ncon]:
                 p = post_ids.get(con.geom1, post_ids.get(con.geom2))
                 if p is not None:
                     now[p] = True
+                    if diag:
+                        other = con.geom2 if con.geom1 in post_ids else con.geom1
+                        si = seg_of_body.get(int(m.geom_bodyid[other]))
+                        if si is not None:
+                            seg_touch[si] = True
             onset = now & ~post_on
             collisions += int(np.sum(onset & (d.time - post_off_t >= gap)))
             post_off_t[post_on & ~now] = d.time
@@ -183,6 +195,11 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         cap_steps += bool(at_cap.any())
         cap_steps_joint += at_cap
         over_t = np.where(at_cap, over_t + m.opt.timestep, 0.0)
+        if diag:
+            rng_ = law_obj.ranges(alphas)
+            window.append((d.qpos[jq].copy(), np.array(alphas), np.array([r[0] for r in rng_]),
+                           np.array([r[1] for r in rng_]), d.actuator_force.copy(), on_stop.copy(),
+                           seg_touch.copy()))
         max_over = max(max_over, float(over_t.max()))
         if over_t.max() >= ov_dur:
             outcome = "overload"
@@ -216,6 +233,32 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
                         break
                 else:
                     slow_since = None
+
+    od = None
+    if diag and outcome == "overload":
+        j = int(np.argmax(over_t))                      # 0-based: joint j+1, between seg j and seg j+1
+        Z, Al, Lo, Hi, T, S, P = (np.array([w[i] for w in window]) for i in range(7))
+        z, tq_j = Z[:, j], T[:, j]
+        on = S[:, j]
+        od = {
+            "joint": j + 1,
+            "window_s": len(window) * m.opt.timestep,
+            "frac_on_hard_stop": float(on.mean()),
+            # Torque pushing further into the stop it is on (sign(tau) = sign(zeta)).
+            "frac_torque_into_stop": float(np.mean(on & (np.sign(tq_j) == np.sign(z)))),
+            "frac_adjacent_segment_on_post": float(np.mean(P[:, j] | P[:, j + 1])),
+            "frac_any_segment_on_post": float(np.mean(P.any(axis=1))),
+            "frac_past_upper_bound": float(np.mean(z > Hi[:, j])),
+            "frac_past_lower_bound": float(np.mean(z < Lo[:, j])),
+            "zeta_deg_mean": float(np.degrees(z.mean())),
+            "alpha_deg_mean": float(np.degrees(Al[:, j].mean())),
+            "range_deg_mean": [float(np.degrees(Lo[:, j].mean())), float(np.degrees(Hi[:, j].mean()))],
+            "overshoot_deg_mean": float(np.degrees(np.mean(np.maximum(z - Hi[:, j], Lo[:, j] - z)))),
+            "torque_Nm_mean": float(tq_j.mean()),
+            "other_joints_at_cap_frac": [float(np.mean(np.abs(T[:, i]) >= ov_frac * stall))
+                                         for i in range(nj)],
+            "other_joints_on_stop_frac": [float(S[:, i].mean()) for i in range(nj)],
+        }
 
     cxy = com()
     tq = np.array(torques) if torques else np.zeros((1, nj))
@@ -262,4 +305,5 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         "initial_max_penetration_m": init_pen,
         "initial_body_front_x_m": init_front_x,
         "initial_body_axis_deg": init_axis_deg,
+        **({"overload_diag": od} if diag else {}),
     }

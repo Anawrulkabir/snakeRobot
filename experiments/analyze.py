@@ -94,6 +94,10 @@ def analyze(rows, mcfg, margin):
                                                                   for s in seeds])),
                 "stop_hit_cycle_fraction_mean": float(np.mean([by[c][s]["stop_hit_cycle_fraction"]
                                                                for s in seeds])),
+                # Pooled: cycles with any joint-stop contact / all cycles run, over every trial.
+                "stop_hit_cycle_fraction_pooled": float(
+                    sum(by[c][s]["stop_hit_cycle_fraction"] * max(1, math.ceil(by[c][s]["cycles_elapsed"]))
+                        for s in seeds) / sum(max(1, math.ceil(by[c][s]["cycles_elapsed"])) for s in seeds)),
                 "tracking_rms_rad_mean": float(np.mean([by[c][s]["tracking_rms_rad"] for s in seeds])),
                 "cpu_s_mean": float(np.mean([by[c][s]["cpu_s"] for s in seeds])),
                 "cycles_elapsed_mean": float(np.mean([by[c][s]["cycles_elapsed"] for s in seeds])),
@@ -118,7 +122,11 @@ def analyze(rows, mcfg, margin):
         grid = np.round(np.arange(0.0, 2.01, 0.1), 2)
         surv = {cond_name(*c): [float(np.mean([by[c][s]["final_com_dx_m"] >= g for s in seeds])) for g in grid]
                 for c in conds}
-        out[dn] = {"seeds": seeds, "conditions": per, "best": cond_name(*best),
+        table = {str(s): {cond_name(*c): {"rate": by[c][s][PRIMARY], "outcome": by[c][s]["outcome"],
+                                          "cycles": by[c][s]["cycles_elapsed"]} for c in conds}
+                 for s in seeds}
+        out[dn] = {"seeds": seeds, "conditions": per, "per_seed": table,
+                   "overload_fraction_all_conditions": float(np.mean([r["outcome"] == "overload" for r in rs])), "best": cond_name(*best),
                    "best_one_spool": cond_name(*best_spool) if best_spool else None,
                    "margin_frac": margin, "margin_m_per_cycle": M,
                    "paired_diff_best_minus": diffs,

@@ -122,3 +122,12 @@ def test_joint_frictionloss_reaches_model(setup):
     cfg["joint"]["frictionloss"] = 0.0233
     m = mb.build_model(cfg)
     assert m.dof_frictionloss[m.joint("j1").dofadr[0]] == pytest.approx(0.0233)
+
+
+def test_diag_mode_does_not_change_dynamics(setup):
+    cfg, arena, mc = setup
+    m0 = copy.deepcopy(mc)
+    m0["success"]["max_cycles"] = 1
+    args = (cfg, arena, m0, "dense", 84.0, 1.02, 0.25, "paper", 0.0, 4)
+    a, b = tr.run_lattice_trial(*args), tr.run_lattice_trial(*args, diag=True)
+    assert (a["final_com_dx_m"], a["t_end_s"], a["collisions"]) == (b["final_com_dx_m"], b["t_end_s"], b["collisions"])
