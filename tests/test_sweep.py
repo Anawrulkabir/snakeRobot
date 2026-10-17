@@ -51,11 +51,12 @@ def test_override_typo_is_an_error():
         rs.apply_overrides({"robot.servo.stall_torqe": 1.0}, cfg, arena, mc)
 
 
-def test_calibration_file_overrides_are_valid():
-    ex = cfgmod.values(cfgmod.yaml.safe_load(open(cfgmod.CONFIG_DIR / "experiments" / "calib_step1.yaml")))["run"]
-    for name, ov in ex["variants"].items():
+@pytest.mark.parametrize("name, n_cond", [("calib_step1.yaml", 3), ("calib_step2.yaml", 7)])
+def test_calibration_file_overrides_are_valid(name, n_cond):
+    ex = cfgmod.values(cfgmod.yaml.safe_load(open(cfgmod.CONFIG_DIR / "experiments" / name)))["run"]
+    for ov in ex["variants"].values():
         rs.apply_overrides(ov, *configs())
-    assert len(rs.jobs_for(ex)) == len(ex["variants"]) * 3 * 5
+    assert len(rs.jobs_for(ex)) == len(ex["variants"]) * n_cond * 5
 
 
 spec2 = importlib.util.spec_from_file_location(
@@ -97,3 +98,36 @@ def test_override_string_number_is_an_error():
     bad = cfgmod.yaml.safe_load("v: 1.0e9")["v"]
     with pytest.raises(TypeError):
         rs.apply_overrides({"metrics.overload.min_duration_s": bad}, cfg, arena, mc)
+
+
+spec3 = importlib.util.spec_from_file_location(
+    "analyze_calib_step2", Path(__file__).resolve().parent.parent / "experiments" / "analyze_calib_step2.py"
+)
+a2 = importlib.util.module_from_spec(spec3)
+spec3.loader.exec_module(a2)
+
+
+def S(g0, g75, g1, g15):
+    return {0.0: g0, 0.75: g75, 1.0: g1, 1.5: g15}
+
+
+@pytest.mark.parametrize(
+    "s, expected",
+    [
+        (S(0, 3, 1, 1), "mid-G wins"),  # 3 >= 0+2 and 3 >= 1+2
+        (S(1, 1, 3, 0), "mid-G wins"),  # the better mid setting counts
+        (S(1, 2, 2, 1), "inconclusive"),  # margin 1 is not enough
+        (S(4, 1, 0, 0), "reversed"),  # the friction-0.1 step-1 pattern
+        (S(0, 1, 1, 3), "reversed"),  # loose end wins
+        (S(2, 4, 0, 3), "inconclusive"),  # beats G = 0 by 2 but G = 1.5 by only 1
+        (S(0, 0, 0, 0), "inconclusive"),  # floor effect
+    ],
+)
+def test_step2_outcome_rule(s, expected):
+    assert a2.outcome(s) == expected
+
+
+def test_step2_rule_check_catches_margin_one(monkeypatch):
+    # Planted fault: a margin of 1 would call (1, 2, 2, 1) a mid-G win.
+    monkeypatch.setattr(a2, "MARGIN", 1)
+    assert a2.outcome(S(1, 2, 2, 1)) != "inconclusive"
