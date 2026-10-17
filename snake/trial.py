@@ -17,7 +17,8 @@ import mujoco
 import numpy as np
 
 from snake import arena as arena_mod
-from snake.actuation import ComplianceA, effective_inertias
+from snake import metrics
+from snake.actuation import ComplianceA, effective_inertias, passive_torque
 from snake.gait import serpenoid
 from snake.model_builder import build_model
 
@@ -141,14 +142,20 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
     jam_t = None
     outcome, t_success = "timeout", None
     torques = []
+    track_err = []
     max_lat = 0.0
     head_x_cycles = [float(d.site_xpos[m.site("head_tip").id][0])]
     next_cycle = period
 
+    pmodel, pcoeff = c["joint"]["passive_model"], c["joint"]["passive_coeff"]
+
     k = 0
     while d.time < t_end:
-        d.ctrl[:] = law_obj.torques(command(d.time), d.qpos[jq], d.qvel[jv], m.opt.timestep,
+        alphas = command(d.time)
+        d.ctrl[:] = law_obj.torques(alphas, d.qpos[jq], d.qvel[jv], m.opt.timestep,
                                     effective_inertias(m, d, jv))
+        # Passive element about alpha (outside the servo; not in actuator_force).
+        d.qfrc_applied[jv] = [passive_torque(z, a, pcoeff, pmodel) for z, a in zip(d.qpos[jq], alphas)]
         mujoco.mj_step(m, d)
         k += 1
         if not np.all(np.isfinite(d.qpos)):
@@ -191,6 +198,7 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
             com_log.append(cxy)
             max_lat = max(max_lat, abs(cxy[1]))
             torques.append(np.abs(d.actuator_force).copy())   # from t = 0 (diag run c61d84c)
+            track_err.append(d.qpos[jq] - alphas)
             # Displacement over the last cycle -> jam flag and stuck termination.
             if d.time >= period:
                 tt = np.array(t_log)
@@ -222,16 +230,14 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         "final_head_x_m": float(d.site_xpos[tip][0]),
         "final_com_dx_m": float(cxy[0] - com0[0]),
         "final_com_dy_m": float(cxy[1] - com0[1]),
-        "com_dx_per_cycle_m": float(cxy[0] - com0[0]) / cycles if cycles > 0 else 0.0,
-        # Full-horizon rate: a trial that stops early by overload or stuck is
-        # treated as stopped for the rest of the time limit, so its
-        # displacement is divided by max_cycles. Success keeps its own
-        # duration. com_dx_per_cycle_m (the pre-registered metric) rewards a
-        # fast start followed by an overload (diag_torque_cap: 0.9-cycle
-        # overload 0.127 m/cycle vs full 6-cycle run 0.040 m/cycle).
-        "com_dx_per_cycle_full_horizon_m": (
-            float(cxy[0] - com0[0]) / (cycles if outcome == "success" else mcfg["success"]["max_cycles"])
-            if (cycles if outcome == "success" else mcfg["success"]["max_cycles"]) > 0 else 0.0),
+        # Secondary: the earlier pre-registered rate (dx / cycles elapsed).
+        "com_dx_per_cycle_m": metrics.progress_rate_elapsed(cxy[0] - com0[0], cycles),
+        # Primary (Fahad 2026-10-17): full-horizon rate, metrics.progress_rate_full_horizon.
+        # The elapsed rate rewarded a fast start followed by an overload
+        # (diag_torque_cap: 0.9-cycle overload 0.127 m/cycle vs full 6-cycle
+        # run 0.040 m/cycle).
+        "com_dx_per_cycle_full_horizon_m": metrics.progress_rate_full_horizon(
+            cxy[0] - com0[0], outcome, cycles, mcfg["success"]["max_cycles"]),
         "max_lateral_com_m": float(max_lat),
         "jammed": jam_t is not None, "t_jam_s": jam_t,
         "collisions": collisions,
@@ -242,6 +248,9 @@ def run_lattice_trial(cfg, arena, mcfg, density, amplitude_deg, spatial_freq, fr
         # fraction of the torque cap (Fahad 2026-10-16, torque-cap check).
         "frac_time_any_joint_at_cap": cap_steps / max(1, k),
         "frac_time_at_cap_per_joint": (cap_steps_joint / max(1, k)).tolist(),
+        # RMS of (zeta - alpha) over all joints and logged steps: how closely the
+        # body follows the command (the servo position error the real robot sees).
+        "tracking_rms_rad": float(np.sqrt(np.mean(np.square(track_err)))) if track_err else 0.0,
         "torque_mean_Nm": float(tq.mean()),
         "torque_p95_Nm": float(np.percentile(tq, 95)),
         "torque_peak_Nm": float(tq.max()),

@@ -101,6 +101,24 @@ def boundary_torque(zeta, zeta_dot, zmin, zmax, k, c, cap):
     return max(-cap, min(cap, tau))
 
 
+def passive_torque(zeta, alpha, coeff, model="quadratic_alpha"):
+    """Passive restoring torque centred on the commanded angle alpha
+    (Fahad 2026-10-17; Fig. 5A(iii) fit, scripts/stiffness_estimate.py).
+    quadratic_alpha: -coeff (zeta - alpha)|zeta - alpha|  (coeff in N m/rad^2)
+    linear_alpha:    -coeff (zeta - alpha)                (coeff in N m/rad)
+    none:            0
+    Not capped: it is not the servo. Why the measured force is centred on
+    alpha is UNKNOWN; this treats it as elastic about the pose."""
+    e = zeta - alpha
+    if model == "quadratic_alpha":
+        return -coeff * e * abs(e)
+    if model == "linear_alpha":
+        return -coeff * e
+    if model == "none":
+        return 0.0
+    raise ValueError(f"unknown passive model {model!r}")
+
+
 class ComplianceA:
     """Per-step controller: suggested angles -> free ranges -> joint torques."""
 

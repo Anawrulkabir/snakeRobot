@@ -85,3 +85,36 @@ def test_friction_check_catches_missing_priority(setup, monkeypatch):
     monkeypatch.setattr(mb, "build_mjcf", lambda *a, **k: real(*a, **k).replace(' priority="2"', ""))
     lo, hi = short_trial(cfg, arena, mc, 0.05), short_trial(cfg, arena, mc, 0.8)
     assert abs(lo["final_com_dx_m"] - hi["final_com_dx_m"]) < 1e-12
+
+
+def passive_trial(cfg, arena, mc, model, coeff):
+    c = copy.deepcopy(cfg)
+    c["joint"]["passive_model"], c["joint"]["passive_coeff"] = model, coeff
+    m0 = copy.deepcopy(mc)
+    m0["success"]["max_cycles"] = 1
+    # G = 1.5 on open floor: wide free ranges, so the passive element dominates tracking.
+    return tr.run_lattice_trial(c, arena, m0, "open", 53.666667, 0.82, 0.25, "paper", 1.5, seed=2)
+
+
+def test_passive_element_pulls_joints_toward_alpha(setup):
+    cfg, arena, mc = setup
+    free = passive_trial(cfg, arena, mc, "none", 0.0)["tracking_rms_rad"]
+    held = passive_trial(cfg, arena, mc, "quadratic_alpha", 0.5)["tracking_rms_rad"]
+    assert held < 0.8 * free
+
+
+def test_passive_check_catches_sign_flip(setup, monkeypatch):
+    # Planted fault: the passive torque pushes away from alpha.
+    cfg, arena, mc = setup
+    free = passive_trial(cfg, arena, mc, "none", 0.0)["tracking_rms_rad"]
+    real = tr.passive_torque
+    monkeypatch.setattr(tr, "passive_torque", lambda z, a, c, m: -real(z, a, c, m))
+    flipped = passive_trial(cfg, arena, mc, "quadratic_alpha", 0.5)["tracking_rms_rad"]
+    assert not flipped < 0.8 * free
+
+
+def test_joint_frictionloss_reaches_model(setup):
+    cfg = copy.deepcopy(setup[0])
+    cfg["joint"]["frictionloss"] = 0.0233
+    m = mb.build_model(cfg)
+    assert m.dof_frictionloss[m.joint("j1").dofadr[0]] == pytest.approx(0.0233)

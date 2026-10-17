@@ -36,6 +36,7 @@ def job(args):
     density, cap, G, seed = args
     cfg = cfgmod.load()
     cfg["joint"]["stiffness"] = STIFFNESS
+    cfg["joint"]["passive_model"] = "none"   # as run (before the alpha-centred element, 2026-10-17)
     cfg["servo"]["stall_torque"] = cap
     mc = copy.deepcopy(cfgmod.load("metrics.yaml"))
     mc["success"]["max_cycles"] = N_CYCLES

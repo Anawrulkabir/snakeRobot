@@ -134,3 +134,46 @@ def test_collision_count_debounces_chatter():
     assert metrics.count_collisions(t, c[:, None], min_gap=0.05) == 2
     # Planted fault: no debounce counts the flicker as an extra collision.
     assert metrics.count_collisions(t, c[:, None], min_gap=0.0) == 3
+
+
+# E1 primary metric: full-horizon progress rate (Fahad 2026-10-17).
+def _monotonicity_violations(rate):
+    """Pairs (further, shorter) where the trial reaching further scores lower.
+    Includes the diag_torque_cap case: an overload after 0.9 cycles at 0.114 m
+    vs a full 6-cycle run reaching 0.24 m. The synthetic data respect a finish
+    line at 0.30 m: only successes get there, so every success has reached
+    further than every non-success."""
+    max_c, finish = 6, 0.30
+    trials = [(0.114, "overload", 0.9), (0.24, "timeout", 6.0), (0.05, "stuck", 3.0),
+              (0.29, "overload", 5.0), (0.20, "stuck", 1.5), (0.31, "success", 5.5),
+              (0.35, "success", 2.0)]
+    rng = np.random.default_rng(0)
+    for _ in range(200):
+        out = str(rng.choice(["stuck", "overload", "timeout"]))
+        trials.append((float(rng.uniform(-0.1, finish)), out,
+                       max_c if out == "timeout" else float(rng.uniform(0.1, max_c))))
+    bad = []
+    for a in trials:
+        for b in trials:
+            # a reaches further than b. Two successes are ranked by speed, not distance.
+            if a[0] > b[0] and not (a[1] == b[1] == "success"):
+                if rate(a[0], a[1], a[2], max_c) < rate(b[0], b[1], b[2], max_c):
+                    bad.append((a, b))
+    return bad
+
+
+def test_full_horizon_rate_further_never_scores_lower():
+    assert _monotonicity_violations(metrics.progress_rate_full_horizon) == []
+
+
+def test_monotonicity_check_catches_elapsed_rate():
+    # Planted fault: the old dx / cycles-elapsed rate must fail the same check.
+    bad = _monotonicity_violations(lambda dx, o, c, m: metrics.progress_rate_elapsed(dx, c))
+    assert ((0.24, "timeout", 6.0), (0.114, "overload", 0.9)) in bad
+
+
+def test_full_horizon_rate_definition_per_ending():
+    assert metrics.progress_rate_full_horizon(0.6, "success", 3.0, 40) == pytest.approx(0.2)
+    for o in ("stuck", "overload", "timeout"):
+        assert metrics.progress_rate_full_horizon(0.6, o, 3.0, 40) == pytest.approx(0.015)
+    assert metrics.progress_rate_full_horizon(0.6, "stuck", 3.0, 0) == 0.0

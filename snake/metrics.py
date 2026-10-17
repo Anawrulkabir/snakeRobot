@@ -132,3 +132,22 @@ def count_collisions(t, in_contact, min_gap):
             elif not ci and on:
                 on, last_off_start = False, ti
     return total
+
+
+def progress_rate_full_horizon(dx, outcome, cycles_elapsed, max_cycles):
+    """E1 primary metric (Fahad 2026-10-17), m per cycle.
+
+    success:                  dx / cycles_elapsed (the trial's own duration)
+    stuck, overload, timeout: dx / max_cycles (a trial that stops early is
+                              treated as stopped for the rest of the limit)
+    dx is the CoM's forward (x) displacement from the start pose. A zero
+    denominator gives 0.
+    """
+    den = cycles_elapsed if outcome == "success" else max_cycles
+    return float(dx) / den if den > 0 else 0.0
+
+
+def progress_rate_elapsed(dx, cycles_elapsed):
+    """Secondary (the earlier pre-registered metric): dx / cycles elapsed,
+    whatever the ending. Rewards a fast start followed by an early overload."""
+    return float(dx) / cycles_elapsed if cycles_elapsed > 0 else 0.0

@@ -151,7 +151,8 @@ def build_mjcf(c=None, drag_rig=False, posts=None, post_radius=None, post_height
             body = ET.SubElement(parent, "body", name=f"seg{i}", pos=_fmt(-p, 0, 0))
             ET.SubElement(body, "joint", name=f"j{i}", type="hinge", axis="0 0 1",
                           range=_fmt(-hinge_limit, hinge_limit),
-                          stiffness=_fmt(j["stiffness"]), damping=_fmt(j["damping"]))
+                          stiffness=_fmt(j["stiffness"]), damping=_fmt(j["damping"]),
+                          frictionloss=_fmt(j["frictionloss"]))
             # Optional out-of-plane compliance (chatter diagnosis, not the
             # approved model): springs that let each segment tilt or rise a
             # little, so the 7 wheels are no longer forced onto one rigid plane.

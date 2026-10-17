@@ -42,6 +42,7 @@ GAITS = {  # paper amplitude x 7/6, paper xi (G4)
 def base():
     cfg = cfgmod.load()
     cfg["joint"]["stiffness"] = STIFFNESS
+    cfg["joint"]["passive_model"] = "none"   # as run (before the alpha-centred element, 2026-10-17)
     mc = copy.deepcopy(cfgmod.load("metrics.yaml"))
     mc["success"]["max_cycles"] = N_CYCLES
     return cfg, cfgmod.load("arena.yaml"), mc

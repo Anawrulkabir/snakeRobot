@@ -50,6 +50,7 @@ def job(args):
     cap, mass = servo_specs()[name]
     cfg = cfgmod.load()
     cfg["joint"]["stiffness"] = STIFFNESS
+    cfg["joint"]["passive_model"] = "none"   # as run (before the alpha-centred element, 2026-10-17)
     cfg["servo"]["stall_torque"] = cap
     cfg["mass"]["servo"] = mass
     cfg["mass"]["servos_per_joint"] = n_per_joint

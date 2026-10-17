@@ -47,9 +47,9 @@ body:
 mass:
   # Fahad's estimates, 2026-10-16 (docs/decisions.md G3). Placeholders until weighed.
   servo:
-    value: 0.0135
-    source: placeholder
-    note: "kg per servo, MG90S class. Fahad's estimate; weigh the real part"
+    value: 0.013
+    source: hardware
+    note: "kg per servo. MG90S listing (config/servos.yaml), baseline servo (Fahad 2026-10-17). Weigh the real part"
   shell:
     value: 0.020
     source: placeholder
@@ -78,8 +78,20 @@ joint:
     note: "mechanical stop of the printed joint, copied from the paper's +-90 deg joint (p. 54)"
   stiffness:
     value: 0.0
-    source: proposal
-    note: "N m/rad passive stiffness. Paper's sleeve: 'weak passive elasticity', no value (UNKNOWN). Varied in E4"
+    source: decision
+    note: "N m/rad, MuJoCo spring toward STRAIGHT. Superseded by joint.passive_model (Fahad 2026-10-17): Fig. 5A shows resistance centred on the commanded angle, not on straight (docs/stiffness_interpretation.md). Kept at 0"
+  passive_model:
+    value: quadratic_alpha
+    source: decision
+    note: "Fahad 2026-10-17. quadratic_alpha: tau = -c (zeta - alpha)|zeta - alpha| about the commanded angle alpha, from the Fig. 5A(iii) fit. linear_alpha: tau = -c (zeta - alpha) (E4 c). none. Cause of the alpha-centred force UNKNOWN (only loading curves published). Applied as a joint force outside the servo, so it does not count toward the servo cap or overload"
+  passive_coeff:
+    value: 0.06489
+    source: decision
+    note: "N m/rad^2 for quadratic_alpha. Paper c_q = 0.3372 N m/rad^2 (F - 2.02 N = 5.620 N/rad^2 (zeta - alpha)^2, x 0.060 m) x friction-ratio factor 0.1924 (primary scaling). Run results/stiffness_estimate/20261017T061338Z_75c71fb-dirty. APPROXIMATE (digitized). E1b multiplies it by 0, 1/4 .. 8"
+  frictionloss:
+    value: 0.0
+    source: decision
+    note: "N m, joint dry friction (MuJoCo frictionloss). 0 in main runs: f_s = 2.02 N is treated as a recording threshold (Fahad 2026-10-17). E4 (b): 0.1212 N m on the paper's robot, 0.0233 N m friction-scaled"
   damping:
     value: 0.0
     source: proposal
@@ -103,9 +115,9 @@ cable:
 
 servo:
   stall_torque:
-    value: 0.2
+    value: 0.2027
     source: hardware
-    note: "N m, MG90S-class assumption until the real servo is confirmed (G7)"
+    note: "N m, MG90S at 6 V: 2.067 kg cm, linear between the listed 1.8 (4.8 V) and 2.2 kg cm (6.6 V) (config/servos.yaml). Baseline servo (Fahad 2026-10-17); 1 vs 2 per joint decided after E1"
   speed_s_per_60deg:
     value: 0.1
     source: hardware
@@ -121,7 +133,7 @@ servo:
   boundary_stiffness:
     value: 11.459
     source: proposal
-    note: "N m/rad, restoring stiffness past the free-range boundary: reaches stall torque (0.2 N m) after 1 deg of overshoot. Stands in for cable + servo stiffness; on the E4 list (cable stiffness)"
+    note: "N m/rad, restoring stiffness past the free-range boundary: reaches 0.200 N m after 1 deg of overshoot (chosen against the earlier 0.2 N m cap; with the MG90S cap 0.2027 N m the cap is reached at 1.01 deg). Stands in for cable + servo stiffness; on the E4 list (cable stiffness)"
   boundary_damping:
     value: 0.05
     source: proposal

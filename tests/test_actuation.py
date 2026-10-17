@@ -275,3 +275,22 @@ def test_tight_spool_matches_drive_reach(geom):
     with pytest.raises(AssertionError):
         Ll, Lr = 2 * Lj + l0 * (A / 2), 2 * Lj - l0 * (A / 2)
         assert math.degrees(act.inverse_exact(Ll, "l", Lc, Lj, math.pi / 2)) == pytest.approx(31.5, abs=0.05)
+
+
+# Passive element about alpha (Fahad 2026-10-17).
+@pytest.mark.parametrize("model", ["quadratic_alpha", "linear_alpha"])
+def test_passive_torque_restores_toward_alpha(model):
+    a = math.radians(15)
+    assert act.passive_torque(a, a, 0.5, model) == 0.0
+    assert act.passive_torque(a + 0.3, a, 0.5, model) < 0
+    assert act.passive_torque(a - 0.3, a, 0.5, model) > 0
+    # Centred on alpha, not on straight: zero torque at zeta = alpha != 0, nonzero at 0.
+    assert act.passive_torque(0.0, a, 0.5, model) > 0
+
+
+def test_passive_quadratic_magnitude_matches_fit():
+    # tau = c e^2: doubling the deflection quadruples the torque.
+    t1 = act.passive_torque(0.2, 0.0, 0.3, "quadratic_alpha")
+    t2 = act.passive_torque(0.4, 0.0, 0.3, "quadratic_alpha")
+    assert t1 == pytest.approx(-0.3 * 0.04)
+    assert t2 == pytest.approx(4 * t1)
