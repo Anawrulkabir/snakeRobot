@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from snake import config as cfgmod  # noqa: E402
-from snake.runlog import new_run  # noqa: E402
+from snake.runlog import jsonl_to_parquet, new_run  # noqa: E402
 from snake.trial import run_lattice_trial  # noqa: E402
 
 
@@ -123,6 +123,7 @@ def main():
                 flush=True,
             )
     print(f"saved {out}")
+    print(f"saved {jsonl_to_parquet(out)}")
 
 
 if __name__ == "__main__":
