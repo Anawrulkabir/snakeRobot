@@ -35,7 +35,7 @@ import matplotlib  # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
-from matplotlib.animation import FuncAnimation, PillowWriter  # noqa: E402
+from matplotlib.animation import FFMpegWriter, FuncAnimation, PillowWriter  # noqa: E402
 from matplotlib.collections import LineCollection  # noqa: E402
 from matplotlib.patches import Circle  # noqa: E402
 
@@ -74,6 +74,15 @@ def replay(run_dir, seed, G, law="paper", variant=None, density=None):
     return row, r, rec
 
 
+def variant_label(run_dir, variant):
+    """'friction_0.1 (lattice.post_friction = 0.1)': the settings a calibration variant changes."""
+    if variant is None:
+        return ""
+    ex = cfgmod.values(cfgmod.yaml.safe_load(open(Path(run_dir) / "config" / "experiment.yaml")))["run"]
+    ov = ", ".join(f"{k.split('.', 1)[1]} = {v}" for k, v in ex["variants"][variant].items())
+    return f"{variant} ({ov})" if ov else variant
+
+
 def commanded_shape(f, pitch):
     """Body centreline the commanded angles would give, hung from the actual
     head segment: joint i+1 sits one pitch behind joint i along segment i,
@@ -98,7 +107,7 @@ def bounds(rec):
 
 
 class Panel:
-    def __init__(self, ax, row, rec, title, size_in, box):
+    def __init__(self, ax, row, rec, title, pts_per_m, box, fs=7):
         self.ax, self.row, self.rec = ax, row, rec
         x0, x1, y0, y1 = box
         ax.set_xlim(x0, x1)
@@ -106,27 +115,27 @@ class Panel:
         ax.set_aspect("equal")
         ax.set_xticks([])
         ax.set_yticks([])
-        ax.set_title(title, fontsize=9)
+        ax.set_title(title, fontsize=fs + 2)
         for p in rec["posts"]:
             ax.add_patch(Circle(p, rec["post_radius"], color="0.75", zorder=1))
         ax.axvline(rec["finish_x"], color="0.5", ls="--", lw=0.8)
-        pts_per_m = size_in * 72 / (x1 - x0)
         self.body = LineCollection(
             [], linewidths=2 * rec["capsule_radius"] * pts_per_m, colors="tab:blue", capstyle="round", zorder=3
         )
         ax.add_collection(self.body)
         # On top of the body, thin: when the joints track, it lies on the centreline.
         (self.cmd,) = ax.plot([], [], color="tab:orange", alpha=0.8, lw=1.0, zorder=4.5)
-        self.head = ax.scatter([], [], s=28, marker="o", facecolors="white", edgecolors="k", zorder=5.5)
-        self.ok = ax.scatter([], [], s=6, c="k", zorder=4)
-        self.red = ax.scatter([], [], s=30, c="red", zorder=5)
+        k = (fs / 7) ** 2  # marker areas scale with the font size
+        self.head = ax.scatter([], [], s=28 * k, marker="o", facecolors="white", edgecolors="k", zorder=5.5)
+        self.ok = ax.scatter([], [], s=6 * k, c="k", zorder=4)
+        self.red = ax.scatter([], [], s=30 * k, c="red", zorder=5)
         self.txt = ax.text(
             0.02,
             0.98,
             "",
             transform=ax.transAxes,
             va="top",
-            fontsize=7,
+            fontsize=fs,
             family="monospace",
             bbox=dict(boxstyle="round", fc="white", ec="0.7", alpha=0.85),
             zorder=6,
@@ -151,17 +160,26 @@ class Panel:
         return [self.body, self.cmd, self.head, self.ok, self.red, self.txt]
 
 
-def animate(panels_data, out, frame_dt, fps, ncols, size_in=3.6, suptitle=""):
+def animate(panels_data, out, frame_dt, fps, ncols, size_in=3.6, suptitle="", px=None, still=None):
+    """Write a GIF (PillowWriter) or MP4 (H.264, yuv420p), or with still=t one PNG
+    frame at time t (still="end": the last frame). px=(width, height) fixes the
+    pixel size (dpi 100); otherwise the figure is sized from size_in at dpi 80."""
     n = len(panels_data)
     nrows = math.ceil(n / ncols)
     if n == 1:
         size_in = 5.5
-    fig, axes = plt.subplots(nrows, ncols, figsize=(size_in * ncols, size_in * nrows + 0.9), squeeze=False)
+    if px:
+        figsize, dpi = (px[0] / 100, px[1] / 100), 100
+    else:
+        figsize, dpi = (size_in * ncols, size_in * nrows + 0.9), 80
+    fs = 7 if not px else max(7, round(px[1] / 1080 * 15))
+    fig, axes = plt.subplots(nrows, ncols, figsize=figsize, squeeze=False)
+    top_in, bottom_in = 0.75 * fs / 7, 0.45 * fs / 7
     fig.subplots_adjust(
         left=0.02,
         right=0.98,
-        top=1 - 0.75 / (size_in * nrows + 0.9),
-        bottom=0.45 / (size_in * nrows + 0.9),
+        top=1 - top_in / figsize[1],
+        bottom=bottom_in / figsize[1],
         wspace=0.05,
         hspace=0.15,
     )
@@ -170,24 +188,39 @@ def animate(panels_data, out, frame_dt, fps, ncols, size_in=3.6, suptitle=""):
     span = max(bs[:, 1].max() - bs[:, 0].min(), bs[:, 3].max() - bs[:, 2].min())
     cx, cy = (bs[:, 0].min() + bs[:, 1].max()) / 2, (bs[:, 2].min() + bs[:, 3].max()) / 2
     box = (cx - span / 2, cx + span / 2, cy - span / 2, cy + span / 2)
-    panels = [Panel(ax, row, rec, title, size_in * 0.9, box) for ax, (row, rec, title) in zip(axes.flat, panels_data)]
+    # Capsule width in points from the real (square, equal-aspect) axes size.
+    pos = axes.flat[0].get_position()
+    side_in = min(pos.width * figsize[0], pos.height * figsize[1])
+    pts_per_m = side_in * 72 / span
+    panels = [Panel(ax, row, rec, title, pts_per_m, box, fs) for ax, (row, rec, title) in zip(axes.flat, panels_data)]
     for ax in list(axes.flat)[n:]:
         ax.axis("off")
-    fig.suptitle(suptitle, fontsize=9, y=0.995)
+    fig.suptitle(suptitle, fontsize=fs + 2, y=0.995)
     fig.text(
         0.5,
         0.01,
         "blue: body, white dot = head   orange: commanded shape   red: joint at servo cap "
         "or on hard stop\ngrey: posts   dashed: finish line (lattice far edge)",
         ha="center",
-        fontsize=7,
+        fontsize=fs,
     )
     t_end = max(p.rec["frames"][-1]["t"] for p in panels)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if still is not None:
+        t = t_end if still == "end" else float(still)
+        for p in panels:
+            p.draw(t)
+        fig.savefig(out, dpi=dpi)
+        plt.close(fig)
+        return 1
     times = np.arange(0.0, t_end + frame_dt, frame_dt)
     times = np.append(times, [t_end] * int(fps))  # hold the last frame for 1 s
     anim = FuncAnimation(fig, lambda k: [a for p in panels for a in p.draw(times[k])], frames=len(times), blit=False)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    anim.save(out, writer=PillowWriter(fps=fps), dpi=80)
+    if out.suffix == ".mp4":
+        writer = FFMpegWriter(fps=fps, codec="libx264", extra_args=["-pix_fmt", "yuv420p", "-crf", "23"])
+    else:
+        writer = PillowWriter(fps=fps)
+    anim.save(out, writer=writer, dpi=dpi)
     plt.close(fig)
     return len(times)
 
@@ -202,7 +235,10 @@ def main():
     ap.add_argument("--variant")
     ap.add_argument("--frame-dt", type=float, default=1.0)
     ap.add_argument("--fps", type=int, default=16)
-    ap.add_argument("--out")
+    ap.add_argument("--out", help=".gif, .mp4 or (with --still) .png")
+    ap.add_argument("--size", help="WIDTHxHEIGHT in pixels, e.g. 1920x1080")
+    ap.add_argument("--duration", type=float, help="clip length in s (sets --frame-dt from the longest trial)")
+    ap.add_argument("--still", help="write one PNG frame at this sim time in s, or 'end'")
     a = ap.parse_args()
     run_dir = Path(a.run_dir)
     Gs = [float(g) for g in a.montage.split(",")] if a.montage else [a.G]
@@ -215,13 +251,19 @@ def main():
         )
         label = "tight spool" if a.law == "tight_spool" else f"G = {G}"
         data.append((row, rec, label))
+    if a.duration:
+        t_end = max(rec["frames"][-1]["t"] for _, rec, _ in data)
+        a.frame_dt = t_end / max(1.0, (a.duration - 1.0) * a.fps)  # last 1 s holds the final frame
     tag = f"montage_seed{a.seed}" if a.montage else f"seed{a.seed}_{a.law}_G{a.G}"
     out = Path(a.out) if a.out else ROOT / "media" / f"{run_dir.parent.name}_{tag}.gif"
     title = (
-        f"{run_dir.parent.name}  run {run_dir.name}  seed {a.seed}{'  ' + a.variant if a.variant else ''}\n"
-        f"{a.frame_dt * a.fps:.0f}x real time  |  simulation, not hardware"
+        f"{run_dir.parent.name}  run {run_dir.name}  seed {a.seed}\n"
+        + (f"settings: {variant_label(run_dir, a.variant)}\n" if a.variant else "")
+        + ("" if a.still else f"{a.frame_dt * a.fps:.1f}x real time  |  ")
+        + "simulation, not hardware"
     )
-    nf = animate(data, out, a.frame_dt, a.fps, ncols=3 if len(data) > 1 else 1, suptitle=title)
+    px = tuple(int(v) for v in a.size.split("x")) if a.size else None
+    nf = animate(data, out, a.frame_dt, a.fps, ncols=3 if len(data) > 1 else 1, suptitle=title, px=px, still=a.still)
     print(f"saved {out} ({nf} frames, {out.stat().st_size / 1e6:.2f} MB)")
 
 
