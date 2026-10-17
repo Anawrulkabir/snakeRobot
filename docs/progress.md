@@ -378,3 +378,12 @@ should not run until this is chosen.
   not read that variant.
 - Guard added: an override that is not a number now raises at load time
   (`tests/test_sweep.py`, planted fault = the original string).
+
+### 2026-10-17: calibration step 1 done; visualisation
+- Run `20261017T075321Z_dc2fb6c` (`results_calib_step1.md`): 135 trials, 0
+  diverged, baseline 15/15 identical to the pilot. Pre-registered selection:
+  friction 0.1, MG90S torque, 3 s overload, amplitude ×0.85, passive ×4.
+  The strongest levers favour G = 0 over G = 0.75. Step 2 waits for Fahad.
+- `scripts/animate_trial.py` (2D GIF replay, checked against the log) and
+  `scripts/render_trial_3d.py` (OSMesa installed in the cloud container with
+  apt; EGL failed without a GPU). GIFs in `media/`.

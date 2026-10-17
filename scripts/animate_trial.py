@@ -96,9 +96,9 @@ def bounds(rec):
 
 
 class Panel:
-    def __init__(self, ax, row, rec, title, size_in):
+    def __init__(self, ax, row, rec, title, size_in, box):
         self.ax, self.row, self.rec = ax, row, rec
-        x0, x1, y0, y1 = bounds(rec)
+        x0, x1, y0, y1 = box
         ax.set_xlim(x0, x1)
         ax.set_ylim(y0, y1)
         ax.set_aspect("equal")
@@ -145,12 +145,17 @@ def animate(panels_data, out, frame_dt, fps, ncols, size_in=3.6, suptitle=""):
     if n == 1:
         size_in = 5.5
     fig, axes = plt.subplots(nrows, ncols, figsize=(size_in * ncols, size_in * nrows + 0.9), squeeze=False)
-    fig.subplots_adjust(left=0.02, right=0.98, top=1 - 0.55 / (size_in * nrows + 0.9),
+    fig.subplots_adjust(left=0.02, right=0.98, top=1 - 0.75 / (size_in * nrows + 0.9),
                         bottom=0.45 / (size_in * nrows + 0.9), wspace=0.05, hspace=0.15)
-    panels = [Panel(ax, row, rec, title, size_in * 0.9) for ax, (row, rec, title) in zip(axes.flat, panels_data)]
+    # One scale for every panel, so the panels can be compared directly.
+    bs = np.array([bounds(rec) for _, rec, _ in panels_data])
+    span = max(bs[:, 1].max() - bs[:, 0].min(), bs[:, 3].max() - bs[:, 2].min())
+    cx, cy = (bs[:, 0].min() + bs[:, 1].max()) / 2, (bs[:, 2].min() + bs[:, 3].max()) / 2
+    box = (cx - span / 2, cx + span / 2, cy - span / 2, cy + span / 2)
+    panels = [Panel(ax, row, rec, title, size_in * 0.9, box) for ax, (row, rec, title) in zip(axes.flat, panels_data)]
     for ax in list(axes.flat)[n:]:
         ax.axis("off")
-    fig.suptitle(suptitle, fontsize=9)
+    fig.suptitle(suptitle, fontsize=9, y=0.995)
     fig.text(0.5, 0.01, "blue: body, white dot = head   orange: commanded shape   red: joint at servo cap "
              "or on hard stop\ngrey: posts   dashed: finish line (lattice far edge)", ha="center", fontsize=7)
     t_end = max(p.rec["frames"][-1]["t"] for p in panels)
