@@ -1,5 +1,4 @@
 # Compliant cable-driven snake robot: simulation before hardware
-
 [![tests](https://github.com/Anawrulkabir/snakeRobot/actions/workflows/tests.yml/badge.svg)](https://github.com/Anawrulkabir/snakeRobot/actions/workflows/tests.yml)
 ![python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![mujoco](https://img.shields.io/badge/MuJoCo-3.2.6-orange)
@@ -39,6 +38,13 @@ Blue: body (white dot = head). Orange: commanded shape. Red: joint at the servo 
 - [Scope and integrity](#scope-and-integrity)
 - [Reference work](#reference-work)
 - [AI disclosure](#ai-disclosure)
+
+<a href="https://www.youtube.com/watch?v=LZaEG5F0ZEQ">
+  <img src="https://img.youtube.com/vi/LZaEG5F0ZEQ/maxresdefault.jpg"
+       alt="Watch the robot snake simulation"
+       width="100%">
+</a>
+
 
 ## Questions this project answers
 
