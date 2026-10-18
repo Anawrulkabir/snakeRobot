@@ -640,3 +640,74 @@ weakens any classification that rests on that criterion.
 **Report.** Per trial: which criteria were met, plus a 2D replay of one
 stuck and one passing trial from the same start. Then a recommendation of
 option 2 or 3 from the verdict. Stop before starting either.
+
+---
+
+## G6 outcome accepted; lesson on criterion A1 (Fahad 2026-10-18)
+
+The diagnosis verdict **"unclear"** (run `20261018T063335Z_f5c3592`) is accepted.
+
+**Lesson:** A1 was a poor criterion.
+- A joint at its slack-range boundary is expected in normal running: it is
+  how the cable carries load.
+- At G = 0 it is true 100% of the time by construction, because the slack
+  range collapses to a single angle.
+- So A1 could not separate stuck from passing trials. That should have been
+  predicted before running.
+- **For future criteria:** check each one against what the model guarantees
+  by construction (e.g. G = 0, G ≥ 1) before using it.
+
+---
+
+## H1 mechanism test, pre-registered (Fahad 2026-10-18, before any run)
+
+**Hypothesis H1:** the mid-G stall is a **propulsion failure** (the body curls
+and loses forward motion), **not obstacle jamming.**
+
+**Runs** (`config/experiments/h1_mechanism.yaml`): fresh seeds 1006–1015 ×
+G = 0, 0.5, 0.75, 1.0 × {open floor, medium lattice} = 80 trials.
+Everything else is as in step 2 (the combined variant: friction 0.1, 3 s
+overload rule, amplitude ×0.85, passive ×4).
+
+**Measures** (defined now, computed by `snake/trial.py`):
+- **Progress:** the full-horizon progress rate (m/cycle). That is CoM
+  forward displacement ÷ cycles for a success, ÷ 40 cycles otherwise
+  (`com_dx_per_cycle_full_horizon_m`).
+- **Net heading change:** the body axis (tail pin to head pin) at the end
+  minus at the start, wrapped to (−180°, 180°] (`body_axis_change_deg`).
+  Reported only; not part of the rule.
+- **Curl index:** the mean signed (ζ − α) over all joints and all logged
+  steps of the trial, in rad (`curl_index_rad`). Nonzero means the body bends
+  more one way than commanded.
+
+**Pre-registered reading (open floor only; the lattice runs are reported, not
+used).** For each mid G ∈ {0.5, 0.75} and each seed s:
+- **"curl-stall" in seed s:**
+  - progress(G) < 0.5 × progress(0) **and** < 0.5 × progress(1.0); **and**
+  - |curl(G)| ≥ 2 × |curl(0)| **and** ≥ 2 × |curl(1.0)|.
+- **"no-stall" in seed s:** |progress(G) − progress(ref)| ≤ 0.2 × progress(ref)
+  for **both** ref = G = 0 and ref = G = 1.0.
+
+Verdict:
+- **H1 supported:** "curl-stall" in ≥ 7/10 seeds at G = 0.5 **and** in
+  ≥ 7/10 seeds at G = 0.75.
+- **H1 rejected** (the stall needs the posts): "no-stall" in ≥ 7/10 seeds at
+  G = 0.5 **and** at G = 0.75.
+- **Anything else: unclear.** Report and stop. No interpretation beyond the
+  rule.
+
+**Readings by Claude, flagged before the data:**
+1. "Forward progress per cycle" = the project's primary full-horizon rate,
+   so an early stuck ending counts against a trial, as everywhere else.
+2. The open-floor runs use the **same gait as the lattice runs** (the medium
+   gait: 59.5° × 0.85, ξ = 0.58), so open floor and lattice differ only by
+   the posts. ("Everything else as in step 2.")
+3. Fahad's 7-of-10 rule is applied to each mid G separately, and both must
+   agree. The rejection branch also uses 7 of 10 seeds, per mid G.
+
+**Report:** per-seed tables (open floor and lattice), plus one open-floor
+replay pair, chosen now: **seed 1006, G = 0.75 vs G = 1.0.**
+
+**Then, whatever the outcome:** option 3 (implementation B). A plan and
+effort estimate go with the H1 report; nothing is built before Fahad's
+go-ahead.
