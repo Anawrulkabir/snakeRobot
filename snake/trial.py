@@ -39,6 +39,31 @@ def body_front_x(m, d, c):
     return float(front)
 
 
+def post_contact_sides(m, d, post_ids, seg_ids):
+    """Per segment, [touches a post on its left (local +y), on its right (local -y)].
+    The side is the sign of the contact point's y in the segment's body frame."""
+    sides = [[False, False] for _ in seg_ids]
+    index = {b: i for i, b in enumerate(seg_ids)}
+    for con in d.contact[: d.ncon]:
+        if con.geom1 in post_ids or con.geom2 in post_ids:
+            other = con.geom2 if con.geom1 in post_ids else con.geom1
+            i = index.get(int(m.geom_bodyid[other]))
+            if i is not None:
+                b = seg_ids[i]
+                y = (d.xmat[b].reshape(3, 3).T @ (con.pos - d.xpos[b]))[1]
+                sides[i][0 if y > 0 else 1] = True
+    return sides
+
+
+def push_side(tau):
+    """Side (+1 = local +y, -1 = local -y) toward which a joint torque sweeps both
+    neighbouring segments relative to each other. Each body frame sits on its
+    front pin with the capsule behind it, so increasing q moves the child's
+    capsule toward its local -y, and the parent's toward its -y relative to the
+    child (tests/test_trial.py checks the child case with the Jacobian)."""
+    return -1 if tau > 0 else (1 if tau < 0 else 0)
+
+
 def place_body(m, d, c, angles, jq, heading, front_x, y0):
     """Start pose (fix for the lattice diagnosis start-pose bug).
 
@@ -183,6 +208,7 @@ def run_lattice_trial(
     k = 0
     while d.time < t_end:
         alphas = command(d.time)
+        zeta_ctrl = d.qpos[jq].copy()  # the angles this step's servo torque is computed from
         d.ctrl[:] = law_obj.torques(alphas, d.qpos[jq], d.qvel[jv], m.opt.timestep, effective_inertias(m, d, jv))
         # Passive element about alpha (outside the servo; not in actuator_force).
         d.qfrc_applied[jv] = [passive_torque(z, a, pcoeff, pmodel) for z, a in zip(d.qpos[jq], alphas)]
@@ -261,6 +287,10 @@ def run_lattice_trial(
                     "qpos": d.qpos.tolist(),
                     "at_cap": at_cap.tolist(),
                     "on_stop": on_stop.tolist(),
+                    "tau": d.actuator_force.tolist(),
+                    "zeta_ctrl": zeta_ctrl.tolist(),
+                    "range": [list(r_) for r_ in law_obj.ranges(alphas)],
+                    "post_side": post_contact_sides(m, d, post_ids, seg_ids),
                 }
             )
         if k % log_every == 0:

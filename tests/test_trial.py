@@ -142,3 +142,48 @@ def test_record_mode_does_not_change_dynamics(setup):
     a, b = tr.run_lattice_trial(*args), tr.run_lattice_trial(*args, record=rec)
     assert (a["final_com_dx_m"], a["t_end_s"], a["collisions"]) == (b["final_com_dx_m"], b["t_end_s"], b["collisions"])
     assert len(rec["frames"]) > 100 and len(rec["frames"][0]["anchors"]) == 6
+
+
+def test_push_side_matches_jacobian(setup):
+    # Increasing joint angle q_j moves the child capsule centre toward the side
+    # push_side(+tau) names, in the child's own frame.
+    import mujoco
+
+    m = mb.build_model(setup[0])
+    d = mujoco.MjData(m)
+    mujoco.mj_forward(m, d)
+    for j in range(1, 7):
+        b = m.body(f"seg{j}").id
+        g = m.geom(f"seg{j}_body").id
+        jacp = np.zeros((3, m.nv))
+        mujoco.mj_jac(m, d, jacp, None, d.geom_xpos[g], b)
+        dy_local = (d.xmat[b].reshape(3, 3).T @ jacp[:, m.joint(f"j{j}").dofadr[0]])[1]
+        assert np.sign(dy_local) == tr.push_side(+1.0)
+        assert tr.push_side(-1.0) == -tr.push_side(+1.0) and tr.push_side(0.0) == 0
+
+
+def test_push_side_check_catches_sign_flip(setup, monkeypatch):
+    # Planted fault: the opposite convention must fail the Jacobian check.
+    monkeypatch.setattr(tr, "push_side", lambda tau: 1 if tau > 0 else (-1 if tau < 0 else 0))
+    with pytest.raises(AssertionError):
+        test_push_side_matches_jacobian(setup)
+
+
+def test_post_contact_side_left_right(setup):
+    # A post overlapping segment 3 on its left (+y) side, the body straight along +x.
+    import mujoco
+
+    cfg = setup[0]
+    m0 = mb.build_model(cfg)
+    d0 = mujoco.MjData(m0)
+    mujoco.mj_forward(m0, d0)
+    c3 = d0.geom_xpos[m0.geom("seg3_body").id][:2]
+    r_post = 0.0515
+    for side, y in (("left", +1), ("right", -1)):
+        post = [[c3[0], c3[1] + y * (r_post + cfg["body"]["segment_width"] / 2 - 0.004)]]
+        m = mb.build_model(cfg, posts=post, post_radius=r_post, post_height=0.08, post_friction=0.4)
+        d = mujoco.MjData(m)
+        mujoco.mj_forward(m, d)
+        seg_ids = [m.body(f"seg{i}").id for i in range(7)]
+        sides = tr.post_contact_sides(m, d, {m.geom("post0").id: 0}, seg_ids)
+        assert sides[3] == ([True, False] if side == "left" else [False, True])
