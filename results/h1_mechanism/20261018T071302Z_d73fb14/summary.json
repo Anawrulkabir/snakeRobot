@@ -1,0 +1,887 @@
+{
+  "run_id": "20261018T071302Z_d73fb14",
+  "n_rows": 80,
+  "diverged": [],
+  "open_seeds_complete": 10,
+  "verdict": "H1 rejected",
+  "counts": {
+    "0.5": {
+      "curl_stall": 0,
+      "no_stall": 10,
+      "n_seeds": 10
+    },
+    "0.75": {
+      "curl_stall": 0,
+      "no_stall": 10,
+      "n_seeds": 10
+    }
+  },
+  "per_seed": {
+    "open": {
+      "1006": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1514465646648343,
+          "curl_index_rad": 1.6897180747851755e-05,
+          "body_axis_change_deg": 7.4736871322866305,
+          "outcome": "success",
+          "cycles_elapsed": 13.23937500001771,
+          "final_com_dx_m": 2.0050578620621726,
+          "tracking_rms_rad": 0.0027915735487988656
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13981852979280512,
+          "curl_index_rad": -0.0003222679613490265,
+          "body_axis_change_deg": 4.919184506269818,
+          "outcome": "success",
+          "cycles_elapsed": 14.306125000022803,
+          "final_com_dx_m": 2.0002613645352825,
+          "tracking_rms_rad": 0.14746523637974399
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.1499225633275954,
+          "curl_index_rad": -0.0003223053505661252,
+          "body_axis_change_deg": 2.833855986814622,
+          "outcome": "success",
+          "cycles_elapsed": 13.31900000001809,
+          "final_com_dx_m": 1.9968186209629553,
+          "tracking_rms_rad": 0.1710720329312647
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14593992686420104,
+          "curl_index_rad": -0.0027779059248943506,
+          "body_axis_change_deg": 3.4624352319949656,
+          "outcome": "success",
+          "cycles_elapsed": 13.796125000020368,
+          "final_com_dx_m": 2.013405473512348,
+          "tracking_rms_rad": 0.1848689066305944
+        }
+      },
+      "1007": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1492128828181293,
+          "curl_index_rad": 5.4141292615316243e-05,
+          "body_axis_change_deg": 8.630999065888938,
+          "outcome": "success",
+          "cycles_elapsed": 13.45737500001875,
+          "final_com_dx_m": 2.0080137189174208,
+          "tracking_rms_rad": 0.002783447688833677
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13674590448107302,
+          "curl_index_rad": 0.0007865332198185084,
+          "body_axis_change_deg": 0.04445647698962851,
+          "outcome": "success",
+          "cycles_elapsed": 14.55050000002397,
+          "final_com_dx_m": 1.9897212831551305,
+          "tracking_rms_rad": 0.1478145030428196
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.1460015138422703,
+          "curl_index_rad": -0.0004915757804886485,
+          "body_axis_change_deg": 0.5371165744464808,
+          "outcome": "success",
+          "cycles_elapsed": 14.012125000021399,
+          "final_com_dx_m": 2.045791462150246,
+          "tracking_rms_rad": 0.17119826549721445
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1414613668343437,
+          "curl_index_rad": 0.0006270004546529431,
+          "body_axis_change_deg": 3.9525121653992095,
+          "outcome": "success",
+          "cycles_elapsed": 14.101250000021825,
+          "final_com_dx_m": 1.9947820990758764,
+          "tracking_rms_rad": 0.18553396005416897
+        }
+      },
+      "1008": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1494099240714779,
+          "curl_index_rad": 5.3256797945687186e-05,
+          "body_axis_change_deg": 6.316797698916385,
+          "outcome": "success",
+          "cycles_elapsed": 13.460250000018764,
+          "final_com_dx_m": 2.011094930485914,
+          "tracking_rms_rad": 0.002796801035331575
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13771024803449713,
+          "curl_index_rad": 0.0008968449276471017,
+          "body_axis_change_deg": -0.29088898039924516,
+          "outcome": "success",
+          "cycles_elapsed": 14.536625000023903,
+          "final_com_dx_m": 2.0018422343377638,
+          "tracking_rms_rad": 0.14770655612759812
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.14730341734958574,
+          "curl_index_rad": 0.001127372622710505,
+          "body_axis_change_deg": -3.28748896385855,
+          "outcome": "success",
+          "cycles_elapsed": 13.566625000019272,
+          "final_com_dx_m": 1.9984102244031623,
+          "tracking_rms_rad": 0.1714732364048706
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14339365250237268,
+          "curl_index_rad": 5.2786840300148805e-05,
+          "body_axis_change_deg": 2.9920346912742497,
+          "outcome": "success",
+          "cycles_elapsed": 14.06062500002163,
+          "final_com_dx_m": 2.0162043752192758,
+          "tracking_rms_rad": 0.18528864737097483
+        }
+      },
+      "1009": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14605721252193904,
+          "curl_index_rad": 5.843407613022287e-06,
+          "body_axis_change_deg": 5.217419192402723,
+          "outcome": "success",
+          "cycles_elapsed": 13.951000000021107,
+          "final_com_dx_m": 2.0376441718966545,
+          "tracking_rms_rad": 0.0028178062712262554
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13482772829878376,
+          "curl_index_rad": 0.000250056008070875,
+          "body_axis_change_deg": -2.4156374648667907,
+          "outcome": "success",
+          "cycles_elapsed": 15.02587500002624,
+          "final_com_dx_m": 2.025904591955025,
+          "tracking_rms_rad": 0.14766292631425373
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.14467928484507492,
+          "curl_index_rad": 0.00030725492873053564,
+          "body_axis_change_deg": -0.2372064915123815,
+          "outcome": "success",
+          "cycles_elapsed": 14.02925000002148,
+          "final_com_dx_m": 2.029741856915875,
+          "tracking_rms_rad": 0.17127176691308932
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.141579129429401,
+          "curl_index_rad": -0.002428658515117738,
+          "body_axis_change_deg": 0.5342361311147865,
+          "outcome": "success",
+          "cycles_elapsed": 14.542750000023933,
+          "final_com_dx_m": 2.05894988451281,
+          "tracking_rms_rad": 0.18518591674294055
+        }
+      },
+      "1010": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1476961904844833,
+          "curl_index_rad": 1.7910664570921975e-06,
+          "body_axis_change_deg": 6.619169477202216,
+          "outcome": "success",
+          "cycles_elapsed": 13.191875000017482,
+          "final_com_dx_m": 1.948389682850075,
+          "tracking_rms_rad": 0.00278547583405086
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13868005883554113,
+          "curl_index_rad": -0.00034619533195960405,
+          "body_axis_change_deg": 7.268598838613324,
+          "outcome": "success",
+          "cycles_elapsed": 14.215250000022369,
+          "final_com_dx_m": 1.9713717063650282,
+          "tracking_rms_rad": 0.14759316111775048
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.1486247555606504,
+          "curl_index_rad": -0.000496388526713861,
+          "body_axis_change_deg": 6.322987122466383,
+          "outcome": "success",
+          "cycles_elapsed": 13.237125000017699,
+          "final_com_dx_m": 1.967364467453405,
+          "tracking_rms_rad": 0.1711732062189237
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1446444510806476,
+          "curl_index_rad": -0.003358548301868902,
+          "body_axis_change_deg": 6.029478065541059,
+          "outcome": "success",
+          "cycles_elapsed": 13.73362500002007,
+          "final_com_dx_m": 1.986492649475362,
+          "tracking_rms_rad": 0.18504805091760307
+        }
+      },
+      "1011": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.15044146332032024,
+          "curl_index_rad": 1.1178467436282252e-05,
+          "body_axis_change_deg": 7.624644765811689,
+          "outcome": "success",
+          "cycles_elapsed": 13.19762500001751,
+          "final_com_dx_m": 1.9854700173554758,
+          "tracking_rms_rad": 0.00278386690910546
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13957403363317133,
+          "curl_index_rad": -0.00028719670936466985,
+          "body_axis_change_deg": 7.318383662880003,
+          "outcome": "success",
+          "cycles_elapsed": 14.24687500002252,
+          "final_com_dx_m": 1.988493810420731,
+          "tracking_rms_rad": 0.14746263812883728
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.1495292500179444,
+          "curl_index_rad": -0.00038205880892802256,
+          "body_axis_change_deg": 5.617110430214938,
+          "outcome": "success",
+          "cycles_elapsed": 13.267125000017842,
+          "final_com_dx_m": 1.9838232511469884,
+          "tracking_rms_rad": 0.17111431105542427
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14552762294045637,
+          "curl_index_rad": -0.0031581460593420895,
+          "body_axis_change_deg": 4.734008400288756,
+          "outcome": "success",
+          "cycles_elapsed": 13.751375000020154,
+          "final_com_dx_m": 2.0012049159157512,
+          "tracking_rms_rad": 0.18493860593456404
+        }
+      },
+      "1012": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1503438882074892,
+          "curl_index_rad": 4.4359673943301915e-05,
+          "body_axis_change_deg": 6.197581938783844,
+          "outcome": "success",
+          "cycles_elapsed": 13.449750000018714,
+          "final_com_dx_m": 2.0220877104214914,
+          "tracking_rms_rad": 0.0027932353543077366
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13914954753380337,
+          "curl_index_rad": 0.000514487113266167,
+          "body_axis_change_deg": -0.8516288912269374,
+          "outcome": "success",
+          "cycles_elapsed": 14.514625000023798,
+          "final_com_dx_m": 2.019703501376142,
+          "tracking_rms_rad": 0.14763617299400056
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.14908767026590117,
+          "curl_index_rad": 0.0006915017475093155,
+          "body_axis_change_deg": -3.5247311022896497,
+          "outcome": "success",
+          "cycles_elapsed": 13.539500000019142,
+          "final_com_dx_m": 2.018572511568023,
+          "tracking_rms_rad": 0.17139978794678265
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14512121327967586,
+          "curl_index_rad": -0.0004130216214603724,
+          "body_axis_change_deg": 2.4898343781224654,
+          "outcome": "success",
+          "cycles_elapsed": 14.024375000021458,
+          "final_com_dx_m": 2.0352343154922683,
+          "tracking_rms_rad": 0.18515599536460325
+        }
+      },
+      "1013": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14956747951506313,
+          "curl_index_rad": -1.1595844809670699e-05,
+          "body_axis_change_deg": -7.529799210768942,
+          "outcome": "success",
+          "cycles_elapsed": 13.228750000017659,
+          "final_com_dx_m": 1.9785907946375327,
+          "tracking_rms_rad": 0.00279091911897281
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13963464853439272,
+          "curl_index_rad": 0.00025097960486730075,
+          "body_axis_change_deg": -6.094687608985453,
+          "outcome": "success",
+          "cycles_elapsed": 14.265500000022609,
+          "final_com_dx_m": 1.9919580786705362,
+          "tracking_rms_rad": 0.14744602055401207
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.14904714740633254,
+          "curl_index_rad": 0.0004584850221190809,
+          "body_axis_change_deg": -3.3756025190524497,
+          "outcome": "success",
+          "cycles_elapsed": 13.296750000017983,
+          "final_com_dx_m": 1.9818426572778325,
+          "tracking_rms_rad": 0.1711399530205512
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1456105809488603,
+          "curl_index_rad": 0.00293394603490675,
+          "body_axis_change_deg": -3.6431134826564744,
+          "outcome": "success",
+          "cycles_elapsed": 13.776125000020272,
+          "final_com_dx_m": 2.00594956447707,
+          "tracking_rms_rad": 0.18492922588977892
+        }
+      },
+      "1014": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1504082199906909,
+          "curl_index_rad": 3.401351414557994e-06,
+          "body_axis_change_deg": 10.175667360494316,
+          "outcome": "success",
+          "cycles_elapsed": 13.240875000017716,
+          "final_com_dx_m": 1.9915364398719042,
+          "tracking_rms_rad": 0.0028021639342229055
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13914664747264907,
+          "curl_index_rad": -0.0004827664405731675,
+          "body_axis_change_deg": 5.537764700805781,
+          "outcome": "success",
+          "cycles_elapsed": 14.299500000022771,
+          "final_com_dx_m": 1.9897274855383138,
+          "tracking_rms_rad": 0.14755581420186722
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.14935713483666152,
+          "curl_index_rad": -0.0005239641291498302,
+          "body_axis_change_deg": 4.947888150893918,
+          "outcome": "success",
+          "cycles_elapsed": 13.313250000018062,
+          "final_com_dx_m": 1.9884288753668815,
+          "tracking_rms_rad": 0.17117223792007966
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.14568794789577433,
+          "curl_index_rad": -0.002945147196956772,
+          "body_axis_change_deg": 3.927627162219374,
+          "outcome": "success",
+          "cycles_elapsed": 13.773000000020257,
+          "final_com_dx_m": 2.006560106371451,
+          "tracking_rms_rad": 0.1849011999254865
+        }
+      },
+      "1015": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1507240161589606,
+          "curl_index_rad": 9.528289350322291e-06,
+          "body_axis_change_deg": 7.489049711771566,
+          "outcome": "success",
+          "cycles_elapsed": 13.259875000017807,
+          "final_com_dx_m": 1.998581613768482,
+          "tracking_rms_rad": 0.002802562349229013
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13989970652169406,
+          "curl_index_rad": -0.00032491290017156344,
+          "body_axis_change_deg": 4.469728942416899,
+          "outcome": "success",
+          "cycles_elapsed": 14.316250000022851,
+          "final_com_dx_m": 2.0028391734943995,
+          "tracking_rms_rad": 0.14746560343060075
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.14968301072561327,
+          "curl_index_rad": -0.000403280743605797,
+          "body_axis_change_deg": 3.1252553174546582,
+          "outcome": "success",
+          "cycles_elapsed": 13.337125000018176,
+          "final_com_dx_m": 1.9963410244265654,
+          "tracking_rms_rad": 0.17114818399680692
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.1460726078840401,
+          "curl_index_rad": -0.0027384833692642957,
+          "body_axis_change_deg": 3.245696802296477,
+          "outcome": "success",
+          "cycles_elapsed": 13.802500000020398,
+          "final_com_dx_m": 2.016167170322443,
+          "tracking_rms_rad": 0.1848635420454886
+        }
+      }
+    },
+    "medium": {
+      "1006": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.2815632551292296,
+          "curl_index_rad": -0.004442440696507879,
+          "body_axis_change_deg": 29.52389260066479,
+          "outcome": "success",
+          "cycles_elapsed": 7.2548749999944295,
+          "final_com_dx_m": 2.042706220554101,
+          "tracking_rms_rad": 0.0414303561622845
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.3007140526155403,
+          "curl_index_rad": -0.005877378883592275,
+          "body_axis_change_deg": 25.191295184556083,
+          "outcome": "success",
+          "cycles_elapsed": 6.712749999995693,
+          "final_com_dx_m": 2.018618256693673,
+          "tracking_rms_rad": 0.14332768103028104
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.20204177903706358,
+          "curl_index_rad": 0.003620857949797751,
+          "body_axis_change_deg": -6.913187653481941,
+          "outcome": "success",
+          "cycles_elapsed": 9.861125000001579,
+          "final_com_dx_m": 1.9923592383071826,
+          "tracking_rms_rad": 0.17681840047366357
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.10778657278641261,
+          "curl_index_rad": -0.002030366112896527,
+          "body_axis_change_deg": 27.95093292082528,
+          "outcome": "success",
+          "cycles_elapsed": 18.696125000043764,
+          "final_com_dx_m": 2.0151912381410857,
+          "tracking_rms_rad": 0.19732853034917944
+        }
+      },
+      "1007": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.31780916937952325,
+          "curl_index_rad": -0.00022011178491777216,
+          "body_axis_change_deg": -9.262472047588915,
+          "outcome": "success",
+          "cycles_elapsed": 6.400249999996421,
+          "final_com_dx_m": 2.0340581363201564,
+          "tracking_rms_rad": 0.0071398167117916874
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": -0.03581094401714011,
+          "curl_index_rad": -0.00010606661130511933,
+          "body_axis_change_deg": -134.6206349273526,
+          "outcome": "timeout",
+          "cycles_elapsed": 40.00012499991811,
+          "final_com_dx_m": -1.4324377606856045,
+          "tracking_rms_rad": 0.14941772487298888
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.22094455883597902,
+          "curl_index_rad": 0.0075286416859469225,
+          "body_axis_change_deg": 0.5509572900974682,
+          "outcome": "success",
+          "cycles_elapsed": 9.079749999997848,
+          "final_com_dx_m": 2.006121358090505,
+          "tracking_rms_rad": 0.1788090717599519
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.293728802999229,
+          "curl_index_rad": -0.00018574418599876574,
+          "body_axis_change_deg": 35.83530940354765,
+          "outcome": "success",
+          "cycles_elapsed": 6.9116249999952295,
+          "final_com_dx_m": 2.030143338028145,
+          "tracking_rms_rad": 0.18828589270962112
+        }
+      },
+      "1008": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.27751006807935447,
+          "curl_index_rad": -0.004118032686298595,
+          "body_axis_change_deg": 20.11931334998156,
+          "outcome": "success",
+          "cycles_elapsed": 7.428374999994025,
+          "final_com_dx_m": 2.0614488519673166,
+          "tracking_rms_rad": 0.04118542464634689
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.13254936091207467,
+          "curl_index_rad": 0.002755138044977039,
+          "body_axis_change_deg": 3.159783895251203,
+          "outcome": "success",
+          "cycles_elapsed": 15.075750000026478,
+          "final_com_dx_m": 1.9982810277737195,
+          "tracking_rms_rad": 0.1518014517714261
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.0030186580164852893,
+          "curl_index_rad": -0.0007545288845050294,
+          "body_axis_change_deg": -12.692139961124667,
+          "outcome": "stuck",
+          "cycles_elapsed": 14.715000000024755,
+          "final_com_dx_m": 0.12074632065941157,
+          "tracking_rms_rad": 0.17893224829018253
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.27534591350000526,
+          "curl_index_rad": 0.0040273732499672135,
+          "body_axis_change_deg": 39.93760859586436,
+          "outcome": "success",
+          "cycles_elapsed": 7.531749999993784,
+          "final_com_dx_m": 2.073836584001953,
+          "tracking_rms_rad": 0.19011284429160372
+        }
+      },
+      "1009": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.26067655997162364,
+          "curl_index_rad": -0.004037139169274344,
+          "body_axis_change_deg": 40.0980641405271,
+          "outcome": "success",
+          "cycles_elapsed": 7.985124999992728,
+          "final_com_dx_m": 2.0815349159415155,
+          "tracking_rms_rad": 0.039480840299054666
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.3180780990499373,
+          "curl_index_rad": -0.003415929752971356,
+          "body_axis_change_deg": 34.92823345106767,
+          "outcome": "success",
+          "cycles_elapsed": 6.4522499999963,
+          "final_com_dx_m": 2.052319414593781,
+          "tracking_rms_rad": 0.14089349514624694
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.3161847923402946,
+          "curl_index_rad": -0.004504655385900561,
+          "body_axis_change_deg": 38.66337784346754,
+          "outcome": "success",
+          "cycles_elapsed": 6.471999999996254,
+          "final_com_dx_m": 2.0463479760252024,
+          "tracking_rms_rad": 0.16934790210465242
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.3194201585601754,
+          "curl_index_rad": -0.006352200729761052,
+          "body_axis_change_deg": 36.39739852268581,
+          "outcome": "success",
+          "cycles_elapsed": 6.421874999996371,
+          "final_com_dx_m": 2.0512763307524673,
+          "tracking_rms_rad": 0.18697122332724847
+        }
+      },
+      "1010": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.3001190037720622,
+          "curl_index_rad": 0.00022380537332400787,
+          "body_axis_change_deg": 34.12438362407443,
+          "outcome": "success",
+          "cycles_elapsed": 6.620124999995909,
+          "final_com_dx_m": 1.9868253198452952,
+          "tracking_rms_rad": 0.006148661552559001
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.22339855891459492,
+          "curl_index_rad": 0.0037890992931924054,
+          "body_axis_change_deg": 3.3609688174206784,
+          "outcome": "success",
+          "cycles_elapsed": 8.769749999996368,
+          "final_com_dx_m": 1.9591495120404574,
+          "tracking_rms_rad": 0.14955685943661967
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": -0.06143238785147448,
+          "curl_index_rad": -0.00017496931747305622,
+          "body_axis_change_deg": -153.846498617522,
+          "outcome": "timeout",
+          "cycles_elapsed": 40.00012499991811,
+          "final_com_dx_m": -2.457295514058979,
+          "tracking_rms_rad": 0.17621916550529354
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.32338842718549404,
+          "curl_index_rad": 0.0014149262151938694,
+          "body_axis_change_deg": -10.841717888261485,
+          "outcome": "success",
+          "cycles_elapsed": 6.131249999997048,
+          "final_com_dx_m": 1.9827752941801058,
+          "tracking_rms_rad": 0.1891289491479906
+        }
+      },
+      "1011": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.3542744611177684,
+          "curl_index_rad": 0.00020520887409192212,
+          "body_axis_change_deg": 27.549732393948524,
+          "outcome": "success",
+          "cycles_elapsed": 5.64562499999818,
+          "final_com_dx_m": 2.0001007545473564,
+          "tracking_rms_rad": 0.006925061429766206
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.2783153445453383,
+          "curl_index_rad": -0.005467973413451956,
+          "body_axis_change_deg": 13.797103605185372,
+          "outcome": "success",
+          "cycles_elapsed": 7.230499999994486,
+          "final_com_dx_m": 2.012359098733534,
+          "tracking_rms_rad": 0.14871608594368774
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.3487669007721056,
+          "curl_index_rad": -0.006681667147440841,
+          "body_axis_change_deg": 31.422854293526008,
+          "outcome": "success",
+          "cycles_elapsed": 5.706999999998037,
+          "final_com_dx_m": 1.990412702705722,
+          "tracking_rms_rad": 0.17071744399202227
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.352531516229005,
+          "curl_index_rad": -0.007882296857860354,
+          "body_axis_change_deg": 29.47961439218324,
+          "outcome": "success",
+          "cycles_elapsed": 5.65837499999815,
+          "final_com_dx_m": 1.9947555181416443,
+          "tracking_rms_rad": 0.1878724475235858
+        }
+      },
+      "1012": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.28369087752839944,
+          "curl_index_rad": -0.0003083511725839002,
+          "body_axis_change_deg": 23.674148265337895,
+          "outcome": "success",
+          "cycles_elapsed": 7.3994999999940925,
+          "final_com_dx_m": 2.0991706482697157,
+          "tracking_rms_rad": 0.006793066809394613
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.0034022910200020248,
+          "curl_index_rad": -0.0003470445621445345,
+          "body_axis_change_deg": -27.93802944784045,
+          "outcome": "stuck",
+          "cycles_elapsed": 12.5462500000144,
+          "final_com_dx_m": 0.136091640800081,
+          "tracking_rms_rad": 0.15369478203978756
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.00357731194824388,
+          "curl_index_rad": -0.0007414973112726009,
+          "body_axis_change_deg": -18.121535580872262,
+          "outcome": "stuck",
+          "cycles_elapsed": 12.661250000014949,
+          "final_com_dx_m": 0.14309247792975519,
+          "tracking_rms_rad": 0.17871834932216765
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.27943391003823176,
+          "curl_index_rad": 0.0060427549826518046,
+          "body_axis_change_deg": 35.79593657326762,
+          "outcome": "success",
+          "cycles_elapsed": 7.49912499999386,
+          "final_com_dx_m": 2.095509820613739,
+          "tracking_rms_rad": 0.18869361490571654
+        }
+      },
+      "1013": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.2581832546598124,
+          "curl_index_rad": 0.004407959629954491,
+          "body_axis_change_deg": -12.660168189414435,
+          "outcome": "success",
+          "cycles_elapsed": 7.709249999993371,
+          "final_com_dx_m": 1.990399255984447,
+          "tracking_rms_rad": 0.040432626743574035
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.27877504067437925,
+          "curl_index_rad": -0.00033251467277207574,
+          "body_axis_change_deg": 11.898601544014742,
+          "outcome": "success",
+          "cycles_elapsed": 7.196999999994564,
+          "final_com_dx_m": 2.006343967731992,
+          "tracking_rms_rad": 0.1432882226186015
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": -0.09348466591364993,
+          "curl_index_rad": -0.003240848899197544,
+          "body_axis_change_deg": 161.98910945651397,
+          "outcome": "timeout",
+          "cycles_elapsed": 40.00012499991811,
+          "final_com_dx_m": -3.7393866365459973,
+          "tracking_rms_rad": 0.17553263347268513
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.2793153394354152,
+          "curl_index_rad": -0.0002851563057030938,
+          "body_axis_change_deg": 14.350285875922172,
+          "outcome": "success",
+          "cycles_elapsed": 7.173749999994619,
+          "final_com_dx_m": 2.0037384162733067,
+          "tracking_rms_rad": 0.18727529292857806
+        }
+      },
+      "1014": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.3022852912107734,
+          "curl_index_rad": 0.00019756630323296382,
+          "body_axis_change_deg": 23.6988604068715,
+          "outcome": "success",
+          "cycles_elapsed": 6.661499999995812,
+          "final_com_dx_m": 2.0136734673993013,
+          "tracking_rms_rad": 0.00647719544767035
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.2182033995028799,
+          "curl_index_rad": 0.001272244091759963,
+          "body_axis_change_deg": -18.679010677608403,
+          "outcome": "success",
+          "cycles_elapsed": 9.202374999998433,
+          "final_com_dx_m": 2.0079895084999726,
+          "tracking_rms_rad": 0.14524053780138352
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.2767806650177706,
+          "curl_index_rad": 0.002359033395041998,
+          "body_axis_change_deg": -22.79247255582129,
+          "outcome": "success",
+          "cycles_elapsed": 7.2291249999944895,
+          "final_com_dx_m": 2.000882024995066,
+          "tracking_rms_rad": 0.17457115262159298
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.3001529667762994,
+          "curl_index_rad": -0.006316631098466142,
+          "body_axis_change_deg": 25.127527771234206,
+          "outcome": "success",
+          "cycles_elapsed": 6.6803749999957684,
+          "final_com_dx_m": 2.005134375426951,
+          "tracking_rms_rad": 0.18815886586652208
+        }
+      },
+      "1015": {
+        "0.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.2478183707116178,
+          "curl_index_rad": -0.003928799274886643,
+          "body_axis_change_deg": 29.64993895731621,
+          "outcome": "success",
+          "cycles_elapsed": 8.262624999993946,
+          "final_com_dx_m": 2.047630265299581,
+          "tracking_rms_rad": 0.03879913749985439
+        },
+        "0.5": {
+          "com_dx_per_cycle_full_horizon_m": 0.19825067002877528,
+          "curl_index_rad": -0.005598634798304958,
+          "body_axis_change_deg": 11.650137475134947,
+          "outcome": "success",
+          "cycles_elapsed": 10.274500000003552,
+          "final_com_dx_m": 2.036926509211356,
+          "tracking_rms_rad": 0.14931965758578125
+        },
+        "0.75": {
+          "com_dx_per_cycle_full_horizon_m": 0.28097846368946566,
+          "curl_index_rad": -3.891995627430721e-05,
+          "body_axis_change_deg": 31.51634628004384,
+          "outcome": "success",
+          "cycles_elapsed": 7.313374999994293,
+          "final_com_dx_m": 2.0549008718833424,
+          "tracking_rms_rad": 0.1714446150136754
+        },
+        "1.0": {
+          "com_dx_per_cycle_full_horizon_m": 0.2204395219871846,
+          "curl_index_rad": -0.0018057566506378883,
+          "body_axis_change_deg": 34.43753966061621,
+          "outcome": "success",
+          "cycles_elapsed": 9.326124999999024,
+          "final_com_dx_m": 2.055846536992517,
+          "tracking_rms_rad": 0.19659572480154663
+        }
+      }
+    }
+  },
+  "per_seed_flags_open": {
+    "1006": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1007": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1008": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1009": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1010": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1011": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1012": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1013": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1014": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    },
+    "1015": {
+      "0.5": {
+        "curl_stall": false,
+        "no_stall": true
+      },
+      "0.75": {
+        "curl_stall": false,
+        "no_stall": true
+      }
+    }
+  }
+}

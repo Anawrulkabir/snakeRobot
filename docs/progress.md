@@ -420,3 +420,11 @@ should not run until this is chosen.
   "artefact" (A1), but A1 is also met in 3/8 passing trials, so it fails the
   discrimination check → verdict **unclear** by the pre-registered rule.
   No jamming sign (J1, J2) in any stuck trial. Stopped; no option chosen.
+
+### 2026-10-18: H1 mechanism test: rejected (`results_H1.md`)
+- Run `20261018T071302Z_d73fb14`, 80 trials, 0 diverged. On open floor all 40
+  trials succeeded and mid-G progress was within 20% of G = 0 and 1.0 in 10/10
+  seeds at both 0.5 and 0.75, so **H1 is rejected**: the mid-G stall needs the
+  posts. In the lattice (fresh seeds) mid-G again did worst: 8/10 and 6/10,
+  against 10/10 at G = 0 and 1.0. Next: implementation B, awaiting Fahad's
+  go-ahead (`plan_implementation_B.md`).
