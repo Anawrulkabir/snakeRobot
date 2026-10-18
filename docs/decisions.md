@@ -547,3 +547,96 @@ In step 1 at post friction 0.1, G = 0 succeeded 4/5 against 1/5 at G = 0.75
 a low-friction lattice lets a stiff body slide past posts, and that removes
 the advantage of compliance. Five seeds cannot show this. **Candidate for a
 later G × friction experiment.** Logged in `open_lists.md`.
+
+---
+
+## G6: diagnose the stuck mid-G trials (Fahad 2026-10-18)
+
+**Chosen:** option 1. Diagnose the stuck trials before choosing between the
+G × friction experiment (option 2) and implementation B (option 3).
+
+**Why (Fahad):** the mid-G stall sits exactly where the paper reports
+compliance helping. If it is a model artefact, both E1 and the friction
+experiment would inherit it, so we check before spending compute. It is
+cheap, changes nothing in the model, and decides which expensive option is
+worth doing. **Re-running step 2 with more seeds is ruled out;** more seeds
+only in a new, pre-registered run.
+
+### Pre-registered criteria (written before any diagnostic data was looked at)
+
+**Trials** (combined step-2 setup, `config/experiments/calib_step2.yaml`):
+- **Stuck set:** the 7 stuck trials, G = 0.5 seeds 1002–1005 and G = 0.75
+  seeds 1002, 1003, 1005. They are replayed from run `20261017T111457Z_cc9bd78`
+  and must match the log exactly.
+- **Comparison set:** the same seeds (1002–1005) at G = 0 and G = 1.0, which
+  all passed in step 2.
+- **Narrow band:** seeds 1002–1005 at G = 0.6 and 0.7. These are fresh runs
+  with the same setup. **Diagnostic only, not a result.**
+
+**Window.** For a stuck trial, the final 10 cycles (the stall that ended
+it). For a comparison trial, the whole trial. "Fraction" means the share of
+logged steps (100 Hz) in the window.
+
+**Stuck joint.** The joint with the largest mean |servo torque| over the
+window.
+
+**Evidence of real jamming** (Fahad's three items, made measurable):
+- **J1, wedged:** during ≥ 50% of the window, the body touches posts on
+  opposite sides at the same time. That is a post contact with the contact
+  point on the segment's left (local +y) and another on a segment's right
+  (local −y).
+- **J2, torque pushes into a post:** during ≥ 50% of the window, the stuck
+  joint's torque has |τ| ≥ 0.05 N·m (25% of stall), and a segment next to
+  that joint touches a post on the side the torque pushes it toward. The
+  push side comes from the joint's sign convention and is checked by a unit
+  test.
+- **J3, the commanded shape does not fit:** during ≥ 50% of the window, the
+  commanded body shape (hung from the actual head pose) overlaps at least
+  one post. That means a post-centre to centreline distance below the post
+  radius plus the capsule radius.
+
+**Evidence of a compliance-law artefact:**
+- **A1:** during ≥ 50% of the window, the stuck joint is at or past a
+  slack-range boundary (within 1° of ζ_min or ζ_max). And during ≤ 10% of the
+  window, either segment next to that joint touches a post.
+- **A2:** during more than 1% of the window, the stuck joint's servo torque
+  is nonzero while the joint is strictly inside its slack range. Under the
+  paper's law both cables are slack there, so any torque would mean the
+  implementation disagrees with Eq. 3.
+- **A3 (per seed):** the stall depends on the G band, by the reading of
+  Fahad's narrow-band item noted below. Met if the seed is stuck at the
+  G in question (0.5 or 0.75), also stuck at G = 0.6 **and** 0.7, and **not**
+  stuck at G = 0 **or** G = 1.0.
+
+**Per-trial classification:**
+- **real jamming:** at least 2 of J1–J3 met, and no A criterion;
+- **artefact:** at least one A criterion met, and at most 1 J criterion;
+- **unclear:** anything else.
+
+**Discrimination check (Fahad).** A criterion helps explain the sticking
+only if it is met in ≥ 5/7 stuck trials **and** in ≤ 1 of the 8 comparison
+trials, with the same thresholds. A criterion that also holds in most
+passing trials cannot explain the sticking. That is reported, and it
+weakens any classification that rests on that criterion.
+
+**Overall verdict:**
+- **"artefact" (→ recommend option 3):** ≥ 5 of the 7 stuck trials are
+  classed "artefact", and the A criteria behind them pass the
+  discrimination check.
+- **"real jamming" (→ recommend option 2):** ≥ 5 of 7 classed "real jamming",
+  and the J criteria behind them pass the discrimination check.
+- **Otherwise unclear:** report it as unclear and stop. No interpretation
+  stretched to fit.
+
+**Two readings by Claude, flagged before the data:**
+1. Fahad's item "the stall disappears at G = 0.6/0.7 or 1.0" is read as
+   above (persists at 0.6/0.7, disappears at 0 and 1.0). G = 0.6 and 0.7 lie
+   inside the band where Eq. 3 keeps one cable taut, so a band effect
+   predicts the stall *persists* there. The per-seed outcomes at every G are
+   reported, so the other reading can be checked too.
+2. "Real jamming" needs ≥ 2 of J1–J3. The jamming items are not joined by
+   "or" in Fahad's list, while the artefact items are.
+
+**Report.** Per trial: which criteria were met, plus a 2D replay of one
+stuck and one passing trial from the same start. Then a recommendation of
+option 2 or 3 from the verdict. Stop before starting either.
