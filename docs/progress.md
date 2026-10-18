@@ -414,3 +414,9 @@ should not run until this is chosen.
   5, 0, 0 for G = 0 … 1.5. Pre-registered outcome **inconclusive** (G = 1.0
   ties G = 0 at 5/5). Stopped as required; no setup adopted for E1.
 - No stop contacts at any G, so the with/without comparison is empty.
+
+### 2026-10-18: G6 diagnosis: unclear (`results_G6_diag.md`)
+- Run `20261018T063335Z_f5c3592`, 23 trials. All 7 stuck trials classify as
+  "artefact" (A1), but A1 is also met in 3/8 passing trials, so it fails the
+  discrimination check → verdict **unclear** by the pre-registered rule.
+  No jamming sign (J1, J2) in any stuck trial. Stopped; no option chosen.
