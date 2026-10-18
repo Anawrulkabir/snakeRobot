@@ -39,6 +39,18 @@ def body_front_x(m, d, c):
     return float(front)
 
 
+def body_axis_deg(m, d, n):
+    """Direction of the body axis, tail pin (seg n-1) to head pin (seg0), in degrees."""
+    ax = d.xpos[m.body("seg0").id][:2] - d.xpos[m.body(f"seg{n - 1}").id][:2]
+    return math.degrees(math.atan2(ax[1], ax[0]))
+
+
+def body_axis_change(m, d, n, init_deg):
+    """Final minus initial body-axis direction, wrapped to (-180, 180]."""
+    x = (body_axis_deg(m, d, n) - init_deg) % 360.0
+    return x - 360.0 if x > 180.0 else x
+
+
 def post_contact_sides(m, d, post_ids, seg_ids):
     """Per segment, [touches a post on its left (local +y), on its right (local -y)].
     The side is the sign of the contact point's y in the segment's body frame."""
@@ -387,6 +399,10 @@ def run_lattice_trial(
         # RMS of (zeta - alpha) over all joints and logged steps: how closely the
         # body follows the command (the servo position error the real robot sees).
         "tracking_rms_rad": float(np.sqrt(np.mean(np.square(track_err)))) if track_err else 0.0,
+        # H1 measures (decisions.md 2026-10-18): mean signed (zeta - alpha) over joints and
+        # logged steps, and the change of the body axis (tail pin -> head pin) over the trial.
+        "curl_index_rad": float(np.mean(track_err)) if track_err else 0.0,
+        "body_axis_change_deg": body_axis_change(m, d, n, init_axis_deg),
         "torque_mean_Nm": float(tq.mean()),
         "torque_p95_Nm": float(np.percentile(tq, 95)),
         "torque_peak_Nm": float(tq.max()),

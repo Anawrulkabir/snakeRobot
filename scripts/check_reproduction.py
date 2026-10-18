@@ -1,7 +1,7 @@
 """Bit-for-bit reproduction check of logged sweep trials.
 
 Re-runs selected rows of a run's trials.jsonl from the run's own config
-snapshot and compares every logged field exactly (float equality, after the
+snapshot and compares every field the log holds exactly (float equality, after the
 JSON round trip), except cpu_s. Exits 1 on any difference.
 
   python scripts/check_reproduction.py results/E1_pilot/<run_id> \
@@ -30,7 +30,8 @@ def rerun(args):
     run_dir, row = args
     job = (run_dir, row.get("variant"), row["density"], row["law"], row["G"], row["seed"])
     new = json.loads(json.dumps(run_sweep.job(job)))  # same JSON round trip as the log
-    diffs = [k for k in sorted(set(row) | set(new)) if k not in IGNORE and row.get(k) != new.get(k)]
+    # Every field the log holds must match; fields added to the trial output later are not in old logs.
+    diffs = [k for k in sorted(row) if k not in IGNORE and row.get(k) != new.get(k)]
     return row["key"], diffs
 
 

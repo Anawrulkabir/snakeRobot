@@ -1,0 +1,38 @@
+# H1 mechanism test (Fahad 2026-10-18; pre-registered in docs/decisions.md):
+# is the mid-G stall a propulsion failure (curl) or obstacle jamming?
+# Fresh seeds; open floor and medium lattice; everything else as calibration step 2.
+# Tagged like the other configs.
+run:
+  densities:
+    value: [open, medium]
+    source: decision
+    note: "open floor and medium lattice (Fahad)"
+  gait_by_density:
+    value: {open: [59.5, 0.58], medium: [59.5, 0.58]}
+    source: decision
+    note: "the medium (step-2) gait on both, so open floor and lattice differ only by the posts (decisions.md reading 2). The combined variant scales the amplitude by 0.85"
+  temporal_freq_hz:
+    value: 0.125
+    source: decision
+    note: "as step 2"
+  conditions:
+    value: [[paper, 0.0], [paper, 0.5], [paper, 0.75], [paper, 1.0]]
+    source: decision
+    note: "Fahad 2026-10-18"
+  seed_start:
+    value: 1006
+    source: decision
+    note: "fresh seeds 1006-1015, not used in any earlier run"
+  n_trials:
+    value: 10
+    source: decision
+    note: "Fahad 2026-10-18"
+  variants:
+    value:
+      combined:
+        arena.lattice.post_friction: 0.1
+        metrics.overload.min_duration_s: 3.0
+        gait.amplitude_scale: 0.85
+        robot.joint.passive_coeff: 0.25956
+    source: decision
+    note: "the calibration step-2 setup"

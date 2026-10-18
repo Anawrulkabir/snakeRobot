@@ -233,6 +233,7 @@ def main():
     ap.add_argument("--montage", help="comma-separated G values")
     ap.add_argument("--law", default="paper")
     ap.add_argument("--variant")
+    ap.add_argument("--density", help="for runs with several densities (default: the first)")
     ap.add_argument("--frame-dt", type=float, default=1.0)
     ap.add_argument("--fps", type=int, default=16)
     ap.add_argument("--out", help=".gif, .mp4 or (with --still) .png")
@@ -244,7 +245,7 @@ def main():
     Gs = [float(g) for g in a.montage.split(",")] if a.montage else [a.G]
     data = []
     for G in Gs:
-        row, r, rec = replay(run_dir, a.seed, G, a.law, a.variant)
+        row, r, rec = replay(run_dir, a.seed, G, a.law, a.variant, a.density)
         print(
             f"G={G} seed={a.seed}: replay matches log ({row['outcome']}, {row['cycles_elapsed']:.2f} cycles, "
             f"final CoM dx {row['final_com_dx_m']:.4f} m)"

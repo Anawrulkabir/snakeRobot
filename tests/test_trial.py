@@ -187,3 +187,34 @@ def test_post_contact_side_left_right(setup):
         seg_ids = [m.body(f"seg{i}").id for i in range(7)]
         sides = tr.post_contact_sides(m, d, {m.geom("post0").id: 0}, seg_ids)
         assert sides[3] == ([True, False] if side == "left" else [False, True])
+
+
+@pytest.mark.parametrize(
+    "final, init, expected", [(10.0, 350.0, 20.0), (-170.0, 170.0, 20.0), (90.0, 0.0, 90.0), (0.0, 180.0, 180.0)]
+)
+def test_body_axis_change_wraps(monkeypatch, final, init, expected):
+    monkeypatch.setattr(tr, "body_axis_deg", lambda m, d, n: final)
+    assert tr.body_axis_change(None, None, 7, init) == pytest.approx(expected)
+
+
+def curl_trial(setup):
+    cfg, arena, mc = setup
+    m0 = copy.deepcopy(mc)
+    m0["success"]["max_cycles"] = 1
+    rec = {}
+    r = tr.run_lattice_trial(cfg, arena, m0, "open", 53.666667, 0.82, 0.25, "paper", 0.75, seed=3, record=rec)
+    return r, rec
+
+
+def test_curl_index_is_mean_of_zeta_minus_alpha(setup):
+    r, rec = curl_trial(setup)
+    direct = np.mean([np.array(f["q"]) - np.array(f["alpha"]) for f in rec["frames"]])
+    assert r["curl_index_rad"] == pytest.approx(direct, rel=1e-9, abs=1e-12)
+    assert abs(r["curl_index_rad"]) > 0
+
+
+def test_curl_check_catches_sign_flip(setup):
+    # Planted fault: alpha - zeta (the opposite sign) must not match.
+    r, rec = curl_trial(setup)
+    flipped = np.mean([np.array(f["alpha"]) - np.array(f["q"]) for f in rec["frames"]])
+    assert r["curl_index_rad"] != pytest.approx(flipped, rel=1e-9, abs=1e-12)
